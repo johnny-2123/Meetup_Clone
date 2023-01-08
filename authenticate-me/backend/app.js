@@ -10,7 +10,7 @@ const isProduction = environment === 'production';
 
 const app = express();
 const routes = require('./routes');
-const { route } = require('express/lib/router');
+
 
 app.use(morgan('dev'));
 app.use(cookieParser());
