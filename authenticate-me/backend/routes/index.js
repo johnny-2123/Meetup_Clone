@@ -1,9 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/hello/world', function (req, res) {
-    res.cookie('XSRF', req.csrfToken());
-    res.send('hello world');
+router.get('/api/csurf/restore', (req, res) => {
+    const csrfToken = req.csrfToken();
+    res.cookie('XSRF-TOKEN', csrfToken);
+    res.status(200).json({
+        'XSRF-TOKEN': csrfToken
+    });
 });
 
 module.exports = router;
