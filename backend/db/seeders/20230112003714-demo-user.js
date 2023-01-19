@@ -27,15 +27,15 @@ module.exports = {
       },
       {
         email: 'user1@user.io',
-        firstName: 'rocky',
-        lastName: 'edgar',
+        firstName: 'jolly',
+        lastName: 'avila',
         username: 'FakeUser1',
         hashedPassword: bcrypt.hashSync('password2')
       },
       {
         email: 'user2@user.io',
-        firstName: 'rocky',
-        lastName: 'edgar',
+        firstName: 'molly',
+        lastName: 'avila',
         username: 'FakeUser2',
         hashedPassword: bcrypt.hashSync('password3')
       }
