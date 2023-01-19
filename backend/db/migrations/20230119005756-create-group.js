@@ -6,7 +6,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Events', {
+    await queryInterface.createTable('Groups', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -14,28 +14,26 @@ module.exports = {
         type: Sequelize.INTEGER,
         unique: true
       },
-      groupId: {
+      organizerId: {
         type: Sequelize.INTEGER,
-        references: { model: 'Groups' },
+        references: { model: 'Users' },
         onDelete: "CASCADE"
-      },
-      venueId: {
-        type: Sequelize.INTEGER
       },
       name: {
         type: Sequelize.STRING,
-        allowNull: false,
         unique: true
       },
       type: {
-        type: Sequelize.STRING,
-        allowNull: false
+        type: Sequelize.STRING
       },
-      startDate: {
-        type: Sequelize.DATE
+      private: {
+        type: Sequelize.BOOLEAN
       },
-      endDate: {
-        type: Sequelize.DATE
+      city: {
+        type: Sequelize.STRING
+      },
+      state: {
+        type: Sequelize.STRING
       },
       previewImage: {
         type: Sequelize.STRING
@@ -53,6 +51,6 @@ module.exports = {
     }, options);
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Events');
+    await queryInterface.dropTable('Groups');
   }
 };

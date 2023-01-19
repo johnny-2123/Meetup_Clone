@@ -1,7 +1,8 @@
 'use strict';
 const {
-  Model
+  Model, Validator
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Event extends Model {
     /**
@@ -11,12 +12,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Event.belongsTo(models.Group, { foreignKey: 'groupId' });
     }
   }
   Event.init({
     groupId: {
-      type:
-        DataTypes.INTEGER
+      type: DataTypes.INTEGER
     },
     venueId: {
       type: DataTypes.INTEGER
@@ -27,8 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       unique: true
     },
     type: {
-      type:
-        DataTypes.STRING,
+      type: DataTypes.STRING,
       allowNull: false
     },
     startDate: {

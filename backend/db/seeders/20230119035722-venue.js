@@ -1,10 +1,12 @@
 'use strict';
-const bcrypt = require('bcryptjs');
+const { Venue } = require('../models');
+const venue = require('../models/venue');
 /** @type {import('sequelize-cli').Migration} */
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
+
 module.exports = {
   async up(queryInterface, Sequelize) {
     /**
@@ -16,35 +18,35 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    options.tableName = 'Users';
+    options.tableName = 'Venues';
     await queryInterface.bulkInsert(options, [
       {
-        email: 'demo@user.io',
-        firstName: 'rocky',
-        lastName: 'edgar',
-        username: 'Demo-lition',
-        hashedPassword: bcrypt.hashSync('password')
+        address: '123 Disney Lane',
+        city: 'Chicago',
+        state: 'Illinois',
+        lat: 37.7645358,
+        lng: -122.4730327
       },
       {
-        email: 'user1@user.io',
-        firstName: 'jolly',
-        lastName: 'avila',
-        username: 'FakeUser1',
-        hashedPassword: bcrypt.hashSync('password2')
+        address: '123 14 st',
+        city: 'Miami',
+        state: 'Florida',
+        lat: 37.7645358,
+        lng: -122.4730327
       },
       {
-        email: 'user2@user.io',
-        firstName: 'molly',
-        lastName: 'avila',
-        username: 'FakeUser2',
-        hashedPassword: bcrypt.hashSync('password3')
+        address: '123 15 st',
+        city: 'New York',
+        state: 'New York',
+        lat: 37.7645358,
+        lng: -122.4730327
       },
       {
-        email: 'user4@user.io',
-        firstName: 'blanco',
-        lastName: 'avila',
-        username: 'FakeUser3',
-        hashedPassword: bcrypt.hashSync('password3')
+        address: '123 16 st',
+        city: 'Washington',
+        state: 'DC',
+        lat: 37.7645358,
+        lng: -122.4730327
       }
 
     ], {});
@@ -58,10 +60,10 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    options.tableName = 'Users';
+    options.tableName = 'Venues';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      username: { [Op.in]: ['Demo-lition', 'FakeUser1', 'FakeUser2', 'FakeUser3'] }
+      address: { [Op.in]: ['123 Disney Lane', '123 14 st', '123 15 st', '123 16 st'] }
     }, {});
   }
 };
