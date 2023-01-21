@@ -21,6 +21,8 @@ module.exports = {
       {
         name: 'Met Gala',
         type: 'In Person',
+        groupId: 1,
+        venueId: 1,
         startDate: '2021-11-19 20:00:00',
         endDate: '2021-11-20 20:00:00',
         previewImage: 'image url'
@@ -28,6 +30,8 @@ module.exports = {
       {
         name: 'Tennis Singles',
         type: 'In Person',
+        groupId: 2,
+        venueId: 2,
         startDate: '2021-12-19 20:00:00',
         endDate: '2021-12-20 20:00:00',
         previewImage: 'image url'
@@ -35,6 +39,8 @@ module.exports = {
       {
         name: 'Movie Night',
         type: 'Online',
+        groupId: 3,
+        venueId: 3,
         startDate: '2021-8-19 20:00:00',
         endDate: '2021-8-20 20:00:00',
         previewImage: 'image url'
@@ -42,6 +48,8 @@ module.exports = {
       {
         name: 'Trivia',
         type: 'Online',
+        groupId: 4,
+        venueId: 4,
         startDate: '2022-8-19 20:00:00',
         endDate: '2022-8-20 20:00:00',
         previewImage: 'image url'

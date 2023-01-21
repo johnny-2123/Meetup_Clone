@@ -53,19 +53,74 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    for (let obj of eventAttendants) {
-      const event = await Event.findOne({ where: { name: obj.eventName } });
-
-      for (let attendant of obj.attendants) {
-        const user = await User.findOne({ where: { username: attendant.username } });
-        const status = attendant.status;
-        await Attendant.create({
-          eventId: event.id,
-          userId: user.id,
-          status: status,
-        });
+    options.tableName = 'Attendants';
+    await queryInterface.bulkInsert(options, [
+      {
+        eventId: 1,
+        userId: 1,
+        status: 'going'
+      },
+      {
+        eventId: 1,
+        userId: 2,
+        status: 'going'
+      },
+      {
+        eventId: 1,
+        userId: 3,
+        status: 'going'
+      },
+      {
+        eventId: 1,
+        userId: 4,
+        status: 'going'
+      },
+      {
+        eventId: 2,
+        userId: 1,
+        status: 'going'
+      },
+      {
+        eventId: 2,
+        userId: 3,
+        status: 'going'
+      },
+      {
+        eventId: 2,
+        userId: 4,
+        status: 'going'
+      },
+      {
+        eventId: 3,
+        userId: 1,
+        status: 'going'
+      },
+      {
+        eventId: 3,
+        userId: 2,
+        status: 'going'
+      },
+      {
+        eventId: 3,
+        userId: 3,
+        status: 'going'
+      },
+      {
+        eventId: 3,
+        userId: 4,
+        status: 'going'
+      },
+      {
+        eventId: 4,
+        userId: 3,
+        status: 'going'
+      },
+      {
+        eventId: 4,
+        userId: 4,
+        status: 'going'
       }
-    }
+    ], {});
 
   },
 
@@ -76,22 +131,10 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    for (let obj of eventAttendants) {
-      const event = await Event.findOne({ where: { name: obj.eventName } });
-
-      for (let attendant of obj.attendants) {
-        const user = await User.findOne({ where: { username: attendant.username } });
-        console.log(`user.id: ${user.id}`)
-        let testAttendants = await event.getAttendants();
-        console.log(`testAttendants: ${testAttendants}`);
-        // await event.removeAttendant({
-        //   where: { userId: parseInt(user.id) }
-        // });
-
-        await Attendant.destroy({
-          where: { eventId: event.id, userId: parseInt(user.id) }
-        });
-      }
-    }
+    options.tableName = 'Attendants';
+    const Op = Sequelize.Op;
+    return queryInterface.bulkDelete(options, {
+      eventId: { [Op.in]: [1, 2, 3, 4] }
+    }, {});
   }
 };

@@ -13,8 +13,8 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
 
 
-      //this association causing problems
       Venue.belongsTo(models.Group, { foreignKey: 'groupId' });
+      Venue.hasMany(models.Event, { foreignKey: 'venueId' });
     }
   }
   Venue.init({
@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'Venues',
+    modelName: 'Venue',
   });
   return Venue;
 };
