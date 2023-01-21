@@ -14,9 +14,15 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   GroupMember.init({
-    userId: DataTypes.INTEGER,
-    groupId: DataTypes.INTEGER,
-    status: DataTypes.STRING
+    userId: {
+      type: DataTypes.INTEGER
+    },
+    groupId: {
+      type: DataTypes.INTEGER
+    },
+    status: {
+      type: DataTypes.STRING
+    }
   }, {
     sequelize,
     modelName: 'GroupMember',

@@ -1,10 +1,10 @@
 'use strict';
+
 /** @type {import('sequelize-cli').Migration} */
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
-
 module.exports = {
   async up(queryInterface, Sequelize) {
     /**
@@ -16,43 +16,47 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    options.tableName = 'Venues';
+    options.tableName = 'GroupImages';
     await queryInterface.bulkInsert(options, [
       {
-        address: '123 Disney Lane',
-        city: 'Chicago',
-        state: 'Illinois',
-        lat: 37.7645358,
-        lng: -122.4730327,
-        groupId: 1
+        groupId: 1,
+        url: 'imageUrl',
+        preview: true
       },
       {
-        address: '123 14 st',
-        city: 'Miami',
-        state: 'Florida',
-        lat: 37.7645358,
-        lng: -122.4730327,
-        groupId: 2
+        groupId: 1,
+        url: 'imageUrl2',
+        preview: true
       },
       {
-        address: '123 15 st',
-        city: 'New York',
-        state: 'New York',
-        lat: 37.7645358,
-        lng: -122.4730327,
-        groupId: 3
+        groupId: 2,
+        url: 'imageUrl',
+        preview: true
+      }, {
+        groupId: 2,
+        url: 'imageUrl2',
+        preview: true
       },
       {
-        address: '123 16 st',
-        city: 'Washington',
-        state: 'DC',
-        lat: 37.7645358,
-        lng: -122.4730327,
-        groupId: 4
-      }
+        groupId: 3,
+        url: 'imageUrl',
+        preview: false
+      }, {
+        groupId: 3,
+        url: 'imageUrl2',
+        preview: true
+      },
+      {
+        groupId: 4,
+        url: 'imageUrl',
+        preview: false
+      }, {
+        groupId: 4,
+        url: 'imageUrl2',
+        preview: true
+      },
 
     ], {});
-
   },
 
   async down(queryInterface, Sequelize) {
@@ -62,10 +66,10 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    options.tableName = 'Venues';
+    options.tableName = 'GroupImages';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      address: { [Op.in]: ['123 Disney Lane', '123 14 st', '123 15 st', '123 16 st'] }
-    }, {});
+      url: { [Op.in]: ['imageUrl', 'imageUrl2'] }
+    });
   }
 };

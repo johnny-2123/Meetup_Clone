@@ -53,6 +53,11 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here,
       User.hasMany(models.Group, { foreignKey: 'organizerId', constraints: false });
+
+      User.belongsToMany(models.Group, { through: models.GroupMember, onDelete: 'cascade' });
+
+      User.hasMany(models.Attendant, { foreignKey: 'userId' });
+
     }
   }
   User.init({

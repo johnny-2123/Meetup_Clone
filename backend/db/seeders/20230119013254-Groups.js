@@ -1,5 +1,5 @@
 'use strict';
-const { Group } = require('../models');
+
 /** @type {import('sequelize-cli').Migration} */
 let options = {};
 if (process.env.NODE_ENV === 'production') {
