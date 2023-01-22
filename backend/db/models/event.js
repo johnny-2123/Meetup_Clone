@@ -37,10 +37,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     startDate: {
-      type: DataTypes.DATE
+      type: DataTypes.STRING
     },
     endDate: {
-      type: DataTypes.DATE
+      type: DataTypes.STRING
     },
     previewImage: {
       type: DataTypes.STRING
@@ -48,6 +48,11 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Event',
+    defaultScope: {
+      attributes: {
+        exclude: ['createdAt', 'updatedAt']
+      }
+    },
   });
   return Event;
 };
