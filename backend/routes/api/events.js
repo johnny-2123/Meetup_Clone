@@ -207,7 +207,7 @@ router.get(
         }
 
         const events = await Event.findAll({
-            include: [{ model: Venue, attributes: [] }, { model: Attendant }, { model: Group, attributes: ['id', 'name', 'city', 'state'] }],
+            include: [{ model: Venue, attributes: ['id', 'city', 'state'] }, { model: Attendant, attributes: [] }, { model: Group, attributes: ['id', 'name', 'city', 'state'] }],
             attributes: [
                 [sequelize.fn('COUNT', sequelize.col('Attendants.id')), 'numAttending'],
                 'id', 'groupId', 'venueId', 'name', 'type', 'startDate', 'previewImage'
