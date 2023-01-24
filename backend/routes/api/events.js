@@ -8,7 +8,7 @@ const { Op } = require("sequelize");
 const router = express.Router();
 
 
-router.post(
+router.put(
     '/:id',
     requireAuth,
     async (req, res) => {
@@ -17,30 +17,33 @@ router.post(
         const { name, type, description, price, capacity, startDate, endDate, venueId } = req.body;
         let event = await Event.findByPk(id);
         let group = await event.getGroup();
-        console.log(`group.organizerId: ${group.id}`);
+        console.log(`group.id: ${group.organizerId}`);
         console.log(`user.id: ${user.id}`);
         //returning wrong group member
-        let groupMember = await GroupMember.findAll({
-            Where: {
-                [Op.and]: [{ userId: user.id }, { groupId: group.id }]
+        let groupMember = await GroupMember.findOne({
+            where: {
+                userId: user.id,
+                groupId: group.id
             }
         });
-        console.log('groupMember:')
+        console.log(`memberstatus: ${groupMember.status}`);
         console.log(groupMember);
-        if (group.organizerId !== user.id) {
+        if (event.name === null) {
+            return res.status(403).json('could not find event with that id');
+        }
+        console.log(event.name);
+        if (group.organizerId !== user.id && groupMember.status !== 'co-host') {
             return res.status(403).json({
                 "message": "Forbidden",
                 "statusCode": 403
             });
         }
 
-        if (event.name === null) {
-            return res.status(403).json('could not find event with that id');
-        }
+
         if (venueId) {
             const venue = await Venue.findByPk(venueId);
             if (venue.name === null) {
-                res.status(404).json('could not find venue with that id');
+                return res.status(404).json('Venue does not exist');
             };
 
             event.venueId = venueId;
@@ -103,8 +106,8 @@ router.get(
         });
         if (event.id === null) {
 
-            res.status(404).json(
-                'event with that id not found'
+            return res.status(404).json(
+                "Event couldn't be found"
             )
         }
         const group = await event.getGroup();
@@ -118,7 +121,7 @@ router.get(
 
             ]
         })
-        console.log(attendants)
+        // console.log(attendants)
         res.status(200).json({
             'event': event,
             'eventImages': eventImages,

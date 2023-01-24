@@ -30,7 +30,7 @@ module.exports = {
       {
         groupId: 1,
         userId: 2,
-        status: 'active'
+        status: 'co-host'
       },
       {
         groupId: 1,
@@ -49,7 +49,7 @@ module.exports = {
       }, {
         groupId: 2,
         userId: 2,
-        status: 'active'
+        status: 'co-host'
       },
       {
         groupId: 3,
@@ -68,7 +68,7 @@ module.exports = {
       }, {
         groupId: 3,
         userId: 2,
-        status: 'active'
+        status: 'co-host'
       },
       {
         groupId: 4,
@@ -82,7 +82,7 @@ module.exports = {
       }, {
         groupId: 4,
         userId: 2,
-        status: 'active'
+        status: 'co-host'
       }], {})
   },
 
