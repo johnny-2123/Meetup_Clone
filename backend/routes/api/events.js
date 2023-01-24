@@ -1,6 +1,6 @@
 const express = require('express');
 const { setTokenCookie, requireAuth } = require('../../utils/auth.js');
-const { Event, Venue, Attendant, sequelize, Group, EventImage } = require('../../db/models');
+const { Event, Venue, Attendant, sequelize, Group, EventImage, GroupMember } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { Op } = require("sequelize");
@@ -8,6 +8,77 @@ const { Op } = require("sequelize");
 const router = express.Router();
 
 
+router.post(
+    '/:id',
+    requireAuth,
+    async (req, res) => {
+        let user = req.user;
+        const id = req.params.id;
+        const { name, type, description, price, capacity, startDate, endDate, venueId } = req.body;
+        let event = await Event.findByPk(id);
+        let group = await event.getGroup();
+        console.log(`group.organizerId: ${group.id}`);
+        console.log(`user.id: ${user.id}`);
+        //returning wrong group member
+        let groupMember = await GroupMember.findAll({
+            Where: {
+                [Op.and]: [{ userId: user.id }, { groupId: group.id }]
+            }
+        });
+        console.log('groupMember:')
+        console.log(groupMember);
+        if (group.organizerId !== user.id) {
+            return res.status(403).json({
+                "message": "Forbidden",
+                "statusCode": 403
+            });
+        }
+
+        if (event.name === null) {
+            return res.status(403).json('could not find event with that id');
+        }
+        if (venueId) {
+            const venue = await Venue.findByPk(venueId);
+            if (venue.name === null) {
+                res.status(404).json('could not find venue with that id');
+            };
+
+            event.venueId = venueId;
+        }
+        if (name) {
+            if (name.length < 5) {
+                res.status(400).json('Name must be at least 5 characters');
+            }
+            event.name = name;
+        };
+        if (type) {
+            if (type != 'Online' || 'In Person') {
+                res.status(400).json('Type must be Online or In person');
+            }
+            event.type = type;
+        }
+
+        if (description) {
+            event.description = description;
+        };
+        if (price) {
+            if (typeof (price) !== 'integer') {
+                res.status(400).json('Price is invalid');
+            }
+            event.price = price;
+        };
+        if (capacity) {
+            if (typeof (capacity) !== 'integer') {
+                res.status(400).json('Capacity must be integer');
+            }
+            event.capacity = capacity;
+        };
+
+        await event.save();
+
+        return res.json(event)
+    }
+)
 
 router.get(
     '/:id',
