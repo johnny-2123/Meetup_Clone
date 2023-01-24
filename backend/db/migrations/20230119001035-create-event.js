@@ -33,6 +33,15 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
+      description: {
+        type: Sequelize.STRING
+      },
+      capacity: {
+        type: Sequelize.INTEGER
+      },
+      price: {
+        type: Sequelize.INTEGER
+      },
       startDate: {
         type: Sequelize.DATE
       },

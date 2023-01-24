@@ -21,6 +21,9 @@ module.exports = {
       {
         name: 'Met Gala',
         type: 'In Person',
+        description: 'Costume Party',
+        price: 11,
+        capacity: 100,
         groupId: 1,
         venueId: 1,
         startDate: '2021-11-19 20:00:00',
@@ -30,6 +33,9 @@ module.exports = {
       {
         name: 'Tennis Singles',
         type: 'In Person',
+        description: 'Sporting Event',
+        price: 5,
+        capacity: 40,
         groupId: 2,
         venueId: 2,
         startDate: '2021-12-19 20:00:00',
@@ -39,6 +45,9 @@ module.exports = {
       {
         name: 'Movie Night',
         type: 'Online',
+        description: 'Watch a movie',
+        price: 7,
+        capacity: 55,
         groupId: 3,
         venueId: 3,
         startDate: '2021-8-19 20:00:00',
@@ -48,6 +57,9 @@ module.exports = {
       {
         name: 'Trivia',
         type: 'Online',
+        description: 'test your trivia knowledge',
+        price: 0,
+        capacity: 50,
         groupId: 4,
         venueId: 4,
         startDate: '2022-8-19 20:00:00',

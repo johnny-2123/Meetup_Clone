@@ -1,12 +1,61 @@
 const express = require('express');
 const { setTokenCookie, requireAuth } = require('../../utils/auth.js');
-const { Event, Venue, Attendant, sequelize, Group } = require('../../db/models');
+const { Event, Venue, Attendant, sequelize, Group, EventImage } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { Op } = require("sequelize");
 
 const router = express.Router();
 
+router.get(
+    '/:id',
+    async (req, res) => {
+        const where = {};
+        const id = req.params.id;
+        const event = await Event.findByPk(id, {
+            include: [
+                {
+                    model: Attendant, attributes: []
+                },
+                {
+                    model: Venue, attributes: ['id', 'address', 'city', 'state', 'lat', 'lng']
+                },
+                {
+                    model: Group, attributes: ['id', 'private', 'name', 'city', 'state']
+                }
+            ],
+            attributes: [
+                [sequelize.fn('COUNT', sequelize.col('Attendants.id')), 'numAttending'],
+                'id', 'groupId', 'venueId', 'name', 'type', 'description', 'capacity', 'price', 'startDate', 'endDate'
+            ]
+        });
+        if (event.id === null) {
+
+            res.status(404).json(
+                'event with that id not found'
+            )
+        }
+        const group = await event.getGroup();
+        const venue = await event.getVenue();
+        const eventImages = await event.getEventImages({
+            attributes: ['id', 'url', 'preview']
+        });
+        const attendants = await event.getAttendants({
+            attributes: [
+                [sequelize.fn('COUNT', sequelize.col('id')), 'numAttending'],
+
+            ]
+        })
+        console.log(attendants)
+        res.status(200).json({
+            'event': event,
+            'eventImages': eventImages,
+            'numAttending': attendants.numAttending,
+        });
+
+
+    }
+)
 
 router.get(
     '/',
@@ -89,7 +138,7 @@ router.get(
             subQuery: false,
             include: [{ model: Venue, attributes: ['id', 'city', 'state'] }, { model: Attendant, attributes: [] }, { model: Group, attributes: ['id', 'name', 'city', 'state'] }],
             attributes: [
-                [sequelize.fn('COUNT', sequelize.col('Attendants.id')), 'numAttendants'],
+                [sequelize.fn('COUNT', sequelize.col('Attendants.id')), 'numAttending'],
                 'id', 'groupId', 'venueId', 'name', 'type', 'startDate', 'previewImage'
             ],
             group: ['Attendants.id'],
