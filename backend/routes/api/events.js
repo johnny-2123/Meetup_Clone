@@ -7,10 +7,11 @@ const { Op } = require("sequelize");
 
 const router = express.Router();
 
+
+
 router.get(
     '/:id',
     async (req, res) => {
-        const where = {};
         const id = req.params.id;
         const event = await Event.findByPk(id, {
             include: [
@@ -135,17 +136,16 @@ router.get(
         }
 
         const events = await Event.findAll({
-            subQuery: false,
-            include: [{ model: Venue, attributes: ['id', 'city', 'state'] }, { model: Attendant, attributes: [] }, { model: Group, attributes: ['id', 'name', 'city', 'state'] }],
+            include: [{ model: Venue, attributes: [] }, { model: Attendant }, { model: Group, attributes: ['id', 'name', 'city', 'state'] }],
             attributes: [
                 [sequelize.fn('COUNT', sequelize.col('Attendants.id')), 'numAttending'],
                 'id', 'groupId', 'venueId', 'name', 'type', 'startDate', 'previewImage'
             ],
-            group: ['Attendants.id'],
+            group: ['Attendants.eventId'],
             where,
             // not returning all events when no page or size are set as queries
-            limit: size,
-            offset: size * (page - 1),
+            // limit: size,
+            // offset: size * (page - 1),
 
         });
 
