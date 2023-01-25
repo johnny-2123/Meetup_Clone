@@ -43,13 +43,13 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER
     },
     price: {
-      type: DataTypes.INTEGER
+      type: DataTypes.FLOAT
     },
     startDate: {
-      type: DataTypes.STRING
+      type: DataTypes.DATE
     },
     endDate: {
-      type: DataTypes.STRING
+      type: DataTypes.DATE
     },
     previewImage: {
       type: DataTypes.STRING

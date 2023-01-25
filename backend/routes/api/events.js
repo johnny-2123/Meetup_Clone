@@ -55,7 +55,7 @@ router.put(
             event.name = name;
         };
         if (type) {
-            if (type != 'Online' || 'In Person') {
+            if (type !== 'Online' && type !== 'In Person') {
                 res.status(400).json('Type must be Online or In person');
             }
             event.type = type;
