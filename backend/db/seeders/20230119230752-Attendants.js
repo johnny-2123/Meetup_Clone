@@ -12,8 +12,8 @@ const eventAttendants = [
     eventName: 'Met Gala',
     attendants: [
       { username: "Demo-lition", status: 'going' },
-      { username: "FakeUser1", status: 'going' },
-      { username: "FakeUser3", status: 'going' },
+      { username: "FakeUser1", status: 'pending' },
+      { username: "FakeUser3", status: 'pending' },
       { username: "FakeUser2", status: 'going' },
     ]
   },
@@ -68,12 +68,12 @@ module.exports = {
       {
         eventId: 1,
         userId: 3,
-        status: 'going'
+        status: 'pending'
       },
       {
         eventId: 1,
         userId: 4,
-        status: 'going'
+        status: 'pending'
       },
       {
         eventId: 2,

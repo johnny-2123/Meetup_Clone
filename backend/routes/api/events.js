@@ -1,12 +1,81 @@
 const express = require('express');
 const { setTokenCookie, requireAuth } = require('../../utils/auth.js');
-const { Event, Venue, Attendant, sequelize, Group, EventImage, GroupMember } = require('../../db/models');
+const { Event, Venue, Attendant, sequelize, Group, EventImage, GroupMember, User } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { Op } = require("sequelize");
 const { ResultWithContext } = require('express-validator/src/chain/context-runner-impl.js');
 
 const router = express.Router();
+
+router.get(
+    '/:id/attendees',
+    async (req, res) => {
+        const eventid = req.params.id;
+        const event = await Event.findByPk(eventid);
+        if (!event) {
+            return res.status(403).json({
+                "message": "Event couldn't be found",
+                "statusCode": 404
+            });
+        }
+
+        let user = req.user;
+        let group = await event.getGroup();
+
+        let groupMember = await GroupMember.findOne({
+            where: {
+                userId: user.id,
+                groupId: group.id
+            }
+        });
+        //think data is returned in incorrect format
+        if (groupMember) {
+            if (group.organizerId !== user.id && groupMember.status !== 'co-host') {
+                const attendees = await event.getAttendants({
+                    where: {
+                        status: { [Op.not]: 'pending' }
+                    },
+                    include: [{ model: User, attributes: ['id', 'firstName', 'lastName'] }],
+                    attributes: ['status'],
+                })
+
+                return res.status(200).json(attendees);
+            } else {
+                const attendees = await event.getAttendants({
+                    include: [{ model: User, attributes: ['id', 'firstName', 'lastName'] }],
+                    attributes: ['status'],
+                });
+
+                return res.status(200).json(attendees);
+
+            }
+        } else {
+            if (group.organizerId !== user.id) {
+                const attendees = await event.getAttendants({
+                    where: {
+                        status: { [Op.not]: 'pending' }
+                    },
+                    include: [{ model: User, attributes: ['id', 'firstName', 'lastName'] }],
+                    attributes: ['status'],
+                })
+
+                return res.status(200).json(attendees);
+            } else {
+                const attendees = await event.getAttendants({
+                    include: [{ model: User, attributes: ['id', 'firstName', 'lastName'] }],
+                    attributes: ['status'],
+                });
+
+                return res.status(200).json(attendees);
+            }
+
+        }
+
+
+
+    }
+)
 
 router.post(
     '/:id/images',
