@@ -8,6 +8,49 @@ const { ResultWithContext } = require('express-validator/src/chain/context-runne
 
 const router = express.Router();
 
+router.delete(
+    '/:id/attendance',
+    requireAuth,
+    async (req, res) => {
+        let user = req.user;
+        let eventId = req.params.id;
+        let userId = req.body.memberId;
+        let event = await Event.findByPk(eventId);
+        if (!event) {
+            return res.status(403).json({
+                "message": "Event couldn't be found",
+                "statusCode": 404
+            });
+        }
+        let attendance = await Attendant.findOne({
+            where: { eventId: eventId, userId: userId }
+        });
+
+        if (!attendance) {
+            return res.status(404).json({
+                "message": "Attendance does not exist for this User",
+                "statusCode": 404
+            })
+        }
+
+        let group = await event.getGroup();
+
+        if (group.organizerId !== user.id && userId !== user.id) {
+            return res.status(403).json({
+                "message": "Only the User or organizer may delete an Attendance",
+                "statusCode": 403
+            })
+        }
+
+        await attendance.destroy();
+
+        return res.status(200).json({
+            "message": "Successfully deleted attendance from event"
+        })
+
+    }
+)
+
 router.get(
     '/:id/attendees',
     async (req, res) => {

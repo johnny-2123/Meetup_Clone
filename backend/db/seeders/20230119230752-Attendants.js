@@ -7,40 +7,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const { Event, User, Attendant } = require('../models');
-const eventAttendants = [
-  {
-    eventName: 'Met Gala',
-    attendants: [
-      { username: "Demo-lition", status: 'going' },
-      { username: "FakeUser1", status: 'pending' },
-      { username: "FakeUser3", status: 'pending' },
-      { username: "FakeUser2", status: 'going' },
-    ]
-  },
-  {
-    eventName: 'Tennis Singles',
-    attendants: [
-      { username: "Demo-lition", status: 'going' },
-      { username: "FakeUser3", status: 'going' },
-      { username: "FakeUser2", status: 'going' },
-    ]
-  },
-  {
-    eventName: 'Movie Night',
-    attendants: [
-      { username: "Demo-lition", status: 'going' },
-      { username: "FakeUser1", status: 'going' },
-      { username: "FakeUser3", status: 'going' },
-    ]
-  },
-  {
-    eventName: 'Trivia',
-    attendants: [
-      { username: "Demo-lition", status: 'going' },
-      { username: "FakeUser2", status: 'going' },
-    ]
-  }
-];
+
 
 module.exports = {
   async up(queryInterface, Sequelize) {
