@@ -6,3 +6,32 @@ const { handleValidationErrors } = require('../../utils/validation');
 const { Op } = require("sequelize");
 
 const router = express.Router();
+
+
+router.get(
+    '/:id/events',
+    async (req, res) => {
+        let groupId = req.params.id;
+
+        let group = await Group.findByPk(groupId);
+        if (group.name === null) {
+            return res.status(404).json({
+                "message": "Group couldn't be found",
+                "statusCode": 404
+            })
+        }
+
+        // let events = await Event.findAll({
+        //     where: {
+        //         groupId: groupId
+        //     },
+        //     attributes: ['id',]
+        // });
+        // return res.status(200).json(events);
+    }
+)
+
+
+
+
+module.exports = router;
