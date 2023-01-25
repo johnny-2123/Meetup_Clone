@@ -4,9 +4,53 @@ const { Event, Venue, Attendant, sequelize, Group, EventImage, GroupMember } = r
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { Op } = require("sequelize");
+const { ResultWithContext } = require('express-validator/src/chain/context-runner-impl.js');
 
 const router = express.Router();
 
+router.post(
+    '/:id/images',
+    requireAuth,
+    async (req, res) => {
+        let user = req.user;
+        let eventId = req.params.id;
+        const { url, preview } = req.body;
+        let event = await Event.findByPk(eventId);
+
+        if (!event) {
+            return res.status(403).json({
+                "message": "Event couldn't be found",
+                "statusCode": 404
+            });
+        }
+
+        let attendee = await Attendant.findOne({
+            where: {
+                userId: user.id,
+                eventId: event.id
+            }
+        });
+
+        if (!attendee) {
+            return res.status(403).json({
+                "message": "Forbidden",
+                "statusCode": 403
+            });
+        };
+
+        let newImage = await EventImage.create({
+            url,
+            preview,
+            eventId: event.id
+        });
+
+        let image = await EventImage.findByPk(newImage.id, {
+            attributes: ['id', 'url', 'preview']
+        });
+
+        return res.status(200).json(image);
+    }
+)
 
 router.put(
     '/:id',
@@ -29,7 +73,10 @@ router.put(
         console.log(`memberstatus: ${groupMember.status}`);
         console.log(groupMember);
         if (event.name === null) {
-            return res.status(403).json('could not find event with that id');
+            return res.status(403).json({
+                "message": "Event couldn't be found",
+                "statusCode": 404
+            });
         }
         console.log(event.name);
         if (group.organizerId !== user.id && groupMember.status !== 'co-host') {
