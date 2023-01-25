@@ -225,8 +225,8 @@ router.get(
 
         res.status(200).json({
             'Events': events,
-            'page': page,
-            'size': size
+            // 'page': page,
+            // 'size': size
         });
 
     }
