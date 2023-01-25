@@ -182,6 +182,57 @@ router.get(
     }
 )
 
+
+router.delete(
+    '/:id',
+    requireAuth,
+    async (req, res) => {
+        let user = req.user;
+        let eventId = req.params.id;
+        let event = await Event.findByPk(eventId);
+
+        if (!event) {
+            return res.status(403).json({
+                "message": "Event couldn't be found",
+                "statusCode": 404
+            });
+        }
+
+        let group = await event.getGroup();
+
+        let groupMember = await GroupMember.findOne({
+            where: {
+                userId: user.id,
+                groupId: group.id
+            }
+        });
+
+        if (groupMember) {
+            if (group.organizerId !== user.id && groupMember.status !== 'co-host') {
+                return res.status(403).json({
+                    "message": "Forbidden",
+                    "statusCode": 403
+                });
+            }
+        } else {
+            if (group.organizerId !== user.id) {
+                return res.status(403).json({
+                    "message": "Forbidden",
+                    "statusCode": 403
+                });
+            }
+
+        }
+
+        await event.destroy();
+
+        return res.status(200).json({
+            "message": "Successfully deleted"
+        });
+    }
+
+)
+
 router.get(
     '/',
     async (req, res) => {
