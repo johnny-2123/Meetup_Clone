@@ -107,7 +107,10 @@ router.get(
         if (event.id === null) {
 
             return res.status(404).json(
-                "Event couldn't be found"
+                {
+                    "message": "Event couldn't be found",
+                    "statusCode": 404
+                }
             )
         }
         const group = await event.getGroup();

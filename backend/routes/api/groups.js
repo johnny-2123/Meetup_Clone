@@ -14,20 +14,25 @@ router.get(
         let groupId = req.params.id;
 
         let group = await Group.findByPk(groupId);
-        if (group.name === null) {
+        if (!group) {
             return res.status(404).json({
                 "message": "Group couldn't be found",
                 "statusCode": 404
             })
         }
 
-        // let events = await Event.findAll({
-        //     where: {
-        //         groupId: groupId
-        //     },
-        //     attributes: ['id',]
-        // });
-        // return res.status(200).json(events);
+        let events = await Event.findAll({
+            where: {
+                groupId: groupId
+            },
+            include: [{ model: Venue, attributes: ['id', 'city', 'state'] }, { model: Attendant, attributes: [] }, { model: Group, attributes: ['id', 'name', 'city', 'state'] }],
+            attributes: [
+                [sequelize.fn('COUNT', sequelize.col('Attendants.id')), 'numAttending'],
+                'id', 'groupId', 'venueId', 'name', 'type', 'startDate', 'previewImage'
+            ],
+            group: ['Attendants.eventId'],
+        });
+        return res.status(200).json(events);
     }
 )
 
