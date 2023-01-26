@@ -45,6 +45,9 @@ module.exports = (sequelize, DataTypes) => {
     state: {
       type: DataTypes.STRING
     },
+    about: {
+      type: DataTypes.STRING
+    },
     previewImage: {
       type: DataTypes.STRING
     }

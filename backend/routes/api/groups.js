@@ -245,16 +245,70 @@ router.post(
 
 
 
-// router.get(
-//     '/current',
-//     requireAuth,
-//     async (req, res) => {
-//         let currentUser = await User.findByPk(req.user.id);
-//         let groupsJoined = await currentUser.getGroups()
-
-//         return res.json(groupsJoined);
-//     }
-// )
+router.get(
+    '/current',
+    requireAuth,
+    async (req, res) => {
+        let currentUser = await User.findByPk(req.user.id);
+        let groupsOrganized = await currentUser.getGroups();
+        let groupsJoined = await Group.findAll({
+            include: [
+                { model: User, as: User.tableName, attributes: [] }
+            ],
+            where: {
+                '$Users.id$': `${currentUser.id}`
+            },
+            attributes: ['id', 'organizerId', 'name', 'about', 'type', 'private', 'city', 'state', 'createdAt', 'updatedAt', 'previewImage'],
+            nest: true
+        })
+        let groupsJoinedArr = []
+        for (let groupJoined of groupsJoined) {
+            let count = await GroupMember.count({
+                where: { groupId: groupJoined.id }
+            });
+            let toPush = {}
+            toPush.id = groupJoined.id;
+            toPush.organizerId = groupJoined.organizerId;
+            toPush.name = groupJoined.name;
+            toPush.type = groupJoined.type;
+            toPush.private = groupJoined.private;
+            toPush.city = groupJoined.state;
+            toPush.state = groupJoined.state;
+            toPush.about = groupJoined.about;
+            toPush.previewImage = groupJoined.previewImage;
+            toPush.createdAt = groupJoined.createdAt;
+            toPush.updatedAt = groupJoined.updatedAt;
+            toPush.numMembers = count;
+            groupsJoinedArr.push(toPush);
+        }
+        let groupsOrganizedArr = [];
+        for (let groupOrganized of groupsOrganized) {
+            let count = await GroupMember.count({
+                where: { groupId: groupOrganized.id }
+            });
+            let toPush = {}
+            toPush.id = groupOrganized.id;
+            toPush.organizerId = groupOrganized.organizerId;
+            toPush.name = groupOrganized.name;
+            toPush.type = groupOrganized.type;
+            toPush.private = groupOrganized.private;
+            toPush.city = groupOrganized.state;
+            toPush.state = groupOrganized.state;
+            toPush.about = groupOrganized.about;
+            toPush.previewImage = groupOrganized.previewImage;
+            toPush.createdAt = groupOrganized.createdAt;
+            toPush.updatedAt = groupOrganized.updatedAt;
+            toPush.numMembers = count;
+            groupsOrganizedArr.push(toPush);
+        }
+        for (item of groupsOrganizedArr) {
+            if (groupsJoinedArr.filter(idx => idx.id === item.id).length === 0) {
+                groupsJoinedArr.push(item)
+            }
+        }
+        return res.json(groupsJoinedArr);
+    }
+)
 
 
 router.get(
@@ -286,6 +340,8 @@ router.get(
 )
 
 
-
+router.get(
+    '/:id'
+)
 
 module.exports = router;

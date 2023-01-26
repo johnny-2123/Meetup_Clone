@@ -26,6 +26,7 @@ module.exports = {
         private: true,
         city: 'Chicago',
         state: 'Illinois',
+        about: 'enjoy a tightnight community',
         previewImage: 'image url'
       },
       {
@@ -35,6 +36,7 @@ module.exports = {
         private: true,
         city: 'Washington',
         state: 'District of Columbia',
+        about: 'find community with us',
         previewImage: 'image url'
       },
       {
@@ -44,6 +46,7 @@ module.exports = {
         private: false,
         city: 'Miami',
         state: 'Florida',
+        about: 'meet new people',
         previewImage: 'image url'
       },
       {
@@ -53,6 +56,7 @@ module.exports = {
         private: false,
         city: 'Houston',
         state: 'Texas',
+        about: 'make new friends',
         previewImage: 'image url'
       }
 

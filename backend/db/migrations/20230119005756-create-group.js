@@ -34,6 +34,9 @@ module.exports = {
       state: {
         type: Sequelize.STRING
       },
+      about: {
+        type: Sequelize.STRING
+      },
       previewImage: {
         type: Sequelize.STRING
       },
