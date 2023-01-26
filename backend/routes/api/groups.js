@@ -1,6 +1,6 @@
 const express = require('express');
 const { setTokenCookie, requireAuth } = require('../../utils/auth.js');
-const { Event, Venue, Attendant, sequelize, Group, EventImage, GroupMember, User, Sequelize } = require('../../db/models');
+const { Event, Venue, Attendant, sequelize, Group, EventImage, GroupMember, User, Sequelize, GroupImages } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { Op } = require("sequelize");
@@ -340,8 +340,16 @@ router.get(
 )
 
 
-router.get(
-    '/:id'
-)
+// router.get(
+//     '/:id',
+//     async (req, res) => {
+//         let groupId = req.params.id;
+//         let group = await Group.findByPk(groupId, {
+//             include: [
+//                 { model: GroupImages }
+//             ]
+//         })
+//     }
+// )
 
 module.exports = router;
