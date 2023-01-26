@@ -18,8 +18,7 @@ module.exports = (sequelize, DataTypes) => {
 
       Group.hasMany(models.Event, { foreignKey: 'groupId' });
 
-      //this association causing problems
-      Group.hasMany(models.Venue, { foreignKey: 'groupId' });
+      Group.hasMany(models.Venue, { foreignKey: 'groupId', onDelete: 'cascade' });
 
       Group.belongsToMany(models.User, { through: models.GroupMember, onDelete: 'cascade' });
 

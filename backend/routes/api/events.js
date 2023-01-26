@@ -8,6 +8,78 @@ const { ResultWithContext } = require('express-validator/src/chain/context-runne
 
 const router = express.Router();
 
+
+router.put(
+    '/:id/attendance',
+    requireAuth,
+    async (req, res) => {
+        let user = req.user;
+        let eventId = req.params.id;
+        let event = await Event.findByPk(eventId);
+        let { userId, status } = req.body;
+
+        if (!event) {
+            return res.status(403).json({
+                "message": "Event couldn't be found",
+                "statusCode": 404
+            });
+        }
+
+        let group = await event.getGroup();
+
+        let groupMember = await GroupMember.findOne({
+            where: {
+                userId: user.id,
+                groupId: group.id
+            }
+        });
+
+        let attendance = await Attendant.findOne({
+            where: {
+                userId: userId,
+                eventId: event.id
+            }
+        });
+
+        if (!attendance) {
+            return res.status(404).json({
+                "message": "Attendance between the user and the event does not exist",
+                "statusCode": 404
+            });
+        }
+
+        if (status === 'pending') {
+            return res.status(400).json({
+                "message": "Cannot change an attendance status to pending",
+                "statusCode": 400
+            });
+        }
+        if (groupMember) {
+            if (group.organizerId !== user.id && groupMember.status !== 'co-host') {
+                return res.status(403).json({
+                    "message": "Forbidden",
+                    "statusCode": 403
+                });
+            }
+        } else {
+            if (group.organizerId !== user.id) {
+                return res.status(403).json({
+                    "message": "Forbidden",
+                    "statusCode": 403
+                });
+            }
+
+        }
+
+        attendance.status = status;
+
+        await attendance.save();
+        let resAttendance = await attendance.findByPk(attendance.id);
+        res.status(200).json(resAttendance)
+
+    }
+)
+
 router.delete(
     '/:id/attendance',
     requireAuth,
@@ -173,8 +245,7 @@ router.put(
         const { name, type, description, price, capacity, startDate, endDate, venueId } = req.body;
         let event = await Event.findByPk(id);
         let group = await event.getGroup();
-        console.log(`group.id: ${group.organizerId}`);
-        console.log(`user.id: ${user.id}`);
+
         //returning wrong group member
         let groupMember = await GroupMember.findOne({
             where: {
@@ -182,15 +253,13 @@ router.put(
                 groupId: group.id
             }
         });
-        console.log(`memberstatus: ${groupMember.status}`);
-        console.log(groupMember);
+
         if (event.name === null) {
             return res.status(403).json({
                 "message": "Event couldn't be found",
                 "statusCode": 404
             });
         }
-        console.log(event.name);
         if (group.organizerId !== user.id && groupMember.status !== 'co-host') {
             return res.status(403).json({
                 "message": "Forbidden",
@@ -283,7 +352,7 @@ router.get(
 
             ]
         })
-        // console.log(attendants)
+
         res.status(200).json({
             'event': event,
             'eventImages': eventImages,
@@ -401,7 +470,7 @@ router.get(
         if (startDate) {
             startDate = JSON.parse(startDate);
         }
-        console.log(typeof (startDate));
+
         if (startDate && typeof (startDate) !== 'string') {
             res.status(400);
             return res.json({
@@ -419,7 +488,6 @@ router.get(
         }
         if (startDate) {
             where.startDate = startDate;
-            console.log(`startDate: ${startDate}`)
         }
 
         const events = await Event.findAll({
