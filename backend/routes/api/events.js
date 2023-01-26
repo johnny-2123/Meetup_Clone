@@ -9,6 +9,9 @@ const { ResultWithContext } = require('express-validator/src/chain/context-runne
 const router = express.Router();
 
 
+
+
+
 router.put(
     '/:id/attendance',
     requireAuth,
@@ -19,7 +22,7 @@ router.put(
         let { userId, status } = req.body;
 
         if (!event) {
-            return res.status(403).json({
+            return res.status(404).json({
                 "message": "Event couldn't be found",
                 "statusCode": 404
             });
@@ -74,7 +77,7 @@ router.put(
         attendance.status = status;
 
         await attendance.save();
-        let resAttendance = await attendance.findByPk(attendance.id);
+        let resAttendance = await Attendant.findByPk(attendance.id);
         res.status(200).json(resAttendance)
 
     }
