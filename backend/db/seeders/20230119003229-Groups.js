@@ -20,7 +20,7 @@ module.exports = {
     options.tableName = 'Groups';
     await queryInterface.bulkInsert(options, [
       {
-        organizerId: '1',
+        organizerId: 1,
         name: 'bulls',
         type: 'In person',
         private: true,
@@ -30,7 +30,7 @@ module.exports = {
         previewImage: 'image url'
       },
       {
-        organizerId: '2',
+        organizerId: 1,
         name: 'wizards',
         type: 'In person',
         private: true,
@@ -40,7 +40,7 @@ module.exports = {
         previewImage: 'image url'
       },
       {
-        organizerId: '3',
+        organizerId: 1,
         name: 'chess',
         type: 'online',
         private: false,
@@ -50,7 +50,7 @@ module.exports = {
         previewImage: 'image url'
       },
       {
-        organizerId: '4',
+        organizerId: 1,
         name: 'poker',
         type: 'online',
         private: false,
