@@ -16,12 +16,12 @@ module.exports = {
       },
       groupId: {
         type: Sequelize.INTEGER,
-        references: { model: 'Groups' },
+        references: { model: 'Groups', key: 'id' },
         onDelete: 'CASCADE'
       },
       venueId: {
         type: Sequelize.INTEGER,
-        references: { model: 'Venues' },
+        references: { model: 'Venues', key: 'id' },
         onDelete: 'CASCADE'
       },
       name: {
