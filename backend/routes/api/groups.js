@@ -1,6 +1,6 @@
 const express = require('express');
 const { setTokenCookie, requireAuth } = require('../../utils/auth.js');
-const { Event, Venue, Attendant, sequelize, Group, EventImage, GroupMember } = require('../../db/models');
+const { Event, Venue, Attendant, sequelize, Group, EventImage, GroupMember, User, Sequelize } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { Op } = require("sequelize");
@@ -17,6 +17,81 @@ const validateSignup = [
 ];
 
 const router = express.Router();
+
+
+router.get(
+    '/:id/members',
+    async (req, res) => {
+        let groupId = req.params.id;
+        let group = await Group.findByPk(groupId);
+
+        if (!group) {
+            return res.status(403).json({
+                "message": "Group couldn't be found",
+                "statusCode": 404
+            });
+        };
+        let user = req.user;
+        let groupMember = await GroupMember.findOne({
+            where: {
+                userId: user.id,
+                groupId: group.id
+            }
+        });
+
+        let groupMembers = [];
+        let users;
+        if (groupMember) {
+            if (group.organizerId !== user.id && groupMember.status !== 'co-host') {
+                users = await group.getUsers({
+                    attributes: {
+                        include: [[Sequelize.literal(`(SELECT GroupMembers.status FROM GroupMembers JOIN Users ON (GroupMembers.UserId = Users.id) WHERE GroupMembers.groupId = ${group.id})`), 'status']]
+                    }
+                })
+            } else {
+                users = await group.getUsers({
+                    attributes: {
+                        include: [[Sequelize.literal(`(SELECT GroupMembers.status AS status FROM GroupMembers JOIN Users ON (GroupMembers.UserId = Users.id) WHERE GroupMembers.groupId = ${group.id})`), 'status'], 'id']
+                    },
+
+                })
+
+            }
+        } else {
+            if (group.organizerId !== user.id) {
+                users = await group.getUsers({
+                    attributes: {
+                        include: [[Sequelize.literal(`(SELECT GroupMembers.status FROM GroupMembers JOIN Users ON (GroupMembers.UserId = Users.id) WHERE GroupMembers.groupId = ${group.id})`), 'status']]
+                    }
+                })
+
+            } else {
+                users = await group.getUsers({
+                    attributes: {
+                        include: [[Sequelize.literal(`(SELECT GroupMembers.status FROM GroupMembers JOIN Users ON (GroupMembers.UserId = Users.id) WHERE GroupMembers.groupId = ${group.id})`), 'status']],
+                    }
+                })
+
+            }
+
+        }
+        users.forEach(obj => {
+            let userPush = {};
+            userPush.id = obj.id;
+            userPush.firstName = obj.firstName;
+            userPush.lastName = obj.lastName;
+            let membership = {};
+            console.log(obj.GroupMember.status)
+            membership.status = obj.GroupMember.status;
+            userPush.membership = membership;
+
+            groupMembers.push(userPush)
+        });
+
+        return res.status(200).json(groupMembers);
+    }
+)
+
 
 router.post(
     '/:id/events',
@@ -167,6 +242,20 @@ router.post(
         return res.json(eventReturned)
     }
 )
+
+
+
+// router.get(
+//     '/current',
+//     requireAuth,
+//     async (req, res) => {
+//         let currentUser = await User.findByPk(req.user.id);
+//         let groupsJoined = await currentUser.getGroups()
+
+//         return res.json(groupsJoined);
+//     }
+// )
+
 
 router.get(
     '/:id/events',
