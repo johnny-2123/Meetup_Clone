@@ -10,7 +10,66 @@ const router = express.Router();
 
 
 
+router.post(
+    '/:id/attendance',
+    requireAuth,
+    async (req, res) => {
+        let user = req.user;
+        let eventId = req.params.id;
+        let event = await Event.findByPk(eventId);
+        if (!event) {
+            return res.status(404).json({
+                "message": "Event couldn't be found",
+                "statusCode": 404
+            });
+        }
 
+        let group = await event.getGroup();
+
+        let groupMember = await GroupMember.findOne({
+            where: {
+                userId: user.id,
+                groupId: group.id
+            }
+        });
+
+        if (!groupMember) {
+            return res.status(403).json({
+                "message": "Forbidden",
+                "statusCode": 403
+            });
+        };
+
+        let attendance = await Attendant.findOne({
+            where: {
+                eventId: eventId,
+                userId: user.id
+            }
+        });
+
+        if (attendance && attendance.status === 'pending') {
+            return res.status(404).json({
+                "message": "Attendance has already been requested",
+                "statusCode": 400
+            });
+        }
+
+        if (attendance && attendance.status !== 'pending') {
+            return res.status(404).json({
+                "message": "User is already an attendee of the event",
+                "statusCode": 400
+            });
+        };
+
+        let newAttendant = await Attendant.create({
+            userId: user.id,
+            eventId: eventId,
+            status: "pending"
+        });
+        let resAttendant = await Attendant.findByPk(newAttendant.id);
+        return res.status(200).json(resAttendant);
+    }
+)
 
 router.put(
     '/:id/attendance',
