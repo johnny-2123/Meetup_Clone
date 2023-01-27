@@ -1,9 +1,10 @@
 const express = require('express');
 const { setTokenCookie, requireAuth } = require('../../utils/auth.js');
-const { Event, Venue, Attendant, sequelize, Group, EventImage, GroupMember, User, Sequelize, GroupImages } = require('../../db/models');
+const { Event, Venue, Attendant, sequelize, Group, EventImage, GroupMember, User, Sequelize, GroupImage } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { Op } = require("sequelize");
+const group = require('../../db/models/group.js');
 
 const validateSignup = [
     check('name')
@@ -306,7 +307,7 @@ router.get(
                 groupsJoinedArr.push(item)
             }
         }
-        return res.json(groupsJoinedArr);
+        return res.status(200).json(groupsJoinedArr);
     }
 )
 
@@ -340,16 +341,35 @@ router.get(
 )
 
 
-// router.get(
-//     '/:id',
-//     async (req, res) => {
-//         let groupId = req.params.id;
-//         let group = await Group.findByPk(groupId, {
-//             include: [
-//                 { model: GroupImages }
-//             ]
-//         })
-//     }
-// )
+router.get(
+    '/:id',
+    async (req, res) => {
+        let groupId = req.params.id;
+        let group = await Group.findByPk(groupId, {
+            include: [
+                {
+                    model: GroupImage, attributes: ['id', 'url', 'preview']
+                },
+                { model: User, as: 'Organizer', attributes: ['id', 'firstName', 'lastName'] },
+                { model: Venue, attributes: ['id', 'groupId', 'address', 'city', 'state', 'lat', 'lng'] },
+                { model: User, as: 'members', attributes: [] },
+            ],
+            attributes: [
+                'id', 'organizerId', 'name', 'about', 'type', 'private', 'city', 'state', 'createdAt', 'updatedAt',
+            ],
+        });
+        if (!group) {
+            return res.status(404).json({
+                "message": "Group couldn't be found",
+                "statusCode": 404
+            });
+        };
+        let count = await GroupMember.count({
+            where: { groupId: groupId }
+        });
+        group.setDataValue('numMembers', count);
+        return res.status(200).json(group);
+    }
+)
 
 module.exports = router;
