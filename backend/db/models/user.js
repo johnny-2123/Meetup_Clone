@@ -101,13 +101,18 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         len: [60, 60]
       }
-    }
+    },
+    deletedAt: {
+      type: DataTypes.JSON
+    },
   }, {
     sequelize,
     modelName: 'User',
+    paranoid: true,
+    timestamps: true,
     defaultScope: {
       attributes: {
-        exclude: ['hashedPassword', 'email', 'createdAt', 'updatedAt']
+        exclude: ['hashedPassword', 'email', 'createdAt', 'updatedAt', 'deletedAt']
       }
     },
     scopes: {

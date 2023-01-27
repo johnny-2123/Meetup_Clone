@@ -235,6 +235,52 @@ router.get(
 )
 
 
+//add an image to a group based on the groups id
+router.post(
+    '/:id/images',
+    requireAuth,
+    async (req, res) => {
+        let user = req.user;
+        let groupId = req.params.id;
+        const { url, preview } = req.body;
+
+        let group = await Group.findByPk(groupId);
+
+        if (!group) {
+
+            if (!group) {
+                return res.status(403).json({
+                    "message": "Group couldn't be found",
+                    "statusCode": 403
+                });
+            }
+
+        }
+
+        if (group.organizerId !== user.id) {
+            return res.status(403).json({
+                "message": "Forbidden",
+                "statusCode": 403
+            });
+        }
+
+        let newImage = await GroupImage.create({
+            url,
+            preview,
+            groupId: group.id
+        });
+
+
+        let image = await GroupImage.findByPk(newImage.id);
+        return res.status(200).json(image);
+
+
+
+    }
+
+
+)
+
 router.post(
     '/:id/events',
     requireAuth,

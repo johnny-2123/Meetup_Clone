@@ -275,7 +275,7 @@ router.post(
         let event = await Event.findByPk(eventId);
 
         if (!event) {
-            return res.status(403).json({
+            return res.status(404).json({
                 "message": "Event couldn't be found",
                 "statusCode": 404
             });
