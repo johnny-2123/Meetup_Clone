@@ -12,12 +12,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Event.belongsTo(models.Group, { foreignKey: 'groupId' });
+      Event.belongsTo(models.Group, { foreignKey: 'groupId', onDelete: 'cascade', hooks: true });
       Event.belongsTo(models.Venue, {
         foreignKey: 'venueId'
       });
       Event.hasMany(models.Attendant, { foreignKey: 'eventId' });
-      Event.hasMany(models.EventImage, { foreignKey: 'eventId' });
+      Event.hasMany(models.EventImage, { foreignKey: 'eventId', onDelete: 'cascade', hooks: true });
     }
   }
   Event.init({
@@ -53,13 +53,18 @@ module.exports = (sequelize, DataTypes) => {
     },
     previewImage: {
       type: DataTypes.STRING
-    }
+    },
+    deletedAt: {
+      type: DataTypes.JSON
+    },
   }, {
     sequelize,
     modelName: 'Event',
+    paranoid: true,
+    timestamps: true,
     defaultScope: {
       attributes: {
-        exclude: ['createdAt', 'updatedAt']
+        exclude: ['createdAt', 'updatedAt', 'deletedAt']
       }
     },
   });

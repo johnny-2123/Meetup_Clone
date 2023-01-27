@@ -86,6 +86,62 @@ router.get(
     }
 )
 
+router.post(
+    '/',
+    requireAuth,
+    async (req, res) => {
+        const { name, about, type, private, city, state } = req.body;
+        let user = req.user;
+
+        if (name) {
+            if (name.length > 60) {
+                return res.status(400).json('Name must be 60 characters or less');
+            }
+        };
+
+        if (about) {
+            if (about.length < 50) {
+                return res.status(400).json('About must be 50 characters or more');
+            }
+        };
+
+        if (type) {
+            if (type !== 'Online' && type !== 'In person') {
+                return res.status(400).json('Type must be Online or In person');
+            }
+        };
+
+        if (private) {
+            if (private !== true && private !== false) {
+                return res.status(400).json('Private must be a boolean');
+            }
+        };
+
+        if (!city) {
+            return res.status(400).json('City is required');
+        };
+
+        if (!state) {
+            return res.status(400).json('State is required');
+        };
+
+        let newGroup = await Group.create({
+            name,
+            about,
+            type,
+            private,
+            city,
+            state,
+            organizerId: user.id
+        });
+
+        let group = await Group.findByPk(newGroup.id);
+
+        return res.status(200).json(group);
+
+    }
+
+)
 
 router.get(
     '/',
@@ -358,6 +414,110 @@ router.get(
         return res.status(200).json(events);
     }
 )
+
+
+router.delete(
+    '/:id',
+    requireAuth,
+    async (req, res) => {
+        let user = req.user;
+        let groupId = req.params.id;
+        let group = await Group.findByPk(groupId);
+
+        if (!group) {
+            return res.status(403).json({
+                "message": "Group couldn't be found",
+                "statusCode": 404
+            });
+        }
+
+        if (group.organizerId !== user.id) {
+            return res.status(403).json({
+                "message": "Forbidden",
+                "statusCode": 403
+            });
+        }
+
+        await group.destroy()
+
+
+        return res.status(200).json({
+            "message": "Successfully deleted"
+        });
+    }
+
+)
+
+
+router.put(
+    '/:id',
+    requireAuth,
+    async (req, res) => {
+        let groupId = req.params.id;
+        let user = req.user;
+        const { name, about, type, private, city, state } = req.body;
+        let group = await Group.findByPk(groupId);
+
+        if (!group) {
+            return res.status(404).json({
+                "message": "Group couldn't be found",
+                "statusCode": 404
+            });
+        };
+
+        if (group.organizerId !== user.id) {
+            return res.status(403).json({
+                "message": "Forbidden",
+                "statusCode": 403
+            });
+        };
+
+        if (name) {
+            if (name.length > 60) {
+                return res.status(400).json('Name must be 60 characters or less');
+            }
+            group.name = name;
+        };
+
+        if (about) {
+            if (about.length < 50) {
+                return res.status(400).json('About must be 50 characters or more');
+            }
+            group.about = about;
+        };
+
+        if (type) {
+            if (type !== 'Online' && type !== 'In person') {
+                return res.status(400).json('Type must be Online or In person');
+            }
+            group.type = type;
+        };
+
+        if (private) {
+            if (private !== true && private !== false) {
+                return res.status(400).json('Private must be a boolean');
+            }
+            group.private = private;
+        };
+
+        if (!city) {
+            return res.status(400).json('City is required');
+        };
+        group.city = city;
+
+        if (!state) {
+            return res.status(400).json('State is required');
+        };
+        group.state = state;
+
+        await group.save();
+
+        return res.json(group)
+
+    }
+)
+
+
 
 
 router.get(

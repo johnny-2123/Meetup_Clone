@@ -168,13 +168,24 @@ router.delete(
         }
 
         let group = await event.getGroup();
+        if (group) {
+            if (group.organizerId !== user.id && userId !== user.id) {
+                return res.status(403).json({
+                    "message": "Only the User or organizer may delete an Attendance",
+                    "statusCode": 403
+                })
+            }
+        } else {
+            if (userId !== user.id) {
+                return res.status(403).json({
+                    "message": "Only the User or organizer may delete an Attendance",
+                    "statusCode": 403
+                })
+            }
 
-        if (group.organizerId !== user.id && userId !== user.id) {
-            return res.status(403).json({
-                "message": "Only the User or organizer may delete an Attendance",
-                "statusCode": 403
-            })
+
         }
+
 
         await attendance.destroy();
 
@@ -317,7 +328,7 @@ router.put(
         });
 
         if (event.name === null) {
-            return res.status(403).json({
+            return res.status(404).json({
                 "message": "Event couldn't be found",
                 "statusCode": 404
             });
@@ -340,13 +351,13 @@ router.put(
         }
         if (name) {
             if (name.length < 5) {
-                res.status(400).json('Name must be at least 5 characters');
+                return res.status(400).json('Name must be at least 5 characters');
             }
             event.name = name;
         };
         if (type) {
             if (type !== 'Online' && type !== 'In Person') {
-                res.status(400).json('Type must be Online or In person');
+                return res.status(400).json('Type must be Online or In person');
             }
             event.type = type;
         }
@@ -356,13 +367,13 @@ router.put(
         };
         if (price) {
             if (typeof (price) !== 'integer') {
-                res.status(400).json('Price is invalid');
+                return res.status(400).json('Price is invalid');
             }
             event.price = price;
         };
         if (capacity) {
             if (typeof (capacity) !== 'integer') {
-                res.status(400).json('Capacity must be integer');
+                return res.status(400).json('Capacity must be integer');
             }
             event.capacity = capacity;
         };

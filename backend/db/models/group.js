@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
 
       Group.belongsToMany(models.User, { through: models.GroupMember, as: 'members', onDelete: 'cascade' });
 
-      Group.hasMany(models.GroupImage, { foreignKey: 'groupId' });
+      Group.hasMany(models.GroupImage, { foreignKey: 'groupId', onDelete: 'cascade' });
     }
   }
   Group.init({
@@ -50,10 +50,20 @@ module.exports = (sequelize, DataTypes) => {
     },
     previewImage: {
       type: DataTypes.STRING
-    }
+    },
+    deletedAt: {
+      type: DataTypes.JSON
+    },
   }, {
     sequelize,
     modelName: 'Group',
+    paranoid: true,
+    timestamps: true,
+    defaultScope: {
+      attributes: {
+        exclude: ['deletedAt']
+      }
+    }
   });
   return Group;
 };

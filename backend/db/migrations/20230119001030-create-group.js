@@ -16,7 +16,7 @@ module.exports = {
       },
       organizerId: {
         type: Sequelize.INTEGER,
-        references: { model: 'Users', key: 'id' }
+        references: { model: 'Users', key: 'id', onDelete: 'CASCADE' },
       },
       name: {
         type: Sequelize.STRING,
@@ -49,6 +49,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+      },
+      deletedAt: {
+        type: Sequelize.DATE
       }
     }, options);
   },
