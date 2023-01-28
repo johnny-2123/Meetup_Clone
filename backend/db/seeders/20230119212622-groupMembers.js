@@ -21,7 +21,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    await queryInterface.bulkInsert('GroupMembers', [
+    await queryInterface.bulkInsert(options, [
       {
         groupId: 1,
         userId: 1,
