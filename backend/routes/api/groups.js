@@ -295,98 +295,121 @@ router.delete(
 )
 
 /////// edit a membership status
-// router.put(
-//     '/:id/membership',
-//     requireAuth,
-//     async (req, res) => {
-//         let groupId = req.params.id;
-//         let group = await Group.findByPk(groupId);
-//         let user = req.user;
-//         let userId = user.id;
-//         let { memberId } = req.body;
-//         let { status } = req.body;
+router.put(
+    '/:id/membership',
+    requireAuth,
+    async (req, res) => {
+        let groupId = req.params.id;
+        let group = await Group.findByPk(groupId);
+        let user = req.user;
+        let userId = user.id;
+        let { memberId } = req.body;
+        let { status } = req.body;
 
-//         let member = await User.findByPk(memberId);
+        let member = await User.findByPk(memberId);
 
-//         if (!group) {
-//             return res.status(404).json({
-//                 "message": "Group couldn't be found",
-//                 "statusCode": 404
-//             });
-//         };
+        if (!group) {
+            return res.status(404).json({
+                "message": "Group couldn't be found",
+                "statusCode": 404
+            });
+        };
 
-//         if (!member) {
-//             return res.status(404).json({
-//                 "message": "User couldn't be found",
-//                 "statusCode": 404
-//             });
+        if (!member) {
+            return res.status(404).json({
+                "message": "User couldn't be found",
+                "statusCode": 404
+            });
 
-//         }
-//         let groupMember = await GroupMember.findOne({
-//             where: {
-//                 groupId: group.id,
-//                 userId: memberId
-//             }
-//         });
-//         let currentMember = await GroupMember.findOne({
-//             where: { groupId: group.id, userId: user.id }
-//         });
+        }
+        let groupMember = await GroupMember.findOne({
+            where: {
+                groupId: group.id,
+                userId: memberId
+            }
+        });
+        let currentMember = await GroupMember.findOne({
+            where: { groupId: group.id, userId: user.id }
+        });
 
-//         if (!groupMember) {
-//             return res.status(404).json({
-//                 "message": "Membership between the user and the group does not exits",
-//                 "statusCode": 404
-//             });
+        if (!groupMember) {
+            return res.status(404).json({
+                "message": "Membership between the user and the group does not exits",
+                "statusCode": 404
+            });
 
-//         }
+        }
 
-//         if (status === 'pending') {
-//             return res.status(400).json({
-//                 "message": "Validations Error",
-//                 "statusCode": 400,
-//                 "errors": {
-//                     "status": "Cannot change a membership status to pending"
-//                 }
-//             });
-//         };
+        if (status === 'pending') {
+            return res.status(400).json({
+                "message": "Validations Error",
+                "statusCode": 400,
+                "errors": {
+                    "status": "Cannot change a membership status to pending"
+                }
+            });
+        };
 
-//         if (status === 'member') {
-//             if (groupMember) {
-//                 if (group.organizerId !== user.id && currentMember.status !== 'co-host') {
-//                     return res.status(403).json({
-//                         "message": "Forbidden",
-//                         "statusCode": 403
-//                     });
-//                 }
-//             } else {
-//                 if (group.organizerId !== user.id) {
-//                     return res.status(403).json({
-//                         "message": "Forbidden",
-//                         "statusCode": 403
-//                     });
-//                 }
 
-//             }
-//         }
+        if (groupMember) {
+            if (group.organizerId !== user.id && currentMember.status !== 'co-host') {
+                return res.status(403).json({
+                    "message": "Forbidden",
+                    "statusCode": 403
+                });
+            }
+        } else {
+            if (group.organizerId !== user.id) {
+                return res.status(403).json({
+                    "message": "Forbidden",
+                    "statusCode": 403
+                });
+            }
 
-//         if (status === 'co-host') {
-//             if (group.organizerId !== user.id) {
-//                 return res.status(403).json({
-//                     "message": "Forbidden",
-//                     "statusCode": 403
-//                 });
-//             }
-//         }
+        }
 
-//         groupMember.status = status;
+        if (status === 'member') {
+            if (groupMember) {
+                if (group.organizerId !== user.id && currentMember.status !== 'co-host') {
+                    return res.status(403).json({
+                        "message": "Forbidden",
+                        "statusCode": 403
+                    });
+                }
+            } else {
+                if (group.organizerId !== user.id) {
+                    return res.status(403).json({
+                        "message": "Forbidden",
+                        "statusCode": 403
+                    });
+                }
 
-//         await groupMember.save();
+            }
+        }
 
-//         return res.status(200).json(groupMember);
+        if (status === 'co-host') {
+            if (group.organizerId !== user.id) {
+                return res.status(403).json({
+                    "message": "Forbidden",
+                    "statusCode": 403
+                });
+            }
+        }
 
-//     }
+        groupMember.status = status;
 
-// )
+        await groupMember.save();
+
+        let resMember = {};
+
+        resMember.memberId = groupMember.userId;
+        resMember.groupId = groupMember.groupId;
+        resMember.status = groupMember.status;
+        return res.status(200).json(resMember);
+
+    }
+
+)
 
 ///////////////////////////
 //////////////////////// Request a Membership for a Group based on the Group's id

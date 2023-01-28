@@ -573,15 +573,16 @@ router.get(
             group: ['Attendants.eventId'],
             where,
             // not returning all events when no page or size are set as queries
+
             // limit: size,
-            // offset: size * (page - 1),
+            // offset: size * (page - 1)
 
         });
 
         res.status(200).json({
             'Events': events,
-            // 'page': page,
-            // 'size': size
+            'page': page,
+            'size': size
         });
 
     }
