@@ -31,14 +31,19 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     },
     lat: {
-      type: DataTypes.INTEGER
+      type: DataTypes.FLOAT
     },
     lng: {
-      type: DataTypes.INTEGER
+      type: DataTypes.FLOAT
     }
   }, {
     sequelize,
     modelName: 'Venue',
+    defaultScope: {
+      attributes: {
+        exclude: ['createdAt', 'updatedAt']
+      }
+    },
   });
   return Venue;
 };

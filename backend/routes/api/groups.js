@@ -160,6 +160,93 @@ router.get(
     }
 )
 
+/////////////////////
+///////////////Create a new Venue for a Group specified by its id
+
+router.post(
+    '/:id/venues',
+    requireAuth,
+    async (req, res) => {
+        let groupId = req.params.id;
+        let user = req.user;
+        let group = await Group.findByPk(groupId);
+        let { address, city, state, lat, lng } = req.body;
+
+
+
+        if (!group) {
+            return res.status(404).json({
+                "message": "Group couldn't be found",
+                "statusCode": 404
+            });
+
+        }
+        let groupMember = await GroupMember.findOne({
+            where: {
+                groupId: group.id,
+                userId: user.id
+            }
+        });
+
+        if (groupMember) {
+            if (group.organizerId !== user.id && groupMember.status !== 'co-host') {
+                return res.status(403).json({
+                    "message": "Forbidden",
+                    "statusCode": 403
+                });
+            }
+        } else {
+            if (group.organizerId !== user.id) {
+                return res.status(403).json({
+                    "message": "Forbidden",
+                    "statusCode": 403
+                });
+            }
+
+        }
+
+
+
+        if (!address) {
+            return res.status(400).json('Street address is required')
+
+        }
+        if (!city) {
+            return res.status(400).json('City is required')
+
+        }
+        if (!state) {
+            return res.status(400).json('State is required')
+
+        }
+        if (!lat) {
+            return res.status(400).json('Latitude is required')
+
+        }
+        if (!lng) {
+            return res.status(400).json('Longitude is required')
+
+        }
+
+        let newVenue = await Venue.create({
+            address,
+            city,
+            state,
+            lat,
+            lng,
+            groupId: group.id
+        });
+
+
+        let venue = await Venue.findByPk(newVenue.id);
+
+        res.status(200).json(venue);
+
+    }
+
+
+)
+
 /////////
 ///////////### Get All Venues for a Group specified by its id
 
