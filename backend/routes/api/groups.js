@@ -85,81 +85,6 @@ router.get(
     }
 )
 
-router.post(
-    '/',
-    requireAuth,
-    async (req, res) => {
-        const { name, about, type, private, city, state } = req.body;
-        let user = req.user;
-
-        if (name) {
-            if (name.length > 60) {
-                return res.status(400).json('Name must be 60 characters or less');
-            }
-        };
-
-        if (about) {
-            if (about.length < 50) {
-                return res.status(400).json('About must be 50 characters or more');
-            }
-        };
-
-        if (type) {
-            if (type !== 'Online' && type !== 'In person') {
-                return res.status(400).json('Type must be Online or In person');
-            }
-        };
-
-        if (private) {
-            if (private !== true && private !== false) {
-                return res.status(400).json('Private must be a boolean');
-            }
-        };
-
-        if (!city) {
-            return res.status(400).json('City is required');
-        };
-
-        if (!state) {
-            return res.status(400).json('State is required');
-        };
-
-        let newGroup = await Group.create({
-            name,
-            about,
-            type,
-            private,
-            city,
-            state,
-            organizerId: user.id
-        });
-
-        let group = await Group.findByPk(newGroup.id);
-
-        return res.status(200).json(group);
-
-    }
-
-)
-
-router.get(
-    '/',
-    async (req, res) => {
-        let groups = await Group.findAll();
-
-
-        for (let group of groups) {
-            let count = await GroupMember.count({
-                where: { groupId: group.id }
-            });
-            group.setDataValue('numMembers', count);
-
-        }
-
-        return res.status(200).json(groups);
-    }
-)
-
 /////////////////////
 ///////////////Create a new Venue for a Group specified by its id
 
@@ -304,6 +229,71 @@ router.get(
 
 )
 
+router.delete(
+    '/:id/membership',
+    requireAuth,
+    async (req, res) => {
+        let groupId = req.params.id;
+        let memberId = req.body.memberId;
+        let user = req.user;
+
+        let group = await Group.findByPk(groupId);
+
+        if (!group) {
+            return res.status(404).json({
+                "message": "Group couldn't be found",
+                "statusCode": 404
+            });
+        };
+        let member = await User.findByPk(memberId);
+
+        if (!member) {
+            return res.status(404).json({
+                "message": "Validation Error",
+                "statusCode": 400,
+                "errors": {
+                    "memberId": "User couldn't be found"
+                }
+            });
+
+        };
+
+        if (group.organizerId !== user.id && memberId !== user.id) {
+            return res.status(403).json({
+                "message": "Forbidden",
+                "statusCode": 403
+            });
+
+        }
+
+        let groupMember = await GroupMember.findOne({
+            where: {
+                userId: memberId,
+                groupId: group.id
+            }
+        });
+
+        if (!groupMember) {
+            return res.status(404).json({
+                "message": "Membership does not exist for this User",
+                "statusCode": 404
+            });
+        };
+
+
+        await groupMember.destroy();
+
+        return res.status(200).json({
+            "message": "Successfully deleted membership from group"
+        });
+
+
+
+    }
+
+
+)
+
 ///////////////////////////
 //////////////////////// Request a Membership for a Group based on the Group's id
 // router.post(
@@ -387,13 +377,13 @@ router.get(
         let users;
         if (groupMember) {
             if (group.organizerId !== user.id && groupMember.status !== 'co-host') {
-                users = await group.getUsers({
+                users = await group.getMembers({
                     attributes: {
                         include: [[Sequelize.literal(`(SELECT GroupMembers.status FROM GroupMembers JOIN Users ON (GroupMembers.UserId = Users.id) WHERE GroupMembers.groupId = ${group.id})`), 'status']]
                     }
                 })
             } else {
-                users = await group.getUsers({
+                users = await group.getMembers({
                     attributes: {
                         include: [[Sequelize.literal(`(SELECT GroupMembers.status AS status FROM GroupMembers JOIN Users ON (GroupMembers.UserId = Users.id) WHERE GroupMembers.groupId = ${group.id})`), 'status'], 'id']
                     },
@@ -403,14 +393,14 @@ router.get(
             }
         } else {
             if (group.organizerId !== user.id) {
-                users = await group.getUsers({
+                users = await group.getMembers({
                     attributes: {
                         include: [[Sequelize.literal(`(SELECT GroupMembers.status FROM GroupMembers JOIN Users ON (GroupMembers.UserId = Users.id) WHERE GroupMembers.groupId = ${group.id})`), 'status']]
                     }
                 })
 
             } else {
-                users = await group.getUsers({
+                users = await group.getMembers({
                     attributes: {
                         include: [[Sequelize.literal(`(SELECT GroupMembers.status FROM GroupMembers JOIN Users ON (GroupMembers.UserId = Users.id) WHERE GroupMembers.groupId = ${group.id})`), 'status']],
                     }
@@ -796,6 +786,86 @@ router.get(
         });
         group.setDataValue('numMembers', count);
         return res.status(200).json(group);
+    }
+)
+
+
+
+router.post(
+    '/',
+    requireAuth,
+    async (req, res) => {
+        const { name, about, type, private, city, state } = req.body;
+        let user = req.user;
+
+        if (name) {
+            if (name.length > 60) {
+                return res.status(400).json('Name must be 60 characters or less');
+            }
+        };
+
+        if (about) {
+            if (about.length < 50) {
+                return res.status(400).json('About must be 50 characters or more');
+            }
+        };
+
+        if (type) {
+            if (type !== 'Online' && type !== 'In person') {
+                return res.status(400).json('Type must be Online or In person');
+            }
+        };
+
+        if (private) {
+            if (private !== true && private !== false) {
+                return res.status(400).json('Private must be a boolean');
+            }
+        };
+
+        if (!city) {
+            return res.status(400).json('City is required');
+        };
+
+        if (!state) {
+            return res.status(400).json('State is required');
+        };
+
+        let newGroup = await Group.create({
+            name,
+            about,
+            type,
+            private,
+            city,
+            state,
+            organizerId: user.id
+        });
+
+        let group = await Group.findByPk(newGroup.id);
+
+        return res.status(200).json(group);
+
+    }
+
+)
+
+
+
+
+router.get(
+    '/',
+    async (req, res) => {
+        let groups = await Group.findAll();
+
+
+        for (let group of groups) {
+            let count = await GroupMember.count({
+                where: { groupId: group.id }
+            });
+            group.setDataValue('numMembers', count);
+
+        }
+
+        return res.status(200).json(groups);
     }
 )
 
