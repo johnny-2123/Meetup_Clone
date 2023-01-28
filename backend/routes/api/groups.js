@@ -296,62 +296,68 @@ router.delete(
 
 ///////////////////////////
 //////////////////////// Request a Membership for a Group based on the Group's id
-// router.post(
-//     '/:id/membership',
-//     requireAuth,
-//     async (req, res) => {
-//         let user = req.user;
-//         let groupId = req.params.id;
+router.post(
+    '/:id/membership',
+    requireAuth,
+    async (req, res) => {
+        let groupId = req.params.id;
+        let group = await Group.findByPk(groupId);
+        let user = req.user;
+        let userId = user.id;
 
-//         let group = await Group.findByPk(groupId);
-//         console.log(group);
-//         if (!group) {
-//             return res.status(404).json({
-//                 "message": "Group couldn't be found",
-//                 "statusCode": 404
-//             });
-//         };
+        if (!group) {
+            return res.status(403).json({
+                "message": "Group couldn't be found",
+                "statusCode": 404
+            });
+        };
 
+        let groupMember = await GroupMember.findOne({
+            where: {
+                groupId: group.id,
+                userId: user.id
+            }
+        });
 
-//         let groupMember = await GroupMember.findOne({
-//             where: {
-//                 userId: user.id,
-//                 groupId: groupId
-//             }
-//         });
+        if (groupMember) {
+            if (groupMember.status === 'pending') {
+                return res.status(400).json({
+                    "message": "Membership has already been requested",
+                    "statusCode": 400
+                });
+            } else {
+                return res.status(400).json({
+                    "message": "User is already a member of the group",
+                    "statusCode": 400
+                });
 
-//         if (groupMember) {
-//             if (group.status === 'pending') {
-//                 return res.status(400).json({
-//                     "message": "Membership has already been requested",
-//                     "statusCode": 400
-//                 });
-//             } else {
-//                 return res.status(400).json({
-//                     "message": "User is already a member of the group",
-//                     "statusCode": 400
-//                 });
-//             }
-//         };
+            }
+        }
 
-//         let newMembership = await GroupMember.create({
-//             groupId: group.id,
-//             userId: user.id,
-//             status: 'pending'
-//         });
-//         let member = await GroupMember.findByPk(newMembership.id);
-//         console.log(newMembership);
-//         let response = {};
-//         console.log(member)
-//         // response.groupId = member.groupId;
-//         // response.memberId = member.userId;
-//         // response.status = member.status;
+        let newMembership = await GroupMember.create({
+            groupId: group.id,
+            userId: user.id,
+            status: 'pending'
+        });
 
-//         return res.status(200).json(newMembership)
+        let membership = await GroupMember.findOne({
+            where: {
+                groupId: newMembership.groupId,
+                userId: newMembership.userId
+            }
+        });
 
-//     }
+        let resMember = {}
+        console.log(newMembership);
+        console.log(membership);
+        resMember.groupId = membership.groupId;
+        resMember.memberId = membership.userId;
+        resMember.status = membership.status;
+        res.status(400).json(resMember);
 
-// )
+    }
+
+)
 
 router.get(
     '/:id/members',
