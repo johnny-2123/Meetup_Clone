@@ -137,7 +137,8 @@ router.put(
 
         await attendance.save();
         let resAttendance = await Attendant.findByPk(attendance.id);
-        res.status(200).json(resAttendance)
+
+        return res.status(200).json(resAttendance)
 
     }
 )

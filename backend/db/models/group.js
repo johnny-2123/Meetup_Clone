@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
 
       Group.hasMany(models.Venue, { foreignKey: 'groupId', onDelete: 'cascade' });
 
-      Group.belongsToMany(models.User, { through: models.GroupMember, as: 'members', onDelete: 'cascade' });
+      Group.belongsToMany(models.User, { through: models.GroupMember, as: 'members', onDelete: 'cascade', foreignKey: 'groupId' });
 
       Group.hasMany(models.GroupImage, { foreignKey: 'groupId', onDelete: 'cascade', hooks: true });
     }
