@@ -219,9 +219,10 @@ router.get(
             }
         });
         //think data is returned in incorrect format
+        let attendees;
         if (groupMember) {
             if (group.organizerId !== user.id && groupMember.status !== 'co-host') {
-                const attendees = await event.getAttendants({
+                attendees = await event.getAttendants({
                     where: {
                         status: { [Op.not]: 'pending' }
                     },
@@ -229,19 +230,17 @@ router.get(
                     attributes: ['status'],
                 })
 
-                return res.status(200).json(attendees);
             } else {
-                const attendees = await event.getAttendants({
+                attendees = await event.getAttendants({
                     include: [{ model: User, attributes: ['id', 'firstName', 'lastName'] }],
                     attributes: ['status'],
                 });
 
-                return res.status(200).json(attendees);
 
             }
         } else {
             if (group.organizerId !== user.id) {
-                const attendees = await event.getAttendants({
+                attendees = await event.getAttendants({
                     where: {
                         status: { [Op.not]: 'pending' }
                     },
@@ -249,20 +248,28 @@ router.get(
                     attributes: ['status'],
                 })
 
-                return res.status(200).json(attendees);
             } else {
-                const attendees = await event.getAttendants({
+                attendees = await event.getAttendants({
                     include: [{ model: User, attributes: ['id', 'firstName', 'lastName'] }],
                     attributes: ['status'],
                 });
-
-                return res.status(200).json(attendees);
             }
 
         }
 
+        let resAttendees = [];
 
-
+        for (let attendee of attendees) {
+            let toPush = {};
+            toPush.id = attendee.User.id;
+            toPush.firstName = attendee.User.firstName;
+            toPush.lastName = attendee.User.lastName;
+            let attendance = {};
+            attendance.status = attendee.status;
+            toPush.Attendance = attendance;
+            resAttendees.push(toPush);
+        }
+        return res.status(200).json(resAttendees);
     }
 )
 
