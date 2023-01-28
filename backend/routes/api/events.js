@@ -571,23 +571,32 @@ router.get(
             where.startDate = startDate;
         }
 
-        const events = await Event.findAll({
-            include: [{ model: Venue, attributes: ['id', 'city', 'state'] }, { model: Attendant, attributes: [] }, { model: Group, attributes: ['id', 'name', 'city', 'state'] }],
+
+
+        const events2 = await Event.findAll({
+            include: [{ model: Venue, attributes: ['id', 'city', 'state'] }, { model: Group, attributes: ['id', 'name', 'city', 'state'] }],
             attributes: [
-                [sequelize.fn('COUNT', sequelize.col('Attendants.id')), 'numAttending'],
+
                 'id', 'groupId', 'venueId', 'name', 'type', 'startDate', 'previewImage'
             ],
-            group: ['Attendants.eventId'],
             where,
             // not returning all events when no page or size are set as queries
-
-            // limit: size,
-            // offset: size * (page - 1)
+            limit: size,
+            offset: size * (page - 1),
 
         });
 
+        let eventsArr = [];
+        for (let event of events2) {
+            let count = await Attendant.count({
+                where: { eventId: event.id }
+            });
+            event.setDataValue('numAttending', count);
+        }
+
+
         res.status(200).json({
-            'Events': events,
+            'Events': events2,
             'page': page,
             'size': size
         });
