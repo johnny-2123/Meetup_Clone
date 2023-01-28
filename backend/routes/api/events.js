@@ -514,11 +514,9 @@ router.get(
             });
         }
 
-
         if (page < 0) {
             page = 1;
         }
-
 
         if (!size) size = 4;
         if (Number.isNaN(size)) {
@@ -576,7 +574,6 @@ router.get(
         const events2 = await Event.findAll({
             include: [{ model: Venue, attributes: ['id', 'city', 'state'] }, { model: Group, attributes: ['id', 'name', 'city', 'state'] }],
             attributes: [
-
                 'id', 'groupId', 'venueId', 'name', 'type', 'startDate', 'previewImage'
             ],
             where,

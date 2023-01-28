@@ -964,7 +964,7 @@ router.post(
             organizerId: user.id
         });
 
-        let group = await Group.findByPk(newGroup.id);
+        let group = await Group.scope('createdGroup').findByPk(newGroup.id);
 
         return res.status(200).json(group);
 

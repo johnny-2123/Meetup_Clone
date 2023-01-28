@@ -67,7 +67,38 @@ router.post(
                     "User with that username already exists"
                 ]
             })
-        }
+        };
+
+        if (!email) {
+            return res.status(400).json({
+                "message": "Validation error",
+                "statusCode": 400,
+                "errors": [
+                    "Invalid email"
+                ]
+            })
+        };
+
+        if (!firstName) {
+            return res.status(400).json({
+                "message": "Validation error",
+                "statusCode": 400,
+                "errors": [
+                    "First Name is required "
+                ]
+            })
+        };
+
+        if (!lastName) {
+            return res.status(400).json({
+                "message": "Validation error",
+                "statusCode": 400,
+                "errors": [
+                    "Last Name is required "
+                ]
+            })
+        };
+
         const user = await User.signup({
             email, firstName, lastName, username, password
         });
