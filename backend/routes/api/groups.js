@@ -25,17 +25,20 @@ router.get(
     requireAuth,
     async (req, res) => {
         let currentUser = await User.findByPk(req.user.id);
-        let groupsOrganized = await currentUser.getGroups();
-        let groupsJoined = await Group.findAll({
-            include: [
-                { model: User, as: User.tableName, attributes: [] }
-            ],
-            where: {
-                '$Users.id$': `${currentUser.id}`
-            },
-            attributes: ['id', 'organizerId', 'name', 'about', 'type', 'private', 'city', 'state', 'createdAt', 'updatedAt', 'previewImage'],
-            nest: true
-        })
+        let groupsOrganized = await currentUser.getGroupsOrganized();
+        // console.log(groupsOrganized)
+        // let groupsJoined = await Group.findAll({
+        //     include: [
+        //         { model: User, as: User.tableName, attributes: [] }
+        //     ],
+        //     where: {
+        //         '$Users.id$': `${currentUser.id}`
+        //     },
+        //     attributes: ['id', 'organizerId', 'name', 'about', 'type', 'private', 'city', 'state', 'createdAt', 'updatedAt', 'previewImage'],
+        //     nest: true
+        // })
+        let groupsJoined = await currentUser.getUserGroup();
+        console.log(groupsJoined);
         let groupsJoinedArr = []
         for (let groupJoined of groupsJoined) {
             let count = await GroupMember.count({
@@ -77,7 +80,7 @@ router.get(
             groupsOrganizedArr.push(toPush);
         }
         for (item of groupsOrganizedArr) {
-            if (groupsJoinedArr.filter(idx => idx.id === item.id).length === 0) {
+            if (groupsJoinedArr.filter(idx => idx.id === item.id).length !== -1) {
                 groupsJoinedArr.push(item)
             }
         }

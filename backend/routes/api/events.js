@@ -373,14 +373,16 @@ router.put(
         if (description) {
             event.description = description;
         };
+        console.log(typeof (capacity))
         if (price) {
-            if (typeof (price) !== 'integer') {
+            if (typeof (price) !== 'number') {
                 return res.status(400).json('Price is invalid');
             }
             event.price = price;
         };
+
         if (capacity) {
-            if (typeof (capacity) !== 'integer') {
+            if (typeof (capacity) !== 'number') {
                 return res.status(400).json('Capacity must be integer');
             }
             event.capacity = capacity;
