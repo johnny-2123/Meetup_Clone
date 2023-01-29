@@ -502,53 +502,92 @@ router.get(
             });
         }
         let groupMembers = [];
-        let users;
+        let members;
+        // if (groupMember) {
+        //     if (group.organizerId !== user.id && groupMember.status !== 'co-host') {
+        //         users = await group.getMembers({
+        //             attributes: {
+        //                 include: [[Sequelize.literal(`(SELECT GroupMembers.status FROM GroupMembers JOIN Users ON (GroupMembers.UserId = Users.id) WHERE GroupMembers.groupId = ${group.id})`), 'status']]
+        //             }
+        //         })
+        //     } else {
+        //         users = await group.getMembers({
+        //             attributes: {
+        //                 include: [[Sequelize.literal(`(SELECT GroupMembers.status AS status FROM GroupMembers JOIN Users ON (GroupMembers.UserId = Users.id) WHERE GroupMembers.groupId = ${group.id})`), 'status'], 'id']
+        //             },
+
+        //         })
+
+        //     }
+        // } else {
+        //     if (group.organizerId !== user.id) {
+        //         users = await group.getMembers({
+        //             attributes: {
+        //                 include: [[Sequelize.literal(`(SELECT GroupMembers.status FROM GroupMembers JOIN Users ON (GroupMembers.UserId = Users.id) WHERE GroupMembers.groupId = ${group.id})`), 'status']]
+        //             }
+        //         })
+
+        //     } else {
+        //         users = await group.getMembers({
+        //             attributes: {
+        //                 include: [[Sequelize.literal(`(SELECT GroupMembers.status FROM GroupMembers JOIN Users ON (GroupMembers.UserId = Users.id) WHERE GroupMembers.groupId = ${group.id})`), 'status']],
+        //             }
+        //         })
+
+        //     }
+
+        // }
+
         if (groupMember) {
             if (group.organizerId !== user.id && groupMember.status !== 'co-host') {
-                users = await group.getMembers({
-                    attributes: {
-                        include: [[Sequelize.literal(`(SELECT GroupMembers.status FROM GroupMembers JOIN Users ON (GroupMembers.UserId = Users.id) WHERE GroupMembers.groupId = ${group.id})`), 'status']]
-                    }
-                })
+                members = await GroupMember.findAll({
+                    where: { groupId: group.id, status: { [Op.ne]: 'pending' } }
+                });
             } else {
-                users = await group.getMembers({
-                    attributes: {
-                        include: [[Sequelize.literal(`(SELECT GroupMembers.status AS status FROM GroupMembers JOIN Users ON (GroupMembers.UserId = Users.id) WHERE GroupMembers.groupId = ${group.id})`), 'status'], 'id']
-                    },
-
-                })
+                members = await GroupMember.findAll({
+                    where: { groupId: group.id }
+                });
 
             }
         } else {
             if (group.organizerId !== user.id) {
-                users = await group.getMembers({
-                    attributes: {
-                        include: [[Sequelize.literal(`(SELECT GroupMembers.status FROM GroupMembers JOIN Users ON (GroupMembers.UserId = Users.id) WHERE GroupMembers.groupId = ${group.id})`), 'status']]
-                    }
-                })
-
+                members = await GroupMember.findAll({
+                    where: { groupId: group.id, status: { [Op.ne]: 'pending' } }
+                });
             } else {
-                users = await group.getMembers({
-                    attributes: {
-                        include: [[Sequelize.literal(`(SELECT GroupMembers.status FROM GroupMembers JOIN Users ON (GroupMembers.UserId = Users.id) WHERE GroupMembers.groupId = ${group.id})`), 'status']],
-                    }
-                })
+                members = await GroupMember.findAll({
+                    where: { groupId: group.id }
+                });
 
             }
 
         }
-        users.forEach(obj => {
-            let userPush = {};
-            userPush.id = obj.id;
-            userPush.firstName = obj.firstName;
-            userPush.lastName = obj.lastName;
+        for (let member of members) {
+            let user = await User.findByPk(member.userId);
+            member.setDataValue('user', user)
+            let toPush = {};
+            toPush.id = user.id;
+            toPush.firstName = user.firstName;
+            toPush.lastName = user.lastName;
             let membership = {};
-            console.log(obj.GroupMember.status)
-            membership.status = obj.GroupMember.status;
-            userPush.membership = membership;
+            membership.status = member.status;
+            toPush.Membership = membership;
+            groupMembers.push(toPush);
+        }
 
-            groupMembers.push(userPush)
-        });
+
+        // users.forEach(obj => {
+        //     let userPush = {};
+        //     userPush.id = obj.id;
+        //     userPush.firstName = obj.firstName;
+        //     userPush.lastName = obj.lastName;
+        //     let membership = {};
+        //     console.log(obj.GroupMember.status)
+        //     membership.status = obj.GroupMember.status;
+        //     userPush.membership = membership;
+
+        //     groupMembers.push(userPush)
+        // });
 
         return res.status(200).json(groupMembers);
     }

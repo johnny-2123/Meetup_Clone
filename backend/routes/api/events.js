@@ -335,7 +335,7 @@ router.put(
             }
         });
 
-        if (event.name === null) {
+        if (!event) {
             return res.status(404).json({
                 "message": "Event couldn't be found",
                 "statusCode": 404
@@ -424,7 +424,7 @@ router.get(
 
 
 
-        if (event.id === null) {
+        if (!event) {
 
             return res.status(404).json(
                 {
