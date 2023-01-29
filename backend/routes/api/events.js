@@ -398,23 +398,32 @@ router.get(
     '/:id',
     async (req, res) => {
         const id = req.params.id;
+        // const event = await Event.findByPk(id, {
+        //     include: [
+        //         {
+        //             model: Attendant, attributes: []
+        //         },
+        //         {
+        //             model: Venue, attributes: ['id', 'address', 'city', 'state', 'lat', 'lng']
+        //         },
+        //         {
+        //             model: Group, attributes: ['id', 'private', 'name', 'city', 'state']
+        //         }
+        //     ],
+        //     attributes: [
+        //         [sequelize.fn('COUNT', sequelize.col('Attendants.id')), 'numAttending'],
+        //         'id', 'groupId', 'venueId', 'name', 'type', 'description', 'capacity', 'price', 'startDate', 'endDate'
+        //     ]
+        // });
         const event = await Event.findByPk(id, {
-            include: [
-                {
-                    model: Attendant, attributes: []
-                },
-                {
-                    model: Venue, attributes: ['id', 'address', 'city', 'state', 'lat', 'lng']
-                },
-                {
-                    model: Group, attributes: ['id', 'private', 'name', 'city', 'state']
-                }
-            ],
+            include: [{ model: Venue, attributes: ['id', 'city', 'state'] }, { model: Group, attributes: ['id', 'name', 'city', 'state'] }, { model: EventImage, attributes: ['id', 'url', 'preview'] }],
             attributes: [
-                [sequelize.fn('COUNT', sequelize.col('Attendants.id')), 'numAttending'],
-                'id', 'groupId', 'venueId', 'name', 'type', 'description', 'capacity', 'price', 'startDate', 'endDate'
+                'id', 'groupId', 'venueId', 'name', 'description', 'type', 'capacity', 'price', 'startDate', 'endDate'
             ]
         });
+
+
+
         if (event.id === null) {
 
             return res.status(404).json(
@@ -424,22 +433,26 @@ router.get(
                 }
             )
         }
-        const group = await event.getGroup();
-        const venue = await event.getVenue();
-        const eventImages = await event.getEventImages({
-            attributes: ['id', 'url', 'preview']
-        });
-        const attendants = await event.getAttendants({
-            attributes: [
-                [sequelize.fn('COUNT', sequelize.col('id')), 'numAttending'],
+        // const group = await event.getGroup();
+        // const venue = await event.getVenue();
+        // const eventImages = await event.getEventImages({
+        //     attributes: ['id', 'url', 'preview']
+        // });
+        // const attendants = await event.getAttendants({
+        //     attributes: [
+        //         [sequelize.fn('COUNT', sequelize.col('id')), 'numAttending'],
 
-            ]
-        })
+        //     ]
+        // })
+
+        let count = await Attendant.count({
+            where: { eventId: event.id }
+        });
+        event.setDataValue('numAttending', count);
 
         res.status(200).json({
             'event': event,
-            'eventImages': eventImages,
-            'numAttending': attendants.numAttending,
+            // 'eventImages': eventImages
         });
 
 
