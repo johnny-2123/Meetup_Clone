@@ -765,17 +765,35 @@ router.get(
             })
         }
 
+        // let events = await Event.findAll({
+        //     where: {
+        //         groupId: groupId
+        //     },
+        //     include: [{ model: Venue, attributes: ['id', 'city', 'state'] }, { model: Attendant, attributes: [] }, { model: Group, attributes: ['id', 'name', 'city', 'state'] }],
+        //     attributes: [
+        //         [sequelize.fn('COUNT', sequelize.col('Attendants.id')), 'numAttending'],
+        //         'id', 'groupId', 'venueId', 'name', 'type', 'startDate', 'previewImage'
+        //     ],
+        //     group: ['Attendants.eventId'],
+        // });
+
         let events = await Event.findAll({
             where: {
                 groupId: groupId
             },
-            include: [{ model: Venue, attributes: ['id', 'city', 'state'] }, { model: Attendant, attributes: [] }, { model: Group, attributes: ['id', 'name', 'city', 'state'] }],
+            include: [{ model: Venue, attributes: ['id', 'city', 'state'] }, { model: Group, attributes: ['id', 'name', 'city', 'state'] }],
             attributes: [
-                [sequelize.fn('COUNT', sequelize.col('Attendants.id')), 'numAttending'],
                 'id', 'groupId', 'venueId', 'name', 'type', 'startDate', 'previewImage'
-            ],
-            group: ['Attendants.eventId'],
+            ]
         });
+
+        for (let event of events) {
+            let count = await Attendant.count({
+                where: { eventId: event.id }
+            });
+            event.setDataValue('numAttending', count);
+
+        }
         return res.status(200).json(events);
     }
 )
