@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
 
       Group.belongsTo(models.User, {
-        foreignKey: 'organizerId', as: 'Organizer', onDelete: 'cascade', hooks: true
+        foreignKey: 'organizerId', as: 'Organizer'
       });
 
       Group.hasMany(models.Event, { foreignKey: 'groupId' });
