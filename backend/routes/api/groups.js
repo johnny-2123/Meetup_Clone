@@ -492,13 +492,15 @@ router.get(
             });
         };
         let user = req.user;
-        let groupMember = await GroupMember.findOne({
-            where: {
-                userId: user.id,
-                groupId: group.id
-            }
-        });
-
+        let groupMember;
+        if (user) {
+            groupMember = await GroupMember.findOne({
+                where: {
+                    userId: user.id,
+                    groupId: group.id
+                }
+            });
+        }
         let groupMembers = [];
         let users;
         if (groupMember) {
