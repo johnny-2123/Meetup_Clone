@@ -52,11 +52,11 @@ module.exports = (sequelize, DataTypes) => {
     }
     static associate(models) {
       // define association here,
-      User.hasMany(models.Group, { foreignKey: 'organizerId', as: 'GroupsOrganized', onDelete: 'CASCADE', hooks: true });
+      User.hasMany(models.Group, { foreignKey: 'organizerId', as: 'GroupsOrganized', onDelete: 'cascade', hooks: true });
 
-      User.belongsToMany(models.Group, { through: models.GroupMember, as: 'UserGroup', onDelete: 'CASCADE', hooks: true, foreignKey: 'userId' });
+      User.belongsToMany(models.Group, { through: models.GroupMember, as: 'UserGroup', onDelete: 'cascade', hooks: true, foreignKey: 'userId' });
 
-      User.hasMany(models.Attendant, { foreignKey: 'userId', onDelete: 'CASCADE', hooks: true });
+      User.hasMany(models.Attendant, { foreignKey: 'userId', onDelete: 'cascade', hooks: true });
 
     }
   }
