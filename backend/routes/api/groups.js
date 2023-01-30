@@ -944,7 +944,11 @@ router.put(
 
         await group.save();
 
-        return res.json(group)
+        let resGroup = await Group.findByPk(group.id, {
+            attributes: ['id', 'organizerId', 'name', 'about', 'type', 'private', 'city', 'state', 'createdAt', 'updatedAt']
+        })
+
+        return res.json(resGroup);
 
     }
 )
