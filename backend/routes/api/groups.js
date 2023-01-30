@@ -225,8 +225,9 @@ router.get(
         let venues = await Venue.findAll({
             where: { groupId: group.id }
         });
-
-        return res.status(200).json(venues)
+        let resVenues = {};
+        resVenues.Venues = venues
+        return res.status(200).json(resVenues)
 
     }
 
