@@ -84,7 +84,9 @@ router.get(
                 groupsJoinedArr.push(item)
             }
         }
-        return res.status(200).json(groupsJoinedArr);
+        let resGroups = {};
+        resGroups.Groups = groupsJoinedArr;
+        return res.status(200).json(resGroups);
     }
 )
 
@@ -589,8 +591,9 @@ router.get(
 
         //     groupMembers.push(userPush)
         // });
-
-        return res.status(200).json(groupMembers);
+        let resMembers = {};
+        resMembers.Members = groupMembers
+        return res.status(200).json(resMembers);
     }
 )
 
@@ -788,6 +791,8 @@ router.post(
         let eventReturned = await Event.findByPk(event.id, {
             attributes: ['id', 'groupId', 'venueId', 'name', 'type', 'capacity', 'price', 'description', 'startDate', 'endDate']
         });
+
+
         return res.json(eventReturned)
     }
 )
@@ -836,7 +841,9 @@ router.get(
             event.setDataValue('numAttending', count);
 
         }
-        return res.status(200).json(events);
+        let resEvents = {};
+        resEvents.Events = events;
+        return res.status(200).json(resEvents);
     }
 )
 

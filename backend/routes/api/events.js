@@ -269,7 +269,9 @@ router.get(
             toPush.Attendance = attendance;
             resAttendees.push(toPush);
         }
-        return res.status(200).json(resAttendees);
+        let response = {};
+        response.Attendees = resAttendees;
+        return res.status(200).json(response);
     }
 )
 
@@ -281,13 +283,13 @@ router.post(
         let eventId = req.params.id;
         const { url, preview } = req.body;
         let event = await Event.findByPk(eventId);
-
         if (!event) {
             return res.status(404).json({
                 "message": "Event couldn't be found",
                 "statusCode": 404
             });
         }
+        let group = await Group.findByPk(event.groupId);
 
         let attendee = await Attendant.findOne({
             where: {
@@ -295,8 +297,10 @@ router.post(
                 eventId: event.id
             }
         });
-
-        if (!attendee) {
+        console.log(user.id);
+        console.log(event.organizerId);
+        console.log(event)
+        if (!attendee && user.id !== group.organizerId) {
             return res.status(403).json({
                 "message": "Forbidden",
                 "statusCode": 403
@@ -325,6 +329,13 @@ router.put(
         const id = req.params.id;
         const { name, type, description, price, capacity, startDate, endDate, venueId } = req.body;
         let event = await Event.findByPk(id);
+        if (!event) {
+            return res.status(404).json({
+                "message": "Event couldn't be found",
+                "statusCode": 404
+            });
+        }
+
         let group = await event.getGroup();
 
         //returning wrong group member
@@ -335,12 +346,7 @@ router.put(
             }
         });
 
-        if (!event) {
-            return res.status(404).json({
-                "message": "Event couldn't be found",
-                "statusCode": 404
-            });
-        }
+
         if (group.organizerId !== user.id && groupMember.status !== 'co-host') {
             return res.status(403).json({
                 "message": "Forbidden",
@@ -389,8 +395,10 @@ router.put(
         };
 
         await event.save();
-
-        return res.json(event)
+        let resEvent = await Event.findByPk(event.id, {
+            attributes: ['id', 'groupId', 'venueId', 'name', 'type', 'description', 'capacity', 'price', 'startDate', 'endDate']
+        })
+        return res.json(resEvent)
     }
 )
 
@@ -450,10 +458,7 @@ router.get(
         });
         event.setDataValue('numAttending', count);
 
-        res.status(200).json({
-            'event': event,
-            // 'eventImages': eventImages
-        });
+        res.status(200).json(event);
 
 
     }

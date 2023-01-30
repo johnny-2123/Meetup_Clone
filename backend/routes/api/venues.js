@@ -92,7 +92,9 @@ router.put(
         venue.lng = lng;
 
         await venue.save();
-
+        let resVenue = await Venue.findByPk(venue.id, {
+            attributes: ['id', 'groupId', 'address', 'city', 'state', 'lat', 'lng']
+        })
         return res.status(200).json(venue);
 
 
