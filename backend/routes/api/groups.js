@@ -1050,8 +1050,9 @@ router.get(
             group.setDataValue('numMembers', count);
 
         }
-
-        return res.status(200).json(groups);
+        let resGroups = {};
+        resGroups.Groups = groups;
+        return res.status(200).json(resGroups);
     }
 )
 
