@@ -29,7 +29,7 @@ router.use(restoreUser);
 
 if (process.env.NODE_ENV === 'production') {
     const path = require('path');
-    // Serve the frontend's index.html file at the root route
+
     router.get('/', (req, res) => {
         res.cookie('XSRF-TOKEN', req.csrfToken());
         return res.sendFile(
@@ -37,10 +37,10 @@ if (process.env.NODE_ENV === 'production') {
         );
     });
 
-    // Serve the static assets in the frontend's build folder
+
     router.use(express.static(path.resolve("../frontend/build")));
 
-    // Serve the frontend's index.html file at all other routes NOT starting with /api
+
     router.get(/^(?!\/?api).*/, (req, res) => {
         res.cookie('XSRF-TOKEN', req.csrfToken());
         return res.sendFile(
