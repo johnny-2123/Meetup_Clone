@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/johnny-2123/Project1/issues"
   },
-  "homepage": "https://github.com/johnny-2123/Project1#readme"
+  "homepage": "https://github.com/johnny-2123/Project1#readme",
+  "devDependencies": {
+    "@babel/helper-compilation-targets": "^7.20.7"
+  }
 }
