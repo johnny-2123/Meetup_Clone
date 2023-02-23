@@ -2,7 +2,14 @@ import { csrfFetch } from "./csrf";
 
 const SET_SESSION_USER = 'session/SET_SESSION_USER';
 const REMOVE_SESSION_USER = 'session/REMOVE_SESSION_USER';
+const SIGN_UP_USER = 'session/SIGN_UP_USER';
 
+
+// export const signUpUser = (user) => {
+//     return {
+
+//     }
+// }
 
 export const setSessionUser = (user) => {
     console.log(`setSessionUser user:`)
@@ -17,6 +24,38 @@ export const removeSessionUser = () => {
     return {
         type: REMOVE_SESSION_USER
     }
+}
+
+export const fetchSignUp = (user) => async dispatch => {
+    const { username, firstName, lastName, email, password } = user;
+    const response = await csrfFetch('/api/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            username,
+            firstName,
+            lastName,
+            email,
+            password,
+        })
+    }).catch(async (res) => {
+        const data = await res.json()
+        console.log(`session store`)
+        console.log(data)
+        return data
+    });
+
+    if (response.ok) {
+        console.log(`response`)
+        console.log(response);
+        const data = await response.json();
+
+        console.log(`data`);
+        console.log(data);
+        await dispatch(setSessionUser(data));
+        return data;
+    } else return response
+
 }
 
 export const fetchLogin = (credential, password) => async dispatch => {
