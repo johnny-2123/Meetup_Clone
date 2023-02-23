@@ -21,8 +21,9 @@ const SignUpPage = () => {
     useEffect(() => {
         if (confirmPassword !== password) {
             setPasswordsMatch(true)
-            setErrors(['passwords do not match'])
+
         } else {
+            setErrors(['passwords do not match'])
             setPasswordsMatch(false)
         }
     }, [confirmPassword, password])
@@ -58,8 +59,8 @@ const SignUpPage = () => {
 
     return (
         <form onSubmit={handleSubmit}>
-            {<ul>
-                {errors.map((error, idx) => <li key={idx}>{error.message}</li>)}
+            {passwordsMatch && <ul>
+                {errors.map((error, idx) => <li key={idx}>{error}</li>)}
             </ul>}
             <label>
                 Username

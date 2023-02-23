@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+.loginComponent {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 590;
+    align-items: center;
+    border: 1px solid lightgrey;
+    margin: auto;
+    max-width: 450px;
+    border-radius: 10px;
+    padding: 5px 0 20px 0;
+    background-color: white;
+    height: 100vh;
+}
+
+.loginForm {
+    display: inline-flex;
+    flex-direction: column;
+    color: black;
+    background-color: white;
+
+}
+
+
+.formBox {
+    display: inline-flex;
+    flex-direction: column;
+    margin: 5px;
+    background-color: white;
+    width: 300px;
+
+}
+
+
+.label {
+    background-color: white;
+    margin: 5px 0 5px 0;
+}
+
+.input {
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    margin-right: 5px;
+    background-color: white;
+    height: 25px
+}
+
+.submitButton {
+    height: 40px;
+    margin-top: 5px;
+    border: 1px solid orangered;
+    border-radius: 7px;
+    margin: 10px 0 10px 0;
+    font-weight: bold;
+    color: white;
+    padding: px;
+    background-color: orangered;
+    font-size: 20px;
+    z-index: 2;
+}

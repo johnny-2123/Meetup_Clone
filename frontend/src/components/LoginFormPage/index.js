@@ -8,13 +8,14 @@ const LoginFormPage = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const sessionUser = useSelector(state => state.session.user);
-
+    console.log(`session user:`)
+    console.log(sessionUser);
     const [credential, setCredential] = useState('')
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState([]);
 
     useEffect(() => {
-        if (sessionUser) {
+        if (sessionUser && sessionUser.username === null) {
             history.push('/')
         }
     }, [sessionUser])
@@ -34,32 +35,43 @@ const LoginFormPage = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <ul>
-                {errors.map((error, idx) => <li key={idx}>{error.message}</li>)}
-            </ul>
-            <label>
-                Username or Email
-                <input
-                    type={`text`}
-                    value={credential}
-                    onChange={(e) => setCredential(e.target.value)}
-                    required
-                >
-                </input>
-            </label>
-            <label>
-                Password
-                <input
-                    type={`text`}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                >
-                </input>
-            </label>
-            <button type='submit' >Log In</button>
-        </form>
+        <div className='loginComponent'>
+            <form className='loginForm' onSubmit={handleSubmit}>
+                <ul>
+                    {errors.map((error, idx) => <li key={idx}>{error.message}</li>)}
+                </ul>
+                <div className='formBox'>
+                    <label for='credentials' className='label'>
+                        Username or Email
+                    </label>
+                    <input
+                        name='credentials'
+                        className='input'
+                        type={`text`}
+                        value={credential}
+                        onChange={(e) => setCredential(e.target.value)}
+                        required
+                    >
+                    </input>
+                </div>
+                <div className='formBox'>
+                    <label for='password' className='label'>
+                        Password
+
+                    </label>
+                    <input
+                        name='password'
+                        className='input'
+                        type={`text`}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    >
+                    </input>
+                </div>
+                <button type='submit' className='submitButton' >Log In</button>
+            </form>
+        </div>
     )
 
 };
