@@ -26,19 +26,9 @@ router.get(
     async (req, res) => {
         let currentUser = await User.findByPk(req.user.id);
         let groupsOrganized = await currentUser.getGroupsOrganized();
-        // console.log(groupsOrganized)
-        // let groupsJoined = await Group.findAll({
-        //     include: [
-        //         { model: User, as: User.tableName, attributes: [] }
-        //     ],
-        //     where: {
-        //         '$Users.id$': `${currentUser.id}`
-        //     },
-        //     attributes: ['id', 'organizerId', 'name', 'about', 'type', 'private', 'city', 'state', 'createdAt', 'updatedAt', 'previewImage'],
-        //     nest: true
-        // })
+
         let groupsJoined = await currentUser.getUserGroup();
-        console.log(groupsJoined);
+
         let groupsJoinedArr = []
         for (let groupJoined of groupsJoined) {
             let count = await GroupMember.count({
@@ -204,9 +194,6 @@ router.get(
             }
         });
 
-        console.log(groupMember)
-        console.log(group.organizerId);
-        console.log(user.id)
         if (groupMember) {
             if (group.organizerId !== parseInt(user.id) && groupMember.status !== 'co-host') {
                 return res.status(403).json({
@@ -471,8 +458,7 @@ router.post(
         });
 
         let resMember = {}
-        console.log(newMembership);
-        console.log(membership);
+
         resMember.groupId = membership.groupId;
         resMember.memberId = membership.userId;
         resMember.status = membership.status;
@@ -578,19 +564,6 @@ router.get(
             groupMembers.push(toPush);
         }
 
-
-        // users.forEach(obj => {
-        //     let userPush = {};
-        //     userPush.id = obj.id;
-        //     userPush.firstName = obj.firstName;
-        //     userPush.lastName = obj.lastName;
-        //     let membership = {};
-        //     console.log(obj.GroupMember.status)
-        //     membership.status = obj.GroupMember.status;
-        //     userPush.membership = membership;
-
-        //     groupMembers.push(userPush)
-        // });
         let resMembers = {};
         resMembers.Members = groupMembers
         return res.status(200).json(resMembers);

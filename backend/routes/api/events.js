@@ -297,9 +297,7 @@ router.post(
                 eventId: event.id
             }
         });
-        console.log(user.id);
-        console.log(event.organizerId);
-        console.log(event)
+
         if (!attendee && user.id !== group.organizerId) {
             return res.status(403).json({
                 "message": "Forbidden",
@@ -379,7 +377,7 @@ router.put(
         if (description) {
             event.description = description;
         };
-        console.log(typeof (capacity))
+
         if (price) {
             if (typeof (price) !== 'number') {
                 return res.status(400).json('Price is invalid');

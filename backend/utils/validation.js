@@ -7,7 +7,6 @@ const handleValidationErrors = (req, _res, next) => {
         const errors = validationErrors.errors.map((error) => {
             return `${error.msg}`
         });
-        console.log(`validationerrors`, errors, `22222222222`)
 
         const err = Error('Bad Request');
         err.errors = errors;
