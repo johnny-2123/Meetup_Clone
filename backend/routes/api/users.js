@@ -104,7 +104,8 @@ router.post(
         });
 
         await setTokenCookie(res, user);
-
+        console.log(`user route response:`)
+        console.log(user)
         return res.json(user);
     }
 )

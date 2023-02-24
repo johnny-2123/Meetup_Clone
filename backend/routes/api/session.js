@@ -23,8 +23,12 @@ router.post(
     validateLogin,
     async (req, res, next) => {
         const { credential, password } = req.body;
+        console.log(`login router credential: `, credential);
+        console.log(`login router password: `, password);
 
-        const user = await User.login({ credential, password });
+        const user = await User.login({ credential, password })
+
+        console.log(`login router line 31`);
 
         if (!user) {
             const err = new Error('Login failed');
