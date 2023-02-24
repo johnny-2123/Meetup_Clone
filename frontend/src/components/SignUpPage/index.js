@@ -16,114 +16,137 @@ const SignUpPage = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [errors, setErrors] = useState([]);
-    const [passwordsMatch, setPasswordsMatch] = useState(false);
+    const [passwordsMatch, setPasswordsMatch] = useState(true);
 
     useEffect(() => {
         if (confirmPassword !== password) {
-            setPasswordsMatch(true)
-
-        } else {
             setErrors(['passwords do not match'])
             setPasswordsMatch(false)
+
+        } else {
+            setErrors([])
+            setPasswordsMatch(true)
         }
     }, [confirmPassword, password])
 
-    // useEffect(() => {
-    //     if (sessionUser) {
-    //         history.push('/')
-    //     }
-    // }, [sessionUser])
 
-    const handleSubmit = async (e) => {
+
+
+    const handleSubmit = (e) => {
         e.preventDefault();
-        setErrors([]);
-
-        const user = {
-            username,
-            firstName,
-            lastName,
-            email,
-            password,
+        if (password === confirmPassword) {
+            setErrors([]);
+            return dispatch(sessionActions.fetchSignUp({ firstName, lastName, email, username, password }))
+                .catch(async (res) => {
+                    const data = await res.json();
+                    if (data && data.errors) setErrors(data.errors);
+                });
         }
+        return setErrors(['Confirm Password field must be the same as the Password field']);
+    };
 
-        const response = await dispatch(sessionActions.fetchSignUp(user))
-        console.log(`component response`)
-        console.log(response)
-        if (response.username) {
-            return response
-        } else {
-            setErrors([response]);
-            return errors
-        }
-    }
 
     return (
-        <form onSubmit={handleSubmit}>
-            {passwordsMatch && <ul>
-                {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-            </ul>}
-            <label>
-                Username
-                <input
-                    type={`text`}
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                >
-                </input>
-            </label>
-            <label>
-                firstName
-                <input
-                    type={`text`}
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    required
-                >
-                </input>
-            </label>
-            <label>
-                lastName
-                <input
-                    type={`text`}
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    required
-                >
-                </input>
-            </label>
-            <label>
-                email
-                <input
-                    type={`text`}
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                >
-                </input>
-            </label>
-            <label>
-                password
-                <input
-                    type={`text`}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                >
-                </input>
-            </label>
-            <label>
-                confirm password
-                <input
-                    type={`text`}
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    required
-                >
-                </input>
-            </label>
-            <button disabled={passwordsMatch} type='submit' >Log In</button>
-        </form>
+        <div className='mainDiv'>
+            <div className='loginComponent'>
+                <form className='loginForm' onSubmit={handleSubmit}>
+                    {errors && <ul className='errors'>
+                        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                    </ul>}
+                    <div className='formBox'>
+                        <label for='username' className='label'>
+                            Username
+                        </label>
+                        <input
+                            className='input'
+                            name='username'
+                            type={`text`}
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            required
+                        >
+                        </input>
+
+                    </div>
+                    <div className='formBox'>
+                        <label for='firstName' className='label'>
+                            firstName
+                        </label>
+                        <input
+                            className='input'
+                            name='firstName'
+                            type={`text`}
+                            value={firstName}
+                            onChange={(e) => setFirstName(e.target.value)}
+                            required
+                        >
+                        </input>
+
+                    </div>
+                    <div className='formBox'>
+                        <label for='lastName' className='label'>
+                            lastName
+                        </label>
+                        <input
+                            className='input'
+                            name='lastName'
+                            type={`text`}
+                            value={lastName}
+                            onChange={(e) => setLastName(e.target.value)}
+                            required
+                        >
+                        </input>
+
+                    </div>
+                    <div className='formBox'>
+                        <label for='email' className='label'>
+                            email
+                        </label>
+                        <input
+                            className='input'
+                            name='email'
+                            type={`text`}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        >
+                        </input>
+
+                    </div>
+                    <div className='formBox'>
+                        <label for='password' className='label'>
+                            password
+                        </label>
+                        <input
+                            className='input'
+                            name='password'
+                            type={`text`}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        >
+                        </input>
+
+                    </div>
+                    <div className='formBox'>
+                        <label for='confirmPassword' className='label'>
+                            confirm password
+                        </label>
+                        <input
+                            className='input'
+                            name='confirmPassword'
+                            type={`text`}
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            required
+                        >
+                        </input>
+
+                    </div>
+                    <button disabled={!passwordsMatch} type='submit' className='submitButton'>Sign Up</button>
+                </form>
+            </div>
+        </div>
     )
 
 };

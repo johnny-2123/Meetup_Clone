@@ -12,8 +12,7 @@ const SIGN_UP_USER = 'session/SIGN_UP_USER';
 // }
 
 export const setSessionUser = (user) => {
-    console.log(`setSessionUser user:`)
-    console.log(user)
+
     return {
         type: SET_SESSION_USER,
         user
@@ -38,29 +37,19 @@ export const fetchSignUp = (user) => async dispatch => {
             email,
             password,
         })
-    }).catch(async (res) => {
-        const data = await res.json()
-        console.log(`session store`)
-        console.log(data)
-        return data
-    });
-
+    })
     if (response.ok) {
-        console.log(`response`)
-        console.log(response);
         const data = await response.json();
 
-        console.log(`data`);
-        console.log(data);
         await dispatch(setSessionUser(data));
         return data;
-    } else return response
-
+    } else {
+        return response.errors
+    }
 }
 
-export const fetchLogin = (credential, password) => async dispatch => {
-    console.log(`fetchLogin: `)
-    console.log(credential, password);
+export const fetchLogin = ({ credential, password }) => async dispatch => {
+
 
     const response = await csrfFetch('/api/session', {
         method: 'POST',
@@ -69,23 +58,18 @@ export const fetchLogin = (credential, password) => async dispatch => {
             credential,
             password
         })
-    }).catch(async (res) => {
-        const data = await res.json()
-        console.log(`session store`)
-        console.log(data)
-        return data
-    });
+    })
 
     if (response.ok) {
-        console.log(`response`)
-        console.log(response);
+
         const data = await response.json();
 
-        console.log(`data`);
-        console.log(data);
         await dispatch(setSessionUser(data));
         return data;
-    } else return response
+    } else {
+
+        return response.errors
+    }
 }
 
 export const restoreUser = () => async dispatch => {

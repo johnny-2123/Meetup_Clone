@@ -1,18 +1,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 
+
+.mainDiv {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .5);
+}
+
 .loginComponent {
+    padding-top: 40px;
     display: flex;
     flex-direction: column;
     font-family: 'Open Sans', sans-serif;
     font-weight: 590;
     align-items: center;
     border: 1px solid lightgrey;
-    margin: auto;
+    margin: 1px auto auto auto;
     max-width: 450px;
     border-radius: 10px;
-    padding: 5px 0 20px 0;
     background-color: white;
     height: 100vh;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
 }
 
 .loginForm {

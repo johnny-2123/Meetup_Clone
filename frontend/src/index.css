@@ -3,5 +3,12 @@
 
 * {
     font-family: 'Open Sans', sans-serif;
-    background-color: bisque;
+
+}
+
+/* .mainDiv {} */
+
+.mainHeader {
+    align-self: flex-start;
+
 }

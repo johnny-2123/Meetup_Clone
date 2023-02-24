@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router";
 import LoginFormPage from "./components/LoginFormPage";
 import * as sessionActions from "./store/session";
 import SignUpPage from "./components/SignUpPage";
+import CSSTestPage from "./components/CSSTest";
 
 function App() {
   const dispatch = useDispatch();
@@ -15,8 +16,8 @@ function App() {
   }, [dispatch])
 
   return (
-    <>
-      <h1>React</h1>
+    <div className="AppDiv">
+      <h1 className="mainHeader">React</h1>
       <Switch>
         <Route path='/login'>
           <LoginFormPage />
@@ -24,9 +25,12 @@ function App() {
         <Route path='/signup'>
           <SignUpPage />
         </Route>
+        <Route path='/csstest'>
+          <CSSTestPage />
+        </Route>
       </Switch>
 
-    </>
+    </div>
   )
 }
 

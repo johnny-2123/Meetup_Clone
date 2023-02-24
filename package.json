@@ -24,5 +24,10 @@
   "homepage": "https://github.com/johnny-2123/Project1#readme",
   "devDependencies": {
     "@babel/helper-compilation-targets": "^7.20.7"
+  },
+  "dependencies": {
+    "@types/react-transition-group": "^4.4.5",
+    "react-transition-group": "^4.4.5",
+    "transition-hook": "^1.5.2"
   }
 }
