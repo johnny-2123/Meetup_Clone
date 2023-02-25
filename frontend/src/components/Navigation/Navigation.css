@@ -1,7 +1,12 @@
 .mainavDiv {
     min-width: 350px;
     border-bottom: lightgray solid 1px;
+    margin-bottom: 0;
+    margin-top: 0;
 }
+
+
+
 
 .navUl {
     display: flex;
@@ -11,7 +16,8 @@
     justify-content: space-between;
     min-width: 300px;
     padding: 0px 1px 0px 1px;
-
+    margin-bottom: 4px;
+    margin-top: 0;
 }
 
 .homeButton {
@@ -20,12 +26,13 @@
     font-family: 'Open Sans', sans-serif;
     text-decoration: none;
     font-weight: bold;
-    font-size: 25px;
+    font-size: 30px;
     color: orangered;
 }
 
 .homeButtonLi {
     list-style: none;
+
 }
 
 .navLi {
@@ -36,8 +43,23 @@
 }
 
 
+
+
+.profileIcon {
+    margin: 0;
+    color: orangered;
+    border: 1px white solid;
+    border-radius: 15px;
+    padding: 0;
+    font-size: 35px;
+    margin-bottom: 0;
+}
+
 .profileButton {
-    background-color: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+    background-color: white;
 }
 
 .profileButtonUl {
@@ -45,7 +67,10 @@
     list-style: none;
 }
 
-.profileButton {}
+.profileButtonComponent {
+    background-color: none;
+
+}
 
 .hidden {
     display: none;
@@ -53,8 +78,8 @@
 
 .profile-dropdown {
     position: fixed;
-    right: 20px;
-    top: 50px;
+    right: 8px;
+    top: 30px;
     bottom: 0;
     border: lightgray 1px solid;
     height: fit-content;
@@ -71,7 +96,7 @@
 .loginSignup {
 
     list-style: none;
-    font-size: 20px;
+    font-size: 17px;
     font-family: 'Open Sans', sans-serif;
     text-decoration: none;
     margin-left: 13px;

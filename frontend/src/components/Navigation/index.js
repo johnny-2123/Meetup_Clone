@@ -1,22 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import * as sessionActions from '../../store/session';
 import './Navigation.css';
+import { Redirect, useHistory } from 'react-router';
 
 
 function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user);
     const dispatch = useDispatch();
+    const history = useHistory();
 
     let sessionLinks;
 
-    if (sessionUser) {
+    useEffect(() => {
+        console.log(`loggin in user`)
+    }, [sessionUser])
+
+    if (sessionUser && sessionUser.user !== undefined) {
         sessionLinks = (
             <ul className='profileButtonUl'>
                 <li>
-                    <ProfileButton className={`profileButton`} sessionUser={sessionUser} />
+                    <ProfileButton className={`profileButtonComponent`} sessionUser={sessionUser} />
 
                 </li>
             </ul>

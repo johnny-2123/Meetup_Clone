@@ -29,7 +29,12 @@ const SignUpPage = () => {
         }
     }, [confirmPassword, password])
 
-
+    useEffect(() => {
+        if (sessionUser && (sessionUser.username !== undefined || null)) {
+            history.push('/')
+            window.location.reload();
+        }
+    }, [sessionUser])
 
 
     const handleSubmit = (e) => {
