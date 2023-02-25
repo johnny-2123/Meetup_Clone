@@ -5,7 +5,6 @@ import * as sessionActions from '../../store/session';
 
 const ProfileButton = ({ sessionUser }) => {
 
-    console.log(`sessionUser`, sessionUser)
 
     const dispatch = useDispatch();
     const { username, firstName, email, lastName } = sessionUser.user;
@@ -13,7 +12,6 @@ const ProfileButton = ({ sessionUser }) => {
     const [showMenu, setShowMenu] = useState(false);
 
     const openMenu = () => {
-        console.log(`openMenu`)
         if (showMenu) return;
         setShowMenu(true);
     };
@@ -22,7 +20,6 @@ const ProfileButton = ({ sessionUser }) => {
         if (!showMenu) return;
 
         const closeMenu = (e) => {
-            console.log(`closeMenu`);
             if (!ulRef.current.contains(e.target)) {
                 setShowMenu(false)
             }

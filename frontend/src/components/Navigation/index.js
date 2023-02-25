@@ -15,7 +15,6 @@ function Navigation({ isLoaded }) {
     let sessionLinks;
 
     useEffect(() => {
-        console.log(`loggin in user`)
     }, [sessionUser])
 
     if (sessionUser && sessionUser.user !== undefined) {
