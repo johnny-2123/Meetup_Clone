@@ -12,7 +12,6 @@ const SIGN_UP_USER = 'session/SIGN_UP_USER';
 // }
 
 export const setSessionUser = (user) => {
-
     return {
         type: SET_SESSION_USER,
         user
@@ -61,15 +60,24 @@ export const fetchLogin = ({ credential, password }) => async dispatch => {
     })
 
     if (response.ok) {
-
         const data = await response.json();
-
         await dispatch(setSessionUser(data));
         return data;
     } else {
 
         return response.errors
     }
+}
+
+
+export const fetchLogout = () => async dispatch => {
+    const response = await csrfFetch('/api/session', {
+        method: 'Delete',
+    });
+
+    dispatch(removeSessionUser());
+
+    return response;
 }
 
 export const restoreUser = () => async dispatch => {

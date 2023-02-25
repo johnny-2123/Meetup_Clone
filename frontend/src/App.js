@@ -5,6 +5,7 @@ import LoginFormPage from "./components/LoginFormPage";
 import * as sessionActions from "./store/session";
 import SignUpPage from "./components/SignUpPage";
 import CSSTestPage from "./components/CSSTest";
+import Navigation from "./components/Navigation";
 
 function App() {
   const dispatch = useDispatch();
@@ -17,7 +18,7 @@ function App() {
 
   return (
     <div className="AppDiv">
-      <h1 className="mainHeader">React</h1>
+      <Navigation isLoaded={isLoaded} />
       <Switch>
         <Route path='/login'>
           <LoginFormPage />

@@ -7,6 +7,15 @@
 }
 
 /* .mainDiv {} */
+.body {
+    margin: 0;
+    padding: 0;
+}
+
+.AppDiv {
+    margin: 0;
+    padding: 0;
+}
 
 .mainHeader {
     align-self: flex-start;

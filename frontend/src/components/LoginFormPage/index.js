@@ -14,11 +14,6 @@ const LoginFormPage = () => {
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState([]);
 
-    useEffect(() => {
-        if (sessionUser && sessionUser.username === null) {
-            history.push('/')
-        }
-    }, [sessionUser])
 
 
     const handleSubmit = (e) => {
@@ -36,6 +31,12 @@ const LoginFormPage = () => {
             });
 
     };
+
+    useEffect(() => {
+        if (sessionUser && sessionUser.username !== null) {
+            history.push('/')
+        }
+    }, [sessionUser])
 
 
     return (

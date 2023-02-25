@@ -1,0 +1,108 @@
+.mainavDiv {
+    min-width: 350px;
+    border-bottom: lightgray solid 1px;
+}
+
+.navUl {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 300px;
+    padding: 0px 1px 0px 1px;
+
+}
+
+.homeButton {
+    list-style: none;
+    height: 30px;
+    font-family: 'Open Sans', sans-serif;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 25px;
+    color: orangered;
+}
+
+.homeButtonLi {
+    list-style: none;
+}
+
+.navLi {
+    list-style: none;
+    font-family: 'Open Sans', sans-serif;
+    text-decoration: none;
+    padding: 0;
+}
+
+
+.profileButton {
+    background-color: none;
+}
+
+.profileButtonUl {
+    background-color: none;
+    list-style: none;
+}
+
+.profileButton {}
+
+.hidden {
+    display: none;
+}
+
+.profile-dropdown {
+    position: fixed;
+    right: 20px;
+    top: 50px;
+    bottom: 0;
+    border: lightgray 1px solid;
+    height: fit-content;
+    width: fit-content;
+    padding: 10px;
+    margin-top: 35px;
+}
+
+.sessionLinksUl {
+    list-style: none;
+}
+
+
+.loginSignup {
+
+    list-style: none;
+    font-size: 20px;
+    font-family: 'Open Sans', sans-serif;
+    text-decoration: none;
+    margin-left: 13px;
+    color: black;
+    font-weight: 600;
+
+}
+
+
+
+.navDropLi {
+    height: 20px;
+    font-family: 'Open Sans', sans-serif;
+    list-style: none;
+    border-radius: 7px;
+    font-weight: 500;
+    color: white;
+    padding: 5px;
+    color: black;
+    font-size: 13px;
+    padding: 0;
+
+}
+
+.logoutButton {
+    border: none;
+    background: none;
+    padding: 0;
+
+}
+
+.logoutButton:hover {
+    color: deepskyblue;
+}
