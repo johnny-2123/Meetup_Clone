@@ -1,5 +1,6 @@
 import React, { useContext, useRef, useState } from "react";
-import { ReactDOM } from "react";
+import PortalReactDOM from 'react-dom'
+
 const ModalContext = React.createContext();
 
 export function ModalProvider({ children }) {
@@ -40,11 +41,11 @@ export function Modal() {
 
     if (!modalRef || !modalRef.current || !modalContent) return null;
 
-    return ReactDOM.createPortal(
+    return PortalReactDOM.createPortal(
         <div id='modal'>
             <div id="modalBackground" onClick={closeModal} />
             <div id="modal-content">
-                <modalContent />
+                {modalContent}
             </div>
         </div>,
         modalRef.current

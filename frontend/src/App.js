@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router";
-import LoginFormPage from "./components/LoginFormPage";
 import * as sessionActions from "./store/session";
+import LoginFormPage from "./components/LoginFormModal";
 import SignUpPage from "./components/SignUpPage";
 import CSSTestPage from "./components/CSSTest";
 import Navigation from "./components/Navigation";
