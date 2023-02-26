@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router';
@@ -15,6 +15,20 @@ const LoginFormPage = () => {
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState([]);
 
+
+    const ulRef = useRef();
+
+    useEffect(() => {
+        const closeMenu = (e) => {
+            if (!ulRef.current.contains(e.target)) {
+                history.push('/')
+            }
+
+        }
+
+        document.addEventListener('click', closeMenu);
+        return () => document.removeEventListener('click', closeMenu);
+    }, [])
 
 
     const handleSubmit = (e) => {
@@ -43,7 +57,7 @@ const LoginFormPage = () => {
 
     return (
         <div className='mainDiv'>
-            <div className='loginComponent'>
+            <div className='loginComponent' ref={ulRef}>
                 <form className='loginForm' onSubmit={handleSubmit}>
                     <ul>
                         {errors.map((error, idx) => <li key={idx}>{error}</li>)}

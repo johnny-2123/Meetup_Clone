@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router';
@@ -17,6 +17,21 @@ const SignUpPage = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [errors, setErrors] = useState([]);
     const [passwordsMatch, setPasswordsMatch] = useState(true);
+
+    const ulRef = useRef();
+
+    useEffect(() => {
+        const closeMenu = (e) => {
+            if (!ulRef.current.contains(e.target)) {
+                history.push('/')
+            }
+
+        }
+
+        document.addEventListener('click', closeMenu);
+        return () => document.removeEventListener('click', closeMenu);
+    }, [])
+
 
     useEffect(() => {
         if (confirmPassword !== password) {
@@ -53,7 +68,7 @@ const SignUpPage = () => {
 
     return (
         <div className='mainDiv'>
-            <div className='loginComponent'>
+            <div className='loginComponent' ref={ulRef}>
                 <form className='loginForm' onSubmit={handleSubmit}>
                     {errors && <ul className='errors'>
                         {errors.map((error, idx) => <li key={idx}>{error}</li>)}

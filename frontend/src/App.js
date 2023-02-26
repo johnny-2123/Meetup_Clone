@@ -6,6 +6,7 @@ import LoginFormPage from "./components/LoginFormModal";
 import SignUpPage from "./components/SignUpPage";
 import CSSTestPage from "./components/CSSTest";
 import Navigation from "./components/Navigation";
+import HomePage from "./components/HomePage";
 
 function App() {
   const dispatch = useDispatch();
@@ -19,7 +20,9 @@ function App() {
   return (
     <div className="AppDiv">
       <Navigation isLoaded={isLoaded} />
+      <HomePage />
       <Switch>
+
         <Route path='/login'>
           <LoginFormPage />
         </Route>
