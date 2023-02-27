@@ -1,0 +1,8 @@
+.allGroupsImg {
+    height: 150px;
+}
+
+
+.groupContainer {
+    display: flex;
+}

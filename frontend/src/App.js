@@ -7,10 +7,13 @@ import SignUpPage from "./components/SignUpPage";
 import CSSTestPage from "./components/CSSTest";
 import Navigation from "./components/Navigation";
 import HomePage from "./components/HomePage";
+import SeeAllGroups from "./components/GroupsModal/SeeAllGroups";
+import SeeAllEvents from "./components/SeeAllEvents";
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState();
+
 
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true))
@@ -20,9 +23,16 @@ function App() {
   return (
     <div className="AppDiv">
       <Navigation isLoaded={isLoaded} />
-      <HomePage />
       <Switch>
-
+        <Route exact path={`/`}>
+          <HomePage />
+        </Route>
+        <Route exact path={`/events`}>
+          < SeeAllEvents />
+        </Route>
+        <Route exact path={`/groups`}>
+          <SeeAllGroups />
+        </Route>
         <Route path='/login'>
           <LoginFormPage />
         </Route>

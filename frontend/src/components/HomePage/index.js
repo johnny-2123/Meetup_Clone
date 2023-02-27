@@ -3,14 +3,15 @@ import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router';
 import { NavLink } from 'react-router-dom';
+import OpenModalButton from '../OpenModalButton';
+import SeeAllGroups from '../GroupsModal/SeeAllGroups';
 import './HomePage.css'
 
 const HomePage = () => {
     const sessionUser = useSelector(state => state.session.user);
 
-
     return (
-        <div className='grid-containerHome'>
+       < div className='grid-containerHome' >
             <div className='grid item grid-item-1'>
                 <div >
                     <h1>The people platform - <br></br> Where interests become friendships</h1>
@@ -25,7 +26,7 @@ const HomePage = () => {
             <div className='grid-item grid-item-3'>
                 <div>
                     <i class="fa-solid fa-handshake"></i>
-                    <h4>see all groups</h4>
+                    <NavLink className={`joinButton`} to='/groups'>See All Groups</NavLink>
                 </div>
                 <div>
                     <i class="fa-solid fa-ticket"></i>
@@ -39,7 +40,8 @@ const HomePage = () => {
             <div className='grid-item grid-item-4'>
                 <NavLink className={`joinButton`} to='/signup'>Join Meetup</NavLink>
             </div>
-        </div>
+        </div >
+
     )
 
 

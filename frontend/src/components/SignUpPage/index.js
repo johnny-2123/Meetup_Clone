@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router';
+import HomePage from '../HomePage';
 import './SignUpForm.css';
 
 const SignUpPage = () => {
@@ -67,106 +68,109 @@ const SignUpPage = () => {
 
 
     return (
-        <div className='mainDiv'>
-            <div className='loginComponent' ref={ulRef}>
-                <form className='loginForm' onSubmit={handleSubmit}>
-                    {errors && <ul className='errors'>
-                        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-                    </ul>}
-                    <div className='formBox'>
-                        <label for='username' className='label'>
-                            Username
-                        </label>
-                        <input
-                            className='input'
-                            name='username'
-                            type={`text`}
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            required
-                        >
-                        </input>
+        <>
+            <HomePage />
+            <div className='mainDiv'>
+                <div className='loginComponent' ref={ulRef}>
+                    <form className='loginForm' onSubmit={handleSubmit}>
+                        {errors && <ul className='errors'>
+                            {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                        </ul>}
+                        <div className='formBox'>
+                            <label for='username' className='label'>
+                                Username
+                            </label>
+                            <input
+                                className='input'
+                                name='username'
+                                type={`text`}
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                required
+                            >
+                            </input>
 
-                    </div>
-                    <div className='formBox'>
-                        <label for='firstName' className='label'>
-                            firstName
-                        </label>
-                        <input
-                            className='input'
-                            name='firstName'
-                            type={`text`}
-                            value={firstName}
-                            onChange={(e) => setFirstName(e.target.value)}
-                            required
-                        >
-                        </input>
+                        </div>
+                        <div className='formBox'>
+                            <label for='firstName' className='label'>
+                                firstName
+                            </label>
+                            <input
+                                className='input'
+                                name='firstName'
+                                type={`text`}
+                                value={firstName}
+                                onChange={(e) => setFirstName(e.target.value)}
+                                required
+                            >
+                            </input>
 
-                    </div>
-                    <div className='formBox'>
-                        <label for='lastName' className='label'>
-                            lastName
-                        </label>
-                        <input
-                            className='input'
-                            name='lastName'
-                            type={`text`}
-                            value={lastName}
-                            onChange={(e) => setLastName(e.target.value)}
-                            required
-                        >
-                        </input>
+                        </div>
+                        <div className='formBox'>
+                            <label for='lastName' className='label'>
+                                lastName
+                            </label>
+                            <input
+                                className='input'
+                                name='lastName'
+                                type={`text`}
+                                value={lastName}
+                                onChange={(e) => setLastName(e.target.value)}
+                                required
+                            >
+                            </input>
 
-                    </div>
-                    <div className='formBox'>
-                        <label for='email' className='label'>
-                            email
-                        </label>
-                        <input
-                            className='input'
-                            name='email'
-                            type={`text`}
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                        >
-                        </input>
+                        </div>
+                        <div className='formBox'>
+                            <label for='email' className='label'>
+                                email
+                            </label>
+                            <input
+                                className='input'
+                                name='email'
+                                type={`text`}
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                            >
+                            </input>
 
-                    </div>
-                    <div className='formBox'>
-                        <label for='password' className='label'>
-                            password
-                        </label>
-                        <input
-                            className='input'
-                            name='password'
-                            type={`text`}
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        >
-                        </input>
+                        </div>
+                        <div className='formBox'>
+                            <label for='password' className='label'>
+                                password
+                            </label>
+                            <input
+                                className='input'
+                                name='password'
+                                type={`text`}
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                            >
+                            </input>
 
-                    </div>
-                    <div className='formBox'>
-                        <label for='confirmPassword' className='label'>
-                            confirm password
-                        </label>
-                        <input
-                            className='input'
-                            name='confirmPassword'
-                            type={`text`}
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            required
-                        >
-                        </input>
+                        </div>
+                        <div className='formBox'>
+                            <label for='confirmPassword' className='label'>
+                                confirm password
+                            </label>
+                            <input
+                                className='input'
+                                name='confirmPassword'
+                                type={`text`}
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                required
+                            >
+                            </input>
 
-                    </div>
-                    <button disabled={!passwordsMatch} type='submit' className='submitButton'>Sign Up</button>
-                </form>
+                        </div>
+                        <button disabled={!passwordsMatch} type='submit' className='submitButton'>Sign Up</button>
+                    </form>
+                </div>
             </div>
-        </div>
+        </>
     )
 
 };
