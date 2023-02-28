@@ -1,8 +1,28 @@
+.seeAllGroupsMainDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.seeAllh2 {
+    width: 500px;
+}
+
+.allGroupsContainer {
+    display: flex;
+
+}
+
+.groupContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 500px;
+}
+
 .allGroupsImg {
     height: 150px;
 }
 
-
-.groupContainer {
-    display: flex;
-}
+.groupContainerDetails {}

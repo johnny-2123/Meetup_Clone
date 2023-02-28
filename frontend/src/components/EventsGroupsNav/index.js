@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-
+import './EventsGroupsNav.css'
 
 function EventsGroupsNav() {
 

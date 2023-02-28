@@ -11,7 +11,7 @@ const HomePage = () => {
     const sessionUser = useSelector(state => state.session.user);
 
     return (
-       < div className='grid-containerHome' >
+        < div className='grid-containerHome' >
             <div className='grid item grid-item-1'>
                 <div >
                     <h1>The people platform - <br></br> Where interests become friendships</h1>
@@ -26,15 +26,15 @@ const HomePage = () => {
             <div className='grid-item grid-item-3'>
                 <div>
                     <i class="fa-solid fa-handshake"></i>
-                    <NavLink className={`joinButton`} to='/groups'>See All Groups</NavLink>
+                    <NavLink className={`homePageSection3Links`} to='/groups'>See All Groups</NavLink>
                 </div>
                 <div>
                     <i class="fa-solid fa-ticket"></i>
-                    <h4>find an event</h4>
+                    <NavLink className={`homePageSection3Links`} to='/events'>Find an event</NavLink>
                 </div>
                 <div>
                     <i class="fa-solid fa-people-group"></i>
-                    <h4>start a group</h4>
+                    <NavLink className={`homePageSection3Links`} to='/events'>start a group</NavLink>
                 </div>
             </div>
             <div className='grid-item grid-item-4'>
