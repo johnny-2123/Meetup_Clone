@@ -27,6 +27,7 @@ function SeeAllGroups() {
                         <h4>{group.city}</h4>
                         <p>{group.about}</p>
                         <div>
+                            <h4>{group.numEvents} Events</h4>
                             {group.private && <h4>private</h4>}
                             {!group.private && <h4>public</h4>}
                         </div>

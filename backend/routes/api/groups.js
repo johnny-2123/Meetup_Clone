@@ -1035,6 +1035,16 @@ router.get(
             group.setDataValue('numMembers', count);
 
         }
+
+        for (let group of groups) {
+            let count = await Event.count({
+                where: { groupId: group.id }
+            });
+            console.log(`eventCount`, count)
+            group.setDataValue('numEvents', count);
+
+        }
+
         let resGroups = {};
         resGroups.Groups = groups;
         return res.status(200).json(resGroups);

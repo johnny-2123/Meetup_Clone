@@ -65,6 +65,54 @@ module.exports = {
         startDate: '2022-8-19 20:00:00',
         endDate: '2022-8-20 20:00:00',
         previewImage: 'image url'
+      },
+      {
+        name: 'Fortnite Tournament',
+        type: 'Online',
+        description: 'battle royale competition',
+        price: 0,
+        capacity: 50,
+        groupId: 1,
+        venueId: 1,
+        startDate: '2023-8-19 20:00:00',
+        endDate: '2023-8-20 20:00:00',
+        previewImage: 'image url'
+      },
+      {
+        name: 'Hoops and Mimosas',
+        type: 'In Person',
+        description: 'Non-competitive way to socialize and exercise',
+        price: 0,
+        capacity: 50,
+        groupId: 2,
+        venueId: 1,
+        startDate: '2023-8-19 20:00:00',
+        endDate: '2023-8-20 20:00:00',
+        previewImage: 'image url'
+      },
+      {
+        name: 'Chess Tournament',
+        type: 'In Person',
+        description: 'Competition with $500 prize for the winner',
+        price: 5,
+        capacity: 50,
+        groupId: 3,
+        venueId: 1,
+        startDate: '2023-8-19 20:00:00',
+        endDate: '2023-8-20 20:00:00',
+        previewImage: 'image url'
+      },
+      {
+        name: 'Fundraiser Night',
+        type: 'In Person',
+        description: 'Best Poker Face wins $1000 for a charity of their choice',
+        price: 100,
+        capacity: 50,
+        groupId: 4,
+        venueId: 1,
+        startDate: '2023-8-19 20:00:00',
+        endDate: '2023-8-20 20:00:00',
+        previewImage: 'image url'
       }
 
     ], {});
@@ -81,7 +129,7 @@ module.exports = {
     options.tableName = 'Events';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      name: { [Op.in]: ['Met Gala', 'In Person', 'Movie Night', 'Trivia'] }
+      name: { [Op.in]: ['Met Gala', 'In Person', 'Movie Night', 'Trivia', 'Fortnite Tournament', 'Hoops and Mimosas', 'Chess Tournament', 'Fundraiser Night'] }
     }, {});
   }
 };
