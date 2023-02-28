@@ -7,6 +7,10 @@
 }
 
 /* .mainDiv {} */
+.main {
+    min-width: 600px;
+}
+
 
 .body {
     margin: 0;
@@ -16,7 +20,6 @@
 .AppDiv {
     margin: 0;
     padding: 0;
-    min-width: 600px;
 }
 
 .mainHeader {

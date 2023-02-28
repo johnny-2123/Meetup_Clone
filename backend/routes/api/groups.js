@@ -956,6 +956,7 @@ router.get(
             where: { groupId: groupId }
         });
         group.setDataValue('numMembers', count);
+        console.log(`groupDetails route handler group:`, group);
         return res.status(200).json(group);
     }
 )

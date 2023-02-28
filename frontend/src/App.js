@@ -11,6 +11,7 @@ import SeeAllGroups from "./components/GroupComponents/SeeAllGroups/SeeAllGroups
 import SeeAllEvents from "./components/SeeAllEvents";
 import NewGroupForm from './components/GroupComponents/NewGroup/index.js'
 import { useModal } from "./context/Modal";
+import GroupDetailsComponent from "./components/GroupComponents/GroupDetails";
 
 function App() {
   const dispatch = useDispatch();
@@ -39,6 +40,9 @@ function App() {
         </Route>
         <Route path={`/groups/new`}>
           <NewGroupForm />
+        </Route>
+        <Route path='/groups/:groupId'>
+          <GroupDetailsComponent />
         </Route>
         <Route path='/login'>
           <LoginFormPage />

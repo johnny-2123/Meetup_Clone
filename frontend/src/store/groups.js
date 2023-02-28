@@ -3,7 +3,27 @@ import { csrfFetch } from "./csrf";
 
 const LOAD_ALL_GROUPS = 'groups/LOAD_ALL_GROUPS';
 const ADD_Group = '/groups/ADD_GROUP';
+const GET_GROUP_DETAILS = '/groups/GET_GROUP_DETAILS'
 
+const getGroupDetails = (group) => ({
+    type: GET_GROUP_DETAILS,
+    group
+})
+
+
+export const fetchGroupDetails = (groupId) => async dispatch => {
+    const response = await csrfFetch(`/api/groups/${groupId}`);
+
+    console.log(`fetchGroupDetails response:`, response)
+
+    if (response.ok) {
+        const data = await response.json()
+
+        console.log(`group details dispatched to reducer: `, data)
+        dispatch(getGroupDetails(data));
+        return data;
+    }
+}
 
 const addGroup = group => ({
     type: ADD_Group,
@@ -34,6 +54,7 @@ export const getAllGroups = () => async dispatch => {
     const response = await csrfFetch(`/api/groups`)
 
     if (response.ok) {
+        console.log(`getAllgroups response`, response)
         const groups = await response.json();
 
         dispatch(loadGroups(groups))
@@ -41,7 +62,8 @@ export const getAllGroups = () => async dispatch => {
 }
 
 const initialState = {
-    allGroups: []
+    allGroups: [],
+    currentGroup: {}
 };
 
 const groupsReducer = (state = initialState, action) => {
@@ -64,7 +86,11 @@ const groupsReducer = (state = initialState, action) => {
                 return {
                     ...state, allGroups: [...state.allGroups, ...state.allGroups[action.group.id], action.group]
                 }
-            }
+            };
+        case GET_GROUP_DETAILS:
+            console.log(`group reducer action.group: `, action.group);
+            newState = { ...state, currentGroup: action.group }
+            return newState
         default:
             return state
     }
