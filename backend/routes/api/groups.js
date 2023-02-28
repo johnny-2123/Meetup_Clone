@@ -803,7 +803,7 @@ router.get(
             },
             include: [{ model: Venue, attributes: ['id', 'city', 'state'] }, { model: Group, attributes: ['id', 'name', 'city', 'state'] }],
             attributes: [
-                'id', 'groupId', 'venueId', 'name', 'type', 'startDate', 'previewImage'
+                'id', 'groupId', 'venueId', 'name', 'type', 'startDate', 'previewImage', 'description'
             ]
         });
 
@@ -921,6 +921,7 @@ router.put(
             attributes: ['id', 'organizerId', 'name', 'about', 'type', 'private', 'city', 'state', 'createdAt', 'updatedAt']
         })
 
+
         return res.json(resGroup);
 
     }
@@ -938,7 +939,7 @@ router.get(
                 {
                     model: GroupImage, attributes: ['id', 'url', 'preview']
                 },
-                { model: User, as: 'Organizer', attributes: ['id', 'firstName', 'lastName'] },
+                { model: User, as: 'Organizer', attributes: ['id', 'firstName', 'lastName', 'username'] },
                 { model: Venue, attributes: ['id', 'groupId', 'address', 'city', 'state', 'lat', 'lng'] },
                 { model: User, as: 'members', attributes: [] },
             ],
@@ -956,7 +957,9 @@ router.get(
             where: { groupId: groupId }
         });
         group.setDataValue('numMembers', count);
+
         console.log(`groupDetails route handler group:`, group);
+
         return res.status(200).json(group);
     }
 )

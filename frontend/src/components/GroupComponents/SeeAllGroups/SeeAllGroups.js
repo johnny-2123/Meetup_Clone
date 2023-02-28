@@ -4,7 +4,7 @@ import { Redirect, Route, Switch, useLocation, useHistory } from "react-router-d
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import "./SeeAllGroups.css";
-import { getAllGroups } from "../../../store/groups";
+import { getAllGroups, clearCurrentGroup } from "../../../store/groups";
 import EventsGroupsNav from "../../EventsGroupsNav";
 import GroupDetailsComponent from "../GroupDetails";
 
@@ -54,6 +54,7 @@ function SeeAllGroups() {
 
     useEffect(() => {
         dispatch(getAllGroups())
+        dispatch(clearCurrentGroup());
     }, [dispatch])
 
     return (
