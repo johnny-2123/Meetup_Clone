@@ -966,40 +966,53 @@ router.post(
     '/',
     requireAuth,
     async (req, res) => {
-        const { name, about, type, private, city, state } = req.body;
+        let { name, about, type, private, city, state } = req.body;
         let user = req.user;
 
+        let errors = [];
         if (name) {
             if (name.length > 60) {
-                return res.status(400).json('Name must be 60 characters or less');
+                errors.push("Name must be 60 characters or less")
             }
         };
 
         if (about) {
             if (about.length < 50) {
-                return res.status(400).json('About must be 50 characters or more');
+                errors.push("About must be 50 characters or more")
             }
         };
 
         if (type) {
-            if (type !== 'Online' && type !== 'In person') {
-                return res.status(400).json('Type must be Online or In person');
+            if (type !== 'online' && type !== 'In person') {
+                errors.push("Type must be Online or In person")
             }
         };
 
         if (private) {
+            if (private === 'true') {
+                private = true
+            }
+            if (private === 'false') {
+                private = false
+            }
             if (private !== true && private !== false) {
-                return res.status(400).json('Private must be a boolean');
+                errors.push("Private must be a boolean")
             }
         };
 
         if (!city) {
-            return res.status(400).json('City is required');
+            errors.push("City is required")
         };
 
         if (!state) {
-            return res.status(400).json('State is required');
+            errors.push("State is required")
         };
+
+        if (errors.length > 0) {
+            return res.status(400).json({
+                "errors": errors
+            })
+        }
 
         let newGroup = await Group.create({
             name,
@@ -1040,7 +1053,6 @@ router.get(
             let count = await Event.count({
                 where: { groupId: group.id }
             });
-            console.log(`eventCount`, count)
             group.setDataValue('numEvents', count);
 
         }

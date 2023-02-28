@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import * as sessionActions from "../../store/session";
+import * as sessionActions from "../../../store/session";
 import { useDispatch, useSelector } from "react-redux";
-import { useModal } from "../../context/Modal";
+import { useModal } from "../../../context/Modal";
 import "./SeeAllGroups.css";
-import { getAllGroups } from "../../store/groups";
-import EventsGroupsNav from "../EventsGroupsNav";
+import { getAllGroups } from "../../../store/groups";
+import EventsGroupsNav from "../../EventsGroupsNav";
 
 function SeeAllGroups() {
     const dispatch = useDispatch();
@@ -14,10 +14,7 @@ function SeeAllGroups() {
     const groups = useSelector(state => {
         return state.groups.allGroups
     })
-
-    console.log(`seeAllGroups groups: `, groups);
     let groupsArr = groups.map((group, idx) => {
-        console.log(`mapped group: `, group);
         return (
             <div className="allGroupsContainer">
                 <div className="groupContainer">
@@ -26,7 +23,7 @@ function SeeAllGroups() {
                         <h3>{group.name}</h3>
                         <h4>{group.city}</h4>
                         <p>{group.about}</p>
-                        <div>
+                        <div className="EventsPrivacyDiv">
                             <h4>{group.numEvents} Events</h4>
                             {group.private && <h4>private</h4>}
                             {!group.private && <h4>public</h4>}
@@ -37,9 +34,6 @@ function SeeAllGroups() {
             </div>
         )
     })
-
-    console.log(`groupsArr`, groupsArr)
-    console.log(`groupsloaded in seeAllGroups Component:`, groups)
 
     useEffect(() => {
         dispatch(getAllGroups())

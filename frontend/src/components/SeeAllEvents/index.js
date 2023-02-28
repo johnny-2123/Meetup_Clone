@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import * as sessionActions from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
-import "../GroupsModal/SeeAllGroups.css"
+import "../GroupComponents/SeeAllGroups/SeeAllGroups.css"
 import { getAllGroups } from "../../store/groups";
 import EventsGroupsNav from "../EventsGroupsNav";
 
@@ -15,9 +14,7 @@ function SeeAllEvents() {
         return state.groups.allGroups
     })
 
-    console.log(`seeAllGroups groups: `, groups);
     let groupsArr = groups.map((group, idx) => {
-        console.log(`mapped group: `, group);
         return (
             <div>
                 <div className="groupContainer">
@@ -36,9 +33,6 @@ function SeeAllEvents() {
             </div>
         )
     })
-
-    console.log(`groupsArr`, groupsArr)
-    console.log(`groupsloaded in seeAllGroups Component:`, groups)
 
     useEffect(() => {
         dispatch(getAllGroups())

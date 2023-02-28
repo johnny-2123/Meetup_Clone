@@ -1,0 +1,63 @@
+.seeAllGroupsMainDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0px 10px 0px 10px;
+    min-width: 550px;
+}
+
+.seeAllh2 {
+    width: 500px;
+}
+
+.allGroupsContainer {
+    display: flex;
+
+}
+
+.groupContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 500px;
+}
+
+.allGroupsImg {
+    height: 150px;
+}
+
+.groupContainerDetails {}
+
+.groupContainerDetails h3 {
+    margin-bottom: 0px;
+    font-size: 20px;
+}
+
+.groupContainerDetails h3+h4 {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    color: gray;
+}
+
+.groupContainerDetails p {
+    margin: 2pxpx;
+}
+
+.EventsPrivacyDiv {
+    display: flex;
+    flex-direction: row;
+    justify-items: flex-start;
+    color: gray;
+}
+
+.EventsPrivacyDiv h4 {
+    margin-right: 5px;
+    padding-right: 10px;
+    margin-top: 0;
+}
+
+.EventsPrivacyDiv :first-child {
+    border-right: lightgray 1px solid;
+    margin-right: 10px;
+}

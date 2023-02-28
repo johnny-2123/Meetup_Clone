@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useTransition } from 'react';
+import React, { useState } from 'react';
 import './CSSTest.css';
-import { useRef } from 'react';
-import { CSSTransition } from 'react-transition-group';
+
 
 const CSSTestPage = () => {
     let [mode, setMode] = useState("light");

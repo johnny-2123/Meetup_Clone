@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, useHistory } from 'react-router';
+import { useHistory } from 'react-router';
 import './LoginForm.css';
 import { useModal } from "../../context/Modal";
-import HomePage from '../HomePage';
+
 const LoginFormPage = () => {
 
     const dispatch = useDispatch();
@@ -15,13 +15,14 @@ const LoginFormPage = () => {
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState([]);
 
+    const { setShowLogin } = useModal();
 
     const ulRef = useRef();
 
     useEffect(() => {
         const closeMenu = (e) => {
             if (!ulRef.current.contains(e.target)) {
-                history.push('/')
+                setShowLogin(false)
             }
 
         }
@@ -54,10 +55,8 @@ const LoginFormPage = () => {
         }
     }, [sessionUser])
 
-
     return (
         <>
-            <HomePage />
             <div className='mainDiv'>
                 <div className='loginComponent' ref={ulRef}>
                     <form className='loginForm' onSubmit={handleSubmit}>

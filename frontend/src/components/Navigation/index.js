@@ -2,17 +2,25 @@ import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import ProfileButton from './ProfileButton';
-import * as sessionActions from '../../store/session';
 import './Navigation.css';
 import { Redirect, useHistory } from 'react-router';
+import OpenModalButton from '../OpenModalButton';
 
-
+import { useModal } from '../../context/Modal';
 function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user);
-    const dispatch = useDispatch();
-    const history = useHistory();
 
     let sessionLinks;
+
+    const { setShowLogin, setShowSignUp } = useModal()
+
+    const loginButton = () => {
+        setShowLogin(true)
+    }
+    const signUpButton = () => {
+        setShowSignUp(true)
+    }
+
 
     useEffect(() => {
     }, [sessionUser])
@@ -30,10 +38,10 @@ function Navigation({ isLoaded }) {
         sessionLinks = (
             <ul className='sessionLinksUl'>
                 <li>
-                    <NavLink className={`loginSignup`} to='/login'>Log In</NavLink>
-                    <NavLink className={`loginSignup`} to='/signup'>Sign Up</NavLink>
+                    <button className={`loginSignup`} onClick={loginButton}> Login</button>
+                    <button className={`loginSignup`} onClick={signUpButton}> Sign Up</button>
                 </li>
-            </ul>
+            </ul >
         )
     }
 

@@ -7,6 +7,10 @@ export function ModalProvider({ children }) {
     const modalRef = useRef();
     const [modalContent, setModalContent] = useState(null);
     const [onModalClose, setOnModalClose] = useState(null);
+    const [showLogin, setShowLogin] = useState(false)
+    const [showSignUp, setShowSignUp] = useState(false)
+
+
 
     const closeModal = () => {
         setModalContent(null);
@@ -23,6 +27,10 @@ export function ModalProvider({ children }) {
         setModalContent,
         setOnModalClose,
         closeModal,
+        showLogin,
+        setShowLogin,
+        showSignUp,
+        setShowSignUp
     };
 
     return (

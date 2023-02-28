@@ -1,5 +1,15 @@
 .EventsGroupsNav {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    width: 550px;
+}
+
+.EventsGroupsNav li {
+    list-style: none;
+}
+
+.EventsGroupsLinks {
+    font-size: 30px;
+    margin-left: 5px;
 }

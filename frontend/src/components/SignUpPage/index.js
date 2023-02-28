@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, useHistory } from 'react-router';
-import HomePage from '../HomePage';
+import { useHistory } from 'react-router';
+import { useModal } from "../../context/Modal";
+
 import './SignUpForm.css';
 
 const SignUpPage = () => {
@@ -19,12 +20,14 @@ const SignUpPage = () => {
     const [errors, setErrors] = useState([]);
     const [passwordsMatch, setPasswordsMatch] = useState(true);
 
+    const { setShowSignUp } = useModal();
+
     const ulRef = useRef();
 
     useEffect(() => {
         const closeMenu = (e) => {
             if (!ulRef.current.contains(e.target)) {
-                history.push('/')
+                setShowSignUp(false)
             }
 
         }
@@ -66,10 +69,8 @@ const SignUpPage = () => {
         return setErrors(['Confirm Password field must be the same as the Password field']);
     };
 
-
     return (
         <>
-            <HomePage />
             <div className='mainDiv'>
                 <div className='loginComponent' ref={ulRef}>
                     <form className='loginForm' onSubmit={handleSubmit}>

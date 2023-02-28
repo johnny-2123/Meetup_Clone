@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import * as sessionActions from '../../store/session';
-import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, useHistory } from 'react-router';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import OpenModalButton from '../OpenModalButton';
-import SeeAllGroups from '../GroupsModal/SeeAllGroups';
+
 import './HomePage.css'
 
 const HomePage = () => {
@@ -34,7 +32,7 @@ const HomePage = () => {
                 </div>
                 <div>
                     <i class="fa-solid fa-people-group"></i>
-                    <NavLink className={`homePageSection3Links`} to='/events'>start a group</NavLink>
+                    <NavLink className={`homePageSection3Links`} to='/groups/new'>start a group</NavLink>
                 </div>
             </div>
             <div className='grid-item grid-item-4'>
