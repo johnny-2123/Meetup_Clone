@@ -985,8 +985,6 @@ router.get(
         });
         group.setDataValue('numMembers', count);
 
-        console.log(`groupDetails route handler group:`, group);
-
         return res.status(200).json(group);
     }
 )
@@ -1014,7 +1012,7 @@ router.post(
         };
 
         if (type) {
-            if (type !== 'online' && type !== 'In person') {
+            if (type !== 'Online' && type !== 'In person') {
                 errors.push("Type must be Online or In person")
             }
         };

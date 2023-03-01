@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import * as groupActions from '../../../store/groups';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import './NewGroupForm.css'
 
 function NewGroupPage() {
 
     const dispatch = useDispatch()
+    const history = useHistory();
+    const group = useSelector(state => state.groups.currentGroup);
+
 
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
@@ -24,16 +28,16 @@ function NewGroupPage() {
         const group = { city, state, name, about, type, private: privacy, previewImage: imageUrl }
 
         return dispatch(groupActions.fetchCreateGroup(group))
+            .then((res) => history.push(`/groups/${res.id}`))
             .catch(async (res) => {
                 const data = await res.json();
-
                 if (data && data.errors) setErrors(data.errors);
-            });
+            })
 
 
     };
 
-    let mappedErrors = errors.map((error, idx) => <li key={idx}>{error}</li>)
+
     return (
         <div>
             <div>
@@ -99,7 +103,7 @@ function NewGroupPage() {
                             >
                                 <option value="">(select one)</option>
                                 <option value="In person">In person</option>
-                                <option value="online">Online</option>
+                                <option value="Online">Online</option>
 
                             </select>
                         </div>

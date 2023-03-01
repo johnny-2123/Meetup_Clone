@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Redirect, Route, Switch, useLocation, useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
+import AlertConfirm from 'react-alert-confirm';
 import * as groupActions from '../../../store/groups'
 import * as sessionActions from '../../../store/session'
 import './GroupDetails.css'
@@ -8,7 +9,7 @@ import './GroupDetails.css'
 function GroupDetailsComponent() {
     const dispatch = useDispatch();
     const history = useHistory();
-    const group = useSelector(state => state.groups.currentGroup);;
+    const group = useSelector(state => state.groups.currentGroup);
     const sessionUser = useSelector(state => state.session.user);
 
     const events = useSelector(state => state.groups.currentGroupEvents)
@@ -22,13 +23,34 @@ function GroupDetailsComponent() {
     const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
-        dispatch(sessionActions.restoreUser())
         dispatch(groupActions.fetchGroupDetails(groupId))
         dispatch(groupActions.fetchGroupEvents(groupId))
         setLoaded(true)
     }, [dispatch])
 
+    const handleUpdateClick = () => {
+        history.push(`/groups/${groupId}/edit`)
+    }
 
+
+    const handleDeleteClick = () => {
+        AlertConfirm({
+            title: 'Are you sure you want to delete this group',
+            desc: 'You cannot undo this change',
+            onOk: () => {
+                return dispatch(groupActions.fetchDeleteGroup(groupId))
+                    .then(() => history.push(`/groups`))
+                    .catch(async (res) => {
+                        const data = await res.json();
+                        if (data && data.errors) console.log(`data`, (data));
+                    })
+            },
+            onCancel: () => {
+
+            }
+        });
+
+    }
 
     let UpcomingGroupEventsMapped = events.map(event => {
         let now = new Date();
@@ -101,8 +123,12 @@ function GroupDetailsComponent() {
                         {sessionUser.user?.id === group?.Organizer?.id &&
                             <div >
                                 <button className='sessionUserButtons'>Create event</button>
-                                <button className='sessionUserButtons'>Update</button>
-                                <button className='sessionUserButtons'>Delete</button>
+                                <button
+                                    onClick={handleUpdateClick}
+                                    className='sessionUserButtons'>Update</button>
+                                <button
+                                    onClick={handleDeleteClick}
+                                    className='sessionUserButtons'>Delete</button>
                             </div>}
                     </div>
                 </div>

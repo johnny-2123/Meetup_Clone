@@ -42,7 +42,7 @@ module.exports = {
       {
         organizerId: 1,
         name: 'chess',
-        type: 'online',
+        type: 'Online',
         private: false,
         city: 'Miami',
         state: 'Florida',
@@ -52,7 +52,7 @@ module.exports = {
       {
         organizerId: 1,
         name: 'poker',
-        type: 'online',
+        type: 'Online',
         private: false,
         city: 'Houston',
         state: 'Texas',

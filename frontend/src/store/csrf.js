@@ -5,8 +5,6 @@ export async function csrfFetch(url, options = {}) {
 
     options.headers = options.headers || {};
 
-    console.log(`csrfFetch line 7`);
-
     if (options.method.toUpperCase() !== 'GET') {
         options.headers['Content-Type'] =
             options.headers['Content-Type'] || 'application/json';
@@ -14,8 +12,6 @@ export async function csrfFetch(url, options = {}) {
     }
 
     const res = await window.fetch(url, options)
-
-    console.log(`csrfFetch line 18 res:`, res);
 
     if (res.status >= 400) throw res;
 

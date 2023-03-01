@@ -16,10 +16,7 @@ function SeeAllGroups() {
     const location = useLocation();
     let currentPath = location.pathname;
     useEffect(() => {
-        console.log(`current path: `, currentPath)
-        console.log(`group list show:`, GroupListShow)
         if (currentPath === '/groups') {
-            console.log(`current path = /groups`)
             setGroupListShow(true)
         } else {
             setGroupListShow(false)
