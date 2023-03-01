@@ -3,9 +3,10 @@ import * as groupActions from '../../../store/groups';
 import { useDispatch, useSelector } from 'react-redux';
 import './NewGroupForm.css'
 
-function NewGroupPage() {
+function UpdateGroupPage() {
 
     const dispatch = useDispatch()
+
 
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
@@ -40,7 +41,7 @@ function NewGroupPage() {
                 {errors && <ul className='errors'>
                     {errors.map((error, idx) => <li key={idx}>{error}</li>)}
                 </ul>}
-                <h3>Become An Organizer</h3>
+                <h3>Update Your Groups Information</h3>
                 <h4>We'll walk you through a few steps to build your local community</h4>
                 <form onSubmit={handleSubmit}>
                     <div>
@@ -133,4 +134,4 @@ function NewGroupPage() {
     )
 }
 
-export default NewGroupPage
+export default UpdateGroupPage
