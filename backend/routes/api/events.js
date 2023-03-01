@@ -536,7 +536,7 @@ router.get(
             page = 1;
         }
 
-        if (!size) size = 4;
+        if (!size) size = 15;
         if (Number.isNaN(size)) {
             res.status(400);
             return res.json({

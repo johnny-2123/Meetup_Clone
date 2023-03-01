@@ -8,7 +8,7 @@ import CSSTestPage from "./components/CSSTest";
 import Navigation from "./components/Navigation";
 import HomePage from "./components/HomePage";
 import SeeAllGroups from "./components/GroupComponents/SeeAllGroups/SeeAllGroups";
-import SeeAllEvents from "./components/SeeAllEvents";
+import SeeAllEvents from './components/Events/SeeAllEvents';
 import NewGroupForm from './components/GroupComponents/NewGroup/index.js'
 import UpdateGroupPage from "./components/GroupComponents/UpdateGroup";
 import { useModal } from "./context/Modal";
@@ -47,6 +47,9 @@ function App() {
         </Route>
         <Route path={`/groups/:groupId/edit`}>
           <UpdateGroupPage />
+        </Route>
+        <Route exact path={`/events`}>
+          <SeeAllEvents />
         </Route>
         <Route path='/login'>
           <LoginFormPage />

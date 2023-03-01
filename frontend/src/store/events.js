@@ -7,11 +7,12 @@ const loadEvents = events => ({
     type: LOAD_ALL_EVENTS,
     events
 })
-export const fetchAllGroups = () => async dispatch => {
+export const fetchAllEvents = () => async dispatch => {
     const response = await csrfFetch(`/api/events`)
-
+    console.log(`fetchAllEvents Response: `, response)
     if (response.ok) {
         const events = await response.json();
+        console.log(`events.tojson`, events)
         dispatch(loadEvents(events))
     }
 }
@@ -26,7 +27,7 @@ const eventsReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_ALL_EVENTS:
             return {
-                ...state, allEvents: [...action.events]
+                ...state, allEvents: [...action.events.Events]
             };
         default:
             return state
