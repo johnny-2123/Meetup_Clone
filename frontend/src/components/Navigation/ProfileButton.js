@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from 'react-redux';
+import { useHistory } from "react-router-dom";
 import * as sessionActions from '../../store/session';
 <script src="https://kit.fontawesome.com/97726b2eee.js" crossorigin="anonymous"></script>
 
 const ProfileButton = ({ sessionUser }) => {
 
-
+    const history = useHistory();
     const dispatch = useDispatch();
     const { username, firstName, email, lastName } = sessionUser.user;
     const ulRef = useRef();
@@ -33,6 +34,7 @@ const ProfileButton = ({ sessionUser }) => {
     const logout = (e) => {
         e.preventDefault();
         dispatch(sessionActions.fetchLogout());
+        history.push('/')
     };
 
 

@@ -33,7 +33,7 @@ function SeeAllGroups() {
     })
     let groupsArr = groups.map((group, idx) => {
         return (
-            < div className="allGroupsContainer" >
+            < div key={idx} className="allGroupsContainer" >
                 <div onClick={() => history.push(`/groups/${group.id}`)} className="groupContainer">
                     <img className="allGroupsImg" src="https://res.cloudinary.com/dkul3ouvi/image/upload/v1677439417/5498791_i3opa9.jpg" alt="https://www.freepik.com/free-vector/solidarity-concept-illustration_14562369.htm#query=friends&position=4&from_view=search&track=sph"></img>
                     <div className="groupContainerDetails">

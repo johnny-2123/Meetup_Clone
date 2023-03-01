@@ -2,36 +2,40 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Redirect, Route, Switch, useLocation, useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import * as groupActions from '../../../store/groups'
+import * as sessionActions from '../../../store/session'
 import './GroupDetails.css'
 
 function GroupDetailsComponent() {
     const dispatch = useDispatch();
     const history = useHistory();
-    const location = useLocation();
+    const group = useSelector(state => state.groups.currentGroup);;
+    const sessionUser = useSelector(state => state.session.user);
 
-
-    const group = useSelector(state => state.groups.currentGroup);
     const events = useSelector(state => state.groups.currentGroupEvents)
-    console.log(`currentGroupEvents`, events)
+
     const { groupId } = useParams();
-    console.log(`groupId`, groupId)
-    console.log(`GroupDetails component group:`, group);
 
     const goBack = () => {
         history.goBack()
     }
 
+    const [loaded, setLoaded] = useState(false);
+
     useEffect(() => {
+        dispatch(sessionActions.restoreUser())
         dispatch(groupActions.fetchGroupDetails(groupId))
         dispatch(groupActions.fetchGroupEvents(groupId))
+        setLoaded(true)
     }, [dispatch])
+
+
 
     let UpcomingGroupEventsMapped = events.map(event => {
         let now = new Date();
         let eventDate = new Date(event.startDate);
         if (eventDate > now) {
             return (
-                <div className='groupEventContainer'>
+                <div key={event.id} className='groupEventContainer'>
                     <img className='groupEventPicture' src='https://www.advenium.com/wp-content/uploads/2022/03/shutterstock_1464234134-1024x684-1.jpg' />
                     <div>
                         <div>
@@ -55,7 +59,7 @@ function GroupDetailsComponent() {
         let eventDate = new Date(event.startDate);
         if (eventDate < now) {
             return (
-                <div className='groupEventContainer'>
+                <div key={event.id} className='groupEventContainer'>
                     <img className='groupEventPicture' src='https://www.advenium.com/wp-content/uploads/2022/03/shutterstock_1464234134-1024x684-1.jpg' />
                     <div>
                         <div>
@@ -76,7 +80,7 @@ function GroupDetailsComponent() {
 
 
     return (
-        group.id && < div className='MainGroupDetailsNav' >
+        loaded && < div className='MainGroupDetailsNav' >
             <div className='SubGroupDetailsNav'>
                 <div className='backbuttonDiv'>
                     <button onClick={goBack} className='backButton'>{`< Groups`}</button>
@@ -85,13 +89,21 @@ function GroupDetailsComponent() {
                 <div className='groupInfoDiv'>
                     <img src='https://www.advenium.com/wp-content/uploads/2022/03/shutterstock_1464234134-1024x684-1.jpg' />
                     <div className='groupTextTopRightDiv'>
-                        <h3>{group?.name}</h3>
-                        <h4>{group?.city}, {group.state}</h4>
-                        <div className='eventsPrivateDiv'>
-                            <h4>{events.length} Events</h4>
-                            <h4>{group?.private ? "Private" : "Public"}</h4>
+                        <div>
+                            <h3>{group?.name}</h3>
+                            <h4>{group?.city}, {group.state}</h4>
+                            <div className='eventsPrivateDiv'>
+                                <h4>{events.length} Events</h4>
+                                <h4>{group?.private ? "Private" : "Public"}</h4>
+                            </div>
+                            <h4>Organized by {group?.Organizer?.firstName} {group?.Organizer?.lastName}</h4>
                         </div>
-                        <h4>Organized by {group?.Organizer.firstName} {group?.Organizer.lastName}</h4>
+                        {sessionUser.user?.id === group?.Organizer?.id &&
+                            <div >
+                                <button className='sessionUserButtons'>Create event</button>
+                                <button className='sessionUserButtons'>Update</button>
+                                <button className='sessionUserButtons'>Delete</button>
+                            </div>}
                     </div>
                 </div>
 
