@@ -10,7 +10,7 @@ function UpdateGroupPage() {
     const history = useHistory();
     const group = useSelector(state => state.groups.currentGroup);
     let { groupId } = useParams();
-    let { city, state, name, type, about, previewImage } = group
+    let { city, state, name, type, about } = group
     let privacy = group.private;
 
 
@@ -32,9 +32,7 @@ function UpdateGroupPage() {
         dispatch(groupActions.fetchGroupDetails(groupId))
         setLoaded(true)
 
-    }, [dispatch])
-
-
+    }, [dispatch, groupId])
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -42,16 +40,13 @@ function UpdateGroupPage() {
         const group = { city: updatedCity, state: updatedState, name: updatedName, about: updatedAbout, type: updatedType, private: updatedPrivacy, previewImage: updatedImageUrl }
 
         return dispatch(groupActions.fetchUpdateGroup(groupId, group))
-            .then((res) => goBack())
+            .then(() => goBack())
             .catch(async (res) => {
                 const data = await res.json();
                 if (data && data.errors) setErrors(data.errors);
             });
-
-
     };
 
-    let mappedErrors = errors.map((error, idx) => <li key={idx}>{error}</li>)
     return (
         loaded && <div>
             <div>

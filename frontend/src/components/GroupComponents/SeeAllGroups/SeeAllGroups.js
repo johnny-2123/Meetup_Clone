@@ -1,29 +1,13 @@
-import React, { useEffect, useState } from "react";
-import * as sessionActions from "../../../store/session";
-import { Redirect, Route, Switch, useLocation, useHistory } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useModal } from "../../../context/Modal";
 import "./SeeAllGroups.css";
 import { getAllGroups, clearCurrentGroup } from "../../../store/groups";
 import EventsGroupsNav from "../../EventsGroupsNav";
-import GroupDetailsComponent from "../GroupDetails";
 
 function SeeAllGroups() {
     const dispatch = useDispatch();
-    const [GroupListShow, setGroupListShow] = useState(true);
-
     const history = useHistory();
-    const location = useLocation();
-    let currentPath = location.pathname;
-    useEffect(() => {
-        if (currentPath === '/groups') {
-            setGroupListShow(true)
-        } else {
-            setGroupListShow(false)
-        }
-    }, [currentPath])
-
-
 
     const groups = useSelector(state => {
         return state.groups.allGroups

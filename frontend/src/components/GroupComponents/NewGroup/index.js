@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import * as groupActions from '../../../store/groups';
 import { useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import './NewGroupForm.css'
 
 function NewGroupPage() {
-
     const dispatch = useDispatch()
     const history = useHistory();
-    const group = useSelector(state => state.groups.currentGroup);
-
 
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
@@ -22,7 +19,6 @@ function NewGroupPage() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
         setErrors([]);
 
         const group = { city, state, name, about, type, private: privacy, previewImage: imageUrl }
@@ -33,8 +29,6 @@ function NewGroupPage() {
                 const data = await res.json();
                 if (data && data.errors) setErrors(data.errors);
             })
-
-
     };
 
 

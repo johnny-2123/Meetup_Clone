@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Redirect, Route, Switch, useLocation, useHistory, useParams } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import AlertConfirm from 'react-alert-confirm';
 import * as groupActions from '../../../store/groups'
@@ -7,35 +7,33 @@ import * as sessionActions from '../../../store/session'
 import './GroupDetails.css'
 
 function GroupDetailsComponent() {
+    const { groupId } = useParams();
     const dispatch = useDispatch();
     const history = useHistory();
     const group = useSelector(state => state.groups.currentGroup);
     const sessionUser = useSelector(state => state.session.user);
-
     const events = useSelector(state => state.groups.currentGroupEvents)
 
-    const { groupId } = useParams();
+    const [loaded, setLoaded] = useState(false);
 
     const goBack = () => {
         history.goBack()
     }
 
-    const [loaded, setLoaded] = useState(false);
-
     useEffect(() => {
         dispatch(groupActions.fetchGroupDetails(groupId))
         dispatch(groupActions.fetchGroupEvents(groupId))
+        dispatch(sessionActions.restoreUser())
         setLoaded(true)
-    }, [dispatch])
+    }, [dispatch, groupId])
 
     const handleUpdateClick = () => {
         history.push(`/groups/${groupId}/edit`)
     }
 
-
     const handleDeleteClick = () => {
         AlertConfirm({
-            title: 'Are you sure you want to delete this group',
+            title: 'Are you sure you want to delete this group?',
             desc: 'You cannot undo this change',
             onOk: () => {
                 return dispatch(groupActions.fetchDeleteGroup(groupId))
@@ -46,10 +44,8 @@ function GroupDetailsComponent() {
                     })
             },
             onCancel: () => {
-
             }
         });
-
     }
 
     let UpcomingGroupEventsMapped = events.map(event => {
@@ -58,7 +54,7 @@ function GroupDetailsComponent() {
         if (eventDate > now) {
             return (
                 <div key={event.id} className='groupEventContainer'>
-                    <img className='groupEventPicture' src='https://www.advenium.com/wp-content/uploads/2022/03/shutterstock_1464234134-1024x684-1.jpg' />
+                    <img alt='group event' className='groupEventPicture' src='https://www.advenium.com/wp-content/uploads/2022/03/shutterstock_1464234134-1024x684-1.jpg' />
                     <div>
                         <div>
                             <h5>{eventDate.toLocaleDateString()} {eventDate.toLocaleTimeString('en-US', {
@@ -68,7 +64,7 @@ function GroupDetailsComponent() {
                         </div>
                         <h4>{event.name}</h4>
                         <h5>{event.Venue?.city}, {event.Venue?.state}</h5>
-                        <p>{event.description}</p>
+                        <p className='groupEventsDescriptionP'>{event.description}</p>
                     </div>
                 </div>
             )
@@ -82,7 +78,9 @@ function GroupDetailsComponent() {
         if (eventDate < now) {
             return (
                 <div key={event.id} className='groupEventContainer'>
-                    <img className='groupEventPicture' src='https://www.advenium.com/wp-content/uploads/2022/03/shutterstock_1464234134-1024x684-1.jpg' />
+                    <img
+                        alt='group event'
+                        className='groupEventPicture' src='https://www.advenium.com/wp-content/uploads/2022/03/shutterstock_1464234134-1024x684-1.jpg' />
                     <div>
                         <div>
                             <h5>{eventDate.toLocaleDateString()} {eventDate.toLocaleTimeString('en-US', {
@@ -92,7 +90,7 @@ function GroupDetailsComponent() {
                         </div>
                         <h4>{event.name}</h4>
                         <h5>{event.Venue?.city}, {event.Venue?.state}</h5>
-                        <p>{event.description}</p>
+                        <p className='groupEventsDescriptionP'>{event.description}</p>
                     </div>
                 </div>
             )
@@ -109,7 +107,7 @@ function GroupDetailsComponent() {
 
                 </div>
                 <div className='groupInfoDiv'>
-                    <img src='https://www.advenium.com/wp-content/uploads/2022/03/shutterstock_1464234134-1024x684-1.jpg' />
+                    <img alt='group' src='https://www.advenium.com/wp-content/uploads/2022/03/shutterstock_1464234134-1024x684-1.jpg' />
                     <div className='groupTextTopRightDiv'>
                         <div>
                             <h3>{group?.name}</h3>

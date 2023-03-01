@@ -1,20 +1,17 @@
-#root {
-    min-width: 751px;
-}
-
 .MainGroupDetailsNav {
     margin: 0;
     display: flex;
     flex-direction: column;
     justify-items: center;
     align-items: center;
-    padding: 0px 20px 0px 20px;
-    min-width: 751px;
+    padding: 0px 5px 0px 5px;
 }
 
 .SubGroupDetailsNav {
-    min-width: 751px;
     min-height: 45vh;
+    width: 80vw;
+
+    height: fit-content;
     display: flex;
     flex-direction: column;
 }
@@ -41,6 +38,7 @@
 .groupInfoDiv {
     display: flex;
     flex-direction: row;
+    flex-wrap: nowrap;
 }
 
 .groupInfoDiv img {
@@ -51,6 +49,7 @@
 .groupTextTopRightDiv {
     display: flex;
     flex-direction: column;
+    min-width: 248px;
     justify-content: space-between;
 }
 
@@ -92,8 +91,6 @@
 
 .groupTextBottomDiv {
     background-color: #F6F6F6;
-    min-width: 751px;
-
     width: 98vw;
     display: flex;
     flex-direction: column;
@@ -105,7 +102,7 @@
 
 .subGroupTextBotttomDiv {
     background-color: #F6F6F6;
-    min-width: 751px;
+    width: 80vw;
     display: flex;
     flex-direction: column;
 }
@@ -153,16 +150,19 @@
 
 .groupEventPicture {
     height: 175px;
-    margin-right: 10px;
+    margin-right: 15px;
 }
 
-/* #react-alert-confirm {
-    position: fixed;
-    top: 0;
-    display: flex;
-    margin: auto;
-    background-color: lightcoral;
-} */
+.groupEventContainer h5 {
+    margin: 0px;
+}
+
+.groupEventsDescriptionP {
+    height: fit-content;
+    width: 30cqw;
+}
+
+
 
 .react-alert-confirm {
     position: absolute;
