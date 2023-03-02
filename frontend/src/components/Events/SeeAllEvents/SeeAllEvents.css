@@ -1,0 +1,67 @@
+.seeAllGroupsMainDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0px 10px 0px 10px;
+    min-width: 550px;
+}
+
+.seeAllh2 {
+    width: 500px;
+}
+
+.allEventsContainer {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid lightgray;
+    margin: 10px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.eventContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 500px;
+    margin-bottom: 10px;
+}
+
+.allEventsImgDiv {
+    height: 150px;
+    width: 255px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-items: center;
+    margin-right: 10px;
+}
+
+.allEventsImg {
+    height: 150px;
+    width: 255px;
+    object-fit: none;
+}
+
+.eventContainerDetails {}
+
+.eventContainerDetails h3 {
+    margin: 0px;
+    font-size: 15px;
+    color: gray;
+
+}
+
+.eventContainerDetails h4 {
+    font-size: 20px;
+
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.allEventsContainer p {
+    margin: 5px;
+    height: fit-content;
+    max-width: 500px;
+}

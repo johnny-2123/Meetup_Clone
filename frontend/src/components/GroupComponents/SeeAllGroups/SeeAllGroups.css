@@ -40,9 +40,7 @@
     color: gray;
 }
 
-.groupContainerDetails p {
-    margin: 2pxpx;
-}
+.groupContainerDetails p {}
 
 .EventsPrivacyDiv {
     display: flex;

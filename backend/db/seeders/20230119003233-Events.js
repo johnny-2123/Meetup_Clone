@@ -112,7 +112,7 @@ module.exports = {
         venueId: 1,
         startDate: '2023-8-19 20:00:00',
         endDate: '2023-8-20 20:00:00',
-        previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1677649384/photo-1518091043644-c1d4457512c6_cnl44x.jpg'
+        previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1677649369/premium_photo-1671683370315-87306b0faf90_azbek0.jpg'
       },
       {
         name: 'Fifa Tournament',
@@ -124,7 +124,7 @@ module.exports = {
         venueId: 2,
         startDate: '2023-4-19 20:00:00',
         endDate: '2023-4-20 20:00:00',
-        previewImage: 'image url'
+        previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1677649384/photo-1518091043644-c1d4457512c6_cnl44x.jpg'
       },
       {
         name: 'The Last of Us Watch Party',

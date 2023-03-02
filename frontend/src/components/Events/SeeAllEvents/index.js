@@ -21,18 +21,24 @@ function SeeAllEvents() {
 
 
     let eventsArr = events.map((event, idx) => {
+        let eventDate = new Date(event.startDate);
+
         return (
-            < div key={idx} className="allGroupsContainer" >
-                <div className="groupContainer">
-                    <img className="allGroupsImg" src={event.previewImage}></img>
-                    <div className="groupContainerDetails">
-                        <h3>{event.startDate}</h3>
+            < div key={idx} className="allEventsContainer" >
+                <div onClick={() => history.push(`/events/${event.id}`)} className="eventContainer">
+                    <div className="allEventsImgDiv">
+                        <img className="allEventsImg" src={event.previewImage}></img>
+                    </div>
+                    <div className="eventContainerDetails">
+                        <h3>{eventDate.toLocaleDateString()} {eventDate.toLocaleTimeString('en-US', {
+                            hour: '2-digit',
+                            minute: '2-digit',
+                        })}</h3>
                         <h4>{event.name}</h4>
                         <h3>{event.Venue.city}</h3>
-
                     </div>
                 </div>
-
+                <p>{event.description}</p>
             </div >)
     })
 
