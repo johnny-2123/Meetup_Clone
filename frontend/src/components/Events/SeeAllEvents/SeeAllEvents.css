@@ -42,6 +42,9 @@
     height: 150px;
     width: 255px;
     object-fit: none;
+    border-radius: 10px;
+    object-fit: cover;
+
 }
 
 .eventContainerDetails {}
@@ -64,4 +67,5 @@
     margin: 5px;
     height: fit-content;
     max-width: 500px;
+    color: rgb(82, 82, 82);
 }

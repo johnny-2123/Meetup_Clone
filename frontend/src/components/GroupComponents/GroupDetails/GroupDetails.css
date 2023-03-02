@@ -44,6 +44,8 @@
 .groupInfoDiv img {
     height: 300px;
     margin-right: 10px;
+    border-radius: 10px;
+
 }
 
 .groupTextTopRightDiv {
