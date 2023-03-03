@@ -22,24 +22,24 @@ module.exports = {
         address: '123 Disney Lane',
         city: 'Chicago',
         state: 'Illinois',
-        lat: 37.7645358,
-        lng: -122.4730327,
+        lat: 41.880707,
+        lng: -87.674798,
         groupId: 1
       },
       {
         address: '123 14 st',
         city: 'Miami',
         state: 'Florida',
-        lat: 37.7645358,
-        lng: -122.4730327,
+        lat: 25.771159,
+        lng: -80.130933,
         groupId: 2
       },
       {
         address: '123 15 st',
         city: 'New York',
         state: 'New York',
-        lat: 37.7645358,
-        lng: -122.4730327,
+        lat: 34.055924,
+        lng: -118.249729,
         groupId: 3
       },
       {

@@ -201,6 +201,11 @@
 
 }
 
+.locationDiv i:hover {
+    cursor: pointer;
+}
+
+
 .typeDeleteDiv {
     display: flex;
     flex-direction: row;

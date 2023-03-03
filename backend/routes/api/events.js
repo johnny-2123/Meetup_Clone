@@ -408,7 +408,7 @@ router.get(
         const event = await Event.findByPk(id, {
             include: [{ model: Venue, attributes: ['id', 'city', 'state', 'lat', 'lng'] }, { model: Group, attributes: ['id', 'name', 'city', 'state', 'organizerId', 'previewImage'] }, { model: EventImage, attributes: ['id', 'url', 'preview'] }],
             attributes: [
-                'id', 'groupId', 'venueId', 'name', 'description', 'type', 'capacity', 'price', 'startDate', 'endDate'
+                'id', 'groupId', 'venueId', 'name', 'description', 'type', 'capacity', 'price', 'startDate', 'endDate', 'previewImage'
             ]
         });
 
@@ -514,7 +514,7 @@ router.get(
             page = 1;
         }
 
-        if (!size) size = 15;
+        if (!size) size = 25;
         if (Number.isNaN(size)) {
             res.status(400);
             return res.json({

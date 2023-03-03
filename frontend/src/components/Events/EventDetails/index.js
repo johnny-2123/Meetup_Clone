@@ -51,9 +51,11 @@ function EventDetailsComponent() {
     }
 
     const openLocationInNewTab = () => {
-        let url = `https://www.google.com/maps/search/?api=1&query=${event.Venue.lat},${event.Venue.lng}`
-        const newWindow = window.open(url, '_blank')
-        if (newWindow) newWindow.opener = null
+        if (event.type === `In Person`) {
+            let url = `https://www.google.com/maps/search/?api=1&query=${event.Venue.lat},${event.Venue.lng}`
+            const newWindow = window.open(url, '_blank')
+            if (newWindow) newWindow.opener = null
+        }
     }
 
     return (
@@ -69,7 +71,7 @@ function EventDetailsComponent() {
             </div>
             <div className='eventDetailsGreySection'>
                 <div className='eventDetailsGreySectionTopHalf'>
-                    <img className='eventDetailsImage' src='https://images.unsplash.com/photo-1517457373958-b7bdd4587205?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8ZXZlbnR8ZW58MHx8MHx8&auto=format&fit=crop&w=600&q=60' />
+                    <img className='eventDetailsImage' src={event.previewImage} />
                     <div className='eventDetailsRightSection'>
                         <div className='eventDetailsGroupDiv'>
                             <img className='eventDetailsGroupImage' src='https://res.cloudinary.com/dkul3ouvi/image/upload/v1677439417/5498791_i3opa9.jpg' />

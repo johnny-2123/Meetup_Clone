@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllEvents } from '../../../store/events'
+import { fetchAllEvents, clearCurrentEvent } from '../../../store/events'
 import EventsGroupsNav from "../../EventsGroupsNav";
 import './SeeAllEvents.css';
 
@@ -17,6 +17,7 @@ function SeeAllEvents() {
 
     useEffect(() => {
         dispatch(fetchAllEvents());
+        dispatch(clearCurrentEvent())
     }, [dispatch])
 
 
