@@ -42,7 +42,7 @@ export const fetchUpdateGroup = (groupId, group) => async dispatch => {
 }
 
 export const clearCurrentGroup = () => ({
-    type: CLEAR_CURRENT_GROUP,
+    type: CLEAR_CURRENT_GROUP
 })
 
 const getGroupEvents = (groupEvents) => ({

@@ -29,12 +29,34 @@ function EventDetailsComponent() {
         setLoaded(true)
     }, [dispatch, eventId])
 
+    const goBack = () => {
+        history.goBack()
+    }
+
+    const handleDeleteClick = () => {
+        AlertConfirm({
+            title: 'Are you sure you want to delete this Event?',
+            desc: 'You cannot undo this change',
+            onOk: () => {
+                return dispatch(eventActions.fetchDeleteEvent(eventId))
+                    .then(() => history.push(`/events`))
+                    .catch(async (res) => {
+                        const data = await res.json();
+                        if (data && data.errors) console.log(`data`, (data));
+                    })
+            },
+            onCancel: () => {
+            }
+        });
+    }
 
     return (
         loaded && <div className='mainGroupDetailsDiv'>
             <div className='eventDetailsTopSectionContainer'>
                 <div className='eventDetailsTopSection'>
-                    <button className='backButton'>{`< Events`}</button>
+                    <button
+                        onClick={goBack}
+                        className='backButton'>{`< Events`}</button>
                     <h1>{event?.name}</h1>
                     <h2>Hosted By {event?.Organizer?.firstName} {event?.Organizer?.lastName}</h2>
                 </div>
@@ -76,7 +98,7 @@ function EventDetailsComponent() {
                                 <i class="fa-solid fa-location-dot"></i>
                                 <div className='typeDeleteDiv'>
                                     <h4>{event.type}</h4>
-                                    <button className='sessionUserButtons'>Delete</button>
+                                    {sessionUser.user?.id === event?.Organizer?.id && <button className='sessionUserButtons'>Delete</button>}
                                 </div>
                             </div>
                         </div>

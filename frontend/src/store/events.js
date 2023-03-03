@@ -3,7 +3,31 @@ import { csrfFetch } from "./csrf";
 
 const LOAD_ALL_EVENTS = 'events/LOAD_ALL_EVENTS';
 const GET_EVENT_DETAILS = 'events/GET_EVENT_DETAILS';
+const CLEAR_CURRENT_EVENT = '/events/CLEAR_CURRENT_EVENT';
+const DELETE_EVENT = '/events/DELETE_EVENT';
 
+const removeEvent = (eventId) => ({
+    type: DELETE_EVENT,
+    eventId
+});
+
+export const fetchDeleteEvent = (eventId) => async dispatch => {
+    const response = await csrfFetch(`/api/events/${eventId}`, {
+        method: 'DELETE'
+    });
+
+    if (response.ok) {
+        const event = await response.json();
+        console.log(`fetchDeleteEvent ok.json res:`, event);
+        dispatch(removeEvent(eventId));
+        return event
+    }
+
+
+}
+export const clearCurrentEvent = () => ({
+    type: CLEAR_CURRENT_EVENT
+})
 const getEventDetails = event => ({
     type: GET_EVENT_DETAILS,
     event
@@ -50,7 +74,11 @@ const eventsReducer = (state = initialState, action) => {
         case GET_EVENT_DETAILS:
             newState = { ...state, currentEvent: action.event };
             return newState;
-
+        case CLEAR_CURRENT_EVENT:
+            newState = { ...state, currentEvent: {} }
+        case DELETE_EVENT:
+            newState = { ...state };
+            delete newState.allEvents[action.eventId];
         default:
             return state
     }

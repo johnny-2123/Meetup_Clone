@@ -16,16 +16,17 @@ function GroupDetailsComponent() {
 
     const [loaded, setLoaded] = useState(false);
 
-    const goBack = () => {
-        history.goBack()
-    }
-
     useEffect(() => {
         dispatch(groupActions.fetchGroupDetails(groupId))
         dispatch(groupActions.fetchGroupEvents(groupId))
         dispatch(sessionActions.restoreUser())
         setLoaded(true)
     }, [dispatch, groupId])
+
+    const goBack = () => {
+        history.goBack()
+    }
+
 
     const handleUpdateClick = () => {
         history.push(`/groups/${groupId}/edit`)
