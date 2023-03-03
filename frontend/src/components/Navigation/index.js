@@ -3,11 +3,15 @@ import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
+import * as sessionActions from '../../store/session';
+
 import { Redirect, useHistory } from 'react-router';
 import OpenModalButton from '../OpenModalButton';
 
 import { useModal } from '../../context/Modal';
 function Navigation({ isLoaded }) {
+    const dispatch = useDispatch();
+    const history = useHistory();
     const sessionUser = useSelector(state => state.session.user?.user);
 
     let sessionLinks;
@@ -21,6 +25,12 @@ function Navigation({ isLoaded }) {
         setShowSignUp(true)
     }
 
+    const handleDemoLoginClick = () => {
+        return dispatch(sessionActions.fetchLogin({ credential: 'Demo-lition', password: 'password' }))
+            .then(() => history.push('/'))
+            .then(() => window.location.reload());
+
+    }
 
     useEffect(() => {
     }, [sessionUser])
@@ -38,6 +48,9 @@ function Navigation({ isLoaded }) {
         sessionLinks = (
             <ul className='sessionLinksUl'>
                 <li>
+                    <button
+                        onClick={handleDemoLoginClick}
+                        className={`loginSignup`} >Demo Login</button>
                     <button className={`loginSignup`} onClick={loginButton}> Login</button>
                     <button className={`loginSignup`} onClick={signUpButton}> Sign Up</button>
                 </li>
