@@ -14,6 +14,8 @@ function EventDetailsComponent() {
     const history = useHistory();
 
     const event = useSelector(state => state.events.currentEvent);
+    let eventDate = new Date(event.startDate);
+    let eventEndDate = new Date(event.endDate);
     const sessionUser = useSelector(state => state.session.user);
 
     const [loaded, setLoaded] = useState(false);
@@ -38,25 +40,51 @@ function EventDetailsComponent() {
                 </div>
             </div>
             <div className='eventDetailsGreySection'>
-                <div className='eventDetailsMiddleSection'>
-                    <div className='eventDetailsGreySectionTopHalf'>
-                        <img className='eventDetailsImage' src='https://images.unsplash.com/photo-1517457373958-b7bdd4587205?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8ZXZlbnR8ZW58MHx8MHx8&auto=format&fit=crop&w=600&q=60' />
-                        <div>
-                            <div className='eventDetailsGroupDiv'>
-                                <img className='eventDetailsGroupImage' src='https://res.cloudinary.com/dkul3ouvi/image/upload/v1677439417/5498791_i3opa9.jpg' />
-                                <div>
-                                    <h3>{event?.Group?.name}</h3>
-                                    <h4>{event.Group?.private ? `private` : `public`}</h4>
+                <div className='eventDetailsGreySectionTopHalf'>
+                    <img className='eventDetailsImage' src='https://images.unsplash.com/photo-1517457373958-b7bdd4587205?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8ZXZlbnR8ZW58MHx8MHx8&auto=format&fit=crop&w=600&q=60' />
+                    <div className='eventDetailsRightSection'>
+                        <div className='eventDetailsGroupDiv'>
+                            <img className='eventDetailsGroupImage' src='https://res.cloudinary.com/dkul3ouvi/image/upload/v1677439417/5498791_i3opa9.jpg' />
+                            <div className='eventDetailsGroupDetailsDiv'>
+                                <h3>{event?.Group?.name}</h3>
+                                <h4>{event.Group?.private ? `private` : `public`}</h4>
+                            </div>
+                        </div>
+                        <div className='eventDetailsRightOfPictureInfo'>
+                            <div className='timeDiv'>
+                                <i class="fa-regular fa-clock"></i>
+                                <div className='timeSubDiv'>
+                                    <div className='startEndDiv'>
+                                        <h4>Start:</h4> <h5>{eventDate.toLocaleDateString()} - {eventDate.toLocaleTimeString('en-US', {
+                                            hour: '2-digit',
+                                            minute: '2-digit',
+                                        })}</h5>
+                                    </div>
+                                    <div className='startEndDiv'>
+                                        <h4>End: </h4> <h5>{eventEndDate.toLocaleDateString()} - {eventEndDate.toLocaleTimeString('en-US', {
+                                            hour: '2-digit',
+                                            minute: '2-digit',
+                                        })}</h5>
+                                    </div>
                                 </div>
                             </div>
-                            <div>
-                                <div>
-                                    <i class="fa-regular fa-clock"></i>
+                            <div className='moneyDiv'>
+                                <i class="fa-solid fa-dollar-sign"></i>
+                                <h4>{event.price}</h4>
+                            </div>
+                            <div className='locationDiv'>
+                                <i class="fa-solid fa-location-dot"></i>
+                                <div className='typeDeleteDiv'>
+                                    <h4>{event.type}</h4>
+                                    <button className='sessionUserButtons'>Delete</button>
                                 </div>
                             </div>
                         </div>
-
                     </div>
+                </div>
+                <div className='greySectionBottomHalf'>
+                    <h2>Details</h2>
+                    <p>{event.description}</p>
                 </div>
             </div>
         </div>

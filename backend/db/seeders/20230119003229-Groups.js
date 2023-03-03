@@ -21,12 +21,12 @@ module.exports = {
     await queryInterface.bulkInsert(options, [
       {
         organizerId: 1,
-        name: 'Video Game Club',
+        name: 'The Video Game Social and Competition Club of Chicago',
         type: 'In person',
         private: true,
         city: 'Chicago',
         state: 'Illinois',
-        about: 'enjoy a tightnight community',
+        about: 'enjoy a tightnight community playing video games and more with a diverse group of people from Chicago and the surrounding suburbs',
         previewImage: 'image url'
       },
       {
@@ -36,7 +36,7 @@ module.exports = {
         private: true,
         city: 'Washington',
         state: 'District of Columbia',
-        about: 'find community with us',
+        about: 'Find community and exercise with through basketball. We are open to all experience levels',
         previewImage: 'image url'
       },
       {
