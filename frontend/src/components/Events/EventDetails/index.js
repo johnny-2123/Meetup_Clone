@@ -16,7 +16,7 @@ function EventDetailsComponent() {
     const event = useSelector(state => state.events.currentEvent);
     let eventDate = new Date(event.startDate);
     let eventEndDate = new Date(event.endDate);
-    const sessionUser = useSelector(state => state.session.user);
+    const sessionUser = useSelector(state => state.session.user.user);
 
     const [loaded, setLoaded] = useState(false);
 

@@ -6,7 +6,7 @@ import OpenModalButton from '../OpenModalButton';
 import './HomePage.css'
 
 const HomePage = () => {
-    const sessionUser = useSelector(state => state.session.user);
+    const sessionUser = useSelector(state => state.session?.user);
 
     return (
         < div className='grid-containerHome' >

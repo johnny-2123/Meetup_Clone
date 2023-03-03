@@ -115,12 +115,12 @@ function GroupDetailsComponent() {
                             <h3>{group?.name}</h3>
                             <h4>{group?.city}, {group.state}</h4>
                             <div className='eventsPrivateDiv'>
-                                <h4>{events.length} Events</h4>
+                                <h4>{events.length} Event(s)</h4>
                                 <h4>{group?.private ? "Private" : "Public"}</h4>
                             </div>
                             <h4>Organized by {group?.Organizer?.firstName} {group?.Organizer?.lastName}</h4>
                         </div>
-                        {sessionUser?.id === group?.Organizer?.id &&
+                        {sessionUser?.user?.id === group?.Organizer?.id &&
                             <div >
                                 <button className='sessionUserButtons'>Create event</button>
                                 <button

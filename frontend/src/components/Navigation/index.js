@@ -8,7 +8,7 @@ import OpenModalButton from '../OpenModalButton';
 
 import { useModal } from '../../context/Modal';
 function Navigation({ isLoaded }) {
-    const sessionUser = useSelector(state => state.session.user);
+    const sessionUser = useSelector(state => state.session.user?.user);
 
     let sessionLinks;
 

@@ -9,7 +9,7 @@ import './SignUpForm.css';
 const SignUpPage = () => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const sessionUser = useSelector(state => state.session.user);
+    const sessionUser = useSelector(state => state.session?.user);
 
     const [username, setUsername] = useState('');
     const [firstName, setFirstName] = useState('');
@@ -61,6 +61,7 @@ const SignUpPage = () => {
         if (password === confirmPassword) {
             setErrors([]);
             return dispatch(sessionActions.fetchSignUp({ firstName, lastName, email, username, password }))
+                .then((res) => console.log(`signUpRes:`, res))
                 .catch(async (res) => {
                     const data = await res.json();
                     if (data && data.errors) setErrors(data.errors);

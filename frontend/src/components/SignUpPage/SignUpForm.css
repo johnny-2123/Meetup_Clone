@@ -21,11 +21,11 @@
     font-weight: 590;
     align-items: center;
     border: 1px solid lightgrey;
-    margin: 1px auto auto auto;
+    margin: 5px auto auto auto;
     max-width: 450px;
     border-radius: 10px;
     background-color: white;
-    height: 100vh;
+    height: 92.5vh;
     position: fixed;
     left: 0;
     right: 0;

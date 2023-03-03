@@ -37,11 +37,12 @@ const LoginFormPage = () => {
 
         setErrors([]);
         return dispatch(sessionActions.fetchLogin({ credential, password }))
+            .then((res) => console.log(`logInRes:`, res))
             .catch(async (res) => {
                 const data = await res.json();
 
                 if (data && data.errors) {
-
+                    console.log(`loginForm Errors`, data)
                     setErrors(data.errors);
                 }
             });
@@ -64,7 +65,7 @@ const LoginFormPage = () => {
                             {errors.map((error, idx) => <li key={idx}>{error}</li>)}
                         </ul>
                         <div className='formBox'>
-                            <label for='credentials' className='label'>
+                            <label htmlFor='credentials' className='label'>
                                 Username or Email
                             </label>
                             <input
