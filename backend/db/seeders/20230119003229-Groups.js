@@ -36,7 +36,7 @@ module.exports = {
         private: true,
         city: 'Washington',
         state: 'District of Columbia',
-        about: 'Find community and exercise with through basketball. We are open to all experience levels',
+        about: 'Find community and exercise with through basketball. We are open to all experience levels and backgrounds.',
         previewImage: 'image url'
       },
       {

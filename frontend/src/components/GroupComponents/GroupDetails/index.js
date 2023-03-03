@@ -119,7 +119,7 @@ function GroupDetailsComponent() {
                             </div>
                             <h4>Organized by {group?.Organizer?.firstName} {group?.Organizer?.lastName}</h4>
                         </div>
-                        {sessionUser.user?.id === group?.Organizer?.id &&
+                        {sessionUser?.user?.id === group?.Organizer?.id &&
                             <div >
                                 <button className='sessionUserButtons'>Create event</button>
                                 <button

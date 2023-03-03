@@ -19,6 +19,28 @@ module.exports = {
     options.tableName = 'Events';
     await queryInterface.bulkInsert(options, [
       {
+        name: 'Fifa Tournament',
+        type: 'Online',
+        description: 'Test your video game skills at this tournament and make friends in the process',
+        price: 100,
+        capacity: 0,
+        groupId: 1,
+        venueId: 2,
+        startDate: '2023-4-19 20:00:00',
+        endDate: '2023-4-20 20:00:00',
+        previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1677649384/photo-1518091043644-c1d4457512c6_cnl44x.jpg'
+      }, {
+        name: 'Fortnite Tournament',
+        type: 'Online',
+        description: 'battle royale competition',
+        price: 0,
+        capacity: 50,
+        groupId: 1,
+        venueId: 1,
+        startDate: '2023-8-19 20:00:00',
+        endDate: '2023-8-20 20:00:00',
+        previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1677649308/photo-1589241062272-c0a000072dfa_cc6ruv.jpg'
+      }, {
         name: 'Met Gala Night',
         type: 'In Person',
         description: 'Costume Party with your favorite people. Wear your best outfits and bring your best dance moves.',
@@ -45,10 +67,10 @@ module.exports = {
       {
         name: 'Movie Night',
         type: 'Online',
-        description: 'Watch a movie',
+        description: `Watch a movie based on the book of the month. Everyone is welcome, even if you haven't read the book yet (but careful for spoilers).`,
         price: 7,
         capacity: 55,
-        groupId: 3,
+        groupId: 6,
         venueId: 3,
         startDate: '2021-8-19 20:00:00',
         endDate: '2021-8-20 20:00:00',
@@ -60,24 +82,13 @@ module.exports = {
         description: 'test your trivia knowledge with us',
         price: 0,
         capacity: 50,
-        groupId: 4,
+        groupId: 6,
         venueId: 4,
         startDate: '2022-8-19 20:00:00',
         endDate: '2022-8-20 20:00:00',
         previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1677649281/photo-1652077859695-de2851a95620_lxepr0.jpg'
       },
-      {
-        name: 'Fortnite Tournament',
-        type: 'Online',
-        description: 'battle royale competition',
-        price: 0,
-        capacity: 50,
-        groupId: 1,
-        venueId: 1,
-        startDate: '2023-8-19 20:00:00',
-        endDate: '2023-8-20 20:00:00',
-        previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1677649308/photo-1589241062272-c0a000072dfa_cc6ruv.jpg'
-      },
+
       {
         name: 'Hoops and Mimosas',
         type: 'In Person',
@@ -114,18 +125,7 @@ module.exports = {
         endDate: '2023-8-20 20:00:00',
         previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1677649369/premium_photo-1671683370315-87306b0faf90_azbek0.jpg'
       },
-      {
-        name: 'Fifa Tournament',
-        type: 'Online',
-        description: 'Test your video game skills at this tournament and make friends in the process',
-        price: 100,
-        capacity: 0,
-        groupId: 1,
-        venueId: 2,
-        startDate: '2023-4-19 20:00:00',
-        endDate: '2023-4-20 20:00:00',
-        previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1677649384/photo-1518091043644-c1d4457512c6_cnl44x.jpg'
-      },
+
       {
         name: 'The Last of Us Watch Party',
         type: 'Online',

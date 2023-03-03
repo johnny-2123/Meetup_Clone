@@ -50,6 +50,12 @@ function EventDetailsComponent() {
         });
     }
 
+    const openLocationInNewTab = () => {
+        let url = `https://www.google.com/maps/search/?api=1&query=${event.Venue.lat},${event.Venue.lng}`
+        const newWindow = window.open(url, '_blank')
+        if (newWindow) newWindow.opener = null
+    }
+
     return (
         loaded && <div className='mainGroupDetailsDiv'>
             <div className='eventDetailsTopSectionContainer'>
@@ -95,10 +101,14 @@ function EventDetailsComponent() {
                                 <h4>{event.price}</h4>
                             </div>
                             <div className='locationDiv'>
-                                <i class="fa-solid fa-location-dot"></i>
+                                <i
+                                    onClick={openLocationInNewTab}
+                                    class="fa-solid fa-location-dot"></i>
                                 <div className='typeDeleteDiv'>
                                     <h4>{event.type}</h4>
-                                    {sessionUser.user?.id === event?.Organizer?.id && <button className='sessionUserButtons'>Delete</button>}
+                                    {sessionUser?.user?.id === event?.Organizer?.id && <button
+                                        onClick={handleDeleteClick}
+                                        className='sessionUserButtons'>Delete</button>}
                                 </div>
                             </div>
                         </div>

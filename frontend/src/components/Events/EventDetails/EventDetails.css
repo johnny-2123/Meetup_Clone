@@ -220,7 +220,5 @@
 
 
 @media only screen and (max-width: 720px) {
-    body {
-        background-color: lightblue;
-    }
+    body {}
 }
