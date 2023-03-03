@@ -14,21 +14,26 @@ function SeeAllGroups() {
     })
     let groupsArr = groups.map((group, idx) => {
         return (
-            < div key={idx} className="allGroupsContainer" >
-                <div onClick={() => history.push(`/groups/${group.id}`)} className="groupContainer">
-                    <img className="allGroupsImg" src="https://res.cloudinary.com/dkul3ouvi/image/upload/v1677439417/5498791_i3opa9.jpg" alt="https://www.freepik.com/free-vector/solidarity-concept-illustration_14562369.htm#query=friends&position=4&from_view=search&track=sph"></img>
+            < div
+                onClick={() => history.push(`/groups/${group.id}`)}
+                key={idx} className="allEventsContainer" >
+                <div className="groupContainer">
+                    <div className="allEventsImgDiv">
+                        <img className="allGroupsImg" src={group.previewImage}></img>
+                    </div>
                     <div className="groupContainerDetails">
                         <h3>{group.name}</h3>
                         <h4>{group.city}</h4>
-                        <p>{group.about}</p>
+
                         <div className="EventsPrivacyDiv">
                             <h4>{group.numEvents} Events</h4>
                             {group.private && <h4>private</h4>}
                             {!group.private && <h4>public</h4>}
                         </div>
                     </div>
-                </div>
 
+                </div>
+                <p>{group.about}</p>
             </div >)
 
     })

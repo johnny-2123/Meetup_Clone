@@ -971,7 +971,7 @@ router.get(
                 { model: User, as: 'members', attributes: [] },
             ],
             attributes: [
-                'id', 'organizerId', 'name', 'about', 'type', 'private', 'city', 'state', 'createdAt', 'updatedAt',
+                'id', 'organizerId', 'name', 'about', 'type', 'private', 'city', 'state', 'createdAt', 'updatedAt', 'previewImage'
             ],
         });
         if (!group) {

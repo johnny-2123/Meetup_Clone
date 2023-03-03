@@ -10,6 +10,7 @@ function GroupDetailsComponent() {
     const { groupId } = useParams();
     const dispatch = useDispatch();
     const history = useHistory();
+
     const group = useSelector(state => state.groups.currentGroup);
     const sessionUser = useSelector(state => state.session.user);
     const events = useSelector(state => state.groups.currentGroupEvents)
@@ -101,14 +102,14 @@ function GroupDetailsComponent() {
 
 
     return (
-        loaded && < div className='MainGroupDetailsNav' >
+        loaded && group?.previewImage && < div className='MainGroupDetailsNav' >
             <div className='SubGroupDetailsNav'>
                 <div className='backbuttonDiv'>
                     <button onClick={goBack} className='backButton'>{`< Groups`}</button>
 
                 </div>
                 <div className='groupInfoDiv'>
-                    <img alt='group' src='https://www.advenium.com/wp-content/uploads/2022/03/shutterstock_1464234134-1024x684-1.jpg' />
+                    <img alt='group' src={group?.previewImage} />
                     <div className='groupTextTopRightDiv'>
                         <div>
                             <h3>{group?.name}</h3>
@@ -119,7 +120,7 @@ function GroupDetailsComponent() {
                             </div>
                             <h4>Organized by {group?.Organizer?.firstName} {group?.Organizer?.lastName}</h4>
                         </div>
-                        {sessionUser?.user?.id === group?.Organizer?.id &&
+                        {sessionUser?.id === group?.Organizer?.id &&
                             <div >
                                 <button className='sessionUserButtons'>Create event</button>
                                 <button

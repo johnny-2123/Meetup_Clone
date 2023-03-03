@@ -8,7 +8,7 @@ const ProfileButton = ({ sessionUser }) => {
 
     const history = useHistory();
     const dispatch = useDispatch();
-    const { username, firstName, email, lastName } = sessionUser.user;
+    const { username, firstName, email, lastName } = sessionUser;
     const ulRef = useRef();
     const [showMenu, setShowMenu] = useState(false);
 

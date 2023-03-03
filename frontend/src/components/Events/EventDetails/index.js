@@ -23,8 +23,6 @@ function EventDetailsComponent() {
 
     useEffect(() => {
         dispatch(eventActions.fetchEventDetails(eventId))
-            .then((res) => console.log(`dipatchFetchEventDetails component res:`, res))
-            .catch((res) => console.log(`dispatchEventdetails catch response component:`, res));
         dispatch(sessionActions.restoreUser())
         setLoaded(true)
     }, [dispatch, eventId])
@@ -59,7 +57,7 @@ function EventDetailsComponent() {
     }
 
     return (
-        loaded && <div className='mainGroupDetailsDiv'>
+        loaded && event?.previewImage && <div className='mainGroupDetailsDiv'>
             <div className='eventDetailsTopSectionContainer'>
                 <div className='eventDetailsTopSection'>
                     <button
@@ -108,7 +106,7 @@ function EventDetailsComponent() {
                                     class="fa-solid fa-location-dot"></i>
                                 <div className='typeDeleteDiv'>
                                     <h4>{event.type}</h4>
-                                    {sessionUser?.user?.id === event?.Organizer?.id && <button
+                                    {sessionUser?.id === event?.Organizer?.id && <button
                                         onClick={handleDeleteClick}
                                         className='sessionUserButtons'>Delete</button>}
                                 </div>

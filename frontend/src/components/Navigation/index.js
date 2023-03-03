@@ -24,8 +24,8 @@ function Navigation({ isLoaded }) {
 
     useEffect(() => {
     }, [sessionUser])
-
-    if (sessionUser && sessionUser.user !== undefined) {
+    console.log(`sessionuser.user`, sessionUser)
+    if (sessionUser && sessionUser !== undefined) {
         sessionLinks = (
             <ul className='profileButtonUl'>
                 <li>
