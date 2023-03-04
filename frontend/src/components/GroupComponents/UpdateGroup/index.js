@@ -6,7 +6,7 @@ import './UpdateGroup.css'
 
 function UpdateGroupPage() {
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const history = useHistory();
     const group = useSelector(state => state.groups.currentGroup);
     let { groupId } = useParams();
@@ -111,7 +111,7 @@ function UpdateGroupPage() {
                                 required
                             >
                                 <option value="">(select one)</option>
-                                <option value="In person">In person</option>
+                                <option value="In person">In Person</option>
                                 <option value="Online">Online</option>
 
                             </select>

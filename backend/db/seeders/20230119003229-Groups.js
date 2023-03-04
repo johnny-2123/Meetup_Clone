@@ -82,7 +82,7 @@ module.exports = {
       {
         organizerId: 4,
         name: 'Fuego Reggaeton Dance Group',
-        type: 'In Person',
+        type: 'In person',
         private: true,
         city: 'Los Angeles',
         state: 'California',

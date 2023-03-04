@@ -13,12 +13,13 @@ function EventDetailsComponent() {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const event = useSelector(state => state.events.currentEvent);
-    let eventDate = new Date(event.startDate);
-    let eventEndDate = new Date(event.endDate);
-    const sessionUser = useSelector(state => state.session.user.user);
+    const event = useSelector(state => state.events?.currentEvent);
+    let eventDate = new Date(event?.startDate);
+    let eventEndDate = new Date(event?.endDate);
+    const sessionUser = useSelector(state => state.session?.user);
 
     const [loaded, setLoaded] = useState(false);
+    const [isOrganizer, setIsOrganizer] = useState(false)
 
 
     useEffect(() => {
@@ -27,8 +28,20 @@ function EventDetailsComponent() {
         setLoaded(true)
     }, [dispatch, eventId])
 
+    useEffect(() => {
+        // if (sessionUser?.id === event?.Organizer?.id)
+
+        console.log(`sessionUser.id`, sessionUser?.user?.id);
+        console.log(`event.Organizer.id`, event?.Organizer?.id);
+        setIsOrganizer(true)
+        console.log(`isOrganizer`, isOrganizer);
+    })
     const goBack = () => {
         history.goBack()
+    }
+
+    const handleUpdateClick = () => {
+        history.push(`/events/${eventId}/edit`)
     }
 
     const handleDeleteClick = () => {
@@ -69,13 +82,13 @@ function EventDetailsComponent() {
             </div>
             <div className='eventDetailsGreySection'>
                 <div className='eventDetailsGreySectionTopHalf'>
-                    <img className='eventDetailsImage' src={event.previewImage} />
+                    <img className='eventDetailsImage' src={event?.previewImage} />
                     <div className='eventDetailsRightSection'>
                         <div className='eventDetailsGroupDiv'>
                             <img className='eventDetailsGroupImage' src='https://res.cloudinary.com/dkul3ouvi/image/upload/v1677439417/5498791_i3opa9.jpg' />
                             <div className='eventDetailsGroupDetailsDiv'>
                                 <h3>{event?.Group?.name}</h3>
-                                <h4>{event.Group?.private ? `private` : `public`}</h4>
+                                <h4>{event?.Group?.private ? `private` : `public`}</h4>
                             </div>
                         </div>
                         <div className='eventDetailsRightOfPictureInfo'>
@@ -98,25 +111,36 @@ function EventDetailsComponent() {
                             </div>
                             <div className='moneyDiv'>
                                 <i class="fa-solid fa-dollar-sign"></i>
-                                <h4>{event.price}</h4>
+                                <h4>{event?.price}</h4>
                             </div>
                             <div className='locationDiv'>
                                 <i
                                     onClick={openLocationInNewTab}
                                     class="fa-solid fa-location-dot"></i>
                                 <div className='typeDeleteDiv'>
-                                    <h4>{event.type}</h4>
-                                    {sessionUser?.id === event?.Organizer?.id && <button
-                                        onClick={handleDeleteClick}
-                                        className='sessionUserButtons'>Delete</button>}
+                                    <h4>{event?.type}</h4>
+
                                 </div>
+
                             </div>
+                            {sessionUser?.user.id === event?.Organizer?.id && (
+                                <div className='deleteUpdateDiv'>
+                                    <button
+                                        onClick={handleUpdateClick}
+                                        className='sessionUserButtons'
+                                    >Update</button>
+                                    <button
+                                        onClick={handleDeleteClick}
+                                        className='sessionUserButtons'>Delete</button>
+                                </div>
+                            )
+                            }
                         </div>
                     </div>
                 </div>
                 <div className='greySectionBottomHalf'>
                     <h2>Details</h2>
-                    <p>{event.description}</p>
+                    <p>{event?.description}</p>
                 </div>
             </div>
         </div>

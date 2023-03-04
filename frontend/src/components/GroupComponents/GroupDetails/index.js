@@ -11,9 +11,9 @@ function GroupDetailsComponent() {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const group = useSelector(state => state.groups.currentGroup);
-    const sessionUser = useSelector(state => state.session.user);
-    const events = useSelector(state => state.groups.currentGroupEvents)
+    const group = useSelector(state => state.groups?.currentGroup);
+    const sessionUser = useSelector(state => state.session?.user);
+    const events = useSelector(state => state.groups?.currentGroupEvents)
 
     const [loaded, setLoaded] = useState(false);
 
@@ -52,7 +52,7 @@ function GroupDetailsComponent() {
 
     let UpcomingGroupEventsMapped = events.map(event => {
         let now = new Date();
-        let eventDate = new Date(event.startDate);
+        let eventDate = new Date(event?.startDate);
         if (eventDate > now) {
             return (
                 <div key={event.id} className='groupEventContainer'>
@@ -64,9 +64,9 @@ function GroupDetailsComponent() {
                                 minute: '2-digit',
                             })}</h5>
                         </div>
-                        <h4>{event.name}</h4>
-                        <h5>{event.Venue?.city}, {event.Venue?.state}</h5>
-                        <p className='groupEventsDescriptionP'>{event.description}</p>
+                        <h4>{event?.name}</h4>
+                        <h5>{event?.Venue?.city}, {event?.Venue?.state}</h5>
+                        <p className='groupEventsDescriptionP'>{event?.description}</p>
                     </div>
                 </div>
             )
@@ -76,7 +76,7 @@ function GroupDetailsComponent() {
 
     let pastGroupEventsMapped = events.map(event => {
         let now = new Date();
-        let eventDate = new Date(event.startDate);
+        let eventDate = new Date(event?.startDate);
         if (eventDate < now) {
             return (
                 <div key={event.id} className='groupEventContainer'>
@@ -90,9 +90,9 @@ function GroupDetailsComponent() {
                                 minute: '2-digit',
                             })}</h5>
                         </div>
-                        <h4>{event.name}</h4>
-                        <h5>{event.Venue?.city}, {event.Venue?.state}</h5>
-                        <p className='groupEventsDescriptionP'>{event.description}</p>
+                        <h4>{event?.name}</h4>
+                        <h5>{event?.Venue?.city}, {event?.Venue?.state}</h5>
+                        <p className='groupEventsDescriptionP'>{event?.description}</p>
                     </div>
                 </div>
             )
@@ -115,7 +115,7 @@ function GroupDetailsComponent() {
                             <h3>{group?.name}</h3>
                             <h4>{group?.city}, {group.state}</h4>
                             <div className='eventsPrivateDiv'>
-                                <h4>{events.length} Event(s)</h4>
+                                <h4>{events?.length} Event(s)</h4>
                                 <h4>{group?.private ? "Private" : "Public"}</h4>
                             </div>
                             <h4>Organized by {group?.Organizer?.firstName} {group?.Organizer?.lastName}</h4>
@@ -137,7 +137,7 @@ function GroupDetailsComponent() {
             <div className='groupTextBottomDiv'>
                 <div className='subGroupTextBotttomDiv'>
                     <h3>Organizer</h3>
-                    <h4 className='groupOrganizerUsername'>{group.Organizer?.username} user</h4>
+                    <h4 className='groupOrganizerUsername'>{group?.Organizer?.username} user</h4>
                     <h3 className='aboutHeader'>What we're about</h3>
                     <p className='aboutP'>{group?.about}</p>
                     <h3 className='upcomingEvents' >Upcoming Events</h3>

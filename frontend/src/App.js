@@ -11,6 +11,7 @@ import SeeAllGroups from "./components/GroupComponents/SeeAllGroups/SeeAllGroups
 import SeeAllEvents from './components/Events/SeeAllEvents';
 import NewGroupForm from './components/GroupComponents/NewGroup/index.js'
 import UpdateGroupPage from "./components/GroupComponents/UpdateGroup";
+import UpdateEventPage from "./components/Events/UpdateEvent"
 import { useModal } from "./context/Modal";
 import GroupDetailsComponent from "./components/GroupComponents/GroupDetails";
 import EventDetailsComponent from "./components/Events/EventDetails";
@@ -54,6 +55,9 @@ function App() {
         </Route>
         <Route exact path={`/events/:eventId`}>
           <EventDetailsComponent />
+        </Route>
+        <Route exact path={'/events/:eventId/edit'}>
+          <UpdateEventPage />
         </Route>
         <Route path='/login'>
           <LoginFormPage />
