@@ -3,8 +3,35 @@ import { csrfFetch } from "./csrf";
 
 const LOAD_ALL_EVENTS = 'events/LOAD_ALL_EVENTS';
 const GET_EVENT_DETAILS = 'events/GET_EVENT_DETAILS';
+const ADD_EVENT = '/events/UPDATE_EVENT';
 const CLEAR_CURRENT_EVENT = '/events/CLEAR_CURRENT_EVENT';
-const DELETE_EVENT = '/events/DELETE_EVENT';
+const DELETE_EVENT = 'events/DELETE_EVENT';
+const CLEAR_ALL_EVENTS = 'events/CLEAR_ALL_EVENTS'
+
+const addEvent = (event) => ({
+    type: ADD_EVENT,
+    event
+})
+
+export const fetchUpdateEvent = (eventId, event) => async dispatch => {
+    const response = await csrfFetch(`/api/groups/${eventId}`, {
+        method: 'PUT',
+        Headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(event)
+    });
+
+    console.log(`fetchUpdate group res`, response);
+    if (response.ok) {
+        const event = await response.json();
+        console.log(`fetchUpdate event to.json`, event);
+        dispatch(addEvent(event));
+        return event;
+    }
+}
+export const clearAllEvents = () => ({
+    type: CLEAR_ALL_EVENTS
+})
+
 
 const removeEvent = (eventId) => ({
     type: DELETE_EVENT,
@@ -70,6 +97,20 @@ const eventsReducer = (state = initialState, action) => {
         case LOAD_ALL_EVENTS:
             return {
                 ...state, allEvents: [...action.events.Events]
+            };
+        case ADD_EVENT:
+            if (!state.allEvents[action.event.id]) {
+                newState = {
+                    ...state, allEvents: [...state.allEvents, action.event]
+                };
+            } else {
+                newState = {
+                    ...state, allEvents: [...state.allEvents, state.allEvents[action.event.id], action.event]
+                }
+            }
+        case CLEAR_ALL_EVENTS:
+            return {
+                ...state, allEvents: []
             };
         case GET_EVENT_DETAILS:
             newState = { ...state, currentEvent: action.event };

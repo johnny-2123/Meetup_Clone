@@ -3,6 +3,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import AlertConfirm from 'react-alert-confirm';
 import * as groupActions from '../../../store/groups'
+import * as EventActions from '../../../store/events';
 import * as sessionActions from '../../../store/session'
 import './GroupDetails.css'
 

@@ -844,7 +844,9 @@ router.delete(
         }
 
         await group.destroy()
-
+        await Event.destroy({
+            where: { groupId: groupId }
+        });
 
         return res.status(200).json({
             "message": "Successfully deleted"

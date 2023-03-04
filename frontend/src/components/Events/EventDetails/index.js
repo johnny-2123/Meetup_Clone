@@ -50,6 +50,7 @@ function EventDetailsComponent() {
             desc: 'You cannot undo this change',
             onOk: () => {
                 return dispatch(eventActions.fetchDeleteEvent(eventId))
+                    .then(() => dispatch(eventActions.fetchAllEvents()))
                     .then(() => history.push(`/events`))
                     .catch(async (res) => {
                         const data = await res.json();

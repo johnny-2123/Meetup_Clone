@@ -32,8 +32,6 @@ function Navigation({ isLoaded }) {
 
     }
 
-    useEffect(() => {
-    }, [sessionUser])
     console.log(`sessionuser.user`, sessionUser)
     if (sessionUser && sessionUser !== undefined) {
         sessionLinks = (
