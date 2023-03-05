@@ -54,7 +54,7 @@ function App() {
         <Route exact path='/groups/:groupId'>
           <GroupDetailsComponent />
         </Route>
-        <Route path={`/groups/:groupId/edit`}>
+        <Route exact path={`/groups/:groupId/edit`}>
           <UpdateGroupPage />
         </Route>
         <Route exact path={`/events`}>
