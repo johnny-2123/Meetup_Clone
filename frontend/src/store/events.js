@@ -102,9 +102,16 @@ const loadEvents = events => ({
     type: LOAD_ALL_EVENTS,
     events
 })
-export const fetchAllEvents = () => async dispatch => {
-    const response = await csrfFetch(`/api/events`)
-    console.log(`fetchAllEvents Response: `, response)
+export const fetchAllEvents = (eventSearchQueries) => async dispatch => {
+    let response = '';
+    if (eventSearchQueries) {
+        response = await csrfFetch(`/api/events?${eventSearchQueries}`)
+        console.log(`fetchAllEvents queried Response: `, response)
+
+    } else {
+        response = await csrfFetch(`/api/events`)
+        console.log(`fetchAllEvents Response: `, response)
+    }
     if (response.ok) {
         const events = await response.json();
         console.log(`events.tojson`, events)

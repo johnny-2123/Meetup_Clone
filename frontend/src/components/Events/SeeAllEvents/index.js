@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllEvents, clearCurrentEvent } from '../../../store/events'
@@ -9,6 +9,9 @@ function SeeAllEvents() {
     const dispatch = useDispatch();
     const history = useHistory();
 
+    const [searchQueries, setSearchQueries] = useState({})
+    const [inPersonQuery, setInPersonQuery] = useState(false);
+    console.log(`In person query`, inPersonQuery);
     const events = useSelector(state => {
         return state.events.allEvents
     });
@@ -20,7 +23,24 @@ function SeeAllEvents() {
         dispatch(clearCurrentEvent())
     }, [dispatch])
 
+    const handleInPersonClick = (() => {
+        if (inPersonQuery === false) {
+            setInPersonQuery(true)
+        } else {
+            setInPersonQuery(false)
+        }
+        console.log(inPersonQuery);
+    })
 
+    useEffect(() => {
+        let queryObject = {}
+        if (inPersonQuery === true) {
+            queryObject.type = 'In Person'
+        }
+        new URLSearchParams(queryObject).toString();
+        console.log(`queryObject`, new URLSearchParams(queryObject).toString());
+        dispatch(fetchAllEvents(new URLSearchParams(queryObject).toString()))
+    }, [inPersonQuery])
     let eventsArr = events.map((event, idx) => {
         let eventDate = new Date(event.startDate);
 
@@ -48,6 +68,9 @@ function SeeAllEvents() {
             <EventsGroupsNav />
             <div className="seeAllh2">
                 <h2 > Events in Meetup </h2>
+                <button
+                    onClick={handleInPersonClick}
+                    className="sessionUserButtons">In Person</button>
             </div>
             {eventsArr}
         </div >
