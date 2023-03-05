@@ -1,4 +1,4 @@
-import { bindActionCreators } from "redux";
+import { bindActionCreators, compose } from "redux";
 import { csrfFetch } from "./csrf";
 
 const LOAD_ALL_EVENTS = 'events/LOAD_ALL_EVENTS';
@@ -12,6 +12,23 @@ const addEvent = (event) => ({
     type: ADD_EVENT,
     event
 })
+
+export const fetchCreateEvent = (event) => async dispatch => {
+    const response = await csrfFetch(`api/groups`, {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(event)
+    });
+
+    console.log(`fetchCreateEvent store res`, response);
+
+    if (response.ok) {
+        const event = await response.json();
+        console.log(`fetchCreateEvent store res.json`, event)
+        dispatch(addEvent(event));
+        return event;
+    }
+}
 
 export const fetchUpdateEvent = (eventId, event) => async dispatch => {
     const response = await csrfFetch(`/api/events/${eventId}`, {

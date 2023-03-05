@@ -63,12 +63,6 @@ function App() {
         <Route exact path={'/events/:eventId/edit'}>
           <UpdateEventPage />
         </Route>
-        {/* <Route path='/login'>
-          <LoginFormPage />
-        </Route>
-        <Route path='/signup'>
-          <SignUpPage />
-        </Route> */}
         <Route path='/csstest'>
           <CSSTestPage />
         </Route>

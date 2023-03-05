@@ -6,7 +6,7 @@ import './NewEventForm.css'
 function NewEventForm() {
     const dispatch = useDispatch();
     const history = useHistory();
-
+    const sessionUser = useSelector(state => state.session?.user);
 
     const [updatedName, setUpdatedName] = useState();
     const [updatedType, setUpdatedType] = useState();
@@ -28,7 +28,7 @@ function NewEventForm() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const event = { name: updatedName, type: updatedType, price: updatedPrice, startDate: updatedStartDate, endDate: updatedEndDate, previewImage: updatedPreviewImage };
+        const event = { organizerId: sessionUser.id, name: updatedName, type: updatedType, price: updatedPrice, startDate: updatedStartDate, endDate: updatedEndDate, previewImage: updatedPreviewImage };
         console.log(`event sent to dispatchUpdateEvent`, event);
 
         return
