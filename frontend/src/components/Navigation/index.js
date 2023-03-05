@@ -31,8 +31,6 @@ function Navigation({ isLoaded }) {
             .then(() => window.location.reload());
 
     }
-
-    console.log(`sessionuser.user`, sessionUser)
     if (sessionUser && sessionUser !== undefined) {
         sessionLinks = (
             <ul className='profileButtonUl'>

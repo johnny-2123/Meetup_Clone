@@ -29,7 +29,7 @@
 
 .eventDetailsGreySection {
     width: 100vw;
-    background-color: lightgray;
+    background-color: #e8e8e8;
     margin: 0;
     display: flex;
     flex-direction: column;
