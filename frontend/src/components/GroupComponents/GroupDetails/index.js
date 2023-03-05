@@ -61,9 +61,11 @@ function GroupDetailsComponent() {
         let eventDate = new Date(event?.startDate);
         if (eventDate > now) {
             return (
-                <div key={event.id} className='groupEventContainer'>
-                    <img alt='group event' className='groupEventPicture' src='https://www.advenium.com/wp-content/uploads/2022/03/shutterstock_1464234134-1024x684-1.jpg' />
-                    <div>
+                <div key={event.id}
+                    onClick={() => history.push(`/events/${event.id}`)}
+                    className='groupEventContainer'>
+                    <img alt='group event' className='groupEventPicture' src={event.previewImage} />
+                    <div className='groupEventsInfo'>
                         <div>
                             <h5>{eventDate.toLocaleDateString()} {eventDate.toLocaleTimeString('en-US', {
                                 hour: '2-digit',
@@ -71,7 +73,7 @@ function GroupDetailsComponent() {
                             })}</h5>
                         </div>
                         <h4>{event?.name}</h4>
-                        <h5>{event?.Venue?.city}, {event?.Venue?.state}</h5>
+                        {event?.Venue?.city && <h5>{event?.Venue?.city}, {event?.Venue?.state}</h5>}
                         <p className='groupEventsDescriptionP'>{event?.description}</p>
                     </div>
                 </div>
@@ -85,12 +87,14 @@ function GroupDetailsComponent() {
         let eventDate = new Date(event?.startDate);
         if (eventDate < now) {
             return (
-                <div key={event.id} className='groupEventContainer'>
+                <div key={event.id}
+                    onClick={() => history.push(`/events/${event.id}`)}
+                    className='groupEventContainer'>
                     <img
                         alt='group event'
-                        className='groupEventPicture' src='https://www.advenium.com/wp-content/uploads/2022/03/shutterstock_1464234134-1024x684-1.jpg' />
-                    <div>
-                        <div>
+                        className='groupEventPicture' src={event.previewImage} />
+                    <div className='groupEventsInfo'>
+                        <div >
                             <h5>{eventDate.toLocaleDateString()} {eventDate.toLocaleTimeString('en-US', {
                                 hour: '2-digit',
                                 minute: '2-digit',
@@ -106,6 +110,7 @@ function GroupDetailsComponent() {
 
     })
 
+    console.log(`group.previewImage`, group.previewImageImage)
 
     return (
         loaded && group?.previewImage && < div className='MainGroupDetailsNav' >
@@ -118,8 +123,8 @@ function GroupDetailsComponent() {
                     <img alt='group' src={group?.previewImage} />
                     <div className='groupTextTopRightDiv'>
                         <div>
-                            <h3>{group?.name}</h3>
-                            <h4>{group?.city}, {group.state}</h4>
+                            {group?.name && <h3>{group?.name}</h3>}
+                            {group?.city && <h4>{group?.city}, {group.state}</h4>}
                             <div className='eventsPrivateDiv'>
                                 <h4>{events?.length} Event(s)</h4>
                                 <h4>{group?.private ? "Private" : "Public"}</h4>

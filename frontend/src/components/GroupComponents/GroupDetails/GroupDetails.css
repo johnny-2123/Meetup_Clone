@@ -57,14 +57,14 @@
 
 .groupTextTopRightDiv h3 {
     margin-bottom: 2px;
-
+    font-size: 1.25rem;
 }
 
 .groupTextTopRightDiv h4 {
     margin-top: 2px;
     margin-bottom: 2px;
     color: lightslategray;
-    font-size: 15px;
+    font-size: 1rem;
     font-weight: 500;
 }
 
@@ -111,7 +111,7 @@
 
 .subGroupTextBotttomDiv h3 {
     margin-bottom: 3px;
-    font-size: 20px;
+    font-size: 1.5em;
 
 }
 
@@ -133,8 +133,10 @@
 
 .aboutP {
     margin-top: 2px;
-    width: 50vw;
+    width: 100%;
     height: fit-content;
+
+
 }
 
 .upcomingEvents {
@@ -146,22 +148,39 @@
     display: flex;
     flex-direction: row;
     margin-top: 10px;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
+    margin-bottom: 15px;
+    padding-bottom: 20px;
+}
+
+.groupEventContainer:hover {
+    cursor: pointer;
 }
 
 .groupEventPicture {
     height: 175px;
+    width: 233px;
     margin-right: 15px;
+    object-fit: none;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.groupEventContainer h4 {
+    font-size: 1.25rem;
 }
 
 .groupEventContainer h5 {
     margin: 0px;
+    font-size: .9rem;
+}
+
+.groupEventsInfo {
+    width: 100%;
 }
 
 .groupEventsDescriptionP {
     height: fit-content;
-    width: 30cqw;
+    width: inherit;
 }
 
 

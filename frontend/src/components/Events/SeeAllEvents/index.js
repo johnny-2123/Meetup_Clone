@@ -36,7 +36,7 @@ function SeeAllEvents() {
                             minute: '2-digit',
                         })}</h3>
                         <h4>{event.name}</h4>
-                        <h3>{event.Venue.city}</h3>
+                        {event?.Venue?.city && <h3>{event.Venue.city}</h3>}
                     </div>
                 </div>
                 <p>{event.description}</p>

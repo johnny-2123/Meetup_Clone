@@ -492,40 +492,6 @@ router.get(
         }
         let groupMembers = [];
         let members;
-        // if (groupMember) {
-        //     if (group.organizerId !== user.id && groupMember.status !== 'co-host') {
-        //         users = await group.getMembers({
-        //             attributes: {
-        //                 include: [[Sequelize.literal(`(SELECT GroupMembers.status FROM GroupMembers JOIN Users ON (GroupMembers.UserId = Users.id) WHERE GroupMembers.groupId = ${group.id})`), 'status']]
-        //             }
-        //         })
-        //     } else {
-        //         users = await group.getMembers({
-        //             attributes: {
-        //                 include: [[Sequelize.literal(`(SELECT GroupMembers.status AS status FROM GroupMembers JOIN Users ON (GroupMembers.UserId = Users.id) WHERE GroupMembers.groupId = ${group.id})`), 'status'], 'id']
-        //             },
-
-        //         })
-
-        //     }
-        // } else {
-        //     if (group.organizerId !== user.id) {
-        //         users = await group.getMembers({
-        //             attributes: {
-        //                 include: [[Sequelize.literal(`(SELECT GroupMembers.status FROM GroupMembers JOIN Users ON (GroupMembers.UserId = Users.id) WHERE GroupMembers.groupId = ${group.id})`), 'status']]
-        //             }
-        //         })
-
-        //     } else {
-        //         users = await group.getMembers({
-        //             attributes: {
-        //                 include: [[Sequelize.literal(`(SELECT GroupMembers.status FROM GroupMembers JOIN Users ON (GroupMembers.UserId = Users.id) WHERE GroupMembers.groupId = ${group.id})`), 'status']],
-        //             }
-        //         })
-
-        //     }
-
-        // }
 
         if (groupMember) {
             if (group.organizerId !== user.id && groupMember.status !== 'co-host') {
@@ -606,15 +572,9 @@ router.post(
             groupId: group.id
         });
 
-
         let image = await GroupImage.findByPk(newImage.id);
         return res.status(200).json(image);
-
-
-
     }
-
-
 )
 
 
@@ -622,7 +582,9 @@ router.post(
     '/:id/events',
     requireAuth,
     async (req, res) => {
-        const { name, type, description, price, capacity, startDate, endDate, venueId } = req.body;
+        let { name, type, description, price, capacity, startDate, endDate, venueId, previewImage } = req.body;
+        price = parseInt(price);
+        capacity = parseInt(capacity);
         let groupId = req.params.id;
         let group = await Group.findByPk(groupId);
         let user = req.user;
@@ -659,15 +621,18 @@ router.post(
 
         }
 
-        const venue = await Venue.findByPk(venueId);
-        if (!venue) {
-            return res.status(400).json({
-                "message": "Validation error",
-                "statusCode": 400,
-                "errors": [
-                    "Venue does not exist"
-                ]
-            })
+        if (venueId) {
+            const venue = await Venue.findByPk(venueId);
+            if (!venue) {
+                return res.status(400).json({
+                    "message": "Validation error",
+                    "statusCode": 400,
+                    "errors": [
+                        "Venue does not exist"
+                    ]
+                })
+            }
+
         }
 
         if (name.length < 5) {
@@ -759,13 +724,14 @@ router.post(
             startDate,
             endDate,
             venueId,
-            groupId: group.id
+            groupId: group.id,
+            previewImage
         });
         let eventReturned = await Event.findByPk(event.id, {
-            attributes: ['id', 'groupId', 'venueId', 'name', 'type', 'capacity', 'price', 'description', 'startDate', 'endDate']
+            attributes: ['id', 'groupId', 'venueId', 'name', 'type', 'capacity', 'price', 'description', 'startDate', 'endDate', 'previewImage']
         });
 
-
+        console.log(`eventReturned`, eventReturned)
         return res.json(eventReturned)
     }
 )
@@ -784,18 +750,6 @@ router.get(
                 "statusCode": 404
             })
         }
-
-        // let events = await Event.findAll({
-        //     where: {
-        //         groupId: groupId
-        //     },
-        //     include: [{ model: Venue, attributes: ['id', 'city', 'state'] }, { model: Attendant, attributes: [] }, { model: Group, attributes: ['id', 'name', 'city', 'state'] }],
-        //     attributes: [
-        //         [sequelize.fn('COUNT', sequelize.col('Attendants.id')), 'numAttending'],
-        //         'id', 'groupId', 'venueId', 'name', 'type', 'startDate', 'previewImage'
-        //     ],
-        //     group: ['Attendants.eventId'],
-        // });
 
         let events = await Event.findAll({
             where: {

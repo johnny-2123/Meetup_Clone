@@ -128,7 +128,7 @@ function UpdateEventPage() {
                         />
                     </div>
                     <button
-                        type='submit' className='submitButton'>Update Group</button>
+                        type='submit' className='submitButton'>Update Event</button>
                 </form>
             </div>
         </div>

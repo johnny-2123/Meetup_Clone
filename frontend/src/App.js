@@ -8,6 +8,7 @@ import CSSTestPage from "./components/CSSTest";
 import Navigation from "./components/Navigation";
 import HomePage from "./components/HomePage";
 import SeeAllGroups from "./components/GroupComponents/SeeAllGroups/SeeAllGroups";
+import SeeCurrentUserGroups from "./components/GroupComponents/CurrentUserGroups"
 import SeeAllEvents from './components/Events/SeeAllEvents';
 import NewGroupForm from './components/GroupComponents/NewGroup/index.js'
 import UpdateGroupPage from "./components/GroupComponents/UpdateGroup";
@@ -41,6 +42,9 @@ function App() {
         </Route>
         <Route exact path={`/groups`}>
           <SeeAllGroups />
+        </Route>
+        <Route exact path={`/groups/current`}>
+          <SeeCurrentUserGroups />
         </Route>
         <Route exact path={`/groups/new`}>
           <NewGroupForm />

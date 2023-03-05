@@ -3,18 +3,28 @@ import { csrfFetch } from "./csrf";
 
 const LOAD_ALL_EVENTS = 'events/LOAD_ALL_EVENTS';
 const GET_EVENT_DETAILS = 'events/GET_EVENT_DETAILS';
-const ADD_EVENT = '/events/UPDATE_EVENT';
-const CLEAR_CURRENT_EVENT = '/events/CLEAR_CURRENT_EVENT';
+const ADD_EVENT = 'events/UPDATE_EVENT';
+const CLEAR_CURRENT_EVENT = 'events/CLEAR_CURRENT_EVENT';
 const DELETE_EVENT = 'events/DELETE_EVENT';
-const CLEAR_ALL_EVENTS = 'events/CLEAR_ALL_EVENTS'
+const CLEAR_ALL_EVENTS = 'events/CLEAR_ALL_EVENTS';
+const GET_CURRENT_USER_EVENTS = 'events/GET_CURRENT_USER_EVENTS';
+
+const loadCurrentUserEvents = (events) => ({
+    type: GET_CURRENT_USER_EVENTS,
+    events
+});
+
+// export const fetchCurrentUserEvents = (userId) => async dispatch => {
+//     const response = await csrfFetch('')
+// }
 
 const addEvent = (event) => ({
     type: ADD_EVENT,
     event
 })
 
-export const fetchCreateEvent = (event) => async dispatch => {
-    const response = await csrfFetch(`api/groups`, {
+export const fetchCreateEvent = (groupId, event) => async dispatch => {
+    const response = await csrfFetch(`/api/groups/${groupId}/events`, {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(event)

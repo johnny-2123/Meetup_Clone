@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import * as sessionActions from '../../store/session';
+import groupsReducer, * as groupActions from '../../store/groups';
 <script src="https://kit.fontawesome.com/97726b2eee.js" crossorigin="anonymous"></script>
 
 const ProfileButton = ({ sessionUser }) => {
@@ -37,6 +38,10 @@ const ProfileButton = ({ sessionUser }) => {
         history.push('/')
     };
 
+    const SeeMyGroups = (e) => {
+        e.preventDefault();
+        history.push(`/groups/current`)
+    }
 
 
     const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
@@ -52,6 +57,9 @@ const ProfileButton = ({ sessionUser }) => {
                 <li className="navDropLi">{firstName} {lastName}</li>
                 <li className="navDropLi">{email}</li>
                 <li className="navDropLi">
+                    <button className='logoutButton' onClick={SeeMyGroups}> See My Groups</button>
+                </li>
+                <li className="navDropLi">
                     <button className='logoutButton' onClick={logout}>Log Out</button>
                 </li>
             </ul>
@@ -61,18 +69,4 @@ const ProfileButton = ({ sessionUser }) => {
 
 }
 
-
-// <div>
-//     <button onClick={() => setShowMenu(!showMenu)} >
-//         <i className="fa-sharp fa-solid fa-user"></i>
-//     </button>
-//     <ul className={ulClassName} >
-//         <li className="navDropLi">{username}</li>
-//         <li className="navDropLi">{firstName}</li>
-//         <li className="navDropLi">{email}</li>
-//         <li className="navDropLi">
-//             <button className='logoutButton' onClick={logout}>Log Out</button>
-//         </li>
-//     </ul>
-// </div>
 export default ProfileButton
