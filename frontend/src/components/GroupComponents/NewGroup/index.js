@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import './NewGroupForm.css'
 
-function NewGroupPage() {
+function NewGroupForm() {
     const dispatch = useDispatch()
     const history = useHistory();
 
@@ -16,6 +16,8 @@ function NewGroupPage() {
     const [privacy, setPrivacy] = useState('');
     const [imageUrl, setImageUrl] = useState('');
     const [errors, setErrors] = useState([]);
+
+    console.log(`NewGroup imageUrl`, imageUrl)
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -131,4 +133,4 @@ function NewGroupPage() {
     )
 }
 
-export default NewGroupPage
+export default NewGroupForm

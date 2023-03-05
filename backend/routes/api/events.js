@@ -336,7 +336,6 @@ router.put(
 
         let group = await event.getGroup();
 
-        //returning wrong group member
         let groupMember = await GroupMember.findOne({
             where: {
                 userId: user.id,
@@ -344,8 +343,7 @@ router.put(
             }
         });
 
-
-        if (group.organizerId !== user.id && groupMember.status !== 'co-host') {
+        if (group?.organizerId !== user.id && groupMember?.status !== 'co-host') {
             return res.status(403).json({
                 "message": "Forbidden",
                 "statusCode": 403
@@ -412,7 +410,6 @@ router.get(
             ]
         });
 
-        console.log(`eventRoutehanlder event:`, event)
 
         if (!event) {
 
@@ -426,13 +423,11 @@ router.get(
 
         const user = await User.findByPk(event.Group.organizerId);
 
-
         let count = await Attendant.count({
             where: { eventId: event.id }
         });
         event.setDataValue('numAttending', count);
         event.setDataValue(`Organizer`, user);
-        console.log(`event route handler like 443:`, event)
 
         res.status(200).json(event);
 

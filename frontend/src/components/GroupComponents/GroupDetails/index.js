@@ -18,6 +18,8 @@ function GroupDetailsComponent() {
 
     const [loaded, setLoaded] = useState(false);
 
+    console.log(`groupDetails group`, group);
+
     useEffect(() => {
         dispatch(groupActions.fetchGroupDetails(groupId))
         dispatch(groupActions.fetchGroupEvents(groupId))
@@ -29,7 +31,10 @@ function GroupDetailsComponent() {
         history.goBack()
     }
 
+    const handleCreateEventClick = () => [
+        history.push(`/events/new`)
 
+    ]
     const handleUpdateClick = () => {
         history.push(`/groups/${groupId}/edit`)
     }
@@ -106,7 +111,7 @@ function GroupDetailsComponent() {
         loaded && group?.previewImage && < div className='MainGroupDetailsNav' >
             <div className='SubGroupDetailsNav'>
                 <div className='backbuttonDiv'>
-                    <button onClick={goBack} className='backButton'>{`< Groups`}</button>
+                    <button onClick={goBack} className='backButton'>{`< Back`}</button>
 
                 </div>
                 <div className='groupInfoDiv'>
@@ -123,7 +128,9 @@ function GroupDetailsComponent() {
                         </div>
                         {sessionUser?.user?.id === group?.Organizer?.id &&
                             <div >
-                                <button className='sessionUserButtons'>Create event</button>
+                                <button
+                                    onClick={handleCreateEventClick}
+                                    className='sessionUserButtons'>Create event</button>
                                 <button
                                     onClick={handleUpdateClick}
                                     className='sessionUserButtons'>Update</button>

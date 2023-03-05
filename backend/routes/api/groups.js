@@ -997,7 +997,7 @@ router.post(
     '/',
     requireAuth,
     async (req, res) => {
-        let { name, about, type, private, city, state } = req.body;
+        let { name, about, type, private, city, state, previewImage } = req.body;
         let user = req.user;
 
         let errors = [];
@@ -1052,7 +1052,8 @@ router.post(
             private,
             city,
             state,
-            organizerId: user.id
+            organizerId: user.id,
+            previewImage
         });
 
         let group = await Group.scope('createdGroup').findByPk(newGroup.id);

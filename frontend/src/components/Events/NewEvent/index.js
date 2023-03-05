@@ -2,29 +2,20 @@ import React, { useEffect, useState } from 'react';
 import * as eventActions from '../../../store/events';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import './UpdateEvent.css'
-function UpdateEventPage() {
+import './NewEventForm.css'
+function NewEventForm() {
     const dispatch = useDispatch();
     const history = useHistory();
-    const event = (useSelector(state => state.events.currentEvent));
-    let { eventId } = useParams();
-    let { name, type, description, price, capacity, startDate, endDate, previewImage } = event;
-    startDate = startDate?.slice(0, startDate.length - 1);
-    endDate = endDate?.slice(0, endDate.length - 1);
-    console.log(`startdate`, startDate)
 
-    const [updatedName, setUpdatedName] = useState(name);
-    const [updatedType, setUpdatedType] = useState(type);
-    const [updatedDescription, setUpdatedDescription] = useState(description);
-    const [updatedPrice, setUpdatedPrice] = useState(price);
-    const [updatedCapacity, setUpdatedCapacity] = useState(capacity);
-    const [updatedStartDate, setUpdatedStartDate] = useState(startDate);
 
-    // console.log(`updatedStartDate,`, updatedStartDate);
-    // console.log(`startDate typeof`, typeof (startDate));
-    // console.log(`updatedStart Typof`, typeof (updatedStartDate));
+    const [updatedName, setUpdatedName] = useState();
+    const [updatedType, setUpdatedType] = useState();
+    const [updatedDescription, setUpdatedDescription] = useState();
+    const [updatedPrice, setUpdatedPrice] = useState();
+    const [updatedCapacity, setUpdatedCapacity] = useState();
+    const [updatedStartDate, setUpdatedStartDate] = useState();
 
-    const [updatedEndDate, setUpdatedEndDate] = useState(endDate);
+    const [updatedEndDate, setUpdatedEndDate] = useState();
     const [updatedPreviewImage, setUpdatedPreviewImage] = useState('');
     const [errors, setErrors] = useState([]);
     const [loaded, setLoaded] = useState(false);
@@ -33,28 +24,18 @@ function UpdateEventPage() {
         history.goBack();
     };
 
-    useEffect(() => {
-        dispatch(eventActions.fetchEventDetails(eventId));
-        setLoaded(true);
-    }, [dispatch, eventId])
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const event = { name: updatedName, type: updatedType, price: updatedPrice, startDate: updatedStartDate, endDate: updatedEndDate, previewImage: updatedPreviewImage };
         console.log(`event sent to dispatchUpdateEvent`, event);
 
-        return dispatch(eventActions.fetchUpdateEvent(eventId, event))
-            .then((res) => console.log(`return event from updateEvent page`, res))
-            .then(() => goBack())
-            .catch(async (res) => {
-                const data = await res.json();
-                console.log(`eventUpdate fetch catch res`, data);
-                if (data && data.errors) setErrors(data.errors);
-            })
+        return
     }
 
     return (
-        loaded && event?.name && <div>
+        <div>
             <div>
                 {errors && <ul className='errors'>
                     {errors.map((error, idx) => <li key={idx
@@ -138,4 +119,4 @@ function UpdateEventPage() {
 }
 
 
-export default UpdateEventPage
+export default NewEventForm

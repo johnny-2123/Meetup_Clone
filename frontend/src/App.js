@@ -15,6 +15,7 @@ import UpdateEventPage from "./components/Events/UpdateEvent"
 import { useModal } from "./context/Modal";
 import GroupDetailsComponent from "./components/GroupComponents/GroupDetails";
 import EventDetailsComponent from "./components/Events/EventDetails";
+import NewEventForm from "./components/Events/NewEvent"
 
 function App() {
   const dispatch = useDispatch();
@@ -53,18 +54,21 @@ function App() {
         <Route exact path={`/events`}>
           <SeeAllEvents />
         </Route>
+        <Route exact path={`/events/new`}>
+          <NewEventForm />
+        </Route>
         <Route exact path={`/events/:eventId`}>
           <EventDetailsComponent />
         </Route>
         <Route exact path={'/events/:eventId/edit'}>
           <UpdateEventPage />
         </Route>
-        <Route path='/login'>
+        {/* <Route path='/login'>
           <LoginFormPage />
         </Route>
         <Route path='/signup'>
           <SignUpPage />
-        </Route>
+        </Route> */}
         <Route path='/csstest'>
           <CSSTestPage />
         </Route>

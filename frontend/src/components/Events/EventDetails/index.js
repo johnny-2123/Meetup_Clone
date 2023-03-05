@@ -76,7 +76,7 @@ function EventDetailsComponent() {
                 <div className='eventDetailsTopSection'>
                     <button
                         onClick={goBack}
-                        className='backButton'>{`< Events`}</button>
+                        className='backButton'>{`< Back`}</button>
                     <h1>{event?.name}</h1>
                     <h2>Hosted By {event?.Organizer?.firstName} {event?.Organizer?.lastName}</h2>
                 </div>
@@ -124,19 +124,20 @@ function EventDetailsComponent() {
                                 </div>
 
                             </div>
-                            {sessionUser?.user.id === event?.Organizer?.id && (
-                                <div className='deleteUpdateDiv'>
-                                    <button
-                                        onClick={handleUpdateClick}
-                                        className='sessionUserButtons'
-                                    >Update</button>
-                                    <button
-                                        onClick={handleDeleteClick}
-                                        className='sessionUserButtons'>Delete</button>
-                                </div>
-                            )
-                            }
+
                         </div>
+                        {sessionUser?.user.id === event?.Organizer?.id && (
+                            <div className='deleteUpdateDiv'>
+                                <button
+                                    onClick={handleUpdateClick}
+                                    className='sessionUserButtons'
+                                >Update</button>
+                                <button
+                                    onClick={handleDeleteClick}
+                                    className='sessionUserButtons'>Delete</button>
+                            </div>
+                        )
+                        }
                     </div>
                 </div>
                 <div className='greySectionBottomHalf'>

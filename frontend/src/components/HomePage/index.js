@@ -1,12 +1,14 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import OpenModalButton from '../OpenModalButton';
+import { useModal } from "../../context/Modal";
 
 import './HomePage.css'
 
 const HomePage = () => {
     const sessionUser = useSelector(state => state.session?.user);
+
+    const { setShowSignUp } = useModal();
 
     return (
         < div className='grid-containerHome' >
@@ -36,7 +38,7 @@ const HomePage = () => {
                 </div>
             </div>
             <div className='grid-item grid-item-4'>
-                <NavLink className={`joinButton`} to='/signup'>Join Meetup</NavLink>
+                <button className={`joinButton`} onClick={() => setShowSignUp(true)}>Join Meetup</button>
             </div>
         </div >
 

@@ -14,7 +14,7 @@ const addEvent = (event) => ({
 })
 
 export const fetchUpdateEvent = (eventId, event) => async dispatch => {
-    const response = await csrfFetch(`/api/groups/${eventId}`, {
+    const response = await csrfFetch(`/api/events/${eventId}`, {
         method: 'PUT',
         Headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(event)
