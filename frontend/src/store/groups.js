@@ -149,7 +149,7 @@ const groupsReducer = (state = initialState, action) => {
             };
         case GET_CURRENT_USER_GROUPS:
             return {
-                ...state, currentUserGroups: [...action.groups]
+                ...state, currentUserGroups: [...action.groups.Groups]
             }
         case ADD_Group:
             if (!state.allGroups[action.group.id]) {

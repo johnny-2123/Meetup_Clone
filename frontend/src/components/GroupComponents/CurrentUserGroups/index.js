@@ -9,12 +9,17 @@ function SeeCurrentUserGroups() {
     const history = useHistory();
 
     const sessionUser = useSelector(state => state.session.user?.user);
+
     const userGroups = useSelector(state => {
-        return state.groups.currentUserGroups
+        return state.groups?.currentUserGroups
     });
 
+    useEffect(() => {
+        dispatch(fetchCurrentUserGroups(sessionUser?.id));
+    }, [dispatch])
+
     console.log(`userGroups from seeCurrentUserGroups selector`, userGroups);
-    let groupsArr = userGroups.map((group, idx) => {
+    let groupsArr = userGroups?.map((group, idx) => {
         return (
             < div
                 onClick={() => history.push(`/groups/${group.id}`)}
@@ -41,7 +46,6 @@ function SeeCurrentUserGroups() {
     })
 
     useEffect(() => {
-
 
     }, [dispatch])
 

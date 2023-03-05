@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router";
 import * as sessionActions from "./store/session";
+import * as groupActions from "./store/groups";
 import LoginFormPage from "./components/LoginFormModal";
 import SignUpPage from "./components/SignUpPage";
 import CSSTestPage from "./components/CSSTest";
@@ -24,7 +25,8 @@ function App() {
   const { showLogin, showSignUp } = useModal();
 
   useEffect(() => {
-    dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true))
+    dispatch(sessionActions.restoreUser())
+      .then(() => setIsLoaded(true))
 
   }, [dispatch])
 

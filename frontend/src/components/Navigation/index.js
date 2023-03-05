@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
 import * as sessionActions from '../../store/session';
-
+import * as groupActions from '../../store/groups'
 import { Redirect, useHistory } from 'react-router';
 import OpenModalButton from '../OpenModalButton';
 
@@ -13,7 +13,7 @@ function Navigation({ isLoaded }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const sessionUser = useSelector(state => state.session.user?.user);
-
+    const currentUserGroups = useSelector(state => state.groups.currentUserGroups)
     let sessionLinks;
 
     const { setShowLogin, setShowSignUp } = useModal()

@@ -26,7 +26,7 @@ router.get(
     async (req, res) => {
         let currentUser = await User.findByPk(req.user.id);
         let groupsOrganized = await currentUser.getGroupsOrganized();
-
+        console.log(`userid from groups/current router`, currentUser?.id)
         let groupsJoined = await currentUser.getUserGroup();
 
         let groupsJoinedArr = []
@@ -76,6 +76,7 @@ router.get(
         }
         let resGroups = {};
         resGroups.Groups = groupsJoinedArr;
+        console.log(`resGroups from /groups/current router`, resGroups)
         return res.status(200).json(resGroups);
     }
 )
