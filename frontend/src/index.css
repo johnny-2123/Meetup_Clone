@@ -9,15 +9,12 @@
 /* .mainDiv {} */
 .main {
     min-width: 600px;
-}
-
-
-.body {
     margin: 0;
     padding: 0;
 }
 
-.AppDiv {
+
+.body {
     margin: 0;
     padding: 0;
 }

@@ -14,9 +14,22 @@ const loadCurrentUserEvents = (events) => ({
     events
 });
 
-// export const fetchCurrentUserEvents = (userId) => async dispatch => {
-//     const response = await csrfFetch('')
-// }
+export const fetchCurrentUserEvents = (currentUserQueries) => async dispatch => {
+    //  let response = '';
+    // if (eventSearchQueries) {
+    //     response = await csrfFetch(`/api/events?${eventSearchQueries}`)
+    //     console.log(`fetchAllEvents queried Response: `, response)
+
+    // } else {
+    //     response = await csrfFetch(`/api/events`)
+    //     console.log(`fetchAllEvents Response: `, response)
+    // }
+    // if (response.ok) {
+    //     const events = await response.json();
+    //     console.log(`events.tojson`, events)
+    //     dispatch(loadEvents(events))
+    // }
+}
 
 const addEvent = (event) => ({
     type: ADD_EVENT,

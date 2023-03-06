@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "./SeeAllGroups.css";
 import { getAllGroups, clearCurrentGroup } from "../../../store/groups";
@@ -18,22 +18,22 @@ function SeeAllGroups() {
                 onClick={() => history.push(`/groups/${group.id}`)}
                 key={idx} className="allEventsContainer" >
                 <div className="groupContainer">
-                    <div className="allEventsImgDiv">
-                        <img className="allGroupsImg" src={group.previewImage}></img>
-                    </div>
+                    <img className="allGroupsImg" src={group.previewImage}></img>
                     <div className="groupContainerDetails">
                         <h3>{group.name}</h3>
-                        <h4>{group.city}</h4>
+                        <h4 id="allGroupsCity">{group.city}</h4>
 
                         <div className="EventsPrivacyDiv">
-                            <h4>{group.numEvents} Event(s)</h4>
+                            <h4 >{group.numEvents} Event(s) |</h4>
                             {group.private && <h4>private</h4>}
                             {!group.private && <h4>public</h4>}
                         </div>
                     </div>
 
                 </div>
-                <p>{group.about}</p>
+                <div className="pDiv">
+                    <p>{group.about}</p>
+                </div>
             </div >)
 
     })
@@ -44,15 +44,20 @@ function SeeAllGroups() {
     }, [dispatch])
 
     return (
+        <div className="seeAllGroupsMainDiv" >
+            <ul className='EventsGroupsNav'>
+                <li>
+                    <NavLink className={`EventsGroupsLinks`} to='/events'>Events</NavLink>
+                </li>
+                <li><NavLink className={`EventsGroupsLinks`} to='/groups'>Groups</NavLink>
+                </li>
+            </ul>
+            <div className="belowEventsGroupsNav">
+                <h2 className="GroupsInMeetup"> Groups in Meetup </h2>
 
-        < div className="seeAllGroupsMainDiv" >
-            <EventsGroupsNav />
-            <div className="seeAllh2">
-                <h2 > Groups in Meetup </h2>
+                {groupsArr}
             </div>
-            {groupsArr}
         </div >
-
     );
 }
 

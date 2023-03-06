@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import * as eventActions from '../../../store/events';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import './UpdateEvent.css'
+import './UpdateEvent.css';
+
 function UpdateEventPage() {
     const dispatch = useDispatch();
     const history = useHistory();
@@ -54,7 +55,7 @@ function UpdateEventPage() {
     }
 
     return (
-        loaded && event?.name && <div>
+        loaded && event?.name && <div className='updateEventMainDiv'>
             <div>
                 {errors && <ul className='errors'>
                     {errors.map((error, idx) => <li key={idx

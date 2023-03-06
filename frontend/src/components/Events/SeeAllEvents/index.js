@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, NavLink, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllEvents, clearCurrentEvent } from '../../../store/events'
 import EventsGroupsNav from "../../EventsGroupsNav";
@@ -17,6 +17,8 @@ function SeeAllEvents() {
     });
 
     console.log(`events selector return:`, events)
+
+    // const currentUrl = use
 
     useEffect(() => {
         dispatch(fetchAllEvents());
@@ -46,33 +48,43 @@ function SeeAllEvents() {
 
         return (
             < div key={idx} className="allEventsContainer" >
-                <div onClick={() => history.push(`/events/${event.id}`)} className="eventContainer">
-                    <div className="allEventsImgDiv">
-                        <img className="allEventsImg" src={event.previewImage}></img>
-                    </div>
-                    <div className="eventContainerDetails">
-                        <h3>{eventDate.toLocaleDateString()} {eventDate.toLocaleTimeString('en-US', {
+                <div onClick={() => history.push(`/events/${event.id}`)} className="groupContainer">
+
+                    <img className="allGroupsImg" src={event.previewImage}></img>
+
+                    <div className="groupContainerDetails">
+                        <h3 id="allEventsEventDate">{eventDate.toLocaleDateString()} {eventDate.toLocaleTimeString('en-US', {
                             hour: '2-digit',
                             minute: '2-digit',
                         })}</h3>
-                        <h4>{event.name}</h4>
-                        {event?.Venue?.city && <h3>{event.Venue.city}</h3>}
+                        <h4 id="allEventsName">{event.name}</h4>
+                        {event?.Venue?.city && <h3 id="allEventsCity">{event.Venue.city}</h3>}
                     </div>
                 </div>
-                <p>{event.description}</p>
+                <p className="pDiv">{event.description}</p>
             </div >)
     })
 
     return (
         < div className="seeAllGroupsMainDiv" >
-            <EventsGroupsNav />
-            <div className="seeAllh2">
-                <h2 > Events in Meetup </h2>
-                <button
-                    onClick={handleInPersonClick}
-                    className="sessionUserButtons">In Person</button>
+            <ul className='EventsGroupsNav'>
+                <li>
+                    <NavLink className={`EventsGroupsLinks`} to='/events'>Events</NavLink>
+                </li>
+                <li><NavLink className={`EventsGroupsLinks`} to='/groups'>Groups</NavLink>
+                </li>
+            </ul>
+            <div className="belowEventsGroupsNav">
+                <div className="allEventsButtons_subHeaderDiv">
+                    <h2 className="EventsInMeetup"> Events in Meetup </h2>
+
+                    <button
+                        onClick={handleInPersonClick}
+                        className="sessionUserButtons">In Person</button>
+                </div>
+                {eventsArr}
             </div>
-            {eventsArr}
+
         </div >
 
     )

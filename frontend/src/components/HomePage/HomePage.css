@@ -3,6 +3,8 @@
     height: 85vh;
     grid-template-rows: 3fr 1fr 3fr 1fr;
     max-width: 100vw;
+    top: 65px;
+    position: absolute;
 }
 
 

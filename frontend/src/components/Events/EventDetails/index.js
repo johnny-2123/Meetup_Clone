@@ -126,7 +126,7 @@ function EventDetailsComponent() {
                             </div>
 
                         </div>
-                        {sessionUser?.user.id === event?.Organizer?.id && (
+                        {sessionUser?.user?.id === event?.Organizer?.id && (
                             <div className='deleteUpdateDiv'>
                                 <button
                                     onClick={handleUpdateClick}

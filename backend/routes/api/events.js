@@ -490,7 +490,7 @@ router.get(
     '/',
     async (req, res) => {
         const where = {}
-        let { page, size, name, type, startDate } = req.query;
+        let { page, size, name, type, startDate, groupId } = req.query;
         page = parseInt(page);
         size = parseInt(size);
 
@@ -558,6 +558,9 @@ router.get(
         }
         if (startDate) {
             where.startDate = startDate;
+        }
+        if (groupId && typeof (groupId) === 'integer') {
+            where.groupId = groupId;
         }
 
 
