@@ -55,7 +55,7 @@ function UpdateEventPage() {
     }
 
     return (
-        loaded && event?.name && <div className='updateEventMainDiv'>
+        loaded && event?.name && <div id='updateEventMainDiv'>
             <div>
                 {errors && <ul className='errors'>
                     {errors.map((error, idx) => <li key={idx

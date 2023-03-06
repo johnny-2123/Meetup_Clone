@@ -1,6 +1,6 @@
-.updateEventMainDiv {
+#updateEventMainDiv {
     position: absolute;
-
+    top: 65px;
 }
 
 input[type=number] {

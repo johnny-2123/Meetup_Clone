@@ -48,7 +48,7 @@ function UpdateGroupPage() {
     };
 
     return (
-        loaded && <div>
+        loaded && <div id='updateGroupMainDiv'>
             <div>
                 {errors && <ul className='errors'>
                     {errors.map((error, idx) => <li key={idx}>{error}</li>)}
