@@ -25,14 +25,13 @@ function SeeCurrentUserGroups() {
                 onClick={() => history.push(`/groups/${group.id}`)}
                 key={idx} className="allEventsContainer" >
                 <div className="groupContainer">
-                    <div className="allEventsImgDiv">
-                        <img className="allGroupsImg" src={group.previewImage}></img>
-                    </div>
+
+                    <img className="allGroupsImg" src={group.previewImage}></img>
+
                     <div className="groupContainerDetails">
                         <h3>{group.name}</h3>
-                        <h4>{group.city}</h4>
-
-                        <div className="EventsPrivacyDiv">
+                        <h4 id="myGroupsCity">{group.city}, {group.state}</h4>
+                        <div id="myGroupsPrivacyDiv" className="EventsPrivacyDiv">
                             <h4>{group.numEvents} Event(s)</h4>
                             {group.private && <h4>private</h4>}
                             {!group.private && <h4>public</h4>}
@@ -52,12 +51,13 @@ function SeeCurrentUserGroups() {
     return (
 
         < div className="seeAllGroupsMainDiv" >
-            <div className="seeAllh2">
-                <h2 > Your Groups in Meetup </h2>
-            </div>
-            {groupsArr}
-        </div >
-
+            <div className="belowEventsGroupsNav">
+                <div className="seeAllh2">
+                    <h2 > Your Groups in Meetup </h2>
+                </div>
+                {groupsArr}
+            </div >
+        </div>
     );
 }
 

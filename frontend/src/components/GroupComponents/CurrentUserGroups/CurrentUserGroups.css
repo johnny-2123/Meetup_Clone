@@ -1,0 +1,13 @@
+#myGroupsCity {
+    border-top: lightgray solid 1px;
+    margin-top: .5rem;
+    padding-top: .5rem;
+    width: fit-content;
+    color: black;
+    margin-bottom: 1rem;
+}
+
+
+#myGroupsPrivacyDiv h4 {
+    margin-top: 0;
+}

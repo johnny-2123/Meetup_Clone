@@ -40,7 +40,7 @@ router.get(
             toPush.name = groupJoined.name;
             toPush.type = groupJoined.type;
             toPush.private = groupJoined.private;
-            toPush.city = groupJoined.state;
+            toPush.city = groupJoined.city;
             toPush.state = groupJoined.state;
             toPush.about = groupJoined.about;
             toPush.previewImage = groupJoined.previewImage;
@@ -60,7 +60,7 @@ router.get(
             toPush.name = groupOrganized.name;
             toPush.type = groupOrganized.type;
             toPush.private = groupOrganized.private;
-            toPush.city = groupOrganized.state;
+            toPush.city = groupOrganized.city;
             toPush.state = groupOrganized.state;
             toPush.about = groupOrganized.about;
             toPush.previewImage = groupOrganized.previewImage;
