@@ -1,43 +1,59 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { useModal } from "../../context/Modal";
+import { setSessionUser } from '../../store/session';
 
 import './HomePage.css'
 
 const HomePage = () => {
     const sessionUser = useSelector(state => state.session?.user);
+    const [homeThirdSectionDivDisabled, setHomeThirdSectionDivDisabled] = useState(false);
+    let homeStartGroupIdName = homeThirdSectionDivDisabled ? "homeThirdSectionDivDisabled" : "homeThirdSectionDiv";
+
+    useEffect(() => {
+        console.log(`home SessionUser`, sessionUser?.user);
+        if (!sessionUser?.user) {
+            setHomeThirdSectionDivDisabled(true)
+        } else {
+
+            setHomeThirdSectionDivDisabled(false)
+        }
+    }, [sessionUser])
 
     const { setShowSignUp } = useModal();
 
     return (
-        < div className='grid-containerHome' >
-            <div className='grid item grid-item-1'>
+        < div className='containerHome' >
+            <div className='homeTopSection'>
                 <div >
                     <h1>The people platform - <br></br> Where interests become friendships</h1>
                     <p>Lorem ipsum dolor sit amet. Et accusamus voluptatem et earum amet qui aspernatur molestias aut illo soluta ut veritatis sapiente. Et commodi debitis aut eius dolor cum laborum molestiae est maiores.</p>
                 </div>
                 <img className='homePageImage' src='https://res.cloudinary.com/dkul3ouvi/image/upload/v1677379615/vecteezy_back-view-of-man-and-woman-friends-standing-together_5638987_xppydz.jpg' alt='Friends Vector by Vecteezy' />
             </div>
-            <div className='grid-item grid-item-2'>
+            <div className='homeMiddleSection'>
                 <h2>How Meetup works</h2>
-                <p>Lorem ipsum dolor sit amet. Et accusamus voluptatem et earum amet qui </p>
+                <p>Meet new people who share your interests through online and in-person events. It’s free to create an account. </p>
             </div>
-            <div className='grid-item grid-item-3'>
-                <div>
+            <div className='homeThirdSection'>
+                <div className='homeThirdSectionDiv'>
                     <i class="fa-solid fa-handshake"></i>
                     <NavLink className={`homePageSection3Links`} to='/groups'>See All Groups</NavLink>
+                    <p>Do what you love, meet others who love it, find your community. The rest is history!</p>
                 </div>
-                <div>
+                <div className='homeThirdSectionDiv'>
                     <i class="fa-solid fa-ticket"></i>
-                    <NavLink className={`homePageSection3Links`} to='/events'>Find an event</NavLink>
+                    <NavLink className={`homePageSection3Links`} to='/events'>Find an Event</NavLink>
+                    <p>Events are happening on just about any topic you can think of, from online gaming and photography to yoga and hiking.</p>
                 </div>
-                <div>
+                <div id={homeStartGroupIdName} className='homeThirdSectionDiv'>
                     <i class="fa-solid fa-people-group"></i>
-                    <NavLink className={`homePageSection3Links`} to='/groups/new'>start a group</NavLink>
+                    <NavLink className={`homePageSection3Links`} to='/groups/new'>Start a Group</NavLink>
+                    <p>You don’t have to be an expert to gather people together and explore shared interests.</p>
                 </div>
             </div>
-            <div className='grid-item grid-item-4'>
+            <div className='homeFourthSection'>
                 <button className={`joinButton`} onClick={() => setShowSignUp(true)}>Join Meetup</button>
             </div>
         </div >

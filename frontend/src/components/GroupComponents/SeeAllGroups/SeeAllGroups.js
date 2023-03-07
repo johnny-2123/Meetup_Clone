@@ -21,7 +21,7 @@ function SeeAllGroups() {
                     <img className="allGroupsImg" src={group.previewImage}></img>
                     <div className="groupContainerDetails">
                         <h3>{group.name}</h3>
-                        <h4 id="allGroupsCity">{group.city}</h4>
+                        <h4 id="allGroupsCity">{group.city}, {group.state}</h4>
 
                         <div className="EventsPrivacyDiv">
                             <h4 >{group.numEvents} Event(s) |</h4>
@@ -32,7 +32,7 @@ function SeeAllGroups() {
 
                 </div>
                 <div className="pDiv">
-                    <p>{group.about}</p>
+                    <p className="allGroupsP">{group.about}</p>
                 </div>
             </div >)
 
@@ -49,7 +49,7 @@ function SeeAllGroups() {
                 <li>
                     <NavLink className={`EventsGroupsLinks`} to='/events'>Events</NavLink>
                 </li>
-                <li><NavLink className={`EventsGroupsLinks`} to='/groups'>Groups</NavLink>
+                <li><NavLink id="underlineGroups" className={`EventsGroupsLinks`} to='/groups'>Groups</NavLink>
                 </li>
             </ul>
             <div className="belowEventsGroupsNav">

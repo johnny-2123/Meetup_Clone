@@ -27,6 +27,8 @@ body {
 }
 
 #underlineEvents {
+    pointer-events: none;
+
     text-decoration: underline;
 }
 

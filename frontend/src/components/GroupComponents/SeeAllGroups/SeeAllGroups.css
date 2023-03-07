@@ -25,6 +25,12 @@ body {
     max-width: 1300px;
 }
 
+#underlineGroups {
+    pointer-events: none;
+    text-decoration: underline;
+
+}
+
 .belowEventsGroupsNav {
     /* background-color: beige; */
     width: 80%;
@@ -45,6 +51,7 @@ body {
 
 .allEventsContainer {
     /* background-color: cadetblue; */
+    padding-bottom: 15px;
     border-bottom: 1px solid lightgray;
     margin-bottom: 1.5rem;
 }
@@ -92,9 +99,9 @@ body {
 }
 
 #allGroupsCity {
-    border-top: lightgray solid 1px;
     margin-top: .5rem;
-    padding-top: .5rem;
+    margin-bottom: .5rem;
+    padding-top: 0;
     width: fit-content;
     color: black;
 }
@@ -107,13 +114,24 @@ body {
 
 .EventsPrivacyDiv h4 {
     margin-right: .25rem;
+    margin-top: 0;
+    padding-top: 0;
 }
 
 .pDiv {
-
-    /* background-color: yellow; */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0;
+    padding-bottom: 0;
 }
 
+.pDiv p {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
 
 @media screen and (max-width: 607px) {
     .seeAllGroupsMainDiv {

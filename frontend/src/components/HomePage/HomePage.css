@@ -1,15 +1,18 @@
-.grid-containerHome {
-    display: grid;
-    height: 85vh;
-    grid-template-rows: 3fr 1fr 3fr 1fr;
-    max-width: 100vw;
+.containerHome {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    padding: auto;
+    margin: auto;
     top: 65px;
     position: absolute;
+    /* background-color: antiquewhite; */
 }
 
 
-.grid-item-1 {
-    background-color: white;
+.homeTopSection {
+    /* background-color: blue; */
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -17,6 +20,7 @@
     align-items: center;
     padding: 20px 50px 20px 50px;
     max-height: 794px;
+    max-width: 1618px;
 }
 
 
@@ -38,48 +42,78 @@
 
 }
 
-.grid-item-2 {
-    background-color: white;
+.homeMiddleSection {
+    /* background-color: rgb(0, 130, 148); */
     display: inline-flex;
     flex-direction: column;
     align-items: center;
     justify-items: center;
     justify-content: center;
-    margin: 0;
+    margin-bottom: 15px;
     padding: 0px 40px 0px 40px;
 }
 
-.grid-item-2 h2 {
+.homeMiddleSection h2 {
     margin-bottom: 5px;
+
 }
 
-.grid-item-2 p {
+.homeMiddleSection p {
     text-align: center;
     margin: 0px;
     padding: 0px;
     width: auto;
-
+    margin-bottom: 0;
 }
 
-.grid-item-3 {
+.homeThirdSection {
     display: inline-flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center;
-    background-color: white;
-    padding: 0;
+    align-items: flex-start;
+    /* background-color: violet; */
+    padding: 0 30px 0 30px;
     margin: 15px 0px 15px 0px;
 }
 
-.grid-item-3 div {
+.homeThirdSectionDiv {
     margin: 0px 20px 0px 20px;
+    max-width: 300px;
+    text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.grid-item-3 i {
+#homeThirdSectionDivDisabled {
+    margin: 0px 20px 0px 20px;
+    color: darkgray;
+    max-width: 300px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#homeThirdSectionDivDisabled i {
+    color: darkgray;
+}
+
+#homeThirdSectionDivDisabled a {
+    color: darkgray;
+    cursor: default;
+
+}
+
+#homeThirdSectionDivDisabled a:hover {
+    text-decoration: none;
+    pointer-events: none;
+    cursor: default;
+}
+
+.homeThirdSection i {
     font-size: 70px;
     margin-top: 10px;
     color: rgb(0, 130, 148);
@@ -96,11 +130,11 @@
     text-decoration: underline;
 }
 
-.grid-item-4 {
+.homeFourthSection {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: white;
+    /* background-color: green; */
     margin: 0;
     padding-top: 0px;
 }
