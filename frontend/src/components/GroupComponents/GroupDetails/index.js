@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import AlertConfirm from 'react-alert-confirm';
-import * as groupActions from '../../../store/groups'
+import * as groupActions from '../../../store/groups';
+import { fetchCurrentUserGroups } from "../../../store/groups";
 import * as EventActions from '../../../store/events';
 import * as sessionActions from '../../../store/session'
 import './GroupDetails.css'
@@ -15,12 +16,34 @@ function GroupDetailsComponent() {
     const group = useSelector(state => state.groups?.currentGroup);
     const sessionUser = useSelector(state => state.session?.user);
     const events = useSelector(state => state.groups?.currentGroupEvents)
+    const userGroups = useSelector(state => {
+        return state.groups?.currentUserGroups
+    });
 
     const [loaded, setLoaded] = useState(false);
+    const [userIsOrganizer, setUserIsOrganizer] = useState(false)
+    useEffect(() => {
+        sessionUser?.user?.id === group?.Organizer?.id ? setUserIsOrganizer(true) : setUserIsOrganizer(false)
+        for (let userGroup of userGroups) {
+            console.log(`group.id`, group.id)
+            console.log(`userGroup of UserGroups,`, userGroup);
+            console.log(`sessionUser?.user?.id`, sessionUser?.user?.id);
+            console.log(`userGroup?.organizerId`, userGroup?.organizerId);
+            console.log(`userGroup.id`, userGroup.id);
+            console.log(`userGroup.id`, userGroup.id);
+            // (sessionUser?.user?.id === userGroup?.organizerId) && (group.id === userGroup.id) ? setUserIsGroupMember(true) : setUserIsGroupMember(false);
+            // if ((sessionUser?.user?.id === userGroup?.organizerId) && (group.id === userGroup.id)) {
+            //     return setUserIsGroupMember(true);
+            // } else {
+            //     setUserIsGroupMember(false)
+            // }
+        }
+    }, [sessionUser, userGroups, group])
 
     useEffect(() => {
         dispatch(groupActions.fetchGroupDetails(groupId))
         dispatch(groupActions.fetchGroupEvents(groupId))
+        dispatch(fetchCurrentUserGroups(sessionUser?.id));
         dispatch(sessionActions.restoreUser())
         setLoaded(true)
     }, [dispatch, groupId])
@@ -127,7 +150,7 @@ function GroupDetailsComponent() {
                             </div>
                             <h4>Organized by {group?.Organizer?.firstName} {group?.Organizer?.lastName}</h4>
                         </div>
-                        {sessionUser?.user?.id === group?.Organizer?.id &&
+                        {userIsOrganizer &&
                             <div >
                                 <button
                                     onClick={handleCreateEventClick}
@@ -139,6 +162,7 @@ function GroupDetailsComponent() {
                                     onClick={handleDeleteClick}
                                     className='sessionUserButtons'>Delete</button>
                             </div>}
+
                     </div>
                 </div>
 

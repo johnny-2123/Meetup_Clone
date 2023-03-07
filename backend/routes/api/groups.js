@@ -34,6 +34,17 @@ router.get(
             let count = await GroupMember.count({
                 where: { groupId: groupJoined.id }
             });
+            let groupMember = await GroupMember.findOne({
+                where: {
+                    userId: currentUser.id,
+                    groupId: groupJoined.id
+                }
+            });
+
+            if (groupMember) {
+                console.log(`groupMember`, groupMember.status);
+            }
+
             let toPush = {}
             toPush.id = groupJoined.id;
             toPush.organizerId = groupJoined.organizerId;
@@ -47,6 +58,8 @@ router.get(
             toPush.createdAt = groupJoined.createdAt;
             toPush.updatedAt = groupJoined.updatedAt;
             toPush.numMembers = count;
+            toPush.currentUserGroupStatus = groupMember.status;
+            console.log(`toPush`, toPush)
             groupsJoinedArr.push(toPush);
         }
         let groupsOrganizedArr = [];
@@ -69,14 +82,23 @@ router.get(
             toPush.numMembers = count;
             groupsOrganizedArr.push(toPush);
         }
-        for (item of groupsOrganizedArr) {
-            if (groupsJoinedArr.filter(idx => idx.id === item.id).length !== -1) {
-                groupsJoinedArr.push(item)
+
+        console.log(`//////////////////////`)
+        for (item of groupsJoinedArr) {
+            // if (groupsJoinedArr.filter(idx => idx.id === item.id).length !== -1) {
+            //     groupsJoinedArr.push(item)
+            // }
+
+            let notInArray = groupsOrganizedArr.filter(group => group.id === item.id);
+            console.log(`notInArray`, notInArray)
+            if (notInArray.length === 0) {
+                groupsOrganizedArr.push(item);
             }
+
         }
         let resGroups = {};
-        resGroups.Groups = groupsJoinedArr;
-
+        resGroups.Groups = groupsOrganizedArr;
+        console.log(`/groups/current return`, resGroups);
         return res.status(200).json(resGroups);
     }
 )
