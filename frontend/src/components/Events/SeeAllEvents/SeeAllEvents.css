@@ -26,6 +26,10 @@ body {
     max-width: 1300px;
 }
 
+#underlineEvents {
+    text-decoration: underline;
+}
+
 .belowEventsGroupsNav {
     /* background-color: beige; */
     width: 80%;
@@ -47,6 +51,26 @@ body {
     padding-bottom: .2rem;
     color: rgb(153, 153, 153);
 
+}
+
+.eventQueryButtonNotClicked {
+    background-color: darkgray;
+    border: darkgray solid 1px;
+    color: white;
+    padding: 5px 8px 5px 8px;
+    font-weight: 500;
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+
+.eventQueryButtonClick {
+    background-color: orangered;
+    border: orangered solid 1px;
+    color: white;
+    padding: 5px 8px 5px 8px;
+    font-weight: 500;
+    margin-right: 10px;
+    margin-bottom: 5px;
 }
 
 .GroupsInMeetup {

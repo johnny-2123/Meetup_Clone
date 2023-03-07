@@ -9,7 +9,7 @@ import './EventDetails.css'
 
 function EventDetailsComponent() {
     const { eventId } = useParams();
-    console.log(`eventId: `, eventId)
+
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -30,11 +30,8 @@ function EventDetailsComponent() {
 
     useEffect(() => {
         // if (sessionUser?.id === event?.Organizer?.id)
-
-        console.log(`sessionUser.id`, sessionUser?.user?.id);
-        console.log(`event.Organizer.id`, event?.Organizer?.id);
         setIsOrganizer(true)
-        console.log(`isOrganizer`, isOrganizer);
+
     })
     const goBack = () => {
         history.goBack()
@@ -94,7 +91,7 @@ function EventDetailsComponent() {
                         </div>
                         <div className='eventDetailsRightOfPictureInfo'>
                             <div className='timeDiv'>
-                                <i class="fa-regular fa-clock"></i>
+                                <i className="fa-regular fa-clock"></i>
                                 <div className='timeSubDiv'>
                                     <div className='startEndDiv'>
                                         <h4>Start:</h4> <h5>{eventDate.toLocaleDateString()} - {eventDate.toLocaleTimeString('en-US', {
@@ -145,7 +142,7 @@ function EventDetailsComponent() {
                     <p>{event?.description}</p>
                 </div>
             </div>
-        </div>
+        </div >
     )
 
 }

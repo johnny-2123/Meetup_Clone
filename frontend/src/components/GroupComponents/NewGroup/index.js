@@ -17,8 +17,6 @@ function NewGroupForm() {
     const [imageUrl, setImageUrl] = useState('');
     const [errors, setErrors] = useState([]);
 
-    console.log(`NewGroup imageUrl`, imageUrl)
-
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors([]);
@@ -29,14 +27,15 @@ function NewGroupForm() {
             .then((res) => history.push(`/groups/${res.id}`))
             .catch(async (res) => {
                 const data = await res.json();
+
                 if (data && data.errors) setErrors(data.errors);
             })
     };
 
 
     return (
-        <div>
-            <div>
+        <div id='newGroupMainDiv' >
+            <div className='newGroupSubDiv'>
                 {errors && <ul className='errors'>
                     {errors.map((error, idx) => <li key={idx}>{error}</li>)}
                 </ul>}
@@ -129,7 +128,7 @@ function NewGroupForm() {
                         type='submit' className='submitButton'>Create New Group</button>
                 </form>
             </div>
-        </div>
+        </div >
     )
 }
 

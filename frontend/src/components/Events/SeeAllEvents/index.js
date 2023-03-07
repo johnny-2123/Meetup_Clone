@@ -8,17 +8,17 @@ import './SeeAllEvents.css';
 function SeeAllEvents() {
     const dispatch = useDispatch();
     const history = useHistory();
-
+    let location = useLocation();
     const [searchQueries, setSearchQueries] = useState({})
+    const [inPersonClicked, setInPersonClicked] = useState(false);
+
     const [inPersonQuery, setInPersonQuery] = useState(false);
-    console.log(`In person query`, inPersonQuery);
+
+    let inPersonClassName = (inPersonClicked ? " eventQueryButtonClick" : "eventQueryButtonNotClicked");
+
     const events = useSelector(state => {
         return state.events.allEvents
     });
-
-    console.log(`events selector return:`, events)
-
-    // const currentUrl = use
 
     useEffect(() => {
         dispatch(fetchAllEvents());
@@ -26,12 +26,16 @@ function SeeAllEvents() {
     }, [dispatch])
 
     const handleInPersonClick = (() => {
+        console.log(`inPersonClicked`, inPersonClicked);
+        console.log(`inPersonClassName`, inPersonClassName);
         if (inPersonQuery === false) {
+            setInPersonClicked(true)
             setInPersonQuery(true)
         } else {
+            setInPersonClicked(false)
             setInPersonQuery(false)
         }
-        console.log(inPersonQuery);
+
     })
 
     useEffect(() => {
@@ -40,7 +44,6 @@ function SeeAllEvents() {
             queryObject.type = 'In Person'
         }
         new URLSearchParams(queryObject).toString();
-        console.log(`queryObject`, new URLSearchParams(queryObject).toString());
         dispatch(fetchAllEvents(new URLSearchParams(queryObject).toString()))
     }, [inPersonQuery])
     let eventsArr = events.map((event, idx) => {
@@ -69,7 +72,7 @@ function SeeAllEvents() {
         < div className="seeAllGroupsMainDiv" >
             <ul className='EventsGroupsNav'>
                 <li>
-                    <NavLink className={`EventsGroupsLinks`} to='/events'>Events</NavLink>
+                    <NavLink id="underlineEvents" className={`EventsGroupsLinks`} to='/events'>Events</NavLink>
                 </li>
                 <li><NavLink className={`EventsGroupsLinks`} to='/groups'>Groups</NavLink>
                 </li>
@@ -80,7 +83,7 @@ function SeeAllEvents() {
 
                     <button
                         onClick={handleInPersonClick}
-                        className="sessionUserButtons">In Person</button>
+                        className={inPersonClassName}>In Person</button>
                 </div>
                 {eventsArr}
             </div>

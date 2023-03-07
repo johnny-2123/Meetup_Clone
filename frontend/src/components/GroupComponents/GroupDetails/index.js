@@ -18,8 +18,6 @@ function GroupDetailsComponent() {
 
     const [loaded, setLoaded] = useState(false);
 
-    console.log(`groupDetails group`, group);
-
     useEffect(() => {
         dispatch(groupActions.fetchGroupDetails(groupId))
         dispatch(groupActions.fetchGroupEvents(groupId))
@@ -109,8 +107,6 @@ function GroupDetailsComponent() {
         }
 
     })
-
-    console.log(`group.previewImage`, group.previewImageImage)
 
     return (
         loaded && group?.previewImage && < div className='MainGroupDetailsNav' >

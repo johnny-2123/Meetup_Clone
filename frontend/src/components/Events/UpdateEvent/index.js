@@ -12,7 +12,6 @@ function UpdateEventPage() {
     let { name, type, description, price, capacity, startDate, endDate, previewImage } = event;
     startDate = startDate?.slice(0, startDate.length - 1);
     endDate = endDate?.slice(0, endDate.length - 1);
-    console.log(`startdate`, startDate)
 
     const [updatedName, setUpdatedName] = useState(name);
     const [updatedType, setUpdatedType] = useState(type);
@@ -20,10 +19,6 @@ function UpdateEventPage() {
     const [updatedPrice, setUpdatedPrice] = useState(price);
     const [updatedCapacity, setUpdatedCapacity] = useState(capacity);
     const [updatedStartDate, setUpdatedStartDate] = useState(startDate);
-
-    // console.log(`updatedStartDate,`, updatedStartDate);
-    // console.log(`startDate typeof`, typeof (startDate));
-    // console.log(`updatedStart Typof`, typeof (updatedStartDate));
 
     const [updatedEndDate, setUpdatedEndDate] = useState(endDate);
     const [updatedPreviewImage, setUpdatedPreviewImage] = useState('');
@@ -42,14 +37,11 @@ function UpdateEventPage() {
     const handleSubmit = (e) => {
         e.preventDefault();
         const event = { name: updatedName, type: updatedType, price: updatedPrice, startDate: updatedStartDate, endDate: updatedEndDate, previewImage: updatedPreviewImage };
-        console.log(`event sent to dispatchUpdateEvent`, event);
 
         return dispatch(eventActions.fetchUpdateEvent(eventId, event))
-            .then((res) => console.log(`return event from updateEvent page`, res))
             .then(() => goBack())
             .catch(async (res) => {
                 const data = await res.json();
-                console.log(`eventUpdate fetch catch res`, data);
                 if (data && data.errors) setErrors(data.errors);
             })
     }

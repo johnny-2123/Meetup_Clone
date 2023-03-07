@@ -27,20 +27,18 @@ function NewEventForm() {
     const handleSubmit = (e) => {
         e.preventDefault();
         const event = { organizerId: sessionUser.id, groupId: currentGroup.id, name: Name, type: Type, capacity: capacity, price: Price, startDate: StartDate, endDate: EndDate, previewImage: PreviewImage, description: Description };
-        console.log(`event sent to dispatchUpdateEvent`, event);
 
         return dispatch(eventActions.fetchCreateEvent(currentGroup.id, event))
-            .then((res) => console.log(`return event from updateEvent page`, res))
-            .then(() => goBack())
+            .then((res) => history.push(`/events/${res.id}`))
             .catch(async (res) => {
                 const data = await res.json();
-                console.log(`eventCreate fetch catch res`, data);
+
                 if (data && data.errors) setErrors(data.errors);
             })
     }
 
     return (
-        <div>
+        <div className='newEventMainDiv'>
             <div>
                 {errors && <ul className='errors'>
                     {errors.map((error, idx) => <li key={idx

@@ -42,7 +42,6 @@ const LoginFormPage = () => {
                 const data = await res.json();
 
                 if (data && data.errors) {
-                    console.log(`loginForm Errors`, data)
                     setErrors(data.errors);
                 }
             });

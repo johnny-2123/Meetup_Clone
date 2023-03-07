@@ -18,7 +18,6 @@ function SeeCurrentUserGroups() {
         dispatch(fetchCurrentUserGroups(sessionUser?.id));
     }, [dispatch])
 
-    console.log(`userGroups from seeCurrentUserGroups selector`, userGroups);
     let groupsArr = userGroups?.map((group, idx) => {
         return (
             < div

@@ -1,3 +1,8 @@
+.newEventMainDiv {
+    position: absolute;
+    top: 65px;
+}
+
 input[type=number] {
     width: 4em;
 }

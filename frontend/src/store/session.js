@@ -51,17 +51,12 @@ export const fetchLogin = ({ credential, password }) => async dispatch => {
         })
     })
 
-    console.log(`fetchloginRes:`, response)
-
     if (response.ok) {
         const data = await response.json();
-        console.log(`fetchloginRes toJson:`, data)
 
         await dispatch(setSessionUser(data));
-
         return data;
     } else {
-
         return response.errors
     }
 }
@@ -79,10 +74,8 @@ export const fetchLogout = () => async dispatch => {
 
 export const restoreUser = () => async dispatch => {
     const response = await csrfFetch('/api/session');
-    console.log(`restoreUser response: `, response)
-    const data = await response.json();
-    console.log()
 
+    const data = await response.json();
     console.log(`restoreUser data`, data)
     dispatch(setSessionUser(data));
     return data;
@@ -97,9 +90,7 @@ const sessionReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_SESSION_USER:
             newState = Object.assign({}, state)
-            console.log(`SETSESSIONUSER action.user`, action.user)
             newState.user = action.user;
-            console.log(`SET SESSION USER newState`, newState)
             return newState;
         case REMOVE_SESSION_USER:
             newState = Object.assign({}, state)

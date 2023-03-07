@@ -1,0 +1,11 @@
+#newGroupMainDiv {
+    position: absolute;
+    top: 65px;
+    background-color: aqua;
+}
+
+
+.newGroupSubDiv {
+
+    background-color: bisque;
+}

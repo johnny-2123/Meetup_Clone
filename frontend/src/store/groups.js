@@ -16,12 +16,10 @@ const loadCurrentUserGroups = (groups) => ({
 
 export const fetchCurrentUserGroups = (userId) => async dispatch => {
     const response = await csrfFetch(`/api/groups/current`)
-    console.log(`fetchCurrentUserGroups res`, response);
 
     if (response.ok) {
         const groups = await response.json();
         dispatch(loadCurrentUserGroups(groups));
-        console.log(`fetchCurrUserGroups tojson`, groups);
         return groups;
     }
 }

@@ -43,11 +43,8 @@ export const fetchCreateEvent = (groupId, event) => async dispatch => {
         body: JSON.stringify(event)
     });
 
-    console.log(`fetchCreateEvent store res`, response);
-
     if (response.ok) {
         const event = await response.json();
-        console.log(`fetchCreateEvent store res.json`, event)
         dispatch(addEvent(event));
         return event;
     }
@@ -60,10 +57,9 @@ export const fetchUpdateEvent = (eventId, event) => async dispatch => {
         body: JSON.stringify(event)
     });
 
-    console.log(`fetchUpdate group res`, response);
     if (response.ok) {
         const event = await response.json();
-        console.log(`fetchUpdate event to.json`, event);
+
         dispatch(addEvent(event));
         return event;
     }
@@ -85,7 +81,6 @@ export const fetchDeleteEvent = (eventId) => async dispatch => {
 
     if (response.ok) {
         const event = await response.json();
-        console.log(`fetchDeleteEvent ok.json res:`, event);
         dispatch(removeEvent(eventId));
         return event
     }
@@ -102,10 +97,8 @@ const getEventDetails = event => ({
 
 export const fetchEventDetails = (eventId) => async dispatch => {
     const response = await csrfFetch(`/api/events/${eventId}`);
-    console.log(`fetchEventDetails Response:`, response)
     if (response.ok) {
         const event = await response.json();
-        console.log('eventDetails.json()', event);
         dispatch(getEventDetails(event));
         return event;
     }
@@ -119,15 +112,12 @@ export const fetchAllEvents = (eventSearchQueries) => async dispatch => {
     let response = '';
     if (eventSearchQueries) {
         response = await csrfFetch(`/api/events?${eventSearchQueries}`)
-        console.log(`fetchAllEvents queried Response: `, response)
 
     } else {
         response = await csrfFetch(`/api/events`)
-        console.log(`fetchAllEvents Response: `, response)
     }
     if (response.ok) {
         const events = await response.json();
-        console.log(`events.tojson`, events)
         dispatch(loadEvents(events))
     }
 }
