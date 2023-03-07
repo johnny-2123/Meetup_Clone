@@ -85,16 +85,11 @@ router.get(
 
         console.log(`//////////////////////`)
         for (item of groupsJoinedArr) {
-            // if (groupsJoinedArr.filter(idx => idx.id === item.id).length !== -1) {
-            //     groupsJoinedArr.push(item)
-            // }
-
             let notInArray = groupsOrganizedArr.filter(group => group.id === item.id);
             console.log(`notInArray`, notInArray)
             if (notInArray.length === 0) {
                 groupsOrganizedArr.push(item);
             }
-
         }
         let resGroups = {};
         resGroups.Groups = groupsOrganizedArr;

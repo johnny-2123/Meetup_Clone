@@ -21,23 +21,29 @@ function GroupDetailsComponent() {
     });
 
     const [loaded, setLoaded] = useState(false);
-    const [userIsOrganizer, setUserIsOrganizer] = useState(false)
+    const [userIsOrganizer, setUserIsOrganizer] = useState(false);
+    const [userIsMember, setUserIsMember] = useState(false);
     useEffect(() => {
         sessionUser?.user?.id === group?.Organizer?.id ? setUserIsOrganizer(true) : setUserIsOrganizer(false)
-        for (let userGroup of userGroups) {
-            console.log(`group.id`, group.id)
-            console.log(`userGroup of UserGroups,`, userGroup);
-            console.log(`sessionUser?.user?.id`, sessionUser?.user?.id);
-            console.log(`userGroup?.organizerId`, userGroup?.organizerId);
-            console.log(`userGroup.id`, userGroup.id);
-            console.log(`userGroup.id`, userGroup.id);
-            // (sessionUser?.user?.id === userGroup?.organizerId) && (group.id === userGroup.id) ? setUserIsGroupMember(true) : setUserIsGroupMember(false);
-            // if ((sessionUser?.user?.id === userGroup?.organizerId) && (group.id === userGroup.id)) {
-            //     return setUserIsGroupMember(true);
-            // } else {
-            //     setUserIsGroupMember(false)
-            // }
-        }
+        // for (let userGroup of userGroups) {
+        //     console.log(`group.id`, group.id)
+        //     console.log(`userGroup of UserGroups,`, userGroup);
+        //     console.log(`sessionUser?.user?.id`, sessionUser?.user?.id);
+        //     console.log(`userGroup?.organizerId`, userGroup?.organizerId);
+        //     console.log(`userGroup.id`, userGroup.id);
+        //     console.log(`userGroup.id`, userGroup.id);
+        //     // (sessionUser?.user?.id === userGroup?.organizerId) && (group.id === userGroup.id) ? setUserIsGroupMember(true) : setUserIsGroupMember(false);
+        //     // if ((sessionUser?.user?.id === userGroup?.organizerId) && (group.id === userGroup.id)) {
+        //     //     return setUserIsGroupMember(true);
+        //     // } else {
+        //     //     setUserIsGroupMember(false)
+        //     // }
+        // }
+
+        let userGroup = userGroups.find(ele => ele.id === group.id);
+        console.log(`userGroup`, userGroup);
+        userGroup?.currentUserGroupStatus && userGroup?.currentUserGroupStatus === 'active' ? setUserIsMember(true) : setUserIsMember(false)
+
     }, [sessionUser, userGroups, group])
 
     useEffect(() => {
@@ -50,6 +56,14 @@ function GroupDetailsComponent() {
 
     const goBack = () => {
         history.goBack()
+    }
+
+    const handleJoinGroup = () => {
+        window.alert(`functionality coming soon`)
+    }
+
+    const handleLeaveGroupClick = () => {
+        window.alert(`functionality coming soon`)
     }
 
     const handleCreateEventClick = () => [
@@ -150,19 +164,32 @@ function GroupDetailsComponent() {
                             </div>
                             <h4>Organized by {group?.Organizer?.firstName} {group?.Organizer?.lastName}</h4>
                         </div>
-                        {userIsOrganizer &&
+                        {userIsOrganizer && !userIsMember &&
                             <div >
                                 <button
                                     onClick={handleCreateEventClick}
-                                    className='sessionUserButtons'>Create event</button>
+                                    className='groupDetailsButton'>Create event</button>
                                 <button
                                     onClick={handleUpdateClick}
-                                    className='sessionUserButtons'>Update</button>
+                                    className='groupDetailsButton'>Update</button>
                                 <button
                                     onClick={handleDeleteClick}
-                                    className='sessionUserButtons'>Delete</button>
+                                    className='groupDetailsButton'>Delete</button>
                             </div>}
-
+                        {userIsMember && !userIsOrganizer &&
+                            <div>
+                                <button
+                                    onClick={handleLeaveGroupClick}
+                                    className='groupDetailsButton'>Leave Group</button>
+                            </div>
+                        }
+                        {!userIsMember && !userIsOrganizer &&
+                            <div>
+                                <button
+                                    onClick={handleLeaveGroupClick}
+                                    className='groupDetailsButton'>Join Group</button>
+                            </div>
+                        }
                     </div>
                 </div>
 

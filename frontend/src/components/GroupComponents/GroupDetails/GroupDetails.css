@@ -96,6 +96,21 @@
     margin-bottom: 5px;
 }
 
+.groupDetailsButton {
+    background-color: rgb(207, 42, 39);
+    border: rgb(207, 42, 39) solid 1px;
+    box-shadow: 1px 2px 2px black;
+    color: white;
+    padding: 5px 8px 5px 8px;
+    font-weight: 500;
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+
+.groupDetailsButton:hover {
+    opacity: .85;
+}
+
 .groupTextBottomDiv {
     background-color: #F6F6F6;
     width: 98vw;
