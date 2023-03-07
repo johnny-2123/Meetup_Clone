@@ -48,14 +48,10 @@ function UpdateEventPage() {
 
     return (
         loaded && event?.name && <div id='updateEventMainDiv'>
-            <div>
-                {errors && <ul className='errors'>
-                    {errors.map((error, idx) => <li key={idx
-                    }>{error}</li>)}
-                </ul>}
+            <div className='newEventSubDiv'>
                 <h3>Update your event</h3>
-                <form onSubmit={handleSubmit}>
-                    <div>
+                <form className='newEventForm' onSubmit={handleSubmit}>
+                    <div className='eventFormSubDiv'>
                         <h4>What is the name of your event?</h4>
                         <input
                             type={`text`}
@@ -65,7 +61,7 @@ function UpdateEventPage() {
                             name="name" />
                     </div>
                     <div>
-                        <h3>Is this an in person or online event?</h3>
+                        <h4>Is this an in person or online event?</h4>
                         <select
                             name='type'
                             value={updatedType}
@@ -78,18 +74,22 @@ function UpdateEventPage() {
                         </select>
                     </div>
                     <div>
-                        <h3>What is the price for your event?</h3>
-                        $ <input
-                            type="number"
-                            min="0"
-                            id="inputNumber"
-                            value={updatedPrice}
-                            onChange={(e) => setUpdatedPrice(e.target.value)}
-                        />
-
+                        <h4>What is the price for your event?</h4>
+                        <div id='dollarDiv'>
+                            <span className='dollarSpan' >$</span>
+                            <input
+                                className='currency'
+                                type="number"
+                                min="0"
+                                max="999999"
+                                id="priceNumber"
+                                value={updatedPrice}
+                                onChange={(e) => setUpdatedPrice(e.target.value)}
+                            />
+                        </div>
                     </div>
                     <div>
-                        <h3>When does your event start?</h3>
+                        <h4>When does your event start?</h4>
                         <input type="datetime-local"
                             name='startDate'
                             value={updatedStartDate}
@@ -97,7 +97,7 @@ function UpdateEventPage() {
                         />
                     </div>
                     <div>
-                        <h3>When does your event end?</h3>
+                        <h4>When does your event end?</h4>
                         <input type="datetime-local"
                             name='endDate'
                             value={updatedEndDate}
@@ -105,7 +105,7 @@ function UpdateEventPage() {
                         />
                     </div>
                     <div>
-                        <h3>Please add an image url if you want to change your event's image:</h3>
+                        <h4>Please add an image url if you want to change your event's image:</h4>
                         <input type="text"
                             name='previewImage'
                             value={updatedPreviewImage}
@@ -113,15 +113,19 @@ function UpdateEventPage() {
                         />
                     </div>
                     <div>
-                        <h3>Please describe your event:</h3>
+                        <h4>Please describe your event:</h4>
                         <textarea type="text"
                             name='description'
                             value={updatedDescription}
                             onChange={(e) => setUpdatedDescription(e.target.value)}
                         />
                     </div>
+                    {errors && <ul className='errors'>
+                        {errors.map((error, idx) => <li key={idx
+                        }>{error}</li>)}
+                    </ul>}
                     <button
-                        type='submit' className='submitButton'>Update Event</button>
+                        type='submit' className='newEventSubmitButtom'>Update Event</button>
                 </form>
             </div>
         </div>

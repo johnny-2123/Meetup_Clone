@@ -28,7 +28,7 @@ body {
 #underlineGroups {
     pointer-events: none;
     text-decoration: underline;
-
+    color: rgb(0, 82, 94);
 }
 
 .belowEventsGroupsNav {
@@ -38,15 +38,13 @@ body {
     margin-top: 0;
 }
 
-.GroupsInMeetup {
-    /* background-color: darkviolet; */
-
-    font-size: 1.5rem;
-    margin-top: .5rem;
-    font-weight: 600;
-    padding-bottom: 1.5rem;
+#GroupsInMeetup {
+    font-size: 1.4rem;
+    margin-top: .2rem;
+    font-weight: lighter;
+    padding-bottom: 1rem;
     border-bottom: 1px solid lightgray;
-    color: darkgray;
+    color: rgb(117, 117, 117);
 }
 
 .allEventsContainer {
@@ -103,7 +101,7 @@ body {
     margin-bottom: .5rem;
     padding-top: 0;
     width: fit-content;
-    color: black;
+    color: rgb(135, 116, 87)
 }
 
 .EventsPrivacyDiv {
@@ -116,6 +114,8 @@ body {
     margin-right: .25rem;
     margin-top: 0;
     padding-top: 0;
+    color: rgb(117, 117, 117);
+    font-weight: lighter;
 }
 
 .pDiv {

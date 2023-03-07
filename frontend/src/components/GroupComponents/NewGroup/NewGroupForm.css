@@ -8,10 +8,6 @@
     align-items: center;
 }
 
-.required {
-    background-color: red;
-}
-
 .newGroupSubDiv {
     padding-top: 10px;
     width: 90vw;
@@ -19,7 +15,7 @@
 }
 
 .newGroupSubDiv textarea {
-    width: 24rem;
+    width: 27rem;
     height: 10rem;
     background-color: rgb(232, 240, 254);
     border: 1px solid black;
@@ -29,8 +25,7 @@
     background-color: rgb(232, 240, 254);
     margin-right: .75rem;
     margin-bottom: .5rem;
-    width: auto;
-    width: 11rem;
+    width: 25rem;
     border: 1px solid black;
 
 }
@@ -54,14 +49,14 @@
 }
 
 .newGroupSubDiv h3 {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     margin-bottom: .25rem;
     margin-top: 0;
 }
 
 .newGroupSubDiv h5 {
     margin-top: 0;
-    font-size: .75rem;
+    font-size: .9rem;
     margin-bottom: 10px;
 }
 
@@ -72,7 +67,7 @@
 }
 
 .newGroupSubDiv li {
-    font-size: .75rem;
+    font-size: .85rem;
     font-weight: 600;
 }
 

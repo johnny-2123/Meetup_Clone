@@ -28,8 +28,8 @@ body {
 
 #underlineEvents {
     pointer-events: none;
-
     text-decoration: underline;
+    color: rgb(0, 82, 94);
 }
 
 .belowEventsGroupsNav {
@@ -47,11 +47,11 @@ body {
 }
 
 .EventsInMeetup {
-    font-size: 1.5rem;
-    margin-top: .5rem;
-    font-weight: 600;
-    padding-bottom: .2rem;
-    color: rgb(153, 153, 153);
+    font-size: 1.4rem;
+    margin-top: .2rem;
+    font-weight: lighter;
+    padding-bottom: .1rem;
+    color: rgb(117, 117, 117);
 
 }
 
@@ -142,7 +142,7 @@ body {
 }
 
 #allEventsCity {
-    color: rgb(153, 153, 153);
+    color: rgb(135, 116, 87);
     margin-top: 0;
     font-size: 1rem;
 }

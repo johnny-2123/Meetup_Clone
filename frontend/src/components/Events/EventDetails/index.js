@@ -74,8 +74,10 @@ function EventDetailsComponent() {
                     <button
                         onClick={goBack}
                         className='backButton'>{`< Back`}</button>
-                    <h1>{event?.name}</h1>
-                    <h2>Hosted By {event?.Organizer?.firstName} {event?.Organizer?.lastName}</h2>
+                    <div className='belowEventDetailsBackButton'>
+                        <h1>{event?.name}</h1>
+                        <h2>Hosted By {event?.Organizer?.firstName} {event?.Organizer?.lastName}</h2>
+                    </div>
                 </div>
             </div>
             <div className='eventDetailsGreySection'>
@@ -127,11 +129,11 @@ function EventDetailsComponent() {
                             <div className='deleteUpdateDiv'>
                                 <button
                                     onClick={handleUpdateClick}
-                                    className='sessionUserButtons'
+                                    className='groupDetailsButton'
                                 >Update</button>
                                 <button
                                     onClick={handleDeleteClick}
-                                    className='sessionUserButtons'>Delete</button>
+                                    className='groupDetailsButton'>Delete</button>
                             </div>
                         )
                         }

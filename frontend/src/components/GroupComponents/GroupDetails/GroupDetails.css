@@ -1,3 +1,9 @@
+html,
+body {
+    padding: 0;
+    margin: 0;
+}
+
 .MainGroupDetailsNav {
     margin: 0;
     display: flex;
@@ -11,8 +17,8 @@
 
 .SubGroupDetailsNav {
     padding-top: 0;
-    min-height: 45vh;
-    width: 80vw;
+    min-height: 30vh;
+    width: 90vw;
     height: fit-content;
     display: flex;
     justify-content: flex-start;
@@ -47,9 +53,18 @@
 }
 
 .groupInfoDiv img {
-    height: 300px;
-    margin-right: 10px;
+
+    width: 50%;
+    min-width: 300px;
+    min-height: 150px;
+    max-width: 500px;
+    height: fit-content;
+    object-fit: cover;
+    margin-right: 1rem;
     border-radius: 10px;
+    /* height: 300px;
+    margin-right: 10px;
+    border-radius: 10px; */
 
 }
 
@@ -113,7 +128,7 @@
 
 .groupTextBottomDiv {
     background-color: #F6F6F6;
-    width: 98vw;
+    width: 98.5vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -124,7 +139,7 @@
 
 .subGroupTextBotttomDiv {
     background-color: #F6F6F6;
-    width: 80vw;
+    width: 90vw;
     display: flex;
     flex-direction: column;
 }
@@ -176,13 +191,14 @@
     cursor: pointer;
 }
 
-.groupEventPicture {
-    height: 175px;
-    width: 233px;
-    margin-right: 15px;
-    object-fit: none;
-    border-radius: 10px;
+#groupEventPicture {
+    width: 40%;
+    min-width: 150px;
+    max-width: 300px;
+    height: fit-content;
     object-fit: cover;
+    margin-right: 1rem;
+    border-radius: 5px;
 }
 
 .groupEventContainer h4 {

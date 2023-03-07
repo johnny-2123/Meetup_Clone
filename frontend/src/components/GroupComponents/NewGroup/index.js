@@ -37,7 +37,6 @@ function NewGroupForm() {
     return (
         <div id='newGroupMainDiv' >
             <div className='newGroupSubDiv'>
-
                 <h3 id='newGroupHeader'>Become An Organizer</h3>
                 <h3>We'll walk you through a few steps to build your local community</h3>
                 <form onSubmit={handleSubmit}>

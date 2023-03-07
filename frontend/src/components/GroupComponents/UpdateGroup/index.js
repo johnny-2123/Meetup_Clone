@@ -49,10 +49,8 @@ function UpdateGroupPage() {
 
     return (
         loaded && <div id='updateGroupMainDiv'>
-            <div>
-                {errors && <ul className='errors'>
-                    {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-                </ul>}
+            <div className='newGroupSubDiv'>
+
                 <h3>Update Your Groups Information</h3>
                 <h4>We'll walk you through a few steps to build your local community</h4>
                 <form onSubmit={handleSubmit}>
@@ -137,8 +135,11 @@ function UpdateGroupPage() {
                             name='imageUrl'
                             placeholder="image url"></input>
                     </div>
+                    {errors && <ul className='errors'>
+                        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                    </ul>}
                     <button
-                        type='submit' className='submitButton'>Update Group</button>
+                        type='submit' className='newGroupSubmitButtom'>Update Group</button>
                 </form>
             </div>
         </div>

@@ -99,7 +99,7 @@ function GroupDetailsComponent() {
                 <div key={event.id}
                     onClick={() => history.push(`/events/${event.id}`)}
                     className='groupEventContainer'>
-                    <img alt='group event' className='groupEventPicture' src={event.previewImage} />
+                    <img alt='group event' id='groupEventPicture' src={event.previewImage} />
                     <div className='groupEventsInfo'>
                         <div>
                             <h5>{eventDate.toLocaleDateString()} {eventDate.toLocaleTimeString('en-US', {
@@ -127,7 +127,7 @@ function GroupDetailsComponent() {
                     className='groupEventContainer'>
                     <img
                         alt='group event'
-                        className='groupEventPicture' src={event.previewImage} />
+                        id='groupEventPicture' src={event.previewImage} />
                     <div className='groupEventsInfo'>
                         <div >
                             <h5>{eventDate.toLocaleDateString()} {eventDate.toLocaleTimeString('en-US', {

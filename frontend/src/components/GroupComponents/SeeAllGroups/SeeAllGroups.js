@@ -53,7 +53,7 @@ function SeeAllGroups() {
                 </li>
             </ul>
             <div className="belowEventsGroupsNav">
-                <h2 className="GroupsInMeetup"> Groups in Meetup </h2>
+                <h2 id="GroupsInMeetup"> Groups in Meetup </h2>
 
                 {groupsArr}
             </div>
