@@ -16,6 +16,7 @@ function NewGroupForm() {
     const [privacy, setPrivacy] = useState('');
     const [imageUrl, setImageUrl] = useState('');
     const [errors, setErrors] = useState([]);
+    const [showRequired, setShowRequired] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -36,15 +37,13 @@ function NewGroupForm() {
     return (
         <div id='newGroupMainDiv' >
             <div className='newGroupSubDiv'>
-                {errors && <ul className='errors'>
-                    {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-                </ul>}
-                <h3>Become An Organizer</h3>
-                <h4>We'll walk you through a few steps to build your local community</h4>
+
+                <h3 id='newGroupHeader'>Become An Organizer</h3>
+                <h3>We'll walk you through a few steps to build your local community</h3>
                 <form onSubmit={handleSubmit}>
                     <div>
                         <h3>First, set your group's location.</h3>
-                        <h4>Meetup groups meet locally, in person and online. <br></br>We'll connect you with people in your area, and more can join you online.</h4>
+                        <h5>Meetup groups meet locally, in person and online. <br></br>We'll connect you with people in your area, and more can join you online.</h5>
                         <input
                             type={`text`}
                             value={city}
@@ -60,9 +59,9 @@ function NewGroupForm() {
                     </div>
                     <div>
                         <h3>What will your group's name be?</h3>
-                        <h4>Choose a name that will give people a clear idea of what the group is about. <br></br>Feel free to get creative! You can edit this later if you change your mind.
+                        <h5>Choose a name that will give people a clear idea of what the group is about. <br></br>Feel free to get creative! You can edit this later if you change your mind.
 
-                        </h4>
+                        </h5>
                         <input
                             type={`text`}
                             value={name}
@@ -72,8 +71,8 @@ function NewGroupForm() {
                     </div>
                     <div>
                         <h3>Now describe what your group will be about</h3>
-                        <h4>People will see this when we promote your group, but you'll be able to add to it later, too.
-                        </h4>
+                        <h5>People will see this when we promote your group, but you'll be able to add to it later, too.
+                        </h5>
                         <ol>
                             <li>What's the purpose of the group?</li>
                             <li>Who should join?</li>
@@ -86,10 +85,10 @@ function NewGroupForm() {
                             required
                             placeholder="Please write at least 30 characters" name="groupName"></textarea>
                     </div>
-                    <div>
+                    <div id='finalStepsDiv'>
                         <h3>Final steps...</h3>
                         <div>
-                            <h3 >Is this an in person or online group?</h3>
+                            <h5 >Is this an in person or online group?</h5>
                             <select
                                 name='privacy'
                                 value={type}
@@ -103,7 +102,7 @@ function NewGroupForm() {
                             </select>
                         </div>
                         <div>
-                            <h3>Is this group private or public?</h3>
+                            <h5>Is this group private or public?</h5>
                             <select
                                 name='privacy'
                                 value={privacy}
@@ -115,7 +114,7 @@ function NewGroupForm() {
                                 <option value={false}>public</option>
                             </select>
                         </div>
-                        <h3>Please add an image url for your group below</h3>
+                        <h5>Please add an image url for your group below</h5>
                         <input
                             type={`text`}
                             value={imageUrl}
@@ -124,8 +123,11 @@ function NewGroupForm() {
                             name='imageUrl'
                             placeholder="image url"></input>
                     </div>
+                    {errors && <ul className='errors'>
+                        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                    </ul>}
                     <button
-                        type='submit' className='submitButton'>Create New Group</button>
+                        type='submit' className='newGroupSubmitButtom'>Create New Group</button>
                 </form>
             </div>
         </div >
