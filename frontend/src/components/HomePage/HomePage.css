@@ -157,3 +157,18 @@
 .joinButton:hover {
     opacity: .85;
 }
+
+
+
+
+@media only screen and (max-width: 580px) {
+    .homeTopSection {
+        flex-direction: column;
+
+    }
+
+    .homeThirdSection {
+        flex-direction: column;
+    }
+
+}

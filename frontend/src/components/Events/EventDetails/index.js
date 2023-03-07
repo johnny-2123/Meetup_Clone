@@ -37,6 +37,11 @@ function EventDetailsComponent() {
         history.goBack()
     }
 
+    const handleGroupDivClick = () => {
+        history.push(`/groups/${event?.Group?.id}`)
+
+    }
+
     const handleUpdateClick = () => {
         history.push(`/events/${eventId}/edit`)
     }
@@ -82,9 +87,11 @@ function EventDetailsComponent() {
             </div>
             <div className='eventDetailsGreySection'>
                 <div className='eventDetailsGreySectionTopHalf'>
-                    <img className='eventDetailsImage' src={event?.previewImage} />
+                    <img id='eventDetailsImageId' className='eventDetailsImage' src={event?.previewImage} />
                     <div className='eventDetailsRightSection'>
-                        <div className='eventDetailsGroupDiv'>
+                        <div
+                            onClick={handleGroupDivClick}
+                            className='eventDetailsGroupDiv'>
                             <img className='eventDetailsGroupImage' src='https://res.cloudinary.com/dkul3ouvi/image/upload/v1677439417/5498791_i3opa9.jpg' />
                             <div className='eventDetailsGroupDetailsDiv'>
                                 <h3>{event?.Group?.name}</h3>
@@ -128,10 +135,12 @@ function EventDetailsComponent() {
                         {sessionUser?.user?.id === event?.Organizer?.id && (
                             <div className='deleteUpdateDiv'>
                                 <button
+                                    id='eventDetailsUpdateButton'
                                     onClick={handleUpdateClick}
                                     className='groupDetailsButton'
                                 >Update</button>
                                 <button
+                                    id='eventDetailsDeleteButton'
                                     onClick={handleDeleteClick}
                                     className='groupDetailsButton'>Delete</button>
                             </div>

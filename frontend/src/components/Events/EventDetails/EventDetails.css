@@ -40,7 +40,7 @@
 }
 
 .eventDetailsGreySectionTopHalf {
-    width: 95vw;
+    width: 90vw;
     margin-top: 30px;
     margin-bottom: 20px;
     display: flex;
@@ -86,6 +86,10 @@
     width: auto;
     margin-right: 0;
 
+}
+
+.eventDetailsGroupDiv:hover {
+    cursor: pointer;
 }
 
 .eventDetailsGroupImage {
@@ -264,8 +268,10 @@
 
 
 @media only screen and (max-width: 750px) {
+
     .mainGroupDetailsDiv {
-        /* background-color: darksalmon; */
+        max-width: 100%;
+        overflow-x: hidden;
     }
 
     .eventDetailsTopSectionContainer {
@@ -285,30 +291,52 @@
     }
 
     .eventDetailsGreySection {
-        width: 97vw;
+        width: 100vw;
+        padding-top: 0;
+        display: flex;
+        flex-direction: column;
+        justify-items: flex-start;
+        justify-content: flex-start;
     }
 
     .eventDetailsGreySectionTopHalf {
         flex-direction: column;
         align-items: center;
+        height: fit-content;
+        justify-items: flex-start;
+        padding-top: 0;
+        margin-top: 0;
     }
 
-    .eventDetailsImage {
+    /* .eventDetailsImage {
         margin-right: 0;
-        width: 93vw;
+        margin-top: 0;
+        margin-bottom: 0;
+        min-width: none;
+        min-height: none;
+        width: 50vw;
+    } */
+
+    #eventDetailsImageId.eventDetailsImage {
+        margin-right: 0;
+        margin-top: 0;
+        margin-bottom: 1rem;
+        min-width: none;
+        min-height: none;
+        width: 100%;
     }
 
     .eventDetailsRightSection {
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 96vw;
+        width: 95vw;
     }
 
     .eventDetailsGroupDiv {
         display: flex;
         flex-direction: row;
-        width: 90vw;
+        width: 90%;
         padding-left: 10px;
         padding-right: 11px;
     }
@@ -318,10 +346,12 @@
     .eventDetailsGroupDetailsDiv {
         width: 100%;
         height: fit-content;
+
     }
 
     .eventDetailsRightOfPictureInfo {
-        width: 90vw;
+        width: 90%;
+        margin-top: .3rem;
     }
 
     .timeDiv {}
@@ -331,4 +361,13 @@
     }
 
     .startEndDiv {}
+
+
+    #eventDetailsUpdateButton {
+        width: 30vw;
+    }
+
+    #eventDetailsDeleteButton {
+        width: 30vw;
+    }
 }

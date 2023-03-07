@@ -102,7 +102,7 @@ function GroupDetailsComponent() {
                     <img alt='group event' id='groupEventPicture' src={event.previewImage} />
                     <div className='groupEventsInfo'>
                         <div>
-                            <h5>{eventDate.toLocaleDateString()} {eventDate.toLocaleTimeString('en-US', {
+                            <h5 className='groupDetailsEventTime'>{eventDate.toLocaleDateString()} {eventDate.toLocaleTimeString('en-US', {
                                 hour: '2-digit',
                                 minute: '2-digit',
                             })}</h5>
@@ -130,7 +130,7 @@ function GroupDetailsComponent() {
                         id='groupEventPicture' src={event.previewImage} />
                     <div className='groupEventsInfo'>
                         <div >
-                            <h5>{eventDate.toLocaleDateString()} {eventDate.toLocaleTimeString('en-US', {
+                            <h5 className='groupDetailsEventTime' >{eventDate.toLocaleDateString()} {eventDate.toLocaleTimeString('en-US', {
                                 hour: '2-digit',
                                 minute: '2-digit',
                             })}</h5>
@@ -153,19 +153,21 @@ function GroupDetailsComponent() {
 
                 </div>
                 <div className='groupInfoDiv'>
-                    <img alt='group' src={group?.previewImage} />
+                    <img id='groupDetailsMainImage' alt='group' src={group?.previewImage} />
                     <div className='groupTextTopRightDiv'>
-                        <div>
+                        <div  >
                             {group?.name && <h3>{group?.name}</h3>}
-                            {group?.city && <h4>{group?.city}, {group.state}</h4>}
-                            <div className='eventsPrivateDiv'>
-                                <h4>{events?.length} Event(s)</h4>
-                                <h4>{group?.private ? "Private" : "Public"}</h4>
+                            <div className='groupLocationPrivacyDiv'>
+                                {group?.city && <h4>{group?.city}, {group.state}</h4>}
+                                <div className='eventsPrivateDiv'>
+                                    <h4 id='groupDetailsEventsNumber'>{events?.length} Event(s)|</h4>
+                                    <h4>{group?.private ? "Private" : "Public"}</h4>
+                                </div>
                             </div>
                             <h4>Organized by {group?.Organizer?.firstName} {group?.Organizer?.lastName}</h4>
                         </div>
                         {userIsOrganizer && !userIsMember &&
-                            <div >
+                            <div className='groupDetailsButtonsDiv' >
                                 <button
                                     onClick={handleCreateEventClick}
                                     className='groupDetailsButton'>Create event</button>
@@ -174,6 +176,7 @@ function GroupDetailsComponent() {
                                     className='groupDetailsButton'>Update</button>
                                 <button
                                     onClick={handleDeleteClick}
+                                    id='groupDetailsDeleteButton'
                                     className='groupDetailsButton'>Delete</button>
                             </div>}
                         {userIsMember && !userIsOrganizer &&
@@ -197,7 +200,7 @@ function GroupDetailsComponent() {
             <div className='groupTextBottomDiv'>
                 <div className='subGroupTextBotttomDiv'>
                     <h3>Organizer</h3>
-                    <h4 className='groupOrganizerUsername'>{group?.Organizer?.username} user</h4>
+                    <h4 id='groupOrganizerUsername'>{group?.Organizer?.username} user</h4>
                     <h3 className='aboutHeader'>What we're about</h3>
                     <p className='aboutP'>{group?.about}</p>
                     <h3 className='upcomingEvents' >Upcoming Events</h3>
