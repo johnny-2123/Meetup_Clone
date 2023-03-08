@@ -8,8 +8,19 @@ import './groupMembers.css';
 
 function GroupMembersComponent({ members, groupId }) {
     const dispatch = useDispatch();
-    const handleAcceptMemberButton = (status, memberId) => {
+
+    useEffect(() => {
+
+    }, [dispatch])
+
+    console.log(`GroupMembersGroupId: ${groupId}`);
+    const handleAcceptMemberButton = (status, memberId, member) => {
+
+        console.log(`status: ${status}`);
+        console.log(`memberId: ${memberId}`);
+        console.log(`groupId: ${groupId}`);
         return dispatch(fetchEditGroupMember(groupId, memberId, status))
+            .then(() => member.Membership.status = 'active')
             .catch(async (res) => {
                 const data = await res.json();
                 if (data && data.errors) console.log(`data`, (data));
@@ -30,7 +41,7 @@ function GroupMembersComponent({ members, groupId }) {
                 <div className='memberButtonsDiv'>
 
                     {member.Membership.status === 'pending' && <button
-                        onClick={() => handleAcceptMemberButton(member.id, member.Membership?.status)}
+                        onClick={() => handleAcceptMemberButton('active', member.id, member)}
                         className='groupMemberButton'> Accept Request</button>}
                     {member.Membership.status === 'pending' && <button className='groupMemberButton'> Decline Request</button>}
                     {member.Membership.status === 'active' && <button className='groupMemberButton'>Remove Member</button>}

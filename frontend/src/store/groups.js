@@ -11,12 +11,31 @@ const GET_CURRENT_USER_GROUPS = '/groups/GET_CURRENT_USER_GROUPS';
 const UNJOIN_GROUP = '/groups/UNJOIN_GROUP';
 const GET_GROUP_MEMBERS = '/groups/GET_GROUP_MEMBERS';
 
-export const fetchEditGroupMember = ({ groupId, memberId, status }) => async dispatch => {
-    console.log(`groupId:`, groupId);
+export const fetchDeleteGroupMember = (groupId, memberId) => async dispatch => {
+    console.log(`fetchDeleteGroupMember memberId: ${memberId}`);
+    console.log(`fetchDeleteGroupMember groupId: ${groupId}`);
     const response = await csrfFetch(`/api/groups/${groupId}/membership`, {
-        method: "POST",
+        method: "DELETE",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ groupId, memberId })
+    });
+    console.log(`fetchDeleteGroupMember Res`, response);
+
+    if (response.ok) {
+        const groupMember = await response.json();
+        console.log(`fetchDeleteGroupMember response.ok toJSON`, groupMember);
+        return groupMember;
+    }
+}
+
+export const fetchEditGroupMember = (groupId, memberId, status) => async dispatch => {
+    console.log(`fetchEditGroupMember groupId:`, groupId);
+    console.log(`status: ${status}`);
+    console.log(`memberId: ${memberId}`);
+    const response = await csrfFetch(`/api/groups/${groupId}/membership`, {
+        method: "PUT",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ memberId, status })
     });
     console.log(`fetchEditGroupMember Res`, response);
 

@@ -253,6 +253,8 @@ router.delete(
         let errors = [];
         // console.log(`/////////////////////////////////`)
         // console.log(`deleteMembership req`, req)
+        console.log(`memberId: ${memberId}`);
+        console.log(`groupId: ${groupId}`);
 
         if (!group) {
             errors.push("Group couldn't be found")
@@ -325,8 +327,11 @@ router.put(
         let member = await User.findByPk(memberId);
 
         let errors = [];
+        console.log(`&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&`)
+        console.log(`status: ${status}`);
+        console.log(`memberId: ${memberId}`);
+        console.log(`groupId: ${groupId}`);
 
-        console.log(`status: ${status}`)
         if (!group) {
             errors.push("Group couldn't be found")
             return res.status(404).json({
