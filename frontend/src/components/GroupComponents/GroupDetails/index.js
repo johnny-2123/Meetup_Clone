@@ -41,7 +41,7 @@ function GroupDetailsComponent() {
 
         userGroup?.currentUserGroupStatus && userGroup?.currentUserGroupStatus === ('pending') ? setMembershipRequested(true) : setMembershipRequested(false);
 
-    }, [sessionUser, userGroups, group])
+    }, [sessionUser, userGroups, group, members])
 
     useEffect(() => {
         dispatch(groupActions.fetchGroupDetails(groupId))
@@ -201,13 +201,12 @@ function GroupDetailsComponent() {
                             showGroupEvents && <GroupEventsComponent events={events} />
                         }
                         {
-                            showGroupMembers && <GroupMembersComponent members={members} />
+                            showGroupMembers && <GroupMembersComponent members={members} groupId={groupId} />
                         }
 
                     </div>
                 </div>
             </div >}
-
         </>
     )
 }

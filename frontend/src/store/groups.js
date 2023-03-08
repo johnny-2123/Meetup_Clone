@@ -11,10 +11,12 @@ const GET_CURRENT_USER_GROUPS = '/groups/GET_CURRENT_USER_GROUPS';
 const UNJOIN_GROUP = '/groups/UNJOIN_GROUP';
 const GET_GROUP_MEMBERS = '/groups/GET_GROUP_MEMBERS';
 
-export const fetchEditGroupMember = (groupId, memberId) => async dispatch => {
+export const fetchEditGroupMember = ({ groupId, memberId, status }) => async dispatch => {
     console.log(`groupId:`, groupId);
-    const response = await csrfFetch(`/api/groups/${groupId}/members`, {
-        method: "GET"
+    const response = await csrfFetch(`/api/groups/${groupId}/membership`, {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ groupId, memberId })
     });
     console.log(`fetchEditGroupMember Res`, response);
 
