@@ -267,13 +267,12 @@ function GroupDetailsComponent() {
                 </div>
             </div >}
 
-            <BrowserRouter>
-                <Switch>
-                    <Route path={`/members`}>
-                        <GroupMembersComponent />
-                    </Route>
-                </Switch>
-            </BrowserRouter>
+
+
+            <Route path={`members`}>
+                <GroupMembersComponent />
+            </Route>
+
         </>
     )
 }

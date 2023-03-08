@@ -119,16 +119,16 @@ module.exports = {
         about: `The purpose of this group is to bring together people who enjoy Kpop and Korean culture. We learn and perform covers of popular and lesser known KPop dances. We also attend KPop concerts and other events in San Francisco. `,
         previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1678233174/TopKpop2022_upu9ie.jpg'
       },
-      // {
-      //   organizerId: 6,
-      //   name: 'Oregon Outdoor Lovers',
-      //   type: 'In Person',
-      //   private: false,
-      //   city: 'Seattle',
-      //   state: 'Washington',
-      //   about: `The main purpose of this Meetup group is to explore the beauty of nature, and to learn, through our cultural outings, how much this amazing region has to offer, as well as to explore other cultures and nations. We go hiking, kayaking, whitewater rafting, biking, horseback riding, take excursions to museums, and, of course, socialize with a good meal after.`,
-      //   previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1678233446/photo-1426604966848-d7adac402bff_cb4pke.jpg'
-      // },
+      {
+        organizerId: 6,
+        name: 'Oregon Outdoor Lovers',
+        type: 'In Person',
+        private: false,
+        city: 'Seattle',
+        state: 'Washington',
+        about: `The main purpose of this Meetup group is to explore the beauty of nature, and to learn, through our cultural outings, how much this amazing region has to offer, as well as to explore other cultures and nations. We go hiking, kayaking, whitewater rafting, biking, horseback riding, take excursions to museums, and, of course, socialize with a good meal after.`,
+        previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1678233446/photo-1426604966848-d7adac402bff_cb4pke.jpg'
+      },
       // {
       //   organizerId: 6,
       //   name: 'Yoga, Exercise, and Meditation Club',
