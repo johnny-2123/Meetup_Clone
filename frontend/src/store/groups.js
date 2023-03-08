@@ -11,6 +11,20 @@ const GET_CURRENT_USER_GROUPS = '/groups/GET_CURRENT_USER_GROUPS';
 const UNJOIN_GROUP = '/groups/UNJOIN_GROUP';
 const GET_GROUP_MEMBERS = '/groups/GET_GROUP_MEMBERS';
 
+export const fetchEditGroupMember = (groupId, memberId) => async dispatch => {
+    console.log(`groupId:`, groupId);
+    const response = await csrfFetch(`/api/groups/${groupId}/members`, {
+        method: "GET"
+    });
+    console.log(`fetchEditGroupMember Res`, response);
+
+    if (response.ok) {
+        const groupMember = await response.json();
+        console.log(`fetchEditGroupMember response.ok toJSON`, groupMember);
+        return groupMember;
+    }
+}
+
 const getGroupmembers = (groupMembers) => ({
     type: GET_GROUP_MEMBERS,
     groupMembers
