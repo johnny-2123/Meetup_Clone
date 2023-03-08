@@ -9,7 +9,27 @@ const CLEAR_CURRENT_GROUP = '/groups/CLEAR_CURRENT_GROUP';
 const DELETE_GROUP = '/groups/DELETE_GROUP';
 const GET_CURRENT_USER_GROUPS = '/groups/GET_CURRENT_USER_GROUPS';
 const UNJOIN_GROUP = '/groups/UNJOIN_GROUP';
-const JOIN_GROUP = '/groups/JOIN_GROUP';
+const GET_GROUP_MEMBERS = '/groups/GET_GROUP_MEMBERS';
+
+const getGroupmembers = (groupMembers) => ({
+    type: GET_GROUP_MEMBERS,
+    groupMembers
+});
+
+export const fetchGetGroupMembers = (groupId) => async dispatch => {
+    console.log(`groupId:`, groupId);
+    const response = await csrfFetch(`/api/groups/${groupId}/membership`, {
+        method: "GET"
+    });
+    console.log(`fetchGetGroupMembers Res`, response);
+
+    if (response.ok) {
+        const groupMembers = await response.json();
+        console.log(`joinGroupfetch response.ok toJSON`, groupMembers);
+        dispatch(getGroupmembers(groupMembers));
+        return groupMembers;
+    }
+}
 
 export const fetchJoinGroup = (groupId, memberId) => async dispatch => {
     console.log(`groupId:`, groupId);
@@ -181,7 +201,8 @@ const initialState = {
     allGroups: [],
     currentGroup: {},
     currentGroupEvents: [],
-    currentUserGroups: []
+    currentUserGroups: [],
+    groupMembers: []
 };
 
 const groupsReducer = (state = initialState, action) => {
@@ -222,10 +243,8 @@ const groupsReducer = (state = initialState, action) => {
             newState = { ...state };
             delete newState.allGroups[action.groupId]
             return newState;
-        // case UNJOIN_GROUP:
-        //     newState = { ...state };
-        //     delete newState.currentUserGroups[action.groupId];
-        //     return newState;
+        case GET_GROUP_MEMBERS:
+            newState = { ...state, groupMembers: action.groupMembers }
         default:
             return state
     }

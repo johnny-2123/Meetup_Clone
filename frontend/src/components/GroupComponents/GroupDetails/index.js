@@ -50,6 +50,11 @@ function GroupDetailsComponent() {
     }
 
     const handleJoinGroup = () => {
+
+        if (!sessionUser?.user) {
+            return window.alert(`must be logged in to join group`);
+        }
+
         return dispatch(fetchJoinGroup(groupId, sessionUser?.user?.id))
             .then(() => setMembershipRequested(true))
             .catch(async (res) => {
