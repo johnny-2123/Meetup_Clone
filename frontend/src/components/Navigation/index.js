@@ -26,7 +26,7 @@ function Navigation({ isLoaded }) {
     }
 
     const handleDemoLoginClick = () => {
-        return dispatch(sessionActions.fetchLogin({ credential: 'Demo-lition', password: 'password' }))
+        return dispatch(sessionActions.fetchLogin({ credential: 'demoEdgar', password: 'password' }))
             .then(() => history.push('/'))
             .then(() => window.location.reload());
 

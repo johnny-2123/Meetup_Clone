@@ -320,7 +320,7 @@
     #eventDetailsImageId.eventDetailsImage {
         margin-right: 0;
         margin-top: 0;
-        margin-bottom: 1rem;
+        margin-bottom: none;
         min-width: none;
         min-height: none;
         width: 100%;
@@ -334,9 +334,10 @@
     }
 
     .eventDetailsGroupDiv {
+        border-radius: 0;
         display: flex;
         flex-direction: row;
-        width: 90%;
+        width: 100%;
         padding-left: 10px;
         padding-right: 11px;
     }
@@ -350,7 +351,8 @@
     }
 
     .eventDetailsRightOfPictureInfo {
-        width: 90%;
+        border-radius: 0;
+        width: 100%;
         margin-top: .3rem;
     }
 

@@ -75,10 +75,14 @@ function GroupDetailsComponent() {
     }
 
     const handleDeleteClick = () => {
+        document.documentElement.style.overflow = 'hidden';
+        document.body.scroll = "no";
         AlertConfirm({
             title: 'Are you sure you want to delete this group?',
             desc: 'You cannot undo this change',
             onOk: () => {
+                document.documentElement.style.overflow = 'scroll';
+                document.body.scroll = "yes";
                 return dispatch(groupActions.fetchDeleteGroup(groupId))
                     .then(() => history.push(`/groups`))
                     .catch(async (res) => {
@@ -87,6 +91,8 @@ function GroupDetailsComponent() {
                     })
             },
             onCancel: () => {
+                document.documentElement.style.overflow = 'scroll';
+                document.body.scroll = "yes";
             }
         });
     }
@@ -120,6 +126,7 @@ function GroupDetailsComponent() {
     let pastGroupEventsMapped = events.map(event => {
         let now = new Date();
         let eventDate = new Date(event?.startDate);
+        console.log(`pastGroupEvent,`, event)
         if (eventDate < now) {
             return (
                 <div key={event.id}
@@ -143,7 +150,9 @@ function GroupDetailsComponent() {
             )
         }
 
+
     })
+    console.log(`pastEventGroupsMapped`, pastGroupEventsMapped)
 
     return (
         loaded && group?.previewImage && < div className='MainGroupDetailsNav' >
@@ -205,10 +214,10 @@ function GroupDetailsComponent() {
                     <p className='aboutP'>{group?.about}</p>
                     <h3 className='upcomingEvents' >Upcoming Events</h3>
                     {UpcomingGroupEventsMapped.length > 0 && UpcomingGroupEventsMapped}
-                    {UpcomingGroupEventsMapped.length === 0 && <h4>No upcoming events</h4>}
+                    {UpcomingGroupEventsMapped.length === 0 && <h4 id='upcomingEvents'>No upcoming events</h4>}
                     <h3>Past Events</h3>
                     {pastGroupEventsMapped.length > 0 && pastGroupEventsMapped}
-                    {pastGroupEventsMapped.length === 0 && <h4>No Past Events</h4>}
+                    {(pastGroupEventsMapped === 'undefined' || pastGroupEventsMapped.length === 0) && <h4 id='pastEvents'>No Past Events</h4>}
                 </div>
             </div>
         </div >

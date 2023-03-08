@@ -4,6 +4,8 @@ body {
     margin: 0;
 }
 
+
+
 .MainGroupDetailsNav {
     margin: 0;
     width: 100%;
@@ -226,9 +228,23 @@ body {
 
 .groupEventsDescriptionP {
     height: fit-content;
-    width: inherit;
+    width: 100%;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
+#upcomingEvents {
+    font-size: 1rem;
+    color: lightslategray;
+}
+
+#pastEvents {
+    font-size: 1rem;
+    color: lightslategray;
+}
 
 
 .react-alert-confirm {
@@ -246,6 +262,7 @@ body {
     right: 0px;
     bottom: 0;
     font-size: 17px;
+    height: 100%;
     overflow: hidden;
     overflow-y: hidden;
     background-color: rgba(0, 0, 0, 0.3);
@@ -284,6 +301,8 @@ body {
 
 @media only screen and (max-width: 580px) {
 
+
+
     .MainGroupDetailsNav {
         /* background-color: bisque; */
     }
@@ -291,6 +310,7 @@ body {
     .groupInfoDiv {
         flex-direction: column-reverse;
         align-items: center;
+        margin-top: .5rem;
         /* background-color: blueviolet; */
     }
 
@@ -312,6 +332,7 @@ body {
         /* background-color: bisque; */
         max-width: none;
         width: 100%;
+        margin-bottom: .5rem;
     }
 
     .groupLocationPrivacyDiv {

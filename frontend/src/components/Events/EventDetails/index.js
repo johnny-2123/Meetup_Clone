@@ -117,13 +117,13 @@ function EventDetailsComponent() {
                                 </div>
                             </div>
                             <div className='moneyDiv'>
-                                <i class="fa-solid fa-dollar-sign"></i>
+                                <i className="fa-solid fa-dollar-sign"></i>
                                 <h4>{event?.price}</h4>
                             </div>
                             <div className='locationDiv'>
                                 <i
                                     onClick={openLocationInNewTab}
-                                    class="fa-solid fa-location-dot"></i>
+                                    className="fa-solid fa-location-dot"></i>
                                 <div className='typeDeleteDiv'>
                                     <h4>{event?.type}</h4>
 

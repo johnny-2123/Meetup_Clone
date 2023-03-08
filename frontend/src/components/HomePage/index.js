@@ -38,17 +38,17 @@ const HomePage = () => {
             </div>
             <div className='homeThirdSection'>
                 <div className='homeThirdSectionDiv'>
-                    <i class="fa-solid fa-handshake"></i>
+                    <i className="fa-solid fa-handshake"></i>
                     <NavLink className={`homePageSection3Links`} to='/groups'>See All Groups</NavLink>
                     <p>Do what you love, meet others who love it, find your community. The rest is history!</p>
                 </div>
                 <div className='homeThirdSectionDiv'>
-                    <i class="fa-solid fa-ticket"></i>
+                    <i className="fa-solid fa-ticket"></i>
                     <NavLink className={`homePageSection3Links`} to='/events'>Find an Event</NavLink>
                     <p>Events are happening on just about any topic you can think of, from online gaming and photography to yoga and hiking.</p>
                 </div>
                 <div id={homeStartGroupIdName} className='homeThirdSectionDiv'>
-                    <i class="fa-solid fa-people-group"></i>
+                    <i className="fa-solid fa-people-group"></i>
                     <NavLink className={`homePageSection3Links`} to='/groups/new'>Start a Group</NavLink>
                     <p>You don’t have to be an expert to gather people together and explore shared interests.</p>
                 </div>

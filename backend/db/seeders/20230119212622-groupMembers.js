@@ -43,6 +43,50 @@ module.exports = {
         status: 'active'
       },
       {
+        groupId: 1,
+        userId: 5,
+        status: 'active'
+      }, {
+        groupId: 1,
+        userId: 6,
+        status: 'active'
+      }, {
+        groupId: 1,
+        userId: 7,
+        status: 'active'
+      }, {
+        groupId: 1,
+        userId: 8,
+        status: 'active'
+      }, {
+        groupId: 1,
+        userId: 9,
+        status: 'active'
+      }, {
+        groupId: 1,
+        userId: 10,
+        status: 'active'
+      }, {
+        groupId: 1,
+        userId: 11,
+        status: 'pending'
+      }, {
+        groupId: 1,
+        userId: 12,
+        status: 'pending'
+      }, {
+        groupId: 1,
+        userId: 13,
+        status: 'pending'
+      }, {
+        groupId: 1,
+        userId: 14,
+        status: 'pending'
+      }, {
+        groupId: 1,
+        userId: 15,
+        status: 'pending'
+      }, {
         groupId: 2,
         userId: 4,
         status: 'active'
@@ -50,8 +94,31 @@ module.exports = {
         groupId: 2,
         userId: 2,
         status: 'co-host'
-      },
-      {
+      }, {
+        groupId: 2,
+        userId: 5,
+        status: 'active'
+      }, {
+        groupId: 2,
+        userId: 7,
+        status: 'active'
+      }, {
+        groupId: 2,
+        userId: 9,
+        status: 'active'
+      }, {
+        groupId: 2,
+        userId: 10,
+        status: 'pending'
+      }, {
+        groupId: 2,
+        userId: 14,
+        status: 'pending'
+      }, {
+        groupId: 2,
+        userId: 15,
+        status: 'pending'
+      }, {
         groupId: 3,
         userId: 3,
         status: 'active'
@@ -82,8 +149,95 @@ module.exports = {
       }, {
         groupId: 4,
         userId: 2,
-        status: 'co-host'
-      }], {})
+        status: 'active'
+      }, {
+        groupId: 5,
+        userId: 2,
+        status: 'active'
+      }, {
+        groupId: 5,
+        userId: 4,
+        status: 'active'
+      }, {
+        groupId: 5,
+        userId: 6,
+        status: 'active'
+      }, {
+        groupId: 5,
+        userId: 8,
+        status: 'active'
+      }, {
+        groupId: 5,
+        userId: 10,
+        status: 'active'
+      }, {
+        groupId: 5,
+        userId: 12,
+        status: 'active'
+      }, {
+        groupId: 5,
+        userId: 14,
+        status: 'active'
+      }, {
+        groupId: 5,
+        userId: 15,
+        status: 'active'
+      }, {
+        groupId: 6,
+        userId: 3,
+        status: 'active'
+      }, {
+        groupId: 6,
+        userId: 7,
+        status: 'active'
+      }, {
+        groupId: 6,
+        userId: 8,
+        status: 'active'
+      }, {
+        groupId: 6,
+        userId: 13,
+        status: 'active'
+      }, {
+        groupId: 6,
+        userId: 14,
+        status: 'active'
+      }, {
+        groupId: 7,
+        userId: 1,
+        status: 'active'
+      }, {
+        groupId: 7,
+        userId: 2,
+        status: 'active'
+      }, {
+        groupId: 7,
+        userId: 3,
+        status: 'active'
+      }, {
+        groupId: 7,
+        userId: 4,
+        status: 'active'
+      }, {
+        groupId: 7,
+        userId: 6,
+        status: 'active'
+      }, {
+        groupId: 7,
+        userId: 7,
+        status: 'active'
+      }, {
+        groupId: 7,
+        userId: 11,
+        status: 'active'
+      }, {
+        groupId: 7,
+        userId: 12,
+        status: 'active'
+      },
+
+
+    ], {})
   },
 
   async down(queryInterface, Sequelize) {

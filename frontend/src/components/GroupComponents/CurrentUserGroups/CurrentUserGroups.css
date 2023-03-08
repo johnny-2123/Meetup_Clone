@@ -1,13 +1,58 @@
+#currentUserGroupsDiv {
+    background-color: bisque;
+    max-width: 900px;
+    height: 100%;
+}
+
+#currentUserGroupsContainerDetails {
+    background-color: darkseagreen;
+    height: 100%;
+
+}
+
+#currentUserGroupsName {
+    margin: 0;
+}
+
 #myGroupsCity {
-    border-top: lightgray solid 1px;
-    margin-top: .5rem;
     padding-top: .5rem;
     width: fit-content;
-    color: black;
-    margin-bottom: 1rem;
+    color: rgb(0, 130, 148);
+    margin: .1rem 0 .25rem 0;
 }
 
 
 #myGroupsPrivacyDiv h4 {
-    margin-top: 0;
+    margin: 0;
+}
+
+.currentUserGroupButtonDiv {
+    display: flex;
+    height: 4rem;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin-bottom: 1.5rem;
+}
+
+.currentUserGroupButtonDiv button {
+    width: 25%;
+    min-width: 100px;
+}
+
+
+@media only screen and (max-width: 608px) {
+
+
+
+    .currentUserGroupButtonDiv {
+        justify-content: center;
+    }
+
+    .currentUserGroupButtonDiv button {
+        width: 45%;
+        min-width: 100px;
+    }
+
+
 }

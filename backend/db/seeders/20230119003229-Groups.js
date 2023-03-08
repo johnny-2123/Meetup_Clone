@@ -22,7 +22,7 @@ module.exports = {
       {
         organizerId: 1,
         name: 'The Video Game Social and Competition Club of Chicago',
-        type: 'In person',
+        type: 'Online',
         private: true,
         city: 'Chicago',
         state: 'Illinois',
@@ -42,7 +42,7 @@ module.exports = {
       {
         organizerId: 2,
         name: 'Chess Club by the Water',
-        type: 'Online',
+        type: 'In Person',
         private: true,
         city: 'Miami',
         state: 'Florida',
@@ -70,7 +70,7 @@ module.exports = {
         previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1677815738/photo-1574629810360-7efbbe195018_e079vu.jpg'
       },
       {
-        organizerId: 4,
+        organizerId: 3,
         name: 'Book Club',
         type: 'Online',
         private: false,
@@ -88,6 +88,56 @@ module.exports = {
         state: 'California',
         about: `Competition level dance group based in LA. We do primarily reggaeton pieces that stay faithful to the genre's movements but incorporate elements from other styles. Audition if you want to join a group of passionate movers.`,
         previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1677817137/photo-1621976498727-9e5d56476276_isjewy.jpg'
+      },
+      {
+        organizerId: 4,
+        name: 'Online Improv Group',
+        type: 'Online',
+        private: true,
+        city: 'Chicago',
+        state: 'Illinois',
+        about: `Competition level Improv group based in Chicago but open to online collaborations. We tend to remain true to the improv format but incorporate elements from other comedy styles. Audition if you want to join a group of passionate improvisors.`,
+        previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1678232939/photo-1527224857830-43a7acc85260_mmwnxm.jpg'
+      },
+      {
+        organizerId: 5,
+        name: 'Breakup and Divorce Group Support',
+        type: 'Online',
+        private: true,
+        city: 'Cleveland',
+        state: 'Ohio',
+        about: `We're here to support anyone getting out of or thinking of getting out of a relationship. We'll explain why it can be so hard to get over a relationship, and why it can sometimes be so hard to get out of one! Many people have given up on relationships. Many people have crashed and burned in relationships, and you may have been one of them, but this group is here to dust you off and to help you.`,
+        previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1678233685/photo-1541199249251-f713e6145474_pholal.jpg'
+      },
+      {
+        organizerId: 5,
+        name: 'KPop Cover Group',
+        type: 'In Person',
+        private: false,
+        city: 'San Francisco',
+        state: 'California',
+        about: `The purpose of this group is to bring together people who enjoy Kpop and Korean culture. We learn and perform covers of popular and lesser known KPop dances. We also attend KPop concerts and other events in San Francisco. Anyone is welcome to join.`,
+        previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1678233174/TopKpop2022_upu9ie.jpg'
+      },
+      {
+        organizerId: 6,
+        name: 'Oregon Outdoor Lovers',
+        type: 'In Person',
+        private: false,
+        city: 'Seattle',
+        state: 'Washington',
+        about: `The main purpose of this Meetup group is to explore the beauty of nature, and to learn, through our cultural outings, how much this amazing region has to offer, as well as to explore other cultures and nations. We go hiking, kayaking, whitewater rafting, biking, horseback riding, take excursions to museums, get private tours to little known places,get naturalist presentations, hear scientists speak of their discoveries, and, of course, socialize with a good meal after. Our outdoor events are not too strenuous, as we are out there to enjoy nature rather than to train for a competitive event. All are welcome`,
+        previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1678233446/photo-1426604966848-d7adac402bff_cb4pke.jpg'
+      },
+      {
+        organizerId: 6,
+        name: 'Yoga, Exercise, and Meditation Club',
+        type: 'In Person',
+        private: false,
+        city: 'Chicago',
+        state: 'IL',
+        about: `Come explore the windy city with us! After walking, yoga, meditating, pilates, or even exploring a museum, we enjoy having a social happy hour at a restaurant with vegan and gluten-free options, however, please order whatever you want. Our city walks usually begin near a cta station, and are designed to explore parks and trails, city landmarks and pedestrian-friendly neighborhoods. We also enjoy visiting art galleries, volunteering at soup kitchens, cooking classes, and nutrition seminars. Our group isn't specifically vegan; however, many of our members are vegan or vegtarian; that's why we offer vegan nutrition seminars, and our favorite restaurants offer vegan and vegetarian options.`,
+        previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1678234005/photo-1544367567-0f2fcb009e0b_lkw9as.jpg'
       }
 
     ], {});
