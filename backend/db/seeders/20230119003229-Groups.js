@@ -99,46 +99,46 @@ module.exports = {
         about: `Competition level Improv group based in Chicago but open to online collaborations. We tend to remain true to the improv format but incorporate elements from other comedy styles. Audition if you want to join a group of passionate improvisors.`,
         previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1678232939/photo-1527224857830-43a7acc85260_mmwnxm.jpg'
       },
-      {
-        organizerId: 5,
-        name: 'Breakup and Divorce Group Support',
-        type: 'Online',
-        private: true,
-        city: 'Cleveland',
-        state: 'Ohio',
-        about: `We're here to support anyone getting out of or thinking of getting out of a relationship. We'll explain why it can be so hard to get over a relationship, and why it can sometimes be so hard to get out of one! Many people have given up on relationships.`,
-        previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1678233685/photo-1541199249251-f713e6145474_pholal.jpg'
-      },
-      {
-        organizerId: 5,
-        name: 'KPop Cover Group',
-        type: 'In Person',
-        private: false,
-        city: 'San Francisco',
-        state: 'California',
-        about: `The purpose of this group is to bring together people who enjoy Kpop and Korean culture. We learn and perform covers of popular and lesser known KPop dances. We also attend KPop concerts and other events in San Francisco. `,
-        previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1678233174/TopKpop2022_upu9ie.jpg'
-      },
-      {
-        organizerId: 6,
-        name: 'Oregon Outdoor Lovers',
-        type: 'In Person',
-        private: false,
-        city: 'Seattle',
-        state: 'Washington',
-        about: `The main purpose of this Meetup group is to explore the beauty of nature, and to learn, through our cultural outings, how much this amazing region has to offer, as well as to explore other cultures and nations. We go hiking, kayaking, whitewater rafting, biking, horseback riding, take excursions to museums, and, of course, socialize with a good meal after.`,
-        previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1678233446/photo-1426604966848-d7adac402bff_cb4pke.jpg'
-      },
-      {
-        organizerId: 6,
-        name: 'Yoga, Exercise, and Meditation Club',
-        type: 'In Person',
-        private: false,
-        city: 'Chicago',
-        state: 'IL',
-        about: `Come explore the windy city with us! After walking, yoga, meditating, pilates, or even exploring a museum, we enjoy having a social happy hour at a restaurant with vegan and gluten-free options, however, please order whatever you want. Our city walks usually begin near a cta station, and are designed to explore parks and trails, city landmarks and pedestrian-friendly neighborhoods.`,
-        previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1678234005/photo-1544367567-0f2fcb009e0b_lkw9as.jpg'
-      }
+      // {
+      //   organizerId: 5,
+      //   name: 'Breakup and Divorce Group Support',
+      //   type: 'Online',
+      //   private: true,
+      //   city: 'Cleveland',
+      //   state: 'Ohio',
+      //   about: `We're here to support anyone getting out of or thinking of getting out of a relationship. We'll explain why it can be so hard to get over a relationship, and why it can sometimes be so hard to get out of one! Many people have given up on relationships.`,
+      //   previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1678233685/photo-1541199249251-f713e6145474_pholal.jpg'
+      // },
+      // {
+      //   organizerId: 5,
+      //   name: 'KPop Cover Group',
+      //   type: 'In Person',
+      //   private: false,
+      //   city: 'San Francisco',
+      //   state: 'California',
+      //   about: `The purpose of this group is to bring together people who enjoy Kpop and Korean culture. We learn and perform covers of popular and lesser known KPop dances. We also attend KPop concerts and other events in San Francisco. `,
+      //   previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1678233174/TopKpop2022_upu9ie.jpg'
+      // },
+      // {
+      //   organizerId: 6,
+      //   name: 'Oregon Outdoor Lovers',
+      //   type: 'In Person',
+      //   private: false,
+      //   city: 'Seattle',
+      //   state: 'Washington',
+      //   about: `The main purpose of this Meetup group is to explore the beauty of nature, and to learn, through our cultural outings, how much this amazing region has to offer, as well as to explore other cultures and nations. We go hiking, kayaking, whitewater rafting, biking, horseback riding, take excursions to museums, and, of course, socialize with a good meal after.`,
+      //   previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1678233446/photo-1426604966848-d7adac402bff_cb4pke.jpg'
+      // },
+      // {
+      //   organizerId: 6,
+      //   name: 'Yoga, Exercise, and Meditation Club',
+      //   type: 'In Person',
+      //   private: false,
+      //   city: 'Chicago',
+      //   state: 'IL',
+      //   about: `Come explore the windy city with us! After walking, yoga, meditating, pilates, or even exploring a museum, we enjoy having a social happy hour at a restaurant with vegan and gluten-free options, however, please order whatever you want. Our city walks usually begin near a cta station, and are designed to explore parks and trails, city landmarks and pedestrian-friendly neighborhoods.`,
+      //   previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1678234005/photo-1544367567-0f2fcb009e0b_lkw9as.jpg'
+      // }
 
     ], {});
   },

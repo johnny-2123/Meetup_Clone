@@ -1,0 +1,11 @@
+.groupMembersMainDiv {
+    margin: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    padding: 0px;
+    position: absolute;
+    top: 65px;
+}

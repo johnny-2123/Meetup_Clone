@@ -11,12 +11,12 @@ import HomePage from "./components/HomePage";
 import SeeAllGroups from "./components/GroupComponents/SeeAllGroups/SeeAllGroups";
 import SeeCurrentUserGroups from "./components/GroupComponents/CurrentUserGroups"
 import SeeAllEvents from './components/Events/SeeAllEvents';
-
 import NewGroupForm from './components/GroupComponents/NewGroup/index.js'
 import UpdateGroupPage from "./components/GroupComponents/UpdateGroup";
 import UpdateEventPage from "./components/Events/UpdateEvent"
 import { useModal } from "./context/Modal";
 import GroupDetailsComponent from "./components/GroupComponents/GroupDetails";
+import GroupMembersComponent from "./components/GroupComponents/GroupMembers";
 import EventDetailsComponent from "./components/Events/EventDetails";
 import NewEventForm from "./components/Events/NewEvent"
 
@@ -54,6 +54,9 @@ function App() {
         </Route>
         <Route exact path='/groups/:groupId'>
           <GroupDetailsComponent />
+        </Route>
+        <Route exact path={`/groups/:groupId/members`}>
+          <GroupMembersComponent />
         </Route>
         <Route exact path={`/groups/:groupId/edit`}>
           <UpdateGroupPage />

@@ -110,13 +110,19 @@ body {
 
 }
 
-
+.viewMemberGroupDetailsButton {
+    width: 50%;
+    box-shadow: 1px 2px 2px lightslategray;
+    border: 1px orangered solid;
+    background-color: orangered;
+    color: white;
+}
 
 
 .groupDetailsButton {
     background-color: lightslategray;
     border: lightslategray solid 1px;
-    box-shadow: 1px 2px 2px black;
+    box-shadow: 1px 2px 2px lightslategray;
     color: white;
     padding: 5px 8px 5px 8px;
     font-weight: 500;
@@ -302,7 +308,33 @@ body {
 }
 
 
+.memberContainer {
+    display: flex;
+    flex-direction: row;
+    width: 200px;
+    background-color: white;
+    justify-content: flex-start;
+    margin: 1rem 1rem 0rem 1rem;
+}
 
+#memberIcon {
+    margin: 0;
+    color: orangered;
+    border: 1px white solid;
+    border-radius: 15px;
+    padding: 0;
+    font-size: 35px;
+    margin-right: 2rem;
+}
+
+#memberName {
+    margin: 0 0 0 0;
+    font-size: 1rem;
+}
+
+#memberStatus {
+    margin: .3rem 0 0 0;
+}
 
 @media only screen and (max-width: 580px) {
 

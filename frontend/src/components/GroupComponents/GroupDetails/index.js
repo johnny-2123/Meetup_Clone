@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory, useParams } from "react-router-dom";
+import { NavLink, Switch, useHistory, useParams, browserHistory } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import AlertConfirm from 'react-alert-confirm';
 import * as groupActions from '../../../store/groups';
 import { fetchCurrentUserGroups, fetchUnjoinGroup, fetchJoinGroup, fetchGetGroupMembers } from "../../../store/groups";
 import * as EventActions from '../../../store/events';
 import * as sessionActions from '../../../store/session'
+import GroupMembersComponent from '../GroupMembers';
 import './GroupDetails.css'
 
 function GroupDetailsComponent() {
@@ -50,6 +52,10 @@ function GroupDetailsComponent() {
 
     const goBack = () => {
         history.goBack()
+    }
+
+    const handleViewMembersGroupDetailsButton = () => {
+        history.push(`/groups/${group?.id}/members`)
     }
 
     const handleJoinGroup = () => {
@@ -105,6 +111,23 @@ function GroupDetailsComponent() {
             }
         });
     }
+
+    let membersMapped = members.map(member => {
+
+        return (
+            <div className='memberContainer'>
+                <div >
+                    <i id='memberIcon' className="fa-regular fa-user "></i>
+                </div>
+                <div>
+                    <h4 id='memberName' >{member.firstName} {member.lastName}</h4>
+                    <h5 id='memberStatus'>status: {member.Membership.status}</h5>
+                </div>
+
+            </div>
+        )
+    })
+
 
     let UpcomingGroupEventsMapped = events.map(event => {
         let now = new Date();
@@ -163,80 +186,95 @@ function GroupDetailsComponent() {
     // console.log(`pastEventGroupsMapped`, pastGroupEventsMapped)
 
     return (
-        loaded && group?.previewImage && < div className='MainGroupDetailsNav' >
-            <div className='SubGroupDetailsNav'>
-                <div className='backbuttonDiv'>
-                    <button onClick={goBack} className='backButton'>{`< Back`}</button>
+        <>
+            {loaded && group?.previewImage && < div className='MainGroupDetailsNav' >
+                <div className='SubGroupDetailsNav'>
+                    <div className='backbuttonDiv'>
+                        <button onClick={goBack} className='backButton'>{`< Back`}</button>
 
-                </div>
-                <div className='groupInfoDiv'>
-                    <img id='groupDetailsMainImage' alt='group' src={group?.previewImage} />
-                    <div className='groupTextTopRightDiv'>
-                        <div  >
-                            {group?.name && <h3>{group?.name}</h3>}
-                            <div className='groupLocationPrivacyDiv'>
-                                {group?.city && <h4>{group?.city}, {group.state}</h4>}
-                                <div className='eventsPrivateDiv'>
-                                    <h4 id='groupDetailsEventsNumber'>{events?.length} Event(s)|</h4>
-                                    <h4>{group?.private ? "Private" : "Public"}</h4>
+                    </div>
+                    <div className='groupInfoDiv'>
+                        <img id='groupDetailsMainImage' alt='group' src={group?.previewImage} />
+                        <div className='groupTextTopRightDiv'>
+                            <div  >
+                                {group?.name && <h3>{group?.name}</h3>}
+                                <div className='groupLocationPrivacyDiv'>
+                                    {group?.city && <h4>{group?.city}, {group.state}</h4>}
+                                    <div className='eventsPrivateDiv'>
+                                        <h4 id='groupDetailsEventsNumber'>{events?.length} Event(s)|</h4>
+                                        <h4>{group?.private ? "Private" : "Public"}</h4>
+                                    </div>
                                 </div>
+                                <h4>Organized by {group?.Organizer?.firstName} {group?.Organizer?.lastName}</h4>
                             </div>
-                            <h4>Organized by {group?.Organizer?.firstName} {group?.Organizer?.lastName}</h4>
-                        </div>
-                        {userIsOrganizer && !userIsMember &&
-                            <div className='groupDetailsButtonsDiv' >
-                                <button
-                                    onClick={handleCreateEventClick}
-                                    className='groupDetailsButton'>Create event</button>
-                                <button
-                                    onClick={handleUpdateClick}
-                                    className='groupDetailsButton'>Update</button>
-                                <button
-                                    onClick={handleDeleteClick}
-                                    id='groupDetailsDeleteButton'
-                                    className='groupDetailsButton'>Delete</button>
-                            </div>}
-                        {userIsMember && !userIsOrganizer &&
-                            <div className='groupDetailsButtonsDiv'>
-                                <button
-                                    id='groupDetailsUnjoinButton'
-                                    onClick={() => handleLeaveGroupClick(group?.id)}
-                                    className='groupDetailsButton'>Unjoin</button>
-                            </div>
-                        }
-                        {!userIsMember && !userIsOrganizer && !membershipRequested &&
-                            <div className='groupDetailsButtonsDiv'>
+                            <button
+                                onClick={(e) => handleViewMembersGroupDetailsButton()}
+                                className='viewMemberGroupDetailsButton'>View Members</button>
+                            {userIsOrganizer && !userIsMember &&
+                                <div className='groupDetailsButtonsDiv' >
+                                    <button
+                                        onClick={handleCreateEventClick}
+                                        className='groupDetailsButton'>Create event</button>
+                                    <button
+                                        onClick={handleUpdateClick}
+                                        className='groupDetailsButton'>Update</button>
+                                    <button
+                                        onClick={handleDeleteClick}
+                                        id='groupDetailsDeleteButton'
+                                        className='groupDetailsButton'>Delete</button>
+                                </div>}
+                            {userIsMember && !userIsOrganizer &&
+                                <div className='groupDetailsButtonsDiv'>
+                                    <button
+                                        id='groupDetailsUnjoinButton'
+                                        onClick={() => handleLeaveGroupClick(group?.id)}
+                                        className='groupDetailsButton'>Unjoin</button>
+                                </div>
+                            }
+                            {!userIsMember && !userIsOrganizer && !membershipRequested &&
+                                <div className='groupDetailsButtonsDiv'>
+                                    <button
+                                        onClick={() => handleJoinGroup()}
+                                        className='groupDetailsButton'>Join Group</button>
+                                </div>
+                            }
+
+                            {membershipRequested && <div className='groupDetailsButtonsDiv'>
                                 <button
                                     onClick={() => handleJoinGroup()}
-                                    className='groupDetailsButton'>Join Group</button>
-                            </div>
-                        }
+                                    id='membershipRequested'
+                                    className='groupDetailsButton'>Membership Requested</button>
+                            </div>}
+                        </div>
+                    </div>
 
-                        {membershipRequested && <div className='groupDetailsButtonsDiv'>
-                            <button
-                                onClick={() => handleJoinGroup()}
-                                id='membershipRequested'
-                                className='groupDetailsButton'>Membership Requested</button>
-                        </div>}
+                </div>
+                <div className='groupTextBottomDiv'>
+                    <div className='subGroupTextBotttomDiv'>
+                        <h3>Organizer</h3>
+                        <h4 id='groupOrganizerUsername'>{group?.Organizer?.username} user</h4>
+                        <h3 className='aboutHeader'>What we're about</h3>
+                        <p className='aboutP'>{group?.about}</p>
+                        <NavLink to={`/groups/${groupId}/members`}>Members</NavLink>
+                        <h3 className='upcomingEvents' >Upcoming Events</h3>
+                        {UpcomingGroupEventsMapped.length > 0 && UpcomingGroupEventsMapped}
+                        {UpcomingGroupEventsMapped.length === 0 && <h4 id='upcomingEvents'>No upcoming events</h4>}
+                        <h3>Past Events</h3>
+                        {pastGroupEventsMapped.length > 0 && pastGroupEventsMapped}
+                        {(pastGroupEventsMapped === 'undefined' || pastGroupEventsMapped.length === 0) && <h4 id='pastEvents'>No Past Events</h4>}
+                        {membersMapped}
                     </div>
                 </div>
+            </div >}
 
-            </div>
-            <div className='groupTextBottomDiv'>
-                <div className='subGroupTextBotttomDiv'>
-                    <h3>Organizer</h3>
-                    <h4 id='groupOrganizerUsername'>{group?.Organizer?.username} user</h4>
-                    <h3 className='aboutHeader'>What we're about</h3>
-                    <p className='aboutP'>{group?.about}</p>
-                    <h3 className='upcomingEvents' >Upcoming Events</h3>
-                    {UpcomingGroupEventsMapped.length > 0 && UpcomingGroupEventsMapped}
-                    {UpcomingGroupEventsMapped.length === 0 && <h4 id='upcomingEvents'>No upcoming events</h4>}
-                    <h3>Past Events</h3>
-                    {pastGroupEventsMapped.length > 0 && pastGroupEventsMapped}
-                    {(pastGroupEventsMapped === 'undefined' || pastGroupEventsMapped.length === 0) && <h4 id='pastEvents'>No Past Events</h4>}
-                </div>
-            </div>
-        </div >
+            {/* <Router>
+                <Switch>
+                    <Route path={`/members`}>
+                        <GroupMembersComponent />
+                    </Route>
+                </Switch>
+            </Router> */}
+        </>
     )
 }
 
