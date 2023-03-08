@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink, Switch, useHistory, useParams, browserHistory } from "react-router-dom";
+import { NavLink, Switch, useHistory, useParams, browserHistory, BrowserRouter } from "react-router-dom";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import AlertConfirm from 'react-alert-confirm';
@@ -267,13 +267,13 @@ function GroupDetailsComponent() {
                 </div>
             </div >}
 
-            {/* <Router>
+            <BrowserRouter>
                 <Switch>
                     <Route path={`/members`}>
                         <GroupMembersComponent />
                     </Route>
                 </Switch>
-            </Router> */}
+            </BrowserRouter>
         </>
     )
 }

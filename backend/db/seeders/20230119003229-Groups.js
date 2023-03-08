@@ -99,16 +99,16 @@ module.exports = {
         about: `Competition level Improv group based in Chicago but open to online collaborations. We tend to remain true to the improv format but incorporate elements from other comedy styles. Audition if you want to join a group of passionate improvisors.`,
         previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1678232939/photo-1527224857830-43a7acc85260_mmwnxm.jpg'
       },
-      // {
-      //   organizerId: 5,
-      //   name: 'Breakup and Divorce Group Support',
-      //   type: 'Online',
-      //   private: true,
-      //   city: 'Cleveland',
-      //   state: 'Ohio',
-      //   about: `We're here to support anyone getting out of or thinking of getting out of a relationship. We'll explain why it can be so hard to get over a relationship, and why it can sometimes be so hard to get out of one! Many people have given up on relationships.`,
-      //   previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1678233685/photo-1541199249251-f713e6145474_pholal.jpg'
-      // },
+      {
+        organizerId: 5,
+        name: 'Breakup and Divorce Group Support',
+        type: 'Online',
+        private: true,
+        city: 'Cleveland',
+        state: 'Ohio',
+        about: `We're here to support anyone getting out of or thinking of getting out of a relationship. We'll explain why it can be so hard to get over a relationship, and why it can sometimes be so hard to get out of one! Many people have given up on relationships.`,
+        previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1678233685/photo-1541199249251-f713e6145474_pholal.jpg'
+      },
       // {
       //   organizerId: 5,
       //   name: 'KPop Cover Group',
