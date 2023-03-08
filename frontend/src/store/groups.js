@@ -18,14 +18,14 @@ const getGroupmembers = (groupMembers) => ({
 
 export const fetchGetGroupMembers = (groupId) => async dispatch => {
     console.log(`groupId:`, groupId);
-    const response = await csrfFetch(`/api/groups/${groupId}/membership`, {
+    const response = await csrfFetch(`/api/groups/${groupId}/members`, {
         method: "GET"
     });
     console.log(`fetchGetGroupMembers Res`, response);
 
     if (response.ok) {
         const groupMembers = await response.json();
-        console.log(`joinGroupfetch response.ok toJSON`, groupMembers);
+        console.log(`joinGroupfetch response.ok toJSON`, groupMembers.Members);
         dispatch(getGroupmembers(groupMembers));
         return groupMembers;
     }
@@ -244,7 +244,8 @@ const groupsReducer = (state = initialState, action) => {
             delete newState.allGroups[action.groupId]
             return newState;
         case GET_GROUP_MEMBERS:
-            newState = { ...state, groupMembers: action.groupMembers }
+            newState = { ...state, groupMembers: [...action.groupMembers.Members] }
+            return newState
         default:
             return state
     }

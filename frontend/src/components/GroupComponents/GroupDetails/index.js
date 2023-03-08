@@ -3,7 +3,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import AlertConfirm from 'react-alert-confirm';
 import * as groupActions from '../../../store/groups';
-import { fetchCurrentUserGroups, fetchUnjoinGroup, fetchJoinGroup } from "../../../store/groups";
+import { fetchCurrentUserGroups, fetchUnjoinGroup, fetchJoinGroup, fetchGetGroupMembers } from "../../../store/groups";
 import * as EventActions from '../../../store/events';
 import * as sessionActions from '../../../store/session'
 import './GroupDetails.css'
@@ -15,7 +15,9 @@ function GroupDetailsComponent() {
 
     const group = useSelector(state => state.groups?.currentGroup);
     const sessionUser = useSelector(state => state.session?.user);
-    const events = useSelector(state => state.groups?.currentGroupEvents)
+    const events = useSelector(state => state.groups?.currentGroupEvents);
+    const members = useSelector(state => state.groups?.groupMembers);
+    console.log(`members`, members)
     const userGroups = useSelector(state => {
         return state.groups?.currentUserGroups
     });
@@ -41,6 +43,7 @@ function GroupDetailsComponent() {
         dispatch(groupActions.fetchGroupDetails(groupId))
         dispatch(groupActions.fetchGroupEvents(groupId))
         dispatch(fetchCurrentUserGroups(sessionUser?.id));
+        dispatch(fetchGetGroupMembers(groupId));
         dispatch(sessionActions.restoreUser())
         setLoaded(true)
     }, [dispatch, groupId])
@@ -131,7 +134,7 @@ function GroupDetailsComponent() {
     let pastGroupEventsMapped = events.map(event => {
         let now = new Date();
         let eventDate = new Date(event?.startDate);
-        console.log(`pastGroupEvent,`, event)
+        // console.log(`pastGroupEvent,`, event)
         if (eventDate < now) {
             return (
                 <div key={event.id}
@@ -157,7 +160,7 @@ function GroupDetailsComponent() {
 
 
     })
-    console.log(`pastEventGroupsMapped`, pastGroupEventsMapped)
+    // console.log(`pastEventGroupsMapped`, pastGroupEventsMapped)
 
     return (
         loaded && group?.previewImage && < div className='MainGroupDetailsNav' >
