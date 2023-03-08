@@ -2,16 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import AlertConfirm from 'react-alert-confirm';
-import { fetchCurrentUserGroups, fetchUnjoinGroup, fetchJoinGroup, fetchGetGroupMembers, fetchEditGroupMember } from "../../../store/groups";
+import { fetchCurrentUserGroups, fetchUnjoinGroup, fetchJoinGroup, fetchGetGroupMembers, fetchEditGroupMember, fetchDeleteGroupMember } from "../../../store/groups";
 import './groupMembers.css';
 
 
-function GroupMembersComponent({ members, groupId }) {
+function GroupMembersComponent({ groupId }) {
     const dispatch = useDispatch();
+    const members = useSelector(state => state.groups?.groupMembers);
 
     useEffect(() => {
 
-    }, [dispatch])
+    }, [members])
 
     console.log(`GroupMembersGroupId: ${groupId}`);
     const handleAcceptMemberButton = (status, memberId, member) => {
@@ -26,7 +27,6 @@ function GroupMembersComponent({ members, groupId }) {
                 if (data && data.errors) console.log(`data`, (data));
             })
     }
-
 
     let membersMapped = members.map(member => {
         return (

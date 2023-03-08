@@ -279,6 +279,9 @@ const groupsReducer = (state = initialState, action) => {
             delete newState.allGroups[action.groupId]
             return newState;
         case GET_GROUP_MEMBERS:
+            let normalizedGroupMembers = {};
+            action.groupMembers.Members.forEach(member => { normalizedGroupMembers[member.id] = member });
+            console.log(`normalizedGroupMembers`, normalizedGroupMembers);
             newState = { ...state, groupMembers: [...action.groupMembers.Members] }
             return newState
         default:
