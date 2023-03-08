@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink, Switch, useHistory, useParams, browserHistory, BrowserRouter } from "react-router-dom";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import AlertConfirm from 'react-alert-confirm';
 import * as groupActions from '../../../store/groups';
 import { fetchCurrentUserGroups, fetchUnjoinGroup, fetchJoinGroup, fetchGetGroupMembers } from "../../../store/groups";
-import * as EventActions from '../../../store/events';
 import * as sessionActions from '../../../store/session'
 import GroupMembersComponent from '../GroupMembers';
+import GroupEventsComponent from './GroupEvents';
 import './GroupDetails.css'
 
 function GroupDetailsComponent() {
@@ -20,6 +19,7 @@ function GroupDetailsComponent() {
     const events = useSelector(state => state.groups?.currentGroupEvents);
     const members = useSelector(state => state.groups?.groupMembers);
     console.log(`members`, members)
+
     const userGroups = useSelector(state => {
         return state.groups?.currentUserGroups
     });
@@ -28,6 +28,8 @@ function GroupDetailsComponent() {
     const [userIsOrganizer, setUserIsOrganizer] = useState(false);
     const [userIsMember, setUserIsMember] = useState(false);
     const [membershipRequested, setMembershipRequested] = useState(false);
+    const [showGroupMembers, setShowGroupMembers] = useState(false);
+    const [showGroupEvents, setShowGroupEvents] = useState(true);
 
     useEffect(() => {
         sessionUser?.user?.id === group?.Organizer?.id ? setUserIsOrganizer(true) : setUserIsOrganizer(false)
@@ -54,8 +56,18 @@ function GroupDetailsComponent() {
         history.goBack()
     }
 
+    const handleViewGroupEvents = () => {
+        if (showGroupEvents === false) {
+            setShowGroupEvents(true)
+            setShowGroupMembers(false)
+        }
+    }
+
     const handleViewMembersGroupDetailsButton = () => {
-        history.push(`/groups/${group?.id}/members`)
+        if (showGroupMembers === false) {
+            setShowGroupMembers(true);
+            setShowGroupEvents(false);
+        }
     }
 
     const handleJoinGroup = () => {
@@ -111,87 +123,13 @@ function GroupDetailsComponent() {
             }
         });
     }
-
-    let membersMapped = members.map(member => {
-
-        return (
-            <div className='memberContainer'>
-                <div >
-                    <i id='memberIcon' className="fa-regular fa-user "></i>
-                </div>
-                <div>
-                    <h4 id='memberName' >{member.firstName} {member.lastName}</h4>
-                    <h5 id='memberStatus'>status: {member.Membership.status}</h5>
-                </div>
-
-            </div>
-        )
-    })
-
-
-    let UpcomingGroupEventsMapped = events.map(event => {
-        let now = new Date();
-        let eventDate = new Date(event?.startDate);
-        if (eventDate > now) {
-            return (
-                <div key={event.id}
-                    onClick={() => history.push(`/events/${event.id}`)}
-                    className='groupEventContainer'>
-                    <img alt='group event' id='groupEventPicture' src={event.previewImage} />
-                    <div className='groupEventsInfo'>
-                        <div>
-                            <h5 className='groupDetailsEventTime'>{eventDate.toLocaleDateString()} {eventDate.toLocaleTimeString('en-US', {
-                                hour: '2-digit',
-                                minute: '2-digit',
-                            })}</h5>
-                        </div>
-                        <h4>{event?.name}</h4>
-                        {event?.Venue?.city && <h5>{event?.Venue?.city}, {event?.Venue?.state}</h5>}
-                        <p className='groupEventsDescriptionP'>{event?.description}</p>
-                    </div>
-                </div>
-            )
-        }
-    })
-
-    let pastGroupEventsMapped = events.map(event => {
-        let now = new Date();
-        let eventDate = new Date(event?.startDate);
-        // console.log(`pastGroupEvent,`, event)
-        if (eventDate < now) {
-            return (
-                <div key={event.id}
-                    onClick={() => history.push(`/events/${event.id}`)}
-                    className='groupEventContainer'>
-                    <img
-                        alt='group event'
-                        id='groupEventPicture' src={event.previewImage} />
-                    <div className='groupEventsInfo'>
-                        <div >
-                            <h5 className='groupDetailsEventTime' >{eventDate.toLocaleDateString()} {eventDate.toLocaleTimeString('en-US', {
-                                hour: '2-digit',
-                                minute: '2-digit',
-                            })}</h5>
-                        </div>
-                        <h4>{event?.name}</h4>
-                        <h5>{event?.Venue?.city}, {event?.Venue?.state}</h5>
-                        <p className='groupEventsDescriptionP'>{event?.description}</p>
-                    </div>
-                </div>
-            )
-        }
-
-
-    })
-    // console.log(`pastEventGroupsMapped`, pastGroupEventsMapped)
-
+    console.log(`BBBBBBBBBBBBBBBBBBB`, showGroupMembers)
     return (
         <>
             {loaded && group?.previewImage && < div className='MainGroupDetailsNav' >
                 <div className='SubGroupDetailsNav'>
                     <div className='backbuttonDiv'>
                         <button onClick={goBack} className='backButton'>{`< Back`}</button>
-
                     </div>
                     <div className='groupInfoDiv'>
                         <img id='groupDetailsMainImage' alt='group' src={group?.previewImage} />
@@ -210,6 +148,10 @@ function GroupDetailsComponent() {
                             <button
                                 onClick={(e) => handleViewMembersGroupDetailsButton()}
                                 className='viewMemberGroupDetailsButton'>View Members</button>
+                            <button
+                                className='viewMemberGroupDetailsButton'
+                                onClick={handleViewGroupEvents}
+                            >View Groups</button>
                             {userIsOrganizer && !userIsMember &&
                                 <div className='groupDetailsButtonsDiv' >
                                     <button
@@ -255,23 +197,16 @@ function GroupDetailsComponent() {
                         <h4 id='groupOrganizerUsername'>{group?.Organizer?.username} user</h4>
                         <h3 className='aboutHeader'>What we're about</h3>
                         <p className='aboutP'>{group?.about}</p>
-                        <NavLink to={`/groups/${groupId}/members`}>Members</NavLink>
-                        <h3 className='upcomingEvents' >Upcoming Events</h3>
-                        {UpcomingGroupEventsMapped.length > 0 && UpcomingGroupEventsMapped}
-                        {UpcomingGroupEventsMapped.length === 0 && <h4 id='upcomingEvents'>No upcoming events</h4>}
-                        <h3>Past Events</h3>
-                        {pastGroupEventsMapped.length > 0 && pastGroupEventsMapped}
-                        {(pastGroupEventsMapped === 'undefined' || pastGroupEventsMapped.length === 0) && <h4 id='pastEvents'>No Past Events</h4>}
-                        {membersMapped}
+                        {
+                            showGroupEvents && <GroupEventsComponent events={events} />
+                        }
+                        {
+                            showGroupMembers && <GroupMembersComponent members={members} />
+                        }
+
                     </div>
                 </div>
             </div >}
-
-
-
-            <Route path={`members`}>
-                <GroupMembersComponent />
-            </Route>
 
         </>
     )

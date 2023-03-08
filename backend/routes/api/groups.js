@@ -324,18 +324,21 @@ router.put(
 
         let member = await User.findByPk(memberId);
 
+        let errors = [];
+
+        console.log(`status: ${status}`)
         if (!group) {
+            errors.push("Group couldn't be found")
             return res.status(404).json({
-                "message": "Group couldn't be found",
-                "statusCode": 404
-            });
+                "errors": errors
+            })
         };
 
         if (!member) {
+            errors.push("User couldn't be found")
             return res.status(404).json({
-                "message": "User couldn't be found",
-                "statusCode": 404
-            });
+                "errors": errors
+            })
 
         }
         let groupMember = await GroupMember.findOne({
@@ -349,55 +352,51 @@ router.put(
         });
 
         if (!groupMember) {
+            errors.push("Membership between the user and the group does not exits")
             return res.status(404).json({
-                "message": "Membership between the user and the group does not exits",
-                "statusCode": 404
-            });
-
+                "errors": errors
+            })
         }
 
         if (status === 'pending') {
-            return res.status(400).json({
-                "message": "Validations Error",
-                "statusCode": 400,
-                "errors": {
-                    "status": "Cannot change a membership status to pending"
-                }
-            });
+            errors.push("Cannot change a membership status to pending")
+            return res.status(404).json({
+                "errors": errors
+            })
         };
 
-
+        ///////////////////might need to edit the groupMember below to currentMember
         if (groupMember) {
             if (group.organizerId !== user.id && currentMember.status !== 'co-host') {
+                errors.push("Forbidden")
                 return res.status(403).json({
-                    "message": "Forbidden",
-                    "statusCode": 403
-                });
+                    "errors": errors
+                })
             }
         } else {
             if (group.organizerId !== user.id) {
+                errors.push("Forbidden")
                 return res.status(403).json({
-                    "message": "Forbidden",
-                    "statusCode": 403
-                });
+                    "errors": errors
+                })
             }
 
         }
 
-        if (status === 'member') {
+        if (status === 'active') {
             if (groupMember) {
                 if (group.organizerId !== user.id && currentMember.status !== 'co-host') {
+                    errors.push("Forbidden")
                     return res.status(403).json({
-                        "message": "Forbidden",
-                        "statusCode": 403
-                    });
+                        "errors": errors
+                    })
                 }
             } else {
                 if (group.organizerId !== user.id) {
+                    errors.push("Forbidden")
                     return res.status(403).json({
-                        "message": "Forbidden",
-                        "statusCode": 403
-                    });
+                        "errors": errors
+                    })
                 }
 
             }
@@ -405,10 +404,10 @@ router.put(
 
         if (status === 'co-host') {
             if (group.organizerId !== user.id) {
+                errors.push("Forbidden")
                 return res.status(403).json({
-                    "message": "Forbidden",
-                    "statusCode": 403
-                });
+                    "errors": errors
+                })
             }
         }
 

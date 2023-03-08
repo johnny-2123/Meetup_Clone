@@ -308,33 +308,8 @@ body {
 }
 
 
-.memberContainer {
-    display: flex;
-    flex-direction: row;
-    width: 200px;
-    background-color: white;
-    justify-content: flex-start;
-    margin: 1rem 1rem 0rem 1rem;
-}
 
-#memberIcon {
-    margin: 0;
-    color: orangered;
-    border: 1px white solid;
-    border-radius: 15px;
-    padding: 0;
-    font-size: 35px;
-    margin-right: 2rem;
-}
 
-#memberName {
-    margin: 0 0 0 0;
-    font-size: 1rem;
-}
-
-#memberStatus {
-    margin: .3rem 0 0 0;
-}
 
 @media only screen and (max-width: 580px) {
 

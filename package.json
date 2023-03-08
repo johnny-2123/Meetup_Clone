@@ -29,6 +29,7 @@
   "dependencies": {
     "@types/react-transition-group": "^4.4.5",
     "react-alert-confirm": "^4.1.7",
+    "react-router-dom": "^6.8.2",
     "react-transition-group": "^4.4.5",
     "transition-hook": "^1.5.2"
   }
