@@ -109,16 +109,16 @@ module.exports = {
         about: `We're here to support anyone getting out of or thinking of getting out of a relationship. We'll explain why it can be so hard to get over a relationship, and why it can sometimes be so hard to get out of one! Many people have given up on relationships.`,
         previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1678233685/photo-1541199249251-f713e6145474_pholal.jpg'
       },
-      // {
-      //   organizerId: 5,
-      //   name: 'KPop Cover Group',
-      //   type: 'In Person',
-      //   private: false,
-      //   city: 'San Francisco',
-      //   state: 'California',
-      //   about: `The purpose of this group is to bring together people who enjoy Kpop and Korean culture. We learn and perform covers of popular and lesser known KPop dances. We also attend KPop concerts and other events in San Francisco. `,
-      //   previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1678233174/TopKpop2022_upu9ie.jpg'
-      // },
+      {
+        organizerId: 5,
+        name: 'KPop Cover Group',
+        type: 'In Person',
+        private: false,
+        city: 'San Francisco',
+        state: 'California',
+        about: `The purpose of this group is to bring together people who enjoy Kpop and Korean culture. We learn and perform covers of popular and lesser known KPop dances. We also attend KPop concerts and other events in San Francisco. `,
+        previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1678233174/TopKpop2022_upu9ie.jpg'
+      },
       // {
       //   organizerId: 6,
       //   name: 'Oregon Outdoor Lovers',

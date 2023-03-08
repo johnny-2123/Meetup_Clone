@@ -52,7 +52,7 @@ function App() {
         <Route exact path={`/groups/new`}>
           <NewGroupForm />
         </Route>
-        <Route exact path='/groups/:groupId'>
+        <Route exact path='/groups/:groupId/'>
           <GroupDetailsComponent />
         </Route>
         <Route exact path={`/groups/:groupId/members`}>
