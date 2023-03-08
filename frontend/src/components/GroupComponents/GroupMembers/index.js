@@ -1,54 +1,71 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory, useParams } from "react-router-dom";
+import React, { useEffect, useReducer } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AlertConfirm from 'react-alert-confirm';
-import { fetchCurrentUserGroups, fetchUnjoinGroup, fetchJoinGroup, fetchGetGroupMembers, fetchEditGroupMember, fetchDeleteGroupMember } from "../../../store/groups";
+import { fetchEditGroupMember, fetchDeleteGroupMember } from "../../../store/groups";
 import './groupMembers.css';
 
 
-function GroupMembersComponent({ groupId }) {
+function GroupMembersComponent({ groupId, userIsOrganizer, organizerId }) {
     const dispatch = useDispatch();
     const members = useSelector(state => state.groups?.groupMembers);
+    const [, forceUpdate] = useReducer(x => x + 1, 0);
 
     useEffect(() => {
 
     }, [members])
 
+    const membersArray = Object.values(members);
+    console.log(`membersArray`, membersArray)
+
     console.log(`GroupMembersGroupId: ${groupId}`);
-    const handleAcceptMemberButton = (status, memberId, member) => {
+
+    const handleRemoveMemberButton = (memberId) => {
+        return dispatch(fetchDeleteGroupMember(groupId, memberId))
+            .then(() => forceUpdate())
+            .catch(async (res) => {
+                const data = await res.json();
+                if (data && data.errors) console.log(`data`, (data));
+            })
+    }
+    const handleEditMemberButton = (status, memberId, member) => {
 
         console.log(`status: ${status}`);
         console.log(`memberId: ${memberId}`);
         console.log(`groupId: ${groupId}`);
         return dispatch(fetchEditGroupMember(groupId, memberId, status))
-            .then(() => member.Membership.status = 'active')
+            .then(() => forceUpdate())
             .catch(async (res) => {
                 const data = await res.json();
                 if (data && data.errors) console.log(`data`, (data));
             })
     }
 
-    let membersMapped = members.map(member => {
+    let membersMapped = membersArray.map(member => {
         return (
             <div key={member.id} className='memberContainer'>
                 <div className='memberIconDetailsDiv' >
                     <i id='memberIcon' className="fa-regular fa-user "></i>
                     <div>
                         <h4 id='memberName' >{member.firstName} {member.lastName}</h4>
-                        <h5 id='memberStatus'>status: {member.Membership?.status}</h5>
+                        {userIsOrganizer && <h5 id='memberStatus'>status: {member.Membership?.status}</h5>}
                     </div>
                 </div>
-                <div className='memberButtonsDiv'>
+                {userIsOrganizer && (member.id !== organizerId) && < div className='memberButtonsDiv'>
 
                     {member.Membership.status === 'pending' && <button
-                        onClick={() => handleAcceptMemberButton('active', member.id, member)}
+                        onClick={() => handleEditMemberButton('active', member.id, member)}
                         className='groupMemberButton'> Accept Request</button>}
                     {member.Membership.status === 'pending' && <button className='groupMemberButton'> Decline Request</button>}
-                    {member.Membership.status === 'active' && <button className='groupMemberButton'>Remove Member</button>}
-                    {member.Membership.status === 'active' && <button className='groupMemberButton'>Make Co-host</button>}
-                    {member.Membership.status === 'co-host' && <button className='groupMemberButton'>Remove Cohost</button>}
-                </div>
-            </div>
+                    {member.Membership.status === 'active' && <button
+                        onClick={() => handleRemoveMemberButton(member.id)}
+                        className='groupMemberButton'>Remove Member</button>}
+                    {member.Membership.status === 'active' && <button
+                        onClick={() => handleEditMemberButton('co-host', member.id, member)}
+                        className='groupMemberButton'>Make Co-host</button>}
+                    {member.Membership.status === 'co-host' && <button
+                        onClick={() => handleEditMemberButton('active', member.id, member)} className='groupMemberButton'>Remove Cohost</button>}
+                </div>}
+            </div >
         )
     })
     return (

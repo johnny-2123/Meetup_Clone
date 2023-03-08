@@ -425,6 +425,8 @@ router.put(
         resMember.memberId = groupMember.userId;
         resMember.groupId = groupMember.groupId;
         resMember.status = groupMember.status;
+        console.log(`edit group member router res`, resMember)
+
         return res.status(200).json(resMember);
 
     }

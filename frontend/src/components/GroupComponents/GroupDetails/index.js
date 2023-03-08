@@ -123,7 +123,6 @@ function GroupDetailsComponent() {
             }
         });
     }
-    console.log(`BBBBBBBBBBBBBBBBBBB`, showGroupMembers)
     return (
         <>
             {loaded && group?.previewImage && < div className='MainGroupDetailsNav' >
@@ -201,9 +200,10 @@ function GroupDetailsComponent() {
                             showGroupEvents && <GroupEventsComponent events={events} />
                         }
                         {
-                            showGroupMembers && <GroupMembersComponent members={members} groupId={groupId} />
+                            showGroupMembers && <GroupMembersComponent
+                                organizerId={group?.Organizer?.id}
+                                userIsOrganizer={userIsOrganizer} members={members} groupId={groupId} />
                         }
-
                     </div>
                 </div>
             </div >}

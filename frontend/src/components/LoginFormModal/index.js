@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useReducer } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
@@ -14,7 +14,7 @@ const LoginFormPage = () => {
     const [credential, setCredential] = useState('')
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState([]);
-
+    const [, forceUpdate] = useReducer(x => x + 1, 0);
     const { setShowLogin } = useModal();
 
     const ulRef = useRef();

@@ -1,6 +1,4 @@
 import { csrfFetch } from "./csrf";
-
-
 const LOAD_ALL_GROUPS = 'groups/LOAD_ALL_GROUPS';
 const ADD_Group = '/groups/ADD_GROUP';
 const GET_GROUP_DETAILS = '/groups/GET_GROUP_DETAILS'
@@ -10,6 +8,14 @@ const DELETE_GROUP = '/groups/DELETE_GROUP';
 const GET_CURRENT_USER_GROUPS = '/groups/GET_CURRENT_USER_GROUPS';
 const UNJOIN_GROUP = '/groups/UNJOIN_GROUP';
 const GET_GROUP_MEMBERS = '/groups/GET_GROUP_MEMBERS';
+const EDIT_GROUP_MEMBER = '/groups/EDIT_GROUP_MEMBER';
+const DELETE_GROUP_MEMBER = '/groups/DELETE_GROUP_MEMBER';
+
+
+const deleteGroupMember = (memberId) => ({
+    type: DELETE_GROUP_MEMBER,
+    memberId
+});
 
 export const fetchDeleteGroupMember = (groupId, memberId) => async dispatch => {
     console.log(`fetchDeleteGroupMember memberId: ${memberId}`);
@@ -24,9 +30,16 @@ export const fetchDeleteGroupMember = (groupId, memberId) => async dispatch => {
     if (response.ok) {
         const groupMember = await response.json();
         console.log(`fetchDeleteGroupMember response.ok toJSON`, groupMember);
+        dispatch(deleteGroupMember(memberId));
         return groupMember;
     }
 }
+
+const editGroupMember = (groupMember, status) => ({
+    type: EDIT_GROUP_MEMBER,
+    groupMember,
+    status
+})
 
 export const fetchEditGroupMember = (groupId, memberId, status) => async dispatch => {
     console.log(`fetchEditGroupMember groupId:`, groupId);
@@ -42,6 +55,7 @@ export const fetchEditGroupMember = (groupId, memberId, status) => async dispatc
     if (response.ok) {
         const groupMember = await response.json();
         console.log(`fetchEditGroupMember response.ok toJSON`, groupMember);
+        dispatch(editGroupMember(groupMember, groupMember.status))
         return groupMember;
     }
 }
@@ -237,7 +251,7 @@ const initialState = {
     currentGroup: {},
     currentGroupEvents: [],
     currentUserGroups: [],
-    groupMembers: []
+    groupMembers: {}
 };
 
 const groupsReducer = (state = initialState, action) => {
@@ -282,8 +296,22 @@ const groupsReducer = (state = initialState, action) => {
             let normalizedGroupMembers = {};
             action.groupMembers.Members.forEach(member => { normalizedGroupMembers[member.id] = member });
             console.log(`normalizedGroupMembers`, normalizedGroupMembers);
-            newState = { ...state, groupMembers: [...action.groupMembers.Members] }
+            newState = { ...state, groupMembers: { ...normalizedGroupMembers } }
+            return newState;
+        case EDIT_GROUP_MEMBER:
+            newState = {
+                ...state,
+            }
+            newState.groupMembers[action.groupMember.memberId].Membership.status = action.status
+            console.log(`edit group members new state`, newState)
             return newState
+        case DELETE_GROUP_MEMBER:
+            newState = {
+                ...state
+            };
+            delete newState.groupMembers[action.memberId];
+            console.log(`delete group members new state`, newState)
+            return newState;
         default:
             return state
     }

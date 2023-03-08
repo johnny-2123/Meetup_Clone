@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import ProfileButton from './ProfileButton';
@@ -17,6 +17,7 @@ function Navigation({ isLoaded }) {
     let sessionLinks;
 
     const { setShowLogin, setShowSignUp } = useModal()
+    const [, forceUpdate] = useReducer(x => x + 1, 0);
 
     const loginButton = () => {
         setShowLogin(true)
