@@ -114,8 +114,8 @@ body {
 
 
 .groupDetailsButton {
-    background-color: rgb(207, 42, 39);
-    border: rgb(207, 42, 39) solid 1px;
+    background-color: lightslategray;
+    border: lightslategray solid 1px;
     box-shadow: 1px 2px 2px black;
     color: white;
     padding: 5px 8px 5px 8px;
@@ -130,6 +130,11 @@ body {
 
 #groupDetailsDeleteButton {
     margin-right: 0;
+}
+
+#membershipRequested {
+    width: fit-content;
+    opacity: .85;
 }
 
 .groupTextBottomDiv {
@@ -223,7 +228,7 @@ body {
 }
 
 .groupDetailsEventTime {
-    color: rgb(0, 152, 171);
+    color: lightslategray
 }
 
 .groupEventsDescriptionP {
@@ -365,6 +370,8 @@ body {
         flex-direction: row;
         align-items: center;
         justify-items: center;
+        align-content: center;
+        justify-content: center;
         margin-bottom: 1rem;
     }
 
@@ -372,4 +379,8 @@ body {
         width: 31%;
     }
 
+    #groupDetailsUnjoinButton {
+        width: 50%;
+        justify-self: center;
+    }
 }

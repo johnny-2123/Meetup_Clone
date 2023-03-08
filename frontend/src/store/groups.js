@@ -8,6 +8,52 @@ const GET_GROUP_EVENTS = '/groups/GET_GROUP_EVENTS';
 const CLEAR_CURRENT_GROUP = '/groups/CLEAR_CURRENT_GROUP';
 const DELETE_GROUP = '/groups/DELETE_GROUP';
 const GET_CURRENT_USER_GROUPS = '/groups/GET_CURRENT_USER_GROUPS';
+const UNJOIN_GROUP = '/groups/UNJOIN_GROUP';
+const JOIN_GROUP = '/groups/JOIN_GROUP';
+
+export const fetchJoinGroup = (groupId, memberId) => async dispatch => {
+    console.log(`groupId:`, groupId);
+    console.log(`memberId: ${memberId}`)
+    const response = await csrfFetch(`/api/groups/${groupId}/membership`, {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ memberId })
+    });
+
+    console.log(`fetchJoinGroupResponse`, response);
+
+    if (response.ok) {
+        const member = await response.json();
+        console.log(`joinGroupfetch response.ok toJSON`, member);
+        dispatch(unjoinGroup(groupId, memberId));
+        return member;
+    }
+}
+
+const unjoinGroup = (groupId, memberId) => ({
+    type: UNJOIN_GROUP,
+    groupId,
+    memberId
+});
+
+export const fetchUnjoinGroup = (groupId, memberId) => async dispatch => {
+    console.log(`groupId: ${groupId}`);
+    console.log(`memberId: ${memberId}`)
+    const response = await csrfFetch(`/api/groups/${groupId}/membership`, {
+        method: "DELETE",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ memberId })
+    });
+
+    console.log(`fetchUnjoinGroupResponse`, response);
+
+    if (response.ok) {
+        const member = await response.json();
+        console.log(`response.ok toJSON`, member);
+        dispatch(unjoinGroup(groupId, memberId));
+        return member;
+    }
+}
 
 const loadCurrentUserGroups = (groups) => ({
     type: GET_CURRENT_USER_GROUPS,
@@ -176,6 +222,10 @@ const groupsReducer = (state = initialState, action) => {
             newState = { ...state };
             delete newState.allGroups[action.groupId]
             return newState;
+        // case UNJOIN_GROUP:
+        //     newState = { ...state };
+        //     delete newState.currentUserGroups[action.groupId];
+        //     return newState;
         default:
             return state
     }

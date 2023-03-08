@@ -3,7 +3,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import AlertConfirm from 'react-alert-confirm';
 import * as groupActions from '../../../store/groups';
-import { fetchCurrentUserGroups } from "../../../store/groups";
+import { fetchCurrentUserGroups, fetchUnjoinGroup, fetchJoinGroup } from "../../../store/groups";
 import * as EventActions from '../../../store/events';
 import * as sessionActions from '../../../store/session'
 import './GroupDetails.css'
@@ -23,26 +23,17 @@ function GroupDetailsComponent() {
     const [loaded, setLoaded] = useState(false);
     const [userIsOrganizer, setUserIsOrganizer] = useState(false);
     const [userIsMember, setUserIsMember] = useState(false);
+    const [membershipRequested, setMembershipRequested] = useState(false);
+
     useEffect(() => {
         sessionUser?.user?.id === group?.Organizer?.id ? setUserIsOrganizer(true) : setUserIsOrganizer(false)
-        // for (let userGroup of userGroups) {
-        //     console.log(`group.id`, group.id)
-        //     console.log(`userGroup of UserGroups,`, userGroup);
-        //     console.log(`sessionUser?.user?.id`, sessionUser?.user?.id);
-        //     console.log(`userGroup?.organizerId`, userGroup?.organizerId);
-        //     console.log(`userGroup.id`, userGroup.id);
-        //     console.log(`userGroup.id`, userGroup.id);
-        //     // (sessionUser?.user?.id === userGroup?.organizerId) && (group.id === userGroup.id) ? setUserIsGroupMember(true) : setUserIsGroupMember(false);
-        //     // if ((sessionUser?.user?.id === userGroup?.organizerId) && (group.id === userGroup.id)) {
-        //     //     return setUserIsGroupMember(true);
-        //     // } else {
-        //     //     setUserIsGroupMember(false)
-        //     // }
-        // }
 
         let userGroup = userGroups.find(ele => ele.id === group.id);
         console.log(`userGroup`, userGroup);
-        userGroup?.currentUserGroupStatus && userGroup?.currentUserGroupStatus === 'active' ? setUserIsMember(true) : setUserIsMember(false)
+
+        userGroup?.currentUserGroupStatus && (userGroup?.currentUserGroupStatus === ('active') || userGroup?.currentUserGroupStatus === ('co-host')) ? setUserIsMember(true) : setUserIsMember(false);
+
+        userGroup?.currentUserGroupStatus && userGroup?.currentUserGroupStatus === ('pending') ? setMembershipRequested(true) : setMembershipRequested(false);
 
     }, [sessionUser, userGroups, group])
 
@@ -59,11 +50,21 @@ function GroupDetailsComponent() {
     }
 
     const handleJoinGroup = () => {
-        window.alert(`functionality coming soon`)
+        return dispatch(fetchJoinGroup(groupId, sessionUser?.user?.id))
+            .then(() => setMembershipRequested(true))
+            .catch(async (res) => {
+                const data = await res.json();
+                if (data && data.errors) console.log(`data`, (data));
+            })
     }
 
-    const handleLeaveGroupClick = () => {
-        window.alert(`functionality coming soon`)
+    const handleLeaveGroupClick = (groupId) => {
+        return dispatch(fetchUnjoinGroup(groupId, sessionUser?.user?.id))
+            .then(() => setUserIsMember(false))
+            .catch(async (res) => {
+                const data = await res.json();
+                if (data && data.errors) console.log(`data`, (data));
+            })
     }
 
     const handleCreateEventClick = () => [
@@ -84,7 +85,7 @@ function GroupDetailsComponent() {
                 document.documentElement.style.overflow = 'scroll';
                 document.body.scroll = "yes";
                 return dispatch(groupActions.fetchDeleteGroup(groupId))
-                    .then(() => history.push(`/groups`))
+                    .then(() => window.location.reload())
                     .catch(async (res) => {
                         const data = await res.json();
                         if (data && data.errors) console.log(`data`, (data));
@@ -120,7 +121,6 @@ function GroupDetailsComponent() {
                 </div>
             )
         }
-
     })
 
     let pastGroupEventsMapped = events.map(event => {
@@ -189,19 +189,27 @@ function GroupDetailsComponent() {
                                     className='groupDetailsButton'>Delete</button>
                             </div>}
                         {userIsMember && !userIsOrganizer &&
-                            <div>
+                            <div className='groupDetailsButtonsDiv'>
                                 <button
-                                    onClick={handleLeaveGroupClick}
-                                    className='groupDetailsButton'>Leave Group</button>
+                                    id='groupDetailsUnjoinButton'
+                                    onClick={() => handleLeaveGroupClick(group?.id)}
+                                    className='groupDetailsButton'>Unjoin</button>
                             </div>
                         }
-                        {!userIsMember && !userIsOrganizer &&
-                            <div>
+                        {!userIsMember && !userIsOrganizer && !membershipRequested &&
+                            <div className='groupDetailsButtonsDiv'>
                                 <button
-                                    onClick={handleLeaveGroupClick}
+                                    onClick={() => handleJoinGroup()}
                                     className='groupDetailsButton'>Join Group</button>
                             </div>
                         }
+
+                        {membershipRequested && <div className='groupDetailsButtonsDiv'>
+                            <button
+                                onClick={() => handleJoinGroup()}
+                                id='membershipRequested'
+                                className='groupDetailsButton'>Membership Requested</button>
+                        </div>}
                     </div>
                 </div>
 

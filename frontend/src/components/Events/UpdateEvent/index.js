@@ -36,7 +36,7 @@ function UpdateEventPage() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const event = { name: updatedName, type: updatedType, price: updatedPrice, startDate: updatedStartDate, endDate: updatedEndDate, previewImage: updatedPreviewImage };
+        const event = { name: updatedName, type: updatedType, price: updatedPrice, startDate: updatedStartDate, endDate: updatedEndDate, previewImage: updatedPreviewImage, description: updatedDescription };
 
         return dispatch(eventActions.fetchUpdateEvent(eventId, event))
             .then(() => goBack())

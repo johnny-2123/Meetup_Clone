@@ -250,29 +250,33 @@ router.delete(
 
         let group = await Group.findByPk(groupId);
 
+        let errors = [];
+        // console.log(`/////////////////////////////////`)
+        // console.log(`deleteMembership req`, req)
+
         if (!group) {
+            errors.push("Group couldn't be found")
+
             return res.status(404).json({
-                "message": "Group couldn't be found",
-                "statusCode": 404
-            });
+                "errors": errors
+            })
         };
         let member = await User.findByPk(memberId);
 
         if (!member) {
+            errors.push("User couldn't be found")
+
             return res.status(404).json({
-                "message": "Validation Error",
-                "statusCode": 400,
-                "errors": {
-                    "memberId": "User couldn't be found"
-                }
-            });
+                "errors": errors
+            })
 
         };
 
         if (group.organizerId !== user.id && memberId !== user.id) {
-            return res.status(403).json({
-                "message": "Forbidden",
-                "statusCode": 403
+            errors.push("Forbidden");
+
+            return res.status(404).json({
+                "errors": errors
             });
 
         }
@@ -285,9 +289,10 @@ router.delete(
         });
 
         if (!groupMember) {
+            errors.push("Membership does not exist for this User");
+
             return res.status(404).json({
-                "message": "Membership does not exist for this User",
-                "statusCode": 404
+                "errors": errors
             });
         };
 
@@ -433,31 +438,35 @@ router.post(
         let user = req.user;
         let userId = user.id;
 
+        let errors = [];
+
+
         if (!group) {
-            return res.status(403).json({
-                "message": "Group couldn't be found",
-                "statusCode": 404
-            });
+            errors.push("Group couldn't be found")
+
+            return res.status(404).json({
+                "errors": errors
+            })
         };
 
         let groupMember = await GroupMember.findOne({
             where: {
-                groupId: group.id,
-                userId: user.id
+                groupId: group?.id,
+                userId: user?.id
             }
         });
 
         if (groupMember) {
             if (groupMember.status === 'pending') {
-                return res.status(400).json({
-                    "message": "Membership has already been requested",
-                    "statusCode": 400
-                });
+                errors.push("Membership already requested")
+                return res.status(404).json({
+                    "errors": errors
+                })
             } else {
-                return res.status(400).json({
-                    "message": "User is already a member of the group",
-                    "statusCode": 400
-                });
+                errors.push("User is already a member of the group")
+                return res.status(404).json({
+                    "errors": errors
+                })
 
             }
         }
@@ -480,7 +489,7 @@ router.post(
         resMember.groupId = membership.groupId;
         resMember.memberId = membership.userId;
         resMember.status = membership.status;
-        res.status(400).json(resMember);
+        res.status(200).json(resMember);
 
     }
 
@@ -492,11 +501,14 @@ router.get(
         let groupId = req.params.id;
         let group = await Group.findByPk(groupId);
 
+        let errors = [];
+
+
         if (!group) {
-            return res.status(403).json({
-                "message": "Group couldn't be found",
-                "statusCode": 404
-            });
+            errors.push("Group couldn't be found")
+            return res.status(404).json({
+                "errors": errors
+            })
         };
         let user = req.user;
         let groupMember;

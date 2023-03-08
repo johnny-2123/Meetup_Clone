@@ -327,14 +327,20 @@ router.put(
         const id = req.params.id;
         const { name, type, description, price, capacity, startDate, endDate, venueId } = req.body;
         let event = await Event.findByPk(id);
+
+        let errors = [];
+
+
         if (!event) {
+            errors.push("Group couldn't be found")
+
             return res.status(404).json({
-                "message": "Event couldn't be found",
-                "statusCode": 404
-            });
+                "errors": errors
+            })
         }
 
         let group = await event.getGroup();
+
 
         let groupMember = await GroupMember.findOne({
             where: {
@@ -344,51 +350,60 @@ router.put(
         });
 
         if (group?.organizerId !== user.id && groupMember?.status !== 'co-host') {
+            errors.push("Forbidden")
             return res.status(403).json({
-                "message": "Forbidden",
-                "statusCode": 403
-            });
+                "errors": errors
+            })
         }
 
 
         if (venueId) {
             const venue = await Venue.findByPk(venueId);
             if (venue.name === null) {
-                return res.status(404).json('Venue does not exist');
+                errors.push("Venue does not exist")
             };
 
             event.venueId = venueId;
         }
         if (name) {
             if (name.length < 5) {
-                return res.status(400).json('Name must be at least 5 characters');
+                errors.push("Name must be at least 5 characters")
             }
             event.name = name;
         };
         if (type) {
             if (type !== 'Online' && type !== 'In Person') {
-                return res.status(400).json('Type must be Online or In person');
+                errors.push("Type must be Online or In person")
             }
             event.type = type;
         }
 
         if (description) {
+            if (description.length < 50) {
+                errors.push("Description must be 50 characters or more")
+            }
             event.description = description;
         };
 
         if (price) {
             if (typeof (price) !== 'number') {
-                return res.status(400).json('Price is invalid');
+                errors.push("Price is invalid")
             }
             event.price = price;
         };
 
         if (capacity) {
             if (typeof (capacity) !== 'number') {
-                return res.status(400).json('Capacity must be integer');
+                errors.push("Capacity must be integer")
             }
             event.capacity = capacity;
         };
+
+        if (errors.length > 0) {
+            return res.status(400).json({
+                "errors": errors
+            })
+        }
 
         await event.save();
         let resEvent = await Event.findByPk(event.id, {

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCurrentUserGroups } from "../../../store/groups";
+import { fetchCurrentUserGroups, fetchUnjoinGroup } from "../../../store/groups";
 import * as groupActions from '../../../store/groups';
 import AlertConfirm from 'react-alert-confirm';
 import "./CurrentUserGroups.css";
@@ -20,6 +20,16 @@ function SeeCurrentUserGroups() {
         dispatch(fetchCurrentUserGroups(sessionUser?.id));
     }, [dispatch])
 
+    const handleCurrentUserGroupUnjoinClick = (e, groupId) => {
+        e.stopPropagation();
+        return dispatch(fetchUnjoinGroup(groupId, sessionUser.id))
+            .then(() => history.push(`/groups/current`))
+            .then(() => window.location.reload())
+            .catch(async (res) => {
+                const data = await res.json();
+                if (data && data.errors) console.log(`data`, (data));
+            })
+    }
 
     const handleCurrentUserGroupUpdateClick = (e, groupId) => {
         e.stopPropagation();
@@ -72,15 +82,19 @@ function SeeCurrentUserGroups() {
                         </div>
                         {group?.currentUserGroupStatus && group?.currentUserGroupStatus === 'active' &&
                             <div className="currentUserGroupButtonDiv">
-                                <button className="groupDetailsButton" >unjoin</button>
+                                <button
+                                    onClick={(e) => handleCurrentUserGroupUnjoinClick(e, group.id)}
+                                    className="groupDetailsButton" >unjoin</button>
                             </div>}
                         {group?.organizerId === sessionUser?.id &&
                             <div className="currentUserGroupButtonDiv">
                                 <button
                                     onClick={(e) => handleCurrentUserGroupUpdateClick(e, group.id)}
+                                    id='currentUserGroupUpdateButton'
                                     className="groupDetailsButton" >Update</button>
                                 <button
                                     onClick={(e) => handleCurrentUserGroupDeleteOnClick(e, group.id)}
+                                    id='currentUserGroupDeleteButton'
                                     className="groupDetailsButton" >Delete</button>
                             </div>}
                     </div>
@@ -100,8 +114,8 @@ function SeeCurrentUserGroups() {
         < div className="seeAllGroupsMainDiv" >
             <div className="belowEventsGroupsNav">
                 <div className="seeAllh2">
-                    <h2 >Manage Groups</h2>
-                    <h3>Your Groups in Meetup</h3>
+                    <h2 className="manageGroups">Manage Groups</h2>
+                    <h3 className="yourGroupsInMeetup">Your Groups in Meetup</h3>
                 </div>
                 {groupsArr}
             </div >
