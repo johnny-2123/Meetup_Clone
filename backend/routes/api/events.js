@@ -408,6 +408,43 @@ router.put(
             })
         }
 
+        if (startDate) {
+            let startD = new Date(startDate);
+            let isAfterToday = (input) => {
+                return new Date(input).valueOf() > new Date().valueOf();
+            }
+
+            let isFuture = isAfterToday(startD);
+
+            if (isFuture === false) {
+                return res.status(400).json({
+                    "message": "Validation error",
+                    "statusCode": 400,
+                    "errors": [
+                        "Start date must be in the future"
+                    ]
+                })
+            }
+        }
+
+        if (endDate) {
+            let endD = new Date(endDate);
+            let isAfterStart = startD < endD;
+
+
+            if (!isAfterStart) {
+                return res.status(400).json({
+                    "message": "Validation error",
+                    "statusCode": 400,
+                    "errors": [
+                        "End date is less than start date"
+                    ]
+                })
+            }
+
+        }
+
+
         await event.save();
         let resEvent = await Event.findByPk(event.id, {
             attributes: ['id', 'groupId', 'venueId', 'name', 'type', 'description', 'capacity', 'price', 'startDate', 'endDate']

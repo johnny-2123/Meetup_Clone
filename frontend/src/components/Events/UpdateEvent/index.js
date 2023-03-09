@@ -57,7 +57,6 @@ function UpdateEventPage() {
                             type={`text`}
                             value={updatedName}
                             onChange={(e) => setUpdatedName(e.target.value)}
-                            required
                             name="name" />
                     </div>
                     <div>
@@ -66,7 +65,6 @@ function UpdateEventPage() {
                             name='type'
                             value={updatedType}
                             onChange={(e) => setUpdatedType(e.target.value)}
-                            required
                         >
                             <option value="">(select one)</option>
                             <option value="In Person">In Person</option>
