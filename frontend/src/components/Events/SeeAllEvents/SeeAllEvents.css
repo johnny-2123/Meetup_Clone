@@ -55,11 +55,34 @@ body {
 
 }
 
-.eventQueryButtonNotClicked {
-    background-color: darkgray;
-    border: darkgray solid 1px;
+.timeEventQueryButtonClick {
+    background-color: #008294;
+    border: #008294 solid 2px;
+    border-radius: 20px;
     color: white;
-    padding: 5px 8px 5px 8px;
+    padding: 5px 10px 5px 10px;
+    font-weight: 500;
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+
+.timeEventQueryButtonNotClicked {
+    background-color: white;
+    border: #008294 solid 2px;
+    border-radius: 20px;
+    color: darkgray;
+    padding: 5px 10px 5px 10px;
+    font-weight: 500;
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+
+.eventQueryButtonNotClicked {
+    background-color: #F6F7F8;
+    border: #F6F7F8 solid 1px;
+    border-radius: 20px;
+    color: darkgray;
+    padding: 5px 10px 5px 10px;
     font-weight: 500;
     margin-right: 10px;
     margin-bottom: 5px;
@@ -73,7 +96,8 @@ body {
     background-color: orangered;
     border: orangered solid 1px;
     color: white;
-    padding: 5px 8px 5px 8px;
+    border-radius: 20px;
+    padding: 5px 10px 5px 10px;
     font-weight: 500;
     margin-right: 10px;
     margin-bottom: 5px;

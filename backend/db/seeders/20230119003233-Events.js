@@ -42,6 +42,17 @@ module.exports = {
         endDate: '2023-4-20 20:00:00',
         previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1677649384/photo-1518091043644-c1d4457512c6_cnl44x.jpg'
       }, {
+        name: 'Fifa Tournament 2',
+        type: 'Online',
+        description: 'Test your video game skills at this tournament and make friends in the process',
+        price: 10,
+        capacity: 20,
+        groupId: 1,
+        venueId: 2,
+        startDate: '2023-3-25 20:00:00',
+        endDate: '2023-3-26 20:00:00',
+        previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1677649384/photo-1518091043644-c1d4457512c6_cnl44x.jpg'
+      }, {
         name: 'Fortnite Tournament',
         type: 'Online',
         description: 'Battle royale competition open to all members, old and new. Bring your competetive spirit.',
@@ -74,6 +85,17 @@ module.exports = {
         venueId: 2,
         startDate: '2023-5-19 20:00:00',
         endDate: '2023-5-20 20:00:00',
+        previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1677649407/photo-1535016120720-40c646be5580_wjgvcp.jpg'
+      }, {
+        name: 'The Last of Us Finale Watch Party',
+        type: 'Online',
+        description: 'Watch the hit hbo series inspired by the legendary video game with us. We will have snacks but feel free to bring anything also',
+        price: 0,
+        capacity: 50,
+        groupId: 1,
+        venueId: 2,
+        startDate: '2023-3-13 20:00:00',
+        endDate: '2023-3-14 20:00:00',
         previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1677649407/photo-1535016120720-40c646be5580_wjgvcp.jpg'
       },
       {
@@ -241,6 +263,17 @@ module.exports = {
         venueId: 4,
         startDate: '2022-8-19 20:00:00',
         endDate: '2022-8-20 20:00:00',
+        previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1677649281/photo-1652077859695-de2851a95620_lxepr0.jpg'
+      }, {
+        name: 'Trivia Night 2',
+        type: 'Online',
+        description: 'Test your trivia knowledge with us',
+        price: 0,
+        capacity: 20,
+        groupId: 6,
+        venueId: 4,
+        startDate: '2023-3-12 20:00:00',
+        endDate: '2023-3-13 20:00:00',
         previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1677649281/photo-1652077859695-de2851a95620_lxepr0.jpg'
       },
       {

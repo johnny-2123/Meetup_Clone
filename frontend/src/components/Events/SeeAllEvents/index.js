@@ -1,23 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { useHistory, NavLink, useLocation } from "react-router-dom";
+import { useHistory, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllEvents, clearCurrentEvent } from '../../../store/events'
-import EventsGroupsNav from "../../EventsGroupsNav";
 import './SeeAllEvents.css';
 
 function SeeAllEvents() {
     const dispatch = useDispatch();
     const history = useHistory();
-    let location = useLocation();
-    const [searchQueries, setSearchQueries] = useState({})
-    const [inPersonClicked, setInPersonClicked] = useState(false);
+
     const [inPersonQuery, setInPersonQuery] = useState(false);
     const [onlineQuery, setOnlineQuery] = useState(false);
-    const [onlineClicked, setOnlineClicked] = useState(false);
+    const [futureOnlyQuery, setFutureOnlyQuery] = useState(false);
 
-    let onlineClassName = onlineClicked ? "eventQueryButtonClick" : "eventQueryButtonNotClicked";
+    let onlineClassName = onlineQuery ? "eventQueryButtonClick" : "eventQueryButtonNotClicked";
 
-    let inPersonClassName = (inPersonClicked ? " eventQueryButtonClick" : "eventQueryButtonNotClicked");
+    let inPersonClassName = inPersonQuery ? " eventQueryButtonClick" : "eventQueryButtonNotClicked";
+
+    let futureOnlyClassName = futureOnlyQuery ? 'timeEventQueryButtonClick' : 'timeEventQueryButtonNotClicked';
 
     const events = useSelector(state => {
         return state.events.allEvents
@@ -28,33 +27,34 @@ function SeeAllEvents() {
         dispatch(clearCurrentEvent())
     }, [dispatch])
 
+    const handleFutureOnlyClicked = () => {
+        console.log(`thisWeek; ${futureOnlyQuery}`)
+
+        if (futureOnlyQuery === false) {
+            setFutureOnlyQuery(true)
+        } else {
+            setFutureOnlyQuery(false)
+        }
+
+    }
+
     const handleInPersonClick = (() => {
-        console.log(`inPersonClicked`, inPersonClicked);
-        console.log(`inPersonClassName`, inPersonClassName);
         if (inPersonQuery === false) {
-            setInPersonClicked(true)
             setInPersonQuery(true)
-            setOnlineClicked(false)
             setOnlineQuery(false)
 
         } else {
-            setInPersonClicked(false)
             setInPersonQuery(false)
         }
 
     })
 
     const handleOnlineClick = (() => {
-        console.log(`inPersonClicked`, inPersonClicked);
-        console.log(`inPersonClassName`, inPersonClassName);
         if (onlineQuery === false) {
-            setOnlineClicked(true)
             setOnlineQuery(true)
-            setInPersonClicked(false)
             setInPersonQuery(false)
         }
         else {
-            setOnlineClicked(false);
             setOnlineQuery(false)
         }
     })
@@ -69,9 +69,14 @@ function SeeAllEvents() {
             queryObject.type = 'Online'
         }
 
+        if (futureOnlyQuery === true) {
+            queryObject.thisWeek = true
+        }
+
         new URLSearchParams(queryObject).toString();
         dispatch(fetchAllEvents(new URLSearchParams(queryObject).toString()))
-    }, [inPersonQuery, onlineQuery])
+    }, [inPersonQuery, onlineQuery, futureOnlyQuery]);
+
     let eventsArr = events.map((event, idx) => {
         let eventDate = new Date(event.startDate);
 
@@ -114,6 +119,9 @@ function SeeAllEvents() {
                     <button
                         onClick={handleOnlineClick}
                         className={onlineClassName}>Online</button>
+                    <button
+                        onClick={handleFutureOnlyClicked}
+                        className={futureOnlyClassName}>Future Only</button>
                 </div>
                 {eventsArr}
             </div>

@@ -544,8 +544,9 @@ router.delete(
 router.get(
     '/',
     async (req, res) => {
-        const where = {}
-        let { page, size, name, type, startDate, groupId } = req.query;
+        const where = {};
+        let order = [];
+        let { page, size, name, type, startDate, groupId, thisWeek } = req.query;
         page = parseInt(page);
         size = parseInt(size);
 
@@ -592,6 +593,23 @@ router.get(
                 ]
             });
         }
+
+        if (thisWeek === 'true') {
+            console.log(`thisWeek: ${thisWeek}`);
+            function nextweek() {
+                var today = new Date();
+                var nextweek = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 7);
+                return nextweek;
+            }
+            let now = new Date();
+            console.log(`now: ${now}`);
+            where.startDate = {
+                [Op.and]: {
+                    [Op.gte]: new Date()
+                }
+            }
+        }
+
         if (startDate) {
             startDate = JSON.parse(startDate);
         }
@@ -629,17 +647,15 @@ router.get(
             // not returning all events when no page or size are set as queries
             limit: size,
             offset: size * (page - 1),
-
+            order,
         });
 
-        let eventsArr = [];
         for (let event of events2) {
             let count = await Attendant.count({
                 where: { eventId: event.id }
             });
             event.setDataValue('numAttending', count);
         }
-
 
         res.status(200).json({
             'Events': events2,
