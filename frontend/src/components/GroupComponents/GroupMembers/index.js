@@ -19,6 +19,8 @@ function GroupMembersComponent({ groupId, userIsOrganizer, organizerId }) {
 
     console.log(`GroupMembersGroupId: ${groupId}`);
 
+
+
     const handleRemoveMemberButton = (memberId) => {
         return dispatch(fetchDeleteGroupMember(groupId, memberId))
             .then(() => forceUpdate())
@@ -56,9 +58,11 @@ function GroupMembersComponent({ groupId, userIsOrganizer, organizerId }) {
                     {member.Membership.status === 'pending' && <button
                         onClick={() => handleEditMemberButton('active', member.id, member)}
                         className='groupMemberButton'> Accept Request</button>}
-                    {member.Membership.status === 'pending' && <button className='groupMemberButton'> Decline Request</button>}
+                    {member.Membership.status === 'pending' && <button
+                        onClick={() => handleRemoveMemberButton(member?.id)}
+                        className='groupMemberButton'> Decline Request</button>}
                     {member.Membership.status === 'active' && <button
-                        onClick={() => handleRemoveMemberButton(member.id)}
+                        onClick={() => handleRemoveMemberButton(member?.id)}
                         className='groupMemberButton'>Remove Member</button>}
                     {member.Membership.status === 'active' && <button
                         onClick={() => handleEditMemberButton('co-host', member.id, member)}
