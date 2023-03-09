@@ -10,7 +10,14 @@ function SeeAllEvents() {
 
     const [inPersonQuery, setInPersonQuery] = useState(false);
     const [onlineQuery, setOnlineQuery] = useState(false);
-    const [futureOnlyQuery, setFutureOnlyQuery] = useState(false);
+    const [futureOnlyQuery, setFutureOnlyQuery] = useState(true);
+    const [earliestFirst, setEarliestFirst] = useState(false);
+    const [latestFirst, setLatestFirst] = useState(false);
+
+    let latestClassName = latestFirst ? 'timeEventQueryButtonClick' :
+        'timeEventQueryButtonNotClicked';
+
+    let earliestClassName = earliestFirst ? 'timeEventQueryButtonClick' : 'timeEventQueryButtonNotClicked';
 
     let onlineClassName = onlineQuery ? "eventQueryButtonClick" : "eventQueryButtonNotClicked";
 
@@ -27,10 +34,31 @@ function SeeAllEvents() {
         dispatch(clearCurrentEvent())
     }, [dispatch])
 
+
+    const handleEarliestClicked = () => {
+
+        if (!earliestFirst) {
+            setEarliestFirst(true)
+            setLatestFirst(false);
+        } else {
+            setEarliestFirst(false)
+        }
+    }
+
+    const handleLatestClicked = () => {
+        if (!latestFirst) {
+            setLatestFirst(true)
+            setEarliestFirst(false);
+        }
+        else {
+            setLatestFirst(false)
+        }
+    }
+
     const handleFutureOnlyClicked = () => {
         console.log(`thisWeek; ${futureOnlyQuery}`)
 
-        if (futureOnlyQuery === false) {
+        if (!futureOnlyQuery) {
             setFutureOnlyQuery(true)
         } else {
             setFutureOnlyQuery(false)
@@ -70,12 +98,20 @@ function SeeAllEvents() {
         }
 
         if (futureOnlyQuery === true) {
-            queryObject.thisWeek = true
+            queryObject.futureOnlyQuery = true
+        }
+
+        if (latestFirst) {
+            queryObject.latestFirst = true
+        }
+
+        if (earliestFirst) {
+            queryObject.earliestFirst = true
         }
 
         new URLSearchParams(queryObject).toString();
         dispatch(fetchAllEvents(new URLSearchParams(queryObject).toString()))
-    }, [inPersonQuery, onlineQuery, futureOnlyQuery]);
+    }, [inPersonQuery, onlineQuery, futureOnlyQuery, earliestFirst, latestFirst]);
 
     let eventsArr = events.map((event, idx) => {
         let eventDate = new Date(event.startDate);
@@ -122,6 +158,12 @@ function SeeAllEvents() {
                     <button
                         onClick={handleFutureOnlyClicked}
                         className={futureOnlyClassName}>Future Only</button>
+                    {/* <button
+                        onClick={handleLatestClicked}
+                        className={latestClassName}>Latest First</button> */}
+                    {/* <button
+                        onClick={handleEarliestClicked}
+                        className={earliestClassName}>Latest First</button> */}
                 </div>
                 {eventsArr}
             </div>

@@ -545,8 +545,8 @@ router.get(
     '/',
     async (req, res) => {
         const where = {};
-        let order = [];
-        let { page, size, name, type, startDate, groupId, thisWeek } = req.query;
+        let order = []
+        let { page, size, name, type, startDate, groupId, futureOnlyQuery, latestFirst, earliestFirst } = req.query;
         page = parseInt(page);
         size = parseInt(size);
 
@@ -594,13 +594,8 @@ router.get(
             });
         }
 
-        if (thisWeek === 'true') {
-            console.log(`thisWeek: ${thisWeek}`);
-            function nextweek() {
-                var today = new Date();
-                var nextweek = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 7);
-                return nextweek;
-            }
+        if (futureOnlyQuery) {
+            console.log(`thisWeek: ${futureOnlyQuery}`);
             let now = new Date();
             console.log(`now: ${now}`);
             where.startDate = {
@@ -635,7 +630,10 @@ router.get(
         if (groupId && typeof (groupId) === 'integer') {
             where.groupId = groupId;
         }
+        if (earliestFirst) {
+            order = [['startDate', 'DESC']];
 
+        }
 
 
         const events2 = await Event.findAll({
@@ -645,9 +643,10 @@ router.get(
             ],
             where,
             // not returning all events when no page or size are set as queries
+            order,
             limit: size,
             offset: size * (page - 1),
-            order,
+
         });
 
         for (let event of events2) {
