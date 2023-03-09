@@ -41,9 +41,6 @@ router.get(
                 }
             });
 
-            if (groupMember) {
-                console.log(`groupMember`, groupMember.status);
-            }
 
             let toPush = {}
             toPush.id = groupJoined.id;
@@ -59,7 +56,6 @@ router.get(
             toPush.updatedAt = groupJoined.updatedAt;
             toPush.numMembers = count;
             toPush.currentUserGroupStatus = groupMember.status;
-            console.log(`toPush`, toPush)
             groupsJoinedArr.push(toPush);
         }
         let groupsOrganizedArr = [];
@@ -83,17 +79,14 @@ router.get(
             groupsOrganizedArr.push(toPush);
         }
 
-        console.log(`//////////////////////`)
         for (item of groupsJoinedArr) {
             let notInArray = groupsOrganizedArr.filter(group => group.id === item.id);
-            console.log(`notInArray`, notInArray)
             if (notInArray.length === 0) {
                 groupsOrganizedArr.push(item);
             }
         }
         let resGroups = {};
         resGroups.Groups = groupsOrganizedArr;
-        console.log(`/groups/current return`, resGroups);
         return res.status(200).json(resGroups);
     }
 )
@@ -251,10 +244,6 @@ router.delete(
         let group = await Group.findByPk(groupId);
 
         let errors = [];
-        // console.log(`/////////////////////////////////`)
-        // console.log(`deleteMembership req`, req)
-        console.log(`memberId: ${memberId}`);
-        console.log(`groupId: ${groupId}`);
 
         if (!group) {
             errors.push("Group couldn't be found")
@@ -327,10 +316,6 @@ router.put(
         let member = await User.findByPk(memberId);
 
         let errors = [];
-        console.log(`&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&`)
-        console.log(`status: ${status}`);
-        console.log(`memberId: ${memberId}`);
-        console.log(`groupId: ${groupId}`);
 
         if (!group) {
             errors.push("Group couldn't be found")
@@ -425,7 +410,6 @@ router.put(
         resMember.memberId = groupMember.userId;
         resMember.groupId = groupMember.groupId;
         resMember.status = groupMember.status;
-        console.log(`edit group member router res`, resMember)
 
         return res.status(200).json(resMember);
 

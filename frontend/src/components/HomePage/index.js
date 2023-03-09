@@ -12,7 +12,6 @@ const HomePage = () => {
     let homeStartGroupIdName = homeThirdSectionDivDisabled ? "homeThirdSectionDivDisabled" : "homeThirdSectionDiv";
 
     useEffect(() => {
-        console.log(`home SessionUser`, sessionUser?.user);
         if (!sessionUser?.user) {
             setHomeThirdSectionDivDisabled(true)
         } else {

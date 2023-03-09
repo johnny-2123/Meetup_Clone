@@ -595,9 +595,7 @@ router.get(
         }
 
         if (futureOnlyQuery) {
-            console.log(`thisWeek: ${futureOnlyQuery}`);
             let now = new Date();
-            console.log(`now: ${now}`);
             where.startDate = {
                 [Op.and]: {
                     [Op.gte]: new Date()

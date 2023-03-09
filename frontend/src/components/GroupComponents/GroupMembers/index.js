@@ -1,6 +1,5 @@
 import React, { useEffect, useReducer } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import AlertConfirm from 'react-alert-confirm';
 import { fetchEditGroupMember, fetchDeleteGroupMember } from "../../../store/groups";
 import './groupMembers.css';
 
@@ -15,30 +14,22 @@ function GroupMembersComponent({ groupId, userIsOrganizer, organizerId }) {
     }, [members])
 
     const membersArray = Object.values(members);
-    console.log(`membersArray`, membersArray)
-
-    console.log(`GroupMembersGroupId: ${groupId}`);
-
-
 
     const handleRemoveMemberButton = (memberId) => {
         return dispatch(fetchDeleteGroupMember(groupId, memberId))
             .then(() => forceUpdate())
             .catch(async (res) => {
                 const data = await res.json();
-                if (data && data.errors) console.log(`data`, (data));
+                // if (data && data.errors) console.log(`data`, (data));
             })
     }
     const handleEditMemberButton = (status, memberId, member) => {
 
-        console.log(`status: ${status}`);
-        console.log(`memberId: ${memberId}`);
-        console.log(`groupId: ${groupId}`);
         return dispatch(fetchEditGroupMember(groupId, memberId, status))
             .then(() => forceUpdate())
             .catch(async (res) => {
                 const data = await res.json();
-                if (data && data.errors) console.log(`data`, (data));
+                // if (data && data.errors) console.log(`data`, (data));
             })
     }
 

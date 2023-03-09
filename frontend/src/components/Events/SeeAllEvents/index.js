@@ -56,7 +56,6 @@ function SeeAllEvents() {
     }
 
     const handleFutureOnlyClicked = () => {
-        console.log(`thisWeek; ${futureOnlyQuery}`)
 
         if (!futureOnlyQuery) {
             setFutureOnlyQuery(true)

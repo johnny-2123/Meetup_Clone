@@ -37,7 +37,6 @@ const LoginFormPage = () => {
 
         setErrors([]);
         return dispatch(sessionActions.fetchLogin({ credential, password }))
-            .then((res) => console.log(`logInRes:`, res))
             .catch(async (res) => {
                 const data = await res.json();
 

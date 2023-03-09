@@ -18,18 +18,14 @@ const deleteGroupMember = (memberId) => ({
 });
 
 export const fetchDeleteGroupMember = (groupId, memberId) => async dispatch => {
-    console.log(`fetchDeleteGroupMember memberId: ${memberId}`);
-    console.log(`fetchDeleteGroupMember groupId: ${groupId}`);
     const response = await csrfFetch(`/api/groups/${groupId}/membership`, {
         method: "DELETE",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ groupId, memberId })
     });
-    console.log(`fetchDeleteGroupMember Res`, response);
 
     if (response.ok) {
         const groupMember = await response.json();
-        console.log(`fetchDeleteGroupMember response.ok toJSON`, groupMember);
         dispatch(deleteGroupMember(memberId));
         return groupMember;
     }
@@ -42,19 +38,14 @@ const editGroupMember = (groupMember, status) => ({
 })
 
 export const fetchEditGroupMember = (groupId, memberId, status) => async dispatch => {
-    console.log(`fetchEditGroupMember groupId:`, groupId);
-    console.log(`status: ${status}`);
-    console.log(`memberId: ${memberId}`);
     const response = await csrfFetch(`/api/groups/${groupId}/membership`, {
         method: "PUT",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ memberId, status })
     });
-    console.log(`fetchEditGroupMember Res`, response);
 
     if (response.ok) {
         const groupMember = await response.json();
-        console.log(`fetchEditGroupMember response.ok toJSON`, groupMember);
         dispatch(editGroupMember(groupMember, groupMember.status))
         return groupMember;
     }
@@ -66,34 +57,27 @@ const getGroupmembers = (groupMembers) => ({
 });
 
 export const fetchGetGroupMembers = (groupId) => async dispatch => {
-    console.log(`groupId:`, groupId);
     const response = await csrfFetch(`/api/groups/${groupId}/members`, {
         method: "GET"
     });
-    console.log(`fetchGetGroupMembers Res`, response);
 
     if (response.ok) {
         const groupMembers = await response.json();
-        console.log(`joinGroupfetch response.ok toJSON`, groupMembers.Members);
         dispatch(getGroupmembers(groupMembers));
         return groupMembers;
     }
 }
 
 export const fetchJoinGroup = (groupId, memberId) => async dispatch => {
-    console.log(`groupId:`, groupId);
-    console.log(`memberId: ${memberId}`)
+
     const response = await csrfFetch(`/api/groups/${groupId}/membership`, {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ memberId })
     });
 
-    console.log(`fetchJoinGroupResponse`, response);
-
     if (response.ok) {
         const member = await response.json();
-        console.log(`joinGroupfetch response.ok toJSON`, member);
         dispatch(unjoinGroup(groupId, memberId));
         return member;
     }
@@ -106,19 +90,14 @@ const unjoinGroup = (groupId, memberId) => ({
 });
 
 export const fetchUnjoinGroup = (groupId, memberId) => async dispatch => {
-    console.log(`groupId: ${groupId}`);
-    console.log(`memberId: ${memberId}`)
     const response = await csrfFetch(`/api/groups/${groupId}/membership`, {
         method: "DELETE",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ memberId })
     });
 
-    console.log(`fetchUnjoinGroupResponse`, response);
-
     if (response.ok) {
         const member = await response.json();
-        console.log(`response.ok toJSON`, member);
         dispatch(unjoinGroup(groupId, memberId));
         return member;
     }
@@ -295,7 +274,6 @@ const groupsReducer = (state = initialState, action) => {
         case GET_GROUP_MEMBERS:
             let normalizedGroupMembers = {};
             action.groupMembers.Members.forEach(member => { normalizedGroupMembers[member.id] = member });
-            console.log(`normalizedGroupMembers`, normalizedGroupMembers);
             newState = { ...state, groupMembers: { ...normalizedGroupMembers } }
             return newState;
         case EDIT_GROUP_MEMBER:
@@ -303,14 +281,12 @@ const groupsReducer = (state = initialState, action) => {
                 ...state,
             }
             newState.groupMembers[action.groupMember.memberId].Membership.status = action.status
-            console.log(`edit group members new state`, newState)
             return newState
         case DELETE_GROUP_MEMBER:
             newState = {
                 ...state
             };
             delete newState.groupMembers[action.memberId];
-            console.log(`delete group members new state`, newState)
             return newState;
         default:
             return state

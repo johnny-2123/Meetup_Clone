@@ -18,7 +18,6 @@ function GroupDetailsComponent() {
     const sessionUser = useSelector(state => state.session?.user);
     const events = useSelector(state => state.groups?.currentGroupEvents);
     const members = useSelector(state => state.groups?.groupMembers);
-    console.log(`members`, members)
 
     const userGroups = useSelector(state => {
         return state.groups?.currentUserGroups
@@ -37,7 +36,6 @@ function GroupDetailsComponent() {
         sessionUser?.user?.id === group?.Organizer?.id ? setUserIsOrganizer(true) : setUserIsOrganizer(false)
 
         let userGroup = userGroups.find(ele => ele.id === group.id);
-        console.log(`userGroup`, userGroup);
 
         userGroup?.currentUserGroupStatus && (userGroup?.currentUserGroupStatus === ('active') || userGroup?.currentUserGroupStatus === ('co-host')) ? setUserIsMember(true) : setUserIsMember(false);
 
@@ -92,10 +90,10 @@ function GroupDetailsComponent() {
     const handleLeaveGroupClick = (groupId) => {
         return dispatch(fetchUnjoinGroup(groupId, sessionUser?.user?.id))
             .then(() => setUserIsMember(false))
-            .catch(async (res) => {
-                const data = await res.json();
-                if (data && data.errors) console.log(`data`, (data));
-            })
+        // .catch(async (res) => {
+        //     const data = await res.json();
+        //     if (data && data.errors) console.log(`data`, (data));
+        // })
     }
 
     const handleCreateEventClick = () => [
@@ -117,10 +115,10 @@ function GroupDetailsComponent() {
                 document.body.scroll = "yes";
                 return dispatch(groupActions.fetchDeleteGroup(groupId))
                     .then(() => window.location.reload())
-                    .catch(async (res) => {
-                        const data = await res.json();
-                        if (data && data.errors) console.log(`data`, (data));
-                    })
+                // .catch(async (res) => {
+                //     const data = await res.json();
+                //     if (data && data.errors) console.log(`data`, (data));
+                // })
             },
             onCancel: () => {
                 document.documentElement.style.overflow = 'scroll';

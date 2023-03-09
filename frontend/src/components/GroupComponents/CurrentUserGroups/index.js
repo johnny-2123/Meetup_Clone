@@ -59,10 +59,10 @@ function SeeCurrentUserGroups() {
                 return dispatch(groupActions.fetchDeleteGroup(groupId))
                     .then(() => history.push(`/groups/current`))
                     .then(() => window.location.reload())
-                    .catch(async (res) => {
-                        const data = await res.json();
-                        if (data && data.errors) console.log(`data`, (data));
-                    })
+                // .catch(async (res) => {
+                //     const data = await res.json();
+                //     if (data && data.errors) console.log(`data`, (data));
+                // })
             },
             onCancel: () => {
                 document.documentElement.style.overflow = 'scroll';
