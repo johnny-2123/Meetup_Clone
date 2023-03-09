@@ -14,18 +14,21 @@ function GroupEventsComponent({ events }) {
                 <div key={event.id}
                     onClick={() => history.push(`/events/${event.id}`)}
                     className='groupEventContainer'>
-                    <img alt='group event' id='groupEventPicture' src={event.previewImage} />
-                    <div className='groupEventsInfo'>
-                        <div>
-                            <h5 className='groupDetailsEventTime'>{eventDate.toLocaleDateString()} {eventDate.toLocaleTimeString('en-US', {
-                                hour: '2-digit',
-                                minute: '2-digit',
-                            })}</h5>
+                    <div className='groupDetailsImageAndInfo'>
+                        <img alt='group event' id='groupEventPicture' src={event.previewImage} />
+                        <div className='groupEventsInfo'>
+                            <div>
+                                <h5 className='groupDetailsEventTime'>{eventDate.toLocaleDateString()} {eventDate.toLocaleTimeString('en-US', {
+                                    hour: '2-digit',
+                                    minute: '2-digit',
+                                })}</h5>
+                            </div>
+                            <h4>{event?.name}</h4>
+                            {event?.Venue?.city && <h5>{event?.Venue?.city}, {event?.Venue?.state}</h5>}
+
                         </div>
-                        <h4>{event?.name}</h4>
-                        {event?.Venue?.city && <h5>{event?.Venue?.city}, {event?.Venue?.state}</h5>}
-                        <p className='groupEventsDescriptionP'>{event?.description}</p>
                     </div>
+                    <p className='groupEventsDescriptionP'>{event?.description}</p>
                 </div>
             )
         }
@@ -40,20 +43,24 @@ function GroupEventsComponent({ events }) {
                 <div key={event.id}
                     onClick={() => history.push(`/events/${event.id}`)}
                     className='groupEventContainer'>
-                    <img
-                        alt='group event'
-                        id='groupEventPicture' src={event.previewImage} />
-                    <div className='groupEventsInfo'>
-                        <div >
-                            <h5 className='groupDetailsEventTime' >{eventDate.toLocaleDateString()} {eventDate.toLocaleTimeString('en-US', {
-                                hour: '2-digit',
-                                minute: '2-digit',
-                            })}</h5>
+                    <div className='groupDetailsImageAndInfo'>
+                        <img
+                            alt='group event'
+                            id='groupEventPicture' src={event.previewImage} />
+                        <div className='groupEventsInfo'>
+                            <div >
+                                <h5 className='groupDetailsEventTime' >{eventDate.toLocaleDateString()} {eventDate.toLocaleTimeString('en-US', {
+                                    hour: '2-digit',
+                                    minute: '2-digit',
+                                })}</h5>
+                            </div>
+
+                            <h4>{event?.name}</h4>
+                            <h5>{event?.Venue?.city}, {event?.Venue?.state}</h5>
                         </div>
-                        <h4>{event?.name}</h4>
-                        <h5>{event?.Venue?.city}, {event?.Venue?.state}</h5>
-                        <p className='groupEventsDescriptionP'>{event?.description}</p>
                     </div>
+                    <p className='groupEventsDescriptionP'>{event?.description}</p>
+
                 </div>
             )
         }
