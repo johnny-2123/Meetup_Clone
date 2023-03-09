@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import * as eventActions from '../../../store/events';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import './NewEventForm.css'
+import './NewEventForm.css';
+
 function NewEventForm() {
     const dispatch = useDispatch();
     const history = useHistory();
@@ -18,11 +19,6 @@ function NewEventForm() {
     const [EndDate, setEndDate] = useState('');
     const [PreviewImage, setPreviewImage] = useState('');
     const [errors, setErrors] = useState([]);
-    const goBack = () => {
-        history.goBack();
-    };
-
-
 
     const handleSubmit = (e) => {
         e.preventDefault();

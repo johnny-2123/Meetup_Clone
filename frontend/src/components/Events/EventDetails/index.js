@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import AlertConfirm from 'react-alert-confirm';
 import * as eventActions from '../../../store/events'
 import * as sessionActions from '../../../store/session'
-import './EventDetails.css'
+import './EventDetails.css';
+
 <script src="https://kit.fontawesome.com/97726b2eee.js" crossorigin="anonymous"></script>
 
 function EventDetailsComponent() {
@@ -29,7 +30,6 @@ function EventDetailsComponent() {
     }, [dispatch, eventId])
 
     useEffect(() => {
-        // if (sessionUser?.id === event?.Organizer?.id)
         setIsOrganizer(true)
 
     })

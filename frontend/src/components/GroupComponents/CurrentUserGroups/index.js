@@ -22,13 +22,23 @@ function SeeCurrentUserGroups() {
 
     const handleCurrentUserGroupUnjoinClick = (e, groupId) => {
         e.stopPropagation();
-        return dispatch(fetchUnjoinGroup(groupId, sessionUser.id))
-            .then(() => history.push(`/groups/current`))
-            .then(() => window.location.reload())
-            .catch(async (res) => {
-                const data = await res.json();
-                if (data && data.errors) console.log(`data`, (data));
-            })
+
+        AlertConfirm({
+            title: 'Are you sure you want to delete this Group?',
+            desc: 'You cannot undo this change',
+            onOk: () => {
+                return dispatch(fetchUnjoinGroup(groupId, sessionUser.id))
+                    .then(() => history.push(`/groups/current`))
+                    .then(() => window.location.reload())
+                    .catch(async (res) => {
+                        const data = await res.json();
+                        if (data && data.errors) console.log(`data`, (data));
+                    })
+            },
+            onCancel: () => {
+            }
+        });
+
     }
 
     const handleCurrentUserGroupUpdateClick = (e, groupId) => {
@@ -110,7 +120,6 @@ function SeeCurrentUserGroups() {
     }, [dispatch])
 
     return (
-
         < div className="seeAllGroupsMainDiv" >
             <div className="belowEventsGroupsNav">
                 <div className="seeAllh2">

@@ -339,6 +339,7 @@ body {
     bottom: 0;
     font-size: 17px;
     height: 100%;
+    width: 100%;
     overflow: hidden;
     overflow-y: hidden;
     background-color: rgba(0, 0, 0, 0.3);
@@ -363,7 +364,7 @@ body {
     margin-top: 5px;
     margin-left: 27px;
     margin-right: 27px;
-    padding: 5px 7px 5px 7px;
+    padding: 5px 7.1px 5px 7.1px;
     color: white;
 }
 
