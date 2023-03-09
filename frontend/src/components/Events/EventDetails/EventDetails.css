@@ -1,5 +1,13 @@
-.mainGroupDetailsDiv {
+html,
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
 
+}
+
+.mainGroupDetailsDiv {
+    width: 100vw;
     margin: 0 auto 0 auto;
     display: flex;
     flex-direction: column;
@@ -32,8 +40,8 @@
 }
 
 .eventDetailsGreySection {
-    width: 98.5vw;
-    background-color: #e8e8e8;
+    width: 100%;
+    background-color: #F6F7F8;
     margin: 0;
     display: flex;
     flex-direction: column;
@@ -267,6 +275,16 @@
     width: auto;
 }
 
+.deleteUpdateDiv button {
+    background-color: #F65858;
+    border-color: #F65858;
+    width: 50%;
+}
+
+.deleteUpdateDiv :last-child {
+    margin-right: 0;
+}
+
 .greySectionBottomHalf {
     width: 90vw;
 
@@ -377,10 +395,10 @@
 
 
     #eventDetailsUpdateButton {
-        width: 30vw;
+        width: 50vw;
     }
 
     #eventDetailsDeleteButton {
-        width: 30vw;
+        width: 50vw;
     }
 }
