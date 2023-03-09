@@ -132,11 +132,13 @@ body {
 #allEventsEventDate {
     color: rgb(153, 153, 153);
     font-size: 1rem;
+    font-weight: 300;
+
 }
 
 #allEventsName {
     font-size: 1.3rem;
-    font-weight: bold;
+    font-weight: 300;
     margin-bottom: .4rem;
     color: black;
 }
@@ -145,6 +147,14 @@ body {
     color: rgb(135, 116, 87);
     margin-top: 0;
     font-size: 1rem;
+    font-weight: 300;
+
+}
+
+.seeAllEventsType {
+    margin: .5rem 0 0 0;
+    font-size: .9rem;
+    font-weight: 300;
 }
 
 .groupContainerDetails h3 {

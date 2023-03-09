@@ -43,13 +43,15 @@
     margin: 0;
     padding: 0;
     display: inline-flex;
+    font-weight: 300;
+
 }
 
 .EventsGroupsLinks {
     font-size: 1.9rem;
+    font-weight: 200;
 
     color: rgb(117, 117, 117);
-    font-weight: bold;
     text-decoration: none;
 }
 

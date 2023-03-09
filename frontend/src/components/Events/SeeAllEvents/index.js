@@ -88,7 +88,7 @@ function SeeAllEvents() {
                         })}</h3>
                         <h4 id="allEventsName">{event.name}</h4>
                         {event?.Venue?.city && <h3 id="allEventsCity">{event.Venue.city}</h3>}
-                        <h6>{event.type}</h6>
+                        <h5 className="seeAllEventsType">{event.type}</h5>
                     </div>
                 </div>
                 <p className="pDiv">{event.description}</p>
