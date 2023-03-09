@@ -144,7 +144,7 @@ const SignUpPage = () => {
                             <input
                                 className='input'
                                 name='password'
-                                type={`text`}
+                                type={`password`}
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
@@ -159,7 +159,7 @@ const SignUpPage = () => {
                             <input
                                 className='input'
                                 name='confirmPassword'
-                                type={`text`}
+                                type={`password`}
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
                                 required

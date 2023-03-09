@@ -84,7 +84,7 @@ const LoginFormPage = () => {
                             <input
                                 name='password'
                                 className='input'
-                                type={`text`}
+                                type={`password`}
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
