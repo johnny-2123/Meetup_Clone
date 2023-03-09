@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import * as eventActions from '../../../store/events';
+import * as groupActions from '../../../store/groups';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import './NewEventForm.css';
 
 function NewEventForm() {
     const dispatch = useDispatch();
+    const { groupId } = useParams()
     const history = useHistory();
     const sessionUser = useSelector(state => state.session?.user);
     const currentGroup = useSelector(state => state.groups.currentGroup);
@@ -19,6 +21,11 @@ function NewEventForm() {
     const [EndDate, setEndDate] = useState('');
     const [PreviewImage, setPreviewImage] = useState('');
     const [errors, setErrors] = useState([]);
+
+    useEffect(() => {
+        dispatch(groupActions.fetchGroupDetails(groupId));
+
+    }, [groupId])
 
     const handleSubmit = (e) => {
         e.preventDefault();

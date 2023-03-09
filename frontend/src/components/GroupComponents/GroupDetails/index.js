@@ -99,7 +99,7 @@ function GroupDetailsComponent() {
     }
 
     const handleCreateEventClick = () => [
-        history.push(`/events/new`)
+        history.push(`/groups/${groupId}/events`)
 
     ]
     const handleUpdateClick = () => {

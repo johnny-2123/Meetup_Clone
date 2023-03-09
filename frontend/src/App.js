@@ -61,7 +61,7 @@ function App() {
         <Route exact path={`/events`}>
           <SeeAllEvents />
         </Route>
-        <Route exact path={`/events/new`}>
+        <Route exact path={`/groups/:groupId/events`}>
           <NewEventForm />
         </Route>
         <Route exact path={`/events/:eventId`}>
