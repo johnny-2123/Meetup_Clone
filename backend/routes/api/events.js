@@ -202,11 +202,14 @@ router.get(
     async (req, res) => {
         const eventid = req.params.id;
         const event = await Event.findByPk(eventid);
+
+        let errors = [];
+
         if (!event) {
-            return res.status(403).json({
-                "message": "Event couldn't be found",
-                "statusCode": 404
-            });
+            errors.push("Event couldn't be found")
+            return res.status(404).json({
+                "errors": errors
+            })
         }
 
         let user = req.user;

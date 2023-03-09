@@ -31,6 +31,8 @@ function GroupDetailsComponent() {
     const [showGroupMembers, setShowGroupMembers] = useState(false);
     const [showGroupEvents, setShowGroupEvents] = useState(true);
 
+
+
     useEffect(() => {
         sessionUser?.user?.id === group?.Organizer?.id ? setUserIsOrganizer(true) : setUserIsOrganizer(false)
 
@@ -55,6 +57,9 @@ function GroupDetailsComponent() {
     const goBack = () => {
         history.goBack()
     }
+
+    let viewMembersGroupDetailsClass = showGroupMembers ? "viewMemberGroupDetailsButtonClicked" : "viewMemberGroupDetailsButton"
+    let viewEventsGroupDetailsClass = showGroupEvents ? "viewMemberGroupDetailsButtonClicked" : "viewMemberGroupDetailsButton"
 
     const handleViewGroupEvents = () => {
         if (showGroupEvents === false) {
@@ -144,13 +149,7 @@ function GroupDetailsComponent() {
                                 </div>
                                 <h4>Organized by {group?.Organizer?.firstName} {group?.Organizer?.lastName}</h4>
                             </div>
-                            <button
-                                onClick={(e) => handleViewMembersGroupDetailsButton()}
-                                className='viewMemberGroupDetailsButton'>View Members</button>
-                            <button
-                                className='viewMemberGroupDetailsButton'
-                                onClick={handleViewGroupEvents}
-                            >View Groups</button>
+
                             {userIsOrganizer && !userIsMember &&
                                 <div className='groupDetailsButtonsDiv' >
                                     <button
@@ -196,6 +195,20 @@ function GroupDetailsComponent() {
                         <h4 id='groupOrganizerUsername'>{group?.Organizer?.username} user</h4>
                         <h3 className='aboutHeader'>What we're about</h3>
                         <p className='aboutP'>{group?.about}</p>
+                        <ul className='GroupDetailsNavButtons'>
+                            <li>
+                                <button
+                                    onClick={handleViewGroupEvents}
+                                    className={viewEventsGroupDetailsClass}>Events</button>
+                                <button
+                                    onClick={handleViewMembersGroupDetailsButton}
+                                    className={viewMembersGroupDetailsClass}
+                                >
+                                    Members</button>
+
+                            </li>
+                        </ul>
+
                         {
                             showGroupEvents && <GroupEventsComponent events={events} />
                         }

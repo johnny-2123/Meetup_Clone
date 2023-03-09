@@ -41,10 +41,11 @@ function GroupMembersComponent({ groupId, userIsOrganizer, organizerId }) {
     }
 
     let membersMapped = membersArray.map(member => {
+        let memberIconId = member.Membership?.status === 'pending' ? 'memberIconPending' : 'memberIcon'
         return (
             <div key={member.id} className='memberContainer'>
                 <div className='memberIconDetailsDiv' >
-                    <i id='memberIcon' className="fa-regular fa-user "></i>
+                    <i id={memberIconId} className="fa-regular fa-user "></i>
                     <div>
                         <h4 id='memberName' >{member.firstName} {member.lastName}</h4>
                         {userIsOrganizer && <h5 id='memberStatus'>status: {member.Membership?.status}</h5>}

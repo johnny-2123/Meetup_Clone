@@ -92,7 +92,7 @@ function EventDetailsComponent() {
                         <div
                             onClick={handleGroupDivClick}
                             className='eventDetailsGroupDiv'>
-                            <img className='eventDetailsGroupImage' src='https://res.cloudinary.com/dkul3ouvi/image/upload/v1677439417/5498791_i3opa9.jpg' />
+                            <img className='eventDetailsGroupImage' src={event.Group.previewImage} />
                             <div className='eventDetailsGroupDetailsDiv'>
                                 <h3>{event?.Group?.name}</h3>
                                 <h4>{event?.Group?.private ? `private` : `public`}</h4>

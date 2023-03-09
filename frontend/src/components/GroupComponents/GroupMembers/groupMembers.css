@@ -9,23 +9,37 @@
     z-index: 6;
 } */
 
+.groupMembersMainDiv h2 {
+    font-weight: 300;
+    font-size: 1.3rem;
+}
 
 .memberContainer {
     display: flex;
     flex-direction: row;
-    width: 60%;
-    border-bottom: 1px solid rgb(246, 88, 88);
+    width: 80%;
+    border-bottom: 1px solid darkgray;
     justify-content: space-between;
     margin: 1rem 1rem 0rem 1rem;
     padding-bottom: 20px;
-
+    align-items: center;
 }
 
+.memberContainer h4 {
+    font-weight: 300;
+}
+
+.memberContainer h5 {
+    font-weight: 300;
+
+}
 
 .memberIconDetailsDiv {
     display: flex;
     flex-direction: row;
     width: 80%;
+    align-items: center;
+    justify-items: center;
 }
 
 #memberIcon {
@@ -34,7 +48,19 @@
     border: 1px white solid;
     border-radius: 15px;
     padding: 0;
-    font-size: 35px;
+    font-size: 31px;
+    font-weight: 300;
+    margin-right: 2rem;
+}
+
+#memberIconPending {
+    margin: 0;
+    color: darkgray;
+    border: 1px white solid;
+    border-radius: 15px;
+    padding: 0;
+    font-size: 31px;
+    font-weight: 300;
     margin-right: 2rem;
 }
 
@@ -49,7 +75,6 @@
 
 
 .memberButtonsDiv {
-    background-color: bisque;
     height: 100%;
     display: flex;
     flex-direction: row;
@@ -62,12 +87,12 @@
 }
 
 .groupMemberButton {
-    width: 90px;
+    width: 150px;
     min-width: min-content;
-    min-height: 40px;
-    background-color: rgb(246, 88, 88);
+    min-height: 30px;
+    background-color: lightslategray;
     color: white;
-    border: rgb(246, 88, 88) solid 1px;
+    border: lightslategray solid 1px;
     opacity: 1;
     box-shadow: 1px 2px 2px lightslategray;
 }

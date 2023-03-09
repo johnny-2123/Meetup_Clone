@@ -20,12 +20,14 @@
 .eventDetailsTopSection h1 {
     margin-top: 0px;
     margin-bottom: 0px;
+    font-weight: 300;
 }
 
 .eventDetailsTopSection h2 {
     margin-top: 0px;
     font-size: 18px;
     color: rgb(103, 100, 100);
+    font-weight: 300;
 
 }
 
@@ -58,7 +60,8 @@
     object-fit: cover;
     margin-right: 15px;
     margin-bottom: 15px;
-    border-radius: 10px;
+    border-radius: 5px;
+
 }
 
 .eventDetailsRightSection {
@@ -73,13 +76,13 @@
     height: fit-content;
 
     /* flex: auto; */
+    border-radius: 5px;
 
     flex-direction: row;
     justify-content: flex-start;
     /* width: auto; */
     /* flex: auto; */
     background-color: white;
-    border-radius: 10px;
     padding: 10px 5px 10px 5px;
     margin-bottom: 10px;
     height: min-content;
@@ -96,10 +99,10 @@
     width: 30%;
     max-height: 100px;
     min-width: 91px;
-    max-width: 170px;
+    max-width: 120px;
     object-fit: cover;
     border-radius: 5px;
-
+    margin: 0 1rem 0 1rem;
 }
 
 .eventDetailsGroupDetailsDiv {
@@ -113,14 +116,16 @@
     margin-bottom: 2px;
     margin-right: 0px;
     padding-right: 0;
-
-    font-size: 1rem;
+    font-weight: 500;
+    font-size: 1.1rem;
 }
 
 .eventDetailsGroupDiv h4 {
     color: rgb(82, 82, 82);
     margin-top: 1px;
-    font-size: 14px;
+    font-size: .95rem;
+    font-weight: 300;
+
 }
 
 
@@ -131,7 +136,7 @@
     height: min-content;
     width: auto;
     background-color: white;
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 10px 10px 10px 15px;
 
     padding-left: 15px;
@@ -140,10 +145,13 @@
 .eventDetailsRightOfPictureInfo h4 {
     font-size: 15px;
     margin: 10px 0 10px 0;
+    font-weight: 300;
 }
 
 .eventDetailsRightOfPictureInfo h5 {
-    font-size: 13px;
+    font-size: 13.5px;
+    font-weight: 300;
+
 }
 
 .eventDetailsRightOfPictureInfo i {
@@ -185,23 +193,23 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    min-width: 190px;
-
+    width: 185px;
+    margin-right: 1rem;
+    padding-right: 0;
 }
 
 .timeSubDiv h4 {
-    margin-right: 5px;
+    margin-right: .5rem;
     color: rgb(82, 82, 82);
     margin-bottom: 0;
     margin-top: 0;
 }
 
 .timeSubDiv h5 {
-    margin-right: 10px;
-    padding-top: 1px;
-    margin-bottom: 0;
-    margin-top: 0;
-    padding-top: 2px;
+    margin: 0 1rem 0 0;
+    padding-top: 1.8px;
+    margin-right: 0;
+    padding-right: 0;
 }
 
 .moneyDiv {
@@ -255,7 +263,7 @@
     margin-top: .75rem;
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: flex-start;
     width: auto;
 }
 
@@ -264,6 +272,9 @@
 
 }
 
+.greySectionBottomHalf h2 {
+    font-weight: 300;
+}
 
 
 
@@ -323,7 +334,7 @@
         margin-bottom: none;
         min-width: none;
         min-height: none;
-        width: 100%;
+        width: 100vw;
     }
 
     .eventDetailsRightSection {

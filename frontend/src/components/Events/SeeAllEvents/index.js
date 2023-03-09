@@ -11,8 +11,11 @@ function SeeAllEvents() {
     let location = useLocation();
     const [searchQueries, setSearchQueries] = useState({})
     const [inPersonClicked, setInPersonClicked] = useState(false);
-
     const [inPersonQuery, setInPersonQuery] = useState(false);
+    const [onlineQuery, setOnlineQuery] = useState(false);
+    const [onlineClicked, setOnlineClicked] = useState(false);
+
+    let onlineClassName = onlineClicked ? "eventQueryButtonClick" : "eventQueryButtonNotClicked";
 
     let inPersonClassName = (inPersonClicked ? " eventQueryButtonClick" : "eventQueryButtonNotClicked");
 
@@ -31,6 +34,9 @@ function SeeAllEvents() {
         if (inPersonQuery === false) {
             setInPersonClicked(true)
             setInPersonQuery(true)
+            setOnlineClicked(false)
+            setOnlineQuery(false)
+
         } else {
             setInPersonClicked(false)
             setInPersonQuery(false)
@@ -38,14 +44,34 @@ function SeeAllEvents() {
 
     })
 
+    const handleOnlineClick = (() => {
+        console.log(`inPersonClicked`, inPersonClicked);
+        console.log(`inPersonClassName`, inPersonClassName);
+        if (onlineQuery === false) {
+            setOnlineClicked(true)
+            setOnlineQuery(true)
+            setInPersonClicked(false)
+            setInPersonQuery(false)
+        }
+        else {
+            setOnlineClicked(false);
+            setOnlineQuery(false)
+        }
+    })
+
     useEffect(() => {
         let queryObject = {}
         if (inPersonQuery === true) {
             queryObject.type = 'In Person'
         }
+
+        if (onlineQuery === true) {
+            queryObject.type = 'Online'
+        }
+
         new URLSearchParams(queryObject).toString();
         dispatch(fetchAllEvents(new URLSearchParams(queryObject).toString()))
-    }, [inPersonQuery])
+    }, [inPersonQuery, onlineQuery])
     let eventsArr = events.map((event, idx) => {
         let eventDate = new Date(event.startDate);
 
@@ -62,6 +88,7 @@ function SeeAllEvents() {
                         })}</h3>
                         <h4 id="allEventsName">{event.name}</h4>
                         {event?.Venue?.city && <h3 id="allEventsCity">{event.Venue.city}</h3>}
+                        <h6>{event.type}</h6>
                     </div>
                 </div>
                 <p className="pDiv">{event.description}</p>
@@ -84,6 +111,9 @@ function SeeAllEvents() {
                     <button
                         onClick={handleInPersonClick}
                         className={inPersonClassName}>In Person</button>
+                    <button
+                        onClick={handleOnlineClick}
+                        className={onlineClassName}>Online</button>
                 </div>
                 {eventsArr}
             </div>
