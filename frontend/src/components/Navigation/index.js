@@ -1,12 +1,10 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useReducer } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
 import * as sessionActions from '../../store/session';
-import * as groupActions from '../../store/groups'
-import { Redirect, useHistory } from 'react-router';
-import OpenModalButton from '../OpenModalButton';
+import { useHistory } from 'react-router';
 
 import { useModal } from '../../context/Modal';
 function Navigation({ isLoaded }) {

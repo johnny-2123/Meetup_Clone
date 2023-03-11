@@ -31,7 +31,6 @@ function GroupDetailsComponent() {
     const [showGroupEvents, setShowGroupEvents] = useState(true);
 
 
-
     useEffect(() => {
         sessionUser?.user?.id === group?.Organizer?.id ? setUserIsOrganizer(true) : setUserIsOrganizer(false)
 
@@ -79,12 +78,18 @@ function GroupDetailsComponent() {
             return window.alert(`must be logged in to join group`);
         }
 
-        return dispatch(fetchJoinGroup(groupId, sessionUser?.user?.id))
-            .then(() => setMembershipRequested(true))
-            .catch(async (res) => {
-                const data = await res.json();
-                if (data && data.errors) console.log(`data`, (data));
-            })
+        if (!membershipRequested) {
+            return dispatch(fetchJoinGroup(groupId, sessionUser?.user?.id))
+                .then(() => setMembershipRequested(true))
+                .catch(async (res) => {
+                    const data = await res.json();
+                    if (data && data.errors) console.log(`data`, (data));
+                })
+        } else {
+            handleLeaveGroupClick(groupId);
+            setMembershipRequested(false)
+        }
+
     }
 
     const handleLeaveGroupClick = (groupId) => {
@@ -181,7 +186,7 @@ function GroupDetailsComponent() {
                                 <button
                                     onClick={() => handleJoinGroup()}
                                     id='membershipRequested'
-                                    className='groupDetailsButton'>Membership Requested</button>
+                                    className='groupDetailsButton'>Cancel Membership Request</button>
                             </div>}
                         </div>
                     </div>

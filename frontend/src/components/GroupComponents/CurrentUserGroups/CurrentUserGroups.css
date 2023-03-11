@@ -25,13 +25,10 @@ body {
 }
 
 #currentUserGroupsContainerDetails {
-    /* background-color: darkseagreen; */
     padding-bottom: 0;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    /* justify-content: space-between;
-    justify-content: space-between; */
     flex: auto;
     flex-grow: auto;
     height: 100%;
@@ -80,6 +77,17 @@ body {
     margin-bottom: 0;
 }
 
+.membershipPending {
+    margin: 1rem 0 0 0;
+    color: orangered;
+    opacity: .7;
+    text-align: right;
+}
+
+.noGroupsJoinedOrCreated {
+    color: darkgray;
+    text-align: center;
+}
 
 @media only screen and (max-width: 608px) {
 

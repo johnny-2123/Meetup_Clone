@@ -328,7 +328,7 @@ router.put(
     async (req, res) => {
         let user = req.user;
         const id = req.params.id;
-        const { name, type, description, price, capacity, startDate, endDate, venueId } = req.body;
+        const { name, type, description, price, capacity, startDate, endDate, venueId, previewImage } = req.body;
         let event = await Event.findByPk(id);
 
         let errors = [];
@@ -398,15 +398,11 @@ router.put(
         if (capacity) {
             if (typeof (capacity) !== 'number') {
                 errors.push("Capacity must be integer")
+            } else {
+                event.capacity = capacity;
             }
-            event.capacity = capacity;
-        };
-
-        if (errors.length > 0) {
-            return res.status(400).json({
-                "errors": errors
-            })
         }
+
 
         if (startDate) {
             let startD = new Date(startDate);
@@ -417,33 +413,39 @@ router.put(
             let isFuture = isAfterToday(startD);
 
             if (isFuture === false) {
-                return res.status(400).json({
-                    "message": "Validation error",
-                    "statusCode": 400,
-                    "errors": [
-                        "Start date must be in the future"
-                    ]
-                })
+                errors.push("Start date must be in the future")
+            } else {
+                event.startDate = startDate;
             }
         }
-
-        if (endDate) {
+        if (endDate && startDate) {
             let endD = new Date(endDate);
+            let startD = new Date(startDate)
             let isAfterStart = startD < endD;
 
-
             if (!isAfterStart) {
-                return res.status(400).json({
-                    "message": "Validation error",
-                    "statusCode": 400,
-                    "errors": [
-                        "End date is less than start date"
-                    ]
-                })
+                errors.push("End date is less than start date")
+            } else {
+                event.endDate = endDate
             }
-
         }
 
+        if (previewImage) {
+            let validFormats = ['.jpg', '.jpeg', 'png'];
+            let validImage = validFormats.some(element => previewImage.endsWith(element))
+
+            if (validImage) {
+                event.previewImage = previewImage
+            } else {
+                errors.push(`image url must end with .jpg .jpeg or .png`)
+            }
+        }
+
+        if (errors.length > 0) {
+            return res.status(400).json({
+                "errors": errors
+            })
+        }
 
         await event.save();
         let resEvent = await Event.findByPk(event.id, {

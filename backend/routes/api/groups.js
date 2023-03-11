@@ -609,6 +609,8 @@ router.post(
         let group = await Group.findByPk(groupId);
         let user = req.user;
 
+        let errors = [];
+
         if (!group) {
             return res.status(404).json(
                 {
@@ -644,65 +646,35 @@ router.post(
         if (venueId) {
             const venue = await Venue.findByPk(venueId);
             if (!venue) {
-                return res.status(400).json({
-                    "message": "Validation error",
-                    "statusCode": 400,
-                    "errors": [
-                        "Venue does not exist"
-                    ]
-                })
+                errors.push('Venue does not exist')
             }
 
         }
 
         if (name.length < 5) {
-            return res.status(400).json({
-                "message": "Validation error",
-                "statusCode": 400,
-                "errors": [
-                    "Name must be at least 5 characters"
-                ]
-            })
+            errors.push('Name must be at least 5 characters')
         }
 
 
         if (type !== 'Online' && type !== 'In Person') {
-            return res.status(400).json({
-                "message": "Validation error",
-                "statusCode": 400,
-                "errors": [
-                    "Type must be Online or In person"
-                ]
-            })
+            errors.push('Type must be Online or In person')
         }
         if (typeof (capacity) !== 'number') {
-            return res.status(400).json({
-                "message": "Validation error",
-                "statusCode": 400,
-                "errors": [
-                    "Capacity must be an integer"
-                ]
-            })
+            errors.push('Capacity must be an integer')
         }
 
         if (typeof (price) !== 'number') {
-            return res.status(400).json({
-                "message": "Validation error",
-                "statusCode": 400,
-                "errors": [
-                    "Price is invalid"
-                ]
-            })
+            errors.push('Price must be a number greater than 0')
         }
 
         if (!description) {
-            return res.status(400).json({
-                "message": "Validation error",
-                "statusCode": 400,
-                "errors": [
-                    "Description is required"
-                ]
-            })
+            errors.push('Description is required')
+        }
+
+        if (description) {
+            if (description.length < 30) {
+                errors.push('Description must be greater than 30 characters')
+            }
         }
 
         let startD = new Date(startDate);
@@ -713,13 +685,7 @@ router.post(
         let isFuture = isAfterToday(startD);
 
         if (isFuture === false) {
-            return res.status(400).json({
-                "message": "Validation error",
-                "statusCode": 400,
-                "errors": [
-                    "Start date must be in the future"
-                ]
-            })
+            errors.push('Start date must be in the future')
         }
 
         let endD = new Date(endDate);
@@ -727,14 +693,15 @@ router.post(
 
 
         if (!isAfterStart) {
+            errors.push('End date is less than start date')
+        }
+
+        if (errors.length > 0) {
             return res.status(400).json({
-                "message": "Validation error",
-                "statusCode": 400,
-                "errors": [
-                    "End date is less than start date"
-                ]
+                "errors": errors
             })
         }
+
         let event = await Event.create({
             name,
             type,
@@ -835,7 +802,7 @@ router.put(
     async (req, res) => {
         let groupId = req.params.id;
         let user = req.user;
-        const { name, about, type, private, city, state } = req.body;
+        const { name, about, type, private, city, state, previewImage } = req.body;
         let group = await Group.findByPk(groupId);
 
         let errors = [];
@@ -910,6 +877,18 @@ router.put(
             // return res.status(400).json('State is required');
         };
         group.state = state;
+
+        if (previewImage) {
+            let validFormats = ['.jpg', '.jpeg', 'png'];
+            let validImage = validFormats.some(element => previewImage.endsWith(element))
+
+            if (validImage) {
+                group.previewImage = previewImage
+            } else {
+                errors.push(`image url must end with .jpg .jpeg or .png`)
+            }
+        }
+
 
         if (errors.length > 0) {
             return res.status(400).json({

@@ -8,15 +8,17 @@ import './HomePage.css'
 
 const HomePage = () => {
     const sessionUser = useSelector(state => state.session?.user);
-    const [homeThirdSectionDivDisabled, setHomeThirdSectionDivDisabled] = useState(false);
-    let homeStartGroupIdName = homeThirdSectionDivDisabled ? "homeThirdSectionDivDisabled" : "homeThirdSectionDiv";
+    const [userLoggedIn, setUserLoggedIn] = useState(true);
+    let homeStartGroupIdName = !userLoggedIn ? "homeThirdSectionDivDisabled" : "homeThirdSectionDiv";
+    let joinMeetupClassName = !userLoggedIn ? "joinButton" : "joinButtonHidden";
+
 
     useEffect(() => {
-        if (!sessionUser?.user) {
-            setHomeThirdSectionDivDisabled(true)
-        } else {
+        if (sessionUser?.user) {
+            setUserLoggedIn(true)
 
-            setHomeThirdSectionDivDisabled(false)
+        } else {
+            setUserLoggedIn(false)
         }
     }, [sessionUser])
 
@@ -53,7 +55,7 @@ const HomePage = () => {
                 </div>
             </div>
             <div className='homeFourthSection'>
-                <button className={`joinButton`} onClick={() => setShowSignUp(true)}>Join Meetup</button>
+                <button className={joinMeetupClassName} onClick={() => setShowSignUp(true)}>Join Meetup</button>
             </div>
         </div >
 

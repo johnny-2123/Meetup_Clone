@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useReducer } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCurrentUserGroups, fetchUnjoinGroup } from "../../../store/groups";
@@ -9,16 +9,14 @@ import "./CurrentUserGroups.css";
 function SeeCurrentUserGroups() {
     const dispatch = useDispatch();
     const history = useHistory();
-
+    const [, forceUpdate] = useReducer(x => x + 1, 0);
     const sessionUser = useSelector(state => state.session.user?.user);
 
     const userGroups = useSelector(state => {
         return state.groups?.currentUserGroups
     });
 
-    useEffect(() => {
-        dispatch(fetchCurrentUserGroups(sessionUser?.id));
-    }, [dispatch])
+    const userGroupsArray = Object.values(userGroups);
 
     const handleCurrentUserGroupUnjoinClick = (e, groupId) => {
         e.stopPropagation();
@@ -28,8 +26,7 @@ function SeeCurrentUserGroups() {
             desc: 'You cannot undo this change',
             onOk: () => {
                 return dispatch(fetchUnjoinGroup(groupId, sessionUser.id))
-                    .then(() => history.push(`/groups/current`))
-                    .then(() => window.location.reload())
+                    .then(() => forceUpdate())
                     .catch(async (res) => {
                         const data = await res.json();
                         if (data && data.errors) console.log(`data`, (data));
@@ -57,8 +54,7 @@ function SeeCurrentUserGroups() {
                 document.documentElement.style.overflow = 'scroll';
                 document.body.scroll = "yes";
                 return dispatch(groupActions.fetchDeleteGroup(groupId))
-                    .then(() => history.push(`/groups/current`))
-                    .then(() => window.location.reload())
+                    .then(() => forceUpdate())
                 // .catch(async (res) => {
                 //     const data = await res.json();
                 //     if (data && data.errors) console.log(`data`, (data));
@@ -72,8 +68,14 @@ function SeeCurrentUserGroups() {
 
     }
 
+    useEffect(() => {
+        dispatch(fetchCurrentUserGroups(sessionUser?.id));
+    }, [dispatch])
 
-    let groupsArr = userGroups?.map((group, idx) => {
+    useEffect(() => {
+    }, userGroups);
+
+    let groupsArr = userGroupsArray?.map((group, idx) => {
         return (
             < div
                 onClick={() => history.push(`/groups/${group?.id}`)}
@@ -96,6 +98,7 @@ function SeeCurrentUserGroups() {
                                     onClick={(e) => handleCurrentUserGroupUnjoinClick(e, group.id)}
                                     className="groupDetailsButton" >unjoin</button>
                             </div>}
+                        {group?.currentUserGroupStatus && group?.currentUserGroupStatus === 'pending' && <h5 className="membershipPending">* Membership pending</h5>}
                         {group?.organizerId === sessionUser?.id &&
                             <div className="currentUserGroupButtonDiv">
                                 <button
@@ -107,6 +110,8 @@ function SeeCurrentUserGroups() {
                                     id='currentUserGroupDeleteButton'
                                     className="groupDetailsButton" >Delete</button>
                             </div>}
+
+
                     </div>
 
                 </div>
@@ -127,6 +132,7 @@ function SeeCurrentUserGroups() {
                     <h3 className="yourGroupsInMeetup">Your Groups in Meetup</h3>
                 </div>
                 {groupsArr}
+                {userGroups?.length === 0 && <h3 className="noGroupsJoinedOrCreated">Join or create a group to see it listed here</h3>}
             </div >
         </div>
     );

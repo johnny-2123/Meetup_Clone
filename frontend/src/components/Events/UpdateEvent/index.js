@@ -42,7 +42,8 @@ function UpdateEventPage() {
             .then(() => goBack())
             .catch(async (res) => {
                 const data = await res.json();
-                if (data && data.errors) setErrors(data.errors);
+                console.log(`update event page error response`, data)
+                if (data && data.errors) setErrors(data.errors)
             })
     }
 

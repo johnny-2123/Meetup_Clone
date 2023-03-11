@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import * as sessionActions from '../../store/session';
-import groupsReducer, * as groupActions from '../../store/groups';
 <script src="https://kit.fontawesome.com/97726b2eee.js" crossorigin="anonymous"></script>
 
 const ProfileButton = ({ sessionUser }) => {

@@ -241,9 +241,15 @@ const groupsReducer = (state = initialState, action) => {
                 ...state, allGroups: [...action.groups.Groups]
             };
         case GET_CURRENT_USER_GROUPS:
-            return {
-                ...state, currentUserGroups: [...action.groups.Groups]
+            let normalizedUserGroups = {};
+            action.groups.Groups.forEach(group => {
+                normalizedUserGroups[group.id] = group
+            });
+
+            newState = {
+                ...state, currentUserGroups: { ...normalizedUserGroups }
             }
+            return newState
         case ADD_Group:
             if (!state.allGroups[action.group.id]) {
                 newState = {
