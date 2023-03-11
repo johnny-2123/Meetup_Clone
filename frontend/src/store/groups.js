@@ -1,4 +1,5 @@
 import { csrfFetch } from "./csrf";
+
 const LOAD_ALL_GROUPS = 'groups/LOAD_ALL_GROUPS';
 const ADD_Group = '/groups/ADD_GROUP';
 const GET_GROUP_DETAILS = '/groups/GET_GROUP_DETAILS'
@@ -10,7 +11,7 @@ const UNJOIN_GROUP = '/groups/UNJOIN_GROUP';
 const GET_GROUP_MEMBERS = '/groups/GET_GROUP_MEMBERS';
 const EDIT_GROUP_MEMBER = '/groups/EDIT_GROUP_MEMBER';
 const DELETE_GROUP_MEMBER = '/groups/DELETE_GROUP_MEMBER';
-
+const REMOVE_CURRENT_USER_GROUP = '/groups/REMOVE_CURRENT_USER_GROUP';
 
 const deleteGroupMember = (memberId) => ({
     type: DELETE_GROUP_MEMBER,
@@ -99,6 +100,7 @@ export const fetchUnjoinGroup = (groupId, memberId) => async dispatch => {
     if (response.ok) {
         const member = await response.json();
         dispatch(unjoinGroup(groupId, memberId));
+        dispatch(removeCurrentuserGroup(groupId));
         return member;
     }
 }
@@ -123,6 +125,11 @@ const removeGroup = (groupId) => ({
     groupId
 })
 
+const removeCurrentuserGroup = (groupId) => ({
+    type: REMOVE_CURRENT_USER_GROUP,
+    groupId
+});
+
 export const fetchDeleteGroup = (groupId) => async dispatch => {
     const response = await csrfFetch(`/api/groups/${groupId}`, {
         method: "DELETE"
@@ -131,6 +138,7 @@ export const fetchDeleteGroup = (groupId) => async dispatch => {
     if (response.ok) {
         const group = await response.json();
         dispatch(removeGroup(groupId));
+        dispatch(removeCurrentuserGroup(groupId));
         return group
     }
 
@@ -245,13 +253,15 @@ const groupsReducer = (state = initialState, action) => {
             action.groups.Groups.forEach(group => {
                 normalizedUserGroups[group.id] = group
             });
-
             newState = {
                 ...state, currentUserGroups: { ...normalizedUserGroups }
             }
             return newState
+        case REMOVE_CURRENT_USER_GROUP:
+            newState = { ...state };
+            delete newState.currentUserGroups[action.groupId];
         case ADD_Group:
-            if (!state.allGroups[action.group.id]) {
+            if (!state.allGroups[action.group?.id]) {
                 newState = {
                     ...state, allGroups: [...state.allGroups, action.group]
                 };

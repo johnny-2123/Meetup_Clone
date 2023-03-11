@@ -34,7 +34,7 @@ function GroupDetailsComponent() {
     useEffect(() => {
         sessionUser?.user?.id === group?.Organizer?.id ? setUserIsOrganizer(true) : setUserIsOrganizer(false)
 
-        let userGroup = userGroups.find(ele => ele.id === group.id);
+        let userGroup = Object.keys(userGroups).find(ele => ele.id === group.id);
 
         userGroup?.currentUserGroupStatus && (userGroup?.currentUserGroupStatus === ('active') || userGroup?.currentUserGroupStatus === ('co-host')) ? setUserIsMember(true) : setUserIsMember(false);
 
