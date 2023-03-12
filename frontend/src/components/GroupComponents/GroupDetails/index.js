@@ -29,12 +29,13 @@ function GroupDetailsComponent() {
     const [membershipRequested, setMembershipRequested] = useState(false);
     const [showGroupMembers, setShowGroupMembers] = useState(false);
     const [showGroupEvents, setShowGroupEvents] = useState(true);
-
+    console.log(`userGroups`, userGroups)
 
     useEffect(() => {
         sessionUser?.user?.id === group?.Organizer?.id ? setUserIsOrganizer(true) : setUserIsOrganizer(false)
 
-        let userGroup = Object.keys(userGroups).find(ele => ele.id === group.id);
+        let userGroup = Object.values(userGroups).find(ele => ele.id === group.id);
+        console.log(`userGroup`, userGroup);
 
         userGroup?.currentUserGroupStatus && (userGroup?.currentUserGroupStatus === ('active') || userGroup?.currentUserGroupStatus === ('co-host')) ? setUserIsMember(true) : setUserIsMember(false);
 
@@ -119,7 +120,7 @@ function GroupDetailsComponent() {
                 document.documentElement.style.overflow = 'scroll';
                 document.body.scroll = "yes";
                 return dispatch(groupActions.fetchDeleteGroup(groupId))
-                    .then(() => window.location.reload())
+                    .then(() => history.push(`/groups/current`))
                 // .catch(async (res) => {
                 //     const data = await res.json();
                 //     if (data && data.errors) console.log(`data`, (data));

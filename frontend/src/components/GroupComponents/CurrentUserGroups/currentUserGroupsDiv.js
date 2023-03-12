@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCurrentUserGroups, fetchUnjoinGroup } from "../../../store/groups";
+import { fetchUnjoinGroup } from "../../../store/groups";
 import * as groupActions from '../../../store/groups';
 import AlertConfirm from 'react-alert-confirm';
 import "./CurrentUserGroups.css";
@@ -123,7 +123,8 @@ function CurrentUserGroupsDiv({ }) {
     return (
         <>
             {groupsArr}
-            {userGroups?.length === 0 && <h3 className="noGroupsJoinedOrCreated">Join or create a group to see it listed here</h3>}
+            {groupsArr?.length === 0 && <h3 className="noGroupsJoinedOrCreated">Join or create a group to see it listed here</h3>}
+
         </>
     )
 

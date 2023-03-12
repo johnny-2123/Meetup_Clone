@@ -42,7 +42,16 @@ const ProfileButton = ({ sessionUser }) => {
         history.push(`/groups/current`)
     }
 
+    const SeeAllGroups = (e) => {
+        e.preventDefault();
+        history.push(`/groups`)
+    }
 
+
+    const SeeAllEvents = (e) => {
+        e.preventDefault();
+        history.push(`/events`)
+    }
     const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
 
@@ -57,6 +66,12 @@ const ProfileButton = ({ sessionUser }) => {
                 <li className="navDropLi">{email}</li>
                 <li className="navDropLi">
                     <button className='logoutButton' onClick={SeeMyGroups}> See My Groups</button>
+                </li>
+                <li className="navDropLi">
+                    <button className='logoutButton' onClick={SeeAllGroups}> See All Groups</button>
+                </li>
+                <li className="navDropLi">
+                    <button className='logoutButton' onClick={SeeAllEvents}> See All Events</button>
                 </li>
                 <li className="navDropLi">
                     <button className='logoutButton' onClick={logout}>Log Out</button>

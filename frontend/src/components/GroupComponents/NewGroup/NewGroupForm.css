@@ -104,6 +104,21 @@
     margin: .5rem 0 1rem 0;
 }
 
+.newGroupSubmitButtomDisabled {
+    background-color: rgb(207, 42, 39);
+    border: rgb(207, 42, 39) solid 1px;
+    box-shadow: 1px 2px 2px black;
+    opacity: .5;
+    color: white;
+    padding: 5px 8px 5px 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    margin: .5rem 0 1rem 0;
+    pointer-events: none;
+}
+
+
+
 .errors ul {
     margin-left: 0;
     padding-left: 0;

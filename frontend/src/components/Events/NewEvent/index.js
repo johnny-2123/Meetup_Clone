@@ -21,6 +21,48 @@ function NewEventForm() {
     const [EndDate, setEndDate] = useState('');
     const [PreviewImage, setPreviewImage] = useState('');
     const [errors, setErrors] = useState([]);
+    const [disableSubmitButton, setDisableSubmitButton] = useState(false)
+
+    const submitButtonClass = disableSubmitButton ? 'newGroupSubmitButtomDisabled' : 'newGroupSubmitButtom';
+
+
+    useEffect(() => {
+        let errors = [];
+        if (!Name) {
+            errors.push("Name must be 60 characters or less")
+        };
+
+        if (!Description) {
+            errors.push("About must be 50 characters or more")
+        };
+
+        if (!Type) {
+            errors.push("Type must be Online or In person")
+        };
+
+        if (!Price) {
+            errors.push("Price is required")
+        };
+
+        if (!capacity) {
+            errors.push("capacity is required")
+        };
+
+        if (!StartDate) {
+            errors.push("StartDate is required")
+        };
+        if (!EndDate) {
+            errors.push("EndDate is required")
+        };
+        if (!PreviewImage) {
+            errors.push(`add an image url`)
+        }
+        if (errors.length > 0) {
+            setDisableSubmitButton(true)
+        } else {
+            setDisableSubmitButton(false)
+        }
+    }, [Name, Type, Description, Price, capacity, StartDate, EndDate, PreviewImage])
 
     useEffect(() => {
         dispatch(groupActions.fetchGroupDetails(groupId));
@@ -138,7 +180,7 @@ function NewEventForm() {
                         }>{error}</li>)}
                     </ul>}
                     <button
-                        type='submit' className='newEventSubmitButtom'>Create  Event</button>
+                        type='submit' className={submitButtonClass}>Create  Event</button>
                 </form>
             </div>
         </div>

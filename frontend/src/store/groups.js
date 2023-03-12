@@ -245,9 +245,14 @@ const groupsReducer = (state = initialState, action) => {
     let newState;
     switch (action.type) {
         case LOAD_ALL_GROUPS:
-            return {
-                ...state, allGroups: [...action.groups.Groups]
+            let normalizedGroups = {};
+            action.groups.Groups.forEach(group => {
+                normalizedGroups[group.id] = group;
+            });
+            newState = {
+                ...state, allGroups: { ...normalizedGroups }
             };
+            return newState;
         case GET_CURRENT_USER_GROUPS:
             let normalizedUserGroups = {};
             action.groups.Groups.forEach(group => {
@@ -261,17 +266,11 @@ const groupsReducer = (state = initialState, action) => {
             newState = { ...state };
             delete newState.currentUserGroups[action.groupId];
         case ADD_Group:
-            if (!state.allGroups[action.group?.id]) {
-                newState = {
-                    ...state, allGroups: [...state.allGroups, action.group]
-                };
-                return newState
-            } else {
-                newState = {
-                    ...state, allGroups: [...state.allGroups, state.allGroups[action.group.id], action.group]
-                }
-                return newState
-            };
+            newState = {
+                ...state
+            }
+            newState.allGroups[action.group?.id] = action.group
+            return newState
         case GET_GROUP_DETAILS:
             newState = { ...state, currentGroup: action.group }
             return newState

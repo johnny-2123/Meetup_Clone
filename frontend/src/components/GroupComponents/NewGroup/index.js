@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as groupActions from '../../../store/groups';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -16,11 +16,51 @@ function NewGroupForm() {
     const [privacy, setPrivacy] = useState('');
     const [imageUrl, setImageUrl] = useState('');
     const [errors, setErrors] = useState([]);
-    const [showRequired, setShowRequired] = useState(false);
+    const [disableSubmitButton, setDisableSubmitButton] = useState(false)
+
+    const submitButtonClass = disableSubmitButton ? 'newGroupSubmitButtomDisabled' : 'newGroupSubmitButtom';
+
+
+    useEffect(() => {
+        let errors = [];
+        if (!name) {
+            errors.push("Name must be 60 characters or less")
+        };
+
+        if (!about) {
+
+            errors.push("About must be 50 characters or more")
+        };
+
+        if (!type) {
+            errors.push("Type must be Online or In person")
+        };
+
+        if (!privacy) {
+            errors.push("Private must be a boolean")
+        };
+
+        if (!city) {
+            errors.push("City is required")
+        };
+
+        if (!state) {
+            errors.push("State is required")
+        };
+        if (!imageUrl) {
+            errors.push(`add an image url`)
+        }
+        if (errors.length > 0) {
+            setDisableSubmitButton(true)
+        } else {
+            setDisableSubmitButton(false)
+        }
+    }, [name, about, type, privacy, city, state, imageUrl])
 
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors([]);
+
 
         const group = { city, state, name, about, type, private: privacy, previewImage: imageUrl }
 
@@ -126,7 +166,7 @@ function NewGroupForm() {
                         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
                     </ul>}
                     <button
-                        type='submit' className='newGroupSubmitButtom'>Create New Group</button>
+                        type='submit' className={submitButtonClass}>Create New Group</button>
                 </form>
             </div>
         </div >
