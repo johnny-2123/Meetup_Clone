@@ -91,7 +91,7 @@
     background-color: white;
     height: fit-content;
     width: fit-content;
-    padding: 10px;
+    padding: 10px 0 2px 0;
     margin-top: 35px;
 }
 
@@ -119,24 +119,32 @@ button {
 
 
 .navDropLi {
-    height: 20px;
+    height: fit-content;
     font-family: 'Open Sans', sans-serif;
     list-style: none;
     border-radius: 7px;
     font-weight: 500;
     color: white;
-    padding: 5px;
     color: black;
     font-size: 13px;
-    padding: 0;
-
+    width: 120px;
+    text-align: center;
 }
+
+.navBioInfo {
+    color: lightslategray;
+}
+
+
 
 .logoutButton {
     border: none;
     background: none;
-    padding: 0;
-
+    text-align: center;
+    width: 100%;
+    padding: 2px 0 2px 0;
+    margin: 3px 0 0 0;
+    border-top: 1px solid lightgray;
 }
 
 .logoutButton:hover {

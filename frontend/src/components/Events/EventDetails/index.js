@@ -56,7 +56,6 @@ function EventDetailsComponent() {
                     .then(() => history.push(`/events`))
                     .catch(async (res) => {
                         const data = await res.json();
-                        if (data && data.errors) console.log(`data`, (data));
                     })
             },
             onCancel: () => {

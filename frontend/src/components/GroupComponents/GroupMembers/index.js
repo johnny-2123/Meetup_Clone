@@ -20,7 +20,6 @@ function GroupMembersComponent({ groupId, userIsOrganizer, organizerId }) {
             .then(() => forceUpdate())
             .catch(async (res) => {
                 const data = await res.json();
-                // if (data && data.errors) console.log(`data`, (data));
             })
     }
     const handleEditMemberButton = (status, memberId, member) => {
@@ -29,7 +28,6 @@ function GroupMembersComponent({ groupId, userIsOrganizer, organizerId }) {
             .then(() => forceUpdate())
             .catch(async (res) => {
                 const data = await res.json();
-                // if (data && data.errors) console.log(`data`, (data));
             })
     }
 

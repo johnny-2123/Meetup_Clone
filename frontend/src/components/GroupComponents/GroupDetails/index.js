@@ -29,13 +29,11 @@ function GroupDetailsComponent() {
     const [membershipRequested, setMembershipRequested] = useState(false);
     const [showGroupMembers, setShowGroupMembers] = useState(false);
     const [showGroupEvents, setShowGroupEvents] = useState(true);
-    console.log(`userGroups`, userGroups)
 
     useEffect(() => {
         sessionUser?.user?.id === group?.Organizer?.id ? setUserIsOrganizer(true) : setUserIsOrganizer(false)
 
         let userGroup = Object.values(userGroups).find(ele => ele.id === group.id);
-        console.log(`userGroup`, userGroup);
 
         userGroup?.currentUserGroupStatus && (userGroup?.currentUserGroupStatus === ('active') || userGroup?.currentUserGroupStatus === ('co-host')) ? setUserIsMember(true) : setUserIsMember(false);
 
@@ -84,7 +82,6 @@ function GroupDetailsComponent() {
                 .then(() => setMembershipRequested(true))
                 .catch(async (res) => {
                     const data = await res.json();
-                    if (data && data.errors) console.log(`data`, (data));
                 })
         } else {
             handleLeaveGroupClick(groupId);
@@ -96,10 +93,9 @@ function GroupDetailsComponent() {
     const handleLeaveGroupClick = (groupId) => {
         return dispatch(fetchUnjoinGroup(groupId, sessionUser?.user?.id))
             .then(() => setUserIsMember(false))
-        // .catch(async (res) => {
-        //     const data = await res.json();
-        //     if (data && data.errors) console.log(`data`, (data));
-        // })
+            .catch(async (res) => {
+                const data = await res.json();
+            })
     }
 
     const handleCreateEventClick = () => [
@@ -121,10 +117,9 @@ function GroupDetailsComponent() {
                 document.body.scroll = "yes";
                 return dispatch(groupActions.fetchDeleteGroup(groupId))
                     .then(() => history.push(`/groups/current`))
-                // .catch(async (res) => {
-                //     const data = await res.json();
-                //     if (data && data.errors) console.log(`data`, (data));
-                // })
+                    .catch(async (res) => {
+                        const data = await res.json();
+                    })
             },
             onCancel: () => {
                 document.documentElement.style.overflow = 'scroll';

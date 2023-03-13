@@ -99,7 +99,7 @@ module.exports = {
         previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1677649407/photo-1535016120720-40c646be5580_wjgvcp.jpg'
       },
       {
-        name: 'Hoops and Mimosas',
+        name: 'Basketball and Mimosas',
         type: 'In Person',
         description: 'Non-competitive way to socialize and exercise. We suggest mimosas after basketball but order is up to you',
         price: 20,
@@ -459,7 +459,7 @@ module.exports = {
     options.tableName = 'Events';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      name: { [Op.in]: ['Smash Bros Tournament', 'Met Gala Night', 'Tennis Singles', 'Movie Night', 'Trivia', 'Fortnite Tournament', 'Hoops and Mimosas', 'Chess Tournament', 'Fundraiser Night', 'Fifa Tournament', 'The Last of Us Watch Party', 'Bulls Game trip', 'Fundraiser Night 2', `Texas Hold'em Night`, `Seven-card stud`, `High Low Chicago Night`, 'End of Chapter Discussion 2', 'End of Chapter Discussion 1', 'Movie Night 2', 'Rehearsal 1', 'Rehearsal 2', 'Rehearsal 3', 'Rehearsal 4', 'Rehearsal 5', 'Rehearsal 6', 'Improv Pracice', 'Improv Pracice 2', 'Improv Pracice 3', 'Improv Pracice 4', 'Improv Pracice 5', 'Improv Pracice 6', 'Improv Pracice 7', 'Improv Pracice 8'] }
+      name: { [Op.in]: ['Smash Bros Tournament', 'Met Gala Night', 'Tennis Singles', 'Movie Night', 'Trivia', 'Fortnite Tournament', 'Basketball and Mimosas', 'Chess Tournament', 'Fundraiser Night', 'Fifa Tournament', 'The Last of Us Watch Party', 'Bulls Game trip', 'Fundraiser Night 2', `Texas Hold'em Night`, `Seven-card stud`, `High Low Chicago Night`, 'End of Chapter Discussion 2', 'End of Chapter Discussion 1', 'Movie Night 2', 'Rehearsal 1', 'Rehearsal 2', 'Rehearsal 3', 'Rehearsal 4', 'Rehearsal 5', 'Rehearsal 6', 'Improv Pracice', 'Improv Pracice 2', 'Improv Pracice 3', 'Improv Pracice 4', 'Improv Pracice 5', 'Improv Pracice 6', 'Improv Pracice 7', 'Improv Pracice 8'] }
     }, {});
   }
 };

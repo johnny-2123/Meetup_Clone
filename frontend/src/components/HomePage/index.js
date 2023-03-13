@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { useModal } from "../../context/Modal";
-import { setSessionUser } from '../../store/session';
 
 import './HomePage.css'
 
@@ -11,7 +10,7 @@ const HomePage = () => {
     const [userLoggedIn, setUserLoggedIn] = useState(true);
     let homeStartGroupIdName = !userLoggedIn ? "homeThirdSectionDivDisabled" : "homeThirdSectionDiv";
     let joinMeetupClassName = !userLoggedIn ? "joinButton" : "joinButtonHidden";
-
+    let welcomeMessageClass = !userLoggedIn ? 'welcomeMessageDisabled' : 'WelcomeMessage';
 
     useEffect(() => {
         if (sessionUser?.user) {
@@ -26,8 +25,10 @@ const HomePage = () => {
 
     return (
         < div className='containerHome' >
+
             <div className='homeTopSection'>
                 <div >
+                    <h2 className={welcomeMessageClass}>Welcome {sessionUser?.user?.firstName}</h2>
                     <h1>The people platform - <br></br> Where interests become friendships</h1>
                     <p>Lorem ipsum dolor sit amet. Et accusamus voluptatem et earum amet qui aspernatur molestias aut illo soluta ut veritatis sapiente. Et commodi debitis aut eius dolor cum laborum molestiae est maiores.</p>
                 </div>

@@ -1,4 +1,3 @@
-import { bindActionCreators, compose } from "redux";
 import { csrfFetch } from "./csrf";
 
 const LOAD_ALL_EVENTS = 'events/LOAD_ALL_EVENTS';
@@ -7,29 +6,6 @@ const ADD_EVENT = 'events/UPDATE_EVENT';
 const CLEAR_CURRENT_EVENT = 'events/CLEAR_CURRENT_EVENT';
 const DELETE_EVENT = 'events/DELETE_EVENT';
 const CLEAR_ALL_EVENTS = 'events/CLEAR_ALL_EVENTS';
-const GET_CURRENT_USER_EVENTS = 'events/GET_CURRENT_USER_EVENTS';
-
-const loadCurrentUserEvents = (events) => ({
-    type: GET_CURRENT_USER_EVENTS,
-    events
-});
-
-export const fetchCurrentUserEvents = (currentUserQueries) => async dispatch => {
-    //  let response = '';
-    // if (eventSearchQueries) {
-    //     response = await csrfFetch(`/api/events?${eventSearchQueries}`)
-    //     console.log(`fetchAllEvents queried Response: `, response)
-
-    // } else {
-    //     response = await csrfFetch(`/api/events`)
-    //     console.log(`fetchAllEvents Response: `, response)
-    // }
-    // if (response.ok) {
-    //     const events = await response.json();
-    //     console.log(`events.tojson`, events)
-    //     dispatch(loadEvents(events))
-    // }
-}
 
 const addEvent = (event) => ({
     type: ADD_EVENT,

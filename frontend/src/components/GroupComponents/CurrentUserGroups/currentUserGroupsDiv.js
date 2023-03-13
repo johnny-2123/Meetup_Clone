@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useReducer } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUnjoinGroup } from "../../../store/groups";
@@ -35,7 +35,6 @@ function CurrentUserGroupsDiv({ }) {
                     .then(() => forceUpdate())
                     .catch(async (res) => {
                         const data = await res.json();
-                        if (data && data.errors) console.log(`data`, (data));
                     })
             },
             onCancel: () => {
@@ -61,10 +60,9 @@ function CurrentUserGroupsDiv({ }) {
                 document.body.scroll = "yes";
                 return dispatch(groupActions.fetchDeleteGroup(groupId))
                     .then(() => forceUpdate())
-                // .catch(async (res) => {
-                //     const data = await res.json();
-                //     if (data && data.errors) console.log(`data`, (data));
-                // })
+                    .catch(async (res) => {
+                        const data = await res.json();
+                    })
             },
             onCancel: () => {
                 document.documentElement.style.overflow = 'scroll';

@@ -809,28 +809,18 @@ router.put(
 
         if (!group) {
             errors.push("Group couldn't be found")
-
-            // return res.status(404).json({
-            //     "message": "Group couldn't be found",
-            //     "statusCode": 404
-            // });
         };
 
         if (group.organizerId !== user.id) {
-
             errors.push("Forbidden")
-
-            // return res.status(403).json({
-            //     "message": "Forbidden",
-            //     "statusCode": 403
-            // });
         };
 
         if (name) {
             if (name.length > 60) {
                 errors.push("Name must be 60 characters or less")
-
-                // return res.status(400).json('Name must be 60 characters or less');
+            }
+            if (name.length < 5) {
+                errors.push("Name must be at least 5 characters")
             }
             group.name = name;
         };
@@ -839,8 +829,6 @@ router.put(
             if (about.length < 50) {
 
                 errors.push("About must be 50 characters or more")
-
-                // return res.status(400).json('About must be 50 characters or more');
             }
             group.about = about;
         };
@@ -848,8 +836,6 @@ router.put(
         if (type) {
             if (type !== 'Online' && type !== 'In person') {
                 errors.push("Type must be Online or In person")
-
-                // return res.status(400).json('Type must be Online or In person');
             }
             group.type = type;
         };
@@ -857,24 +843,17 @@ router.put(
         if (private) {
             if (private !== true && private !== false) {
                 errors.push("Private must be a boolean")
-
-
-                // return res.status(400).json('Private must be a boolean');
             }
             group.private = private;
         };
 
         if (!city) {
             errors.push("City is required")
-
-            // return res.status(400).json('City is required');
         };
         group.city = city;
 
         if (!state) {
             errors.push("State is required")
-
-            // return res.status(400).json('State is required');
         };
         group.state = state;
 
@@ -901,8 +880,6 @@ router.put(
         let resGroup = await Group.findByPk(group.id, {
             attributes: ['id', 'organizerId', 'name', 'about', 'type', 'private', 'city', 'state', 'createdAt', 'updatedAt']
         })
-
-
         return res.json(resGroup);
 
     }
@@ -956,6 +933,9 @@ router.post(
         if (name) {
             if (name.length > 60) {
                 errors.push("Name must be 60 characters or less")
+            }
+            if (name.length < 5) {
+                errors.push("Name must be at least 5 characters")
             }
         };
 

@@ -61,9 +61,9 @@ const ProfileButton = ({ sessionUser }) => {
                 <i className="fas fa-user-circle profileIcon" />
             </button>
             <ul className={ulClassName} ref={ulRef}>
-                <li className="navDropLi">{username}</li>
-                <li className="navDropLi">{firstName} {lastName}</li>
-                <li className="navDropLi">{email}</li>
+                <li className="navDropLi navBioInfo">{username}</li>
+                <li className="navDropLi navBioInfo">{firstName} {lastName}</li>
+                <li className="navDropLi navBioInfo">{email}</li>
                 <li className="navDropLi">
                     <button className='logoutButton' onClick={SeeMyGroups}> See My Groups</button>
                 </li>
