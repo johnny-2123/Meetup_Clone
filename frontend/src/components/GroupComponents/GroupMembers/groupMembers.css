@@ -117,7 +117,7 @@
     }
 
     #memberName {
-        font-size: 1.5rem;
+        font-size: 1.1rem;
     }
 
     #memberStatus {
@@ -141,6 +141,6 @@
     .groupMemberButton {
         margin: .5rem 0 0 0;
         padding-left: 0;
-        width: 300px;
+        width: 225px;
     }
 }
