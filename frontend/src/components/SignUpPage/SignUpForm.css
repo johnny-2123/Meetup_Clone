@@ -15,23 +15,39 @@
 }
 
 .loginComponent {
-    padding-top: 40px;
+    padding-top: 10px;
     display: flex;
     flex-direction: column;
     font-family: 'Open Sans', sans-serif;
     font-weight: 590;
     align-items: center;
     border: 1px solid lightgrey;
-    margin: 5px auto auto auto;
-    max-width: 450px;
+    margin: auto auto auto auto;
+
     border-radius: 10px;
     background-color: white;
-    height: 92.5vh;
+    height: 80vh;
     position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
+
+}
+
+#loginComponent {
+    height: 45vh;
+}
+
+.xButtonDiv {
+    width: 100%;
+    margin: 0 20px 0 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.xButton {
+    font-size: 1.5rem;
+    color: black;
+    background-color: white;
+    border: none;
 }
 
 .errors {
@@ -81,6 +97,6 @@
     color: white;
 
     background-color: orangered;
-    font-size: 20px;
+    font-size: 17px;
     z-index: 2;
 }

@@ -40,10 +40,6 @@ function NewEventForm() {
             errors.push("Type must be Online or In person")
         };
 
-        if (!Price) {
-            errors.push("Price is required")
-        };
-
         if (!capacity) {
             errors.push("capacity is required")
         };

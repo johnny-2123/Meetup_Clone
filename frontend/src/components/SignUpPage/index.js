@@ -55,7 +55,9 @@ const SignUpPage = () => {
         }
     }, [sessionUser])
 
-
+    const handleXButtonClick = () => {
+        setShowSignUp(false)
+    }
     const handleSubmit = (e) => {
         e.preventDefault();
         if (password === confirmPassword) {
@@ -73,10 +75,13 @@ const SignUpPage = () => {
         <>
             <div className='mainDiv'>
                 <div className='loginComponent' ref={ulRef}>
+                    <div className='xButtonDiv'>
+                        <button
+                            onClick={handleXButtonClick}
+                            className='xButton'>x</button>
+                    </div>
                     <form className='loginForm' onSubmit={handleSubmit}>
-                        {errors && <ul className='errors'>
-                            {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-                        </ul>}
+
                         <div className='formBox'>
                             <label for='username' className='label'>
                                 Username
@@ -168,6 +173,9 @@ const SignUpPage = () => {
 
                         </div>
                         <button disabled={!passwordsMatch} type='submit' className='submitButton'>Sign Up</button>
+                        {errors && <ul className='errors'>
+                            {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                        </ul>}
                     </form>
                 </div>
             </div>

@@ -96,3 +96,51 @@
     opacity: 1;
     box-shadow: 1px 2px 2px lightslategray;
 }
+
+
+
+@media only screen and (max-width: 580px) {
+
+    .groupMembersMainDiv {
+        width: 100%;
+    }
+
+    .memberContainer {
+        flex-direction: column;
+        width: 100%;
+        margin-left: 0;
+        align-items: center;
+    }
+
+    .memberIconDetailsDiv {
+        justify-items: center;
+    }
+
+    #memberName {
+        font-size: 1.5rem;
+    }
+
+    #memberStatus {
+        font-size: 1rem;
+        margin-top: .1rem;
+    }
+
+    .memberButtonsDiv {
+        margin-top: .5rem;
+        width: 350px;
+        align-items: center;
+        flex-direction: column;
+        margin-left: 0;
+        padding-left: 0;
+    }
+
+    .memberButtonsDiv :last-child {
+        margin-left: 0;
+    }
+
+    .groupMemberButton {
+        margin: .5rem 0 0 0;
+        padding-left: 0;
+        width: 300px;
+    }
+}

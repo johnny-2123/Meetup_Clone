@@ -382,8 +382,8 @@ router.put(
         }
 
         if (description) {
-            if (description.length < 50) {
-                errors.push("Description must be 50 characters or more")
+            if (description.length < 30) {
+                errors.push("Description must be 30 characters or more")
             }
             event.description = description;
         };

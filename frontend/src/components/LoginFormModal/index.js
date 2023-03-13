@@ -31,7 +31,9 @@ const LoginFormPage = () => {
         return () => document.removeEventListener('click', closeMenu);
     }, [])
 
-
+    const handleXButtonClick = () => {
+        setShowLogin(false)
+    }
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -57,11 +59,14 @@ const LoginFormPage = () => {
     return (
         <>
             <div className='mainDiv'>
-                <div className='loginComponent' ref={ulRef}>
+                <div id={`loginComponent`} className='loginComponent' ref={ulRef}>
+                    <div className='xButtonDiv'>
+                        <button
+                            onClick={handleXButtonClick}
+                            className='xButton'>x</button>
+                    </div>
                     <form className='loginForm' onSubmit={handleSubmit}>
-                        <ul>
-                            {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-                        </ul>
+
                         <div className='formBox'>
                             <label htmlFor='credentials' className='label'>
                                 Username or Email
@@ -92,6 +97,9 @@ const LoginFormPage = () => {
                             </input>
                         </div>
                         <button type='submit' className='submitButton' >Log In</button>
+                        <ul className='errors'>
+                            {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                        </ul>
                     </form>
                 </div>
             </div>
