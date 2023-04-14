@@ -23,7 +23,7 @@ const Maps = ({ apiKey }) => {
         <>
             {isLoaded &&
                 <GoogleMap
-                    mapContainerStyle={mapContainerStyle}
+                    mapContainerStyle={containerStyle}
                     center={center}
                     zoom={10}
                 />

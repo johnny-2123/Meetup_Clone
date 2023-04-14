@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { useModal } from "../../context/Modal";
+import MapContainer from "../Maps/index"
 
 import './HomePage.css'
 
@@ -55,9 +56,11 @@ const HomePage = () => {
                     <p>You don’t have to be an expert to gather people together and explore shared interests.</p>
                 </div>
             </div>
+            <MapContainer />
             <div className='homeFourthSection'>
                 <button className={joinMeetupClassName} onClick={() => setShowSignUp(true)}>Join Meetup</button>
             </div>
+
         </div >
 
     )
