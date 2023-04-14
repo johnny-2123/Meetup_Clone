@@ -24,72 +24,65 @@ router.get(
     '/current',
     requireAuth,
     async (req, res) => {
-        let currentUser = await User.findByPk(req.user.id);
-        let groupsOrganized = await currentUser.getGroupsOrganized();
+        try {
+            const currentUser = await User.findByPk(req.user.id);
+            const [groupsOrganized, groupsJoined] = await Promise.all([
+                currentUser.getGroupsOrganized(),
+                currentUser.getUserGroup()
+            ]);
 
-        let groupsJoined = await currentUser.getUserGroup();
+            const groupsJoinedArr = await Promise.all(groupsJoined.map(async (groupJoined) => {
+                const count = await GroupMember.count({ where: { groupId: groupJoined.id } });
+                const groupMember = await GroupMember.findOne({ where: { userId: currentUser.id, groupId: groupJoined.id } });
+                return {
+                    id: groupJoined.id,
+                    organizerId: groupJoined.organizerId,
+                    name: groupJoined.name,
+                    type: groupJoined.type,
+                    private: groupJoined.private,
+                    city: groupJoined.city,
+                    state: groupJoined.state,
+                    about: groupJoined.about,
+                    previewImage: groupJoined.previewImage,
+                    createdAt: groupJoined.createdAt,
+                    updatedAt: groupJoined.updatedAt,
+                    numMembers: count,
+                    currentUserGroupStatus: groupMember.status
+                };
+            }));
 
-        let groupsJoinedArr = []
-        for (let groupJoined of groupsJoined) {
-            let count = await GroupMember.count({
-                where: { groupId: groupJoined.id }
-            });
-            let groupMember = await GroupMember.findOne({
-                where: {
-                    userId: currentUser.id,
-                    groupId: groupJoined.id
-                }
-            });
+            const groupsOrganizedArr = await Promise.all(groupsOrganized.map(async (groupOrganized) => {
+                const count = await GroupMember.count({ where: { groupId: groupOrganized.id } });
+                return {
+                    id: groupOrganized.id,
+                    organizerId: groupOrganized.organizerId,
+                    name: groupOrganized.name,
+                    type: groupOrganized.type,
+                    private: groupOrganized.private,
+                    city: groupOrganized.city,
+                    state: groupOrganized.state,
+                    about: groupOrganized.about,
+                    previewImage: groupOrganized.previewImage,
+                    createdAt: groupOrganized.createdAt,
+                    updatedAt: groupOrganized.updatedAt,
+                    numMembers: count
+                };
+            }));
 
+            const mergedGroupsArr = groupsOrganizedArr.concat(groupsJoinedArr.filter((groupJoined) => {
+                return !groupsOrganizedArr.some((groupOrganized) => {
+                    return groupOrganized.id === groupJoined.id;
+                });
+            }));
 
-            let toPush = {}
-            toPush.id = groupJoined.id;
-            toPush.organizerId = groupJoined.organizerId;
-            toPush.name = groupJoined.name;
-            toPush.type = groupJoined.type;
-            toPush.private = groupJoined.private;
-            toPush.city = groupJoined.city;
-            toPush.state = groupJoined.state;
-            toPush.about = groupJoined.about;
-            toPush.previewImage = groupJoined.previewImage;
-            toPush.createdAt = groupJoined.createdAt;
-            toPush.updatedAt = groupJoined.updatedAt;
-            toPush.numMembers = count;
-            toPush.currentUserGroupStatus = groupMember.status;
-            groupsJoinedArr.push(toPush);
+            const resGroups = { Groups: mergedGroupsArr };
+            return res.status(200).json(resGroups);
+        } catch (err) {
+            console.error(err);
+            return res.status(500).json({ error: 'Internal server error' });
         }
-        let groupsOrganizedArr = [];
-        for (let groupOrganized of groupsOrganized) {
-            let count = await GroupMember.count({
-                where: { groupId: groupOrganized.id }
-            });
-            let toPush = {}
-            toPush.id = groupOrganized.id;
-            toPush.organizerId = groupOrganized.organizerId;
-            toPush.name = groupOrganized.name;
-            toPush.type = groupOrganized.type;
-            toPush.private = groupOrganized.private;
-            toPush.city = groupOrganized.city;
-            toPush.state = groupOrganized.state;
-            toPush.about = groupOrganized.about;
-            toPush.previewImage = groupOrganized.previewImage;
-            toPush.createdAt = groupOrganized.createdAt;
-            toPush.updatedAt = groupOrganized.updatedAt;
-            toPush.numMembers = count;
-            groupsOrganizedArr.push(toPush);
-        }
-
-        for (item of groupsJoinedArr) {
-            let notInArray = groupsOrganizedArr.filter(group => group.id === item.id);
-            if (notInArray.length === 0) {
-                groupsOrganizedArr.push(item);
-            }
-        }
-        let resGroups = {};
-        resGroups.Groups = groupsOrganizedArr;
-        return res.status(200).json(resGroups);
     }
-)
+);
 
 /////////////////////
 ///////////////Create a new Venue for a Group specified by its id
