@@ -14,6 +14,7 @@ function SeeAllGroups() {
     })
 
 
+
     let groupsArr = Object.values(groups).map((group, idx) => {
         return (
             < div

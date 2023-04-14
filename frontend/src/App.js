@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router";
 import * as sessionActions from "./store/session";
-import * as groupActions from "./store/groups";
 import LoginFormPage from "./components/LoginFormModal";
 import SignUpPage from "./components/SignUpPage";
 import CSSTestPage from "./components/CSSTest";
@@ -16,7 +15,6 @@ import UpdateGroupPage from "./components/GroupComponents/UpdateGroup";
 import UpdateEventPage from "./components/Events/UpdateEvent"
 import { useModal } from "./context/Modal";
 import GroupDetailsComponent from "./components/GroupComponents/GroupDetails";
-import GroupMembersComponent from "./components/GroupComponents/GroupMembers";
 import EventDetailsComponent from "./components/Events/EventDetails";
 import NewEventForm from "./components/Events/NewEvent"
 

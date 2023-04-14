@@ -7,6 +7,7 @@ const groupsRouter = require('./groups.js');
 const eventImagesRouter = require('./eventImages.js');
 const groupImagesRouter = require('./groupImages.js');
 const venuesRouter = require('./venues.js');
+const mapsRouter = require('./maps')
 
 const { restoreUser } = require("../../utils/auth.js");
 
@@ -26,6 +27,7 @@ router.use('/group-Images', groupImagesRouter);
 
 router.use('/venues', venuesRouter);
 
+router.use('/maps', mapsRouter);
 
 router.get('/test', (req, res) => {
     res.json('hello');
