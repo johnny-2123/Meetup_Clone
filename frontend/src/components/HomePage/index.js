@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { useModal } from "../../context/Modal";
-import MapContainer from "../Maps";
-
 import './HomePage.css'
 
 const HomePage = () => {
@@ -63,8 +61,6 @@ const HomePage = () => {
         </div >
 
     )
-
-
 }
 
 

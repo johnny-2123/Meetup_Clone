@@ -619,7 +619,7 @@ router.get(
         }
         if (name) {
             where.name = {
-                [Op.like]: `%${name}%`
+                [Op.iLike]: `%${name}%`
             }
         }
 
