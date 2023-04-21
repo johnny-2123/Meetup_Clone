@@ -618,7 +618,9 @@ router.get(
             });
         }
         if (name) {
-            where.name = name;
+            where.name = {
+                [Op.like]: `%${name}%`
+            }
         }
 
         if (type) {

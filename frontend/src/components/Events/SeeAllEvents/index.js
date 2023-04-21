@@ -13,6 +13,7 @@ function SeeAllEvents() {
     const [futureOnlyQuery, setFutureOnlyQuery] = useState(true);
     const [earliestFirst, setEarliestFirst] = useState(false);
     const [latestFirst, setLatestFirst] = useState(false);
+    const [searchName, setSearchName] = useState(false)
 
     let latestClassName = latestFirst ? 'timeEventQueryButtonClick' :
         'timeEventQueryButtonNotClicked';
@@ -108,9 +109,14 @@ function SeeAllEvents() {
             queryObject.earliestFirst = true
         }
 
+        if (searchName) {
+            queryObject.name = searchName
+        }
+
+
         new URLSearchParams(queryObject).toString();
         dispatch(fetchAllEvents(new URLSearchParams(queryObject).toString()))
-    }, [inPersonQuery, onlineQuery, futureOnlyQuery, earliestFirst, latestFirst]);
+    }, [inPersonQuery, onlineQuery, futureOnlyQuery, earliestFirst, latestFirst, searchName]);
 
     let eventsArr = events.map((event, idx) => {
         let eventDate = new Date(event.startDate);
@@ -157,12 +163,9 @@ function SeeAllEvents() {
                     <button
                         onClick={handleFutureOnlyClicked}
                         className={futureOnlyClassName}>Future Only</button>
-                    {/* <button
-                        onClick={handleLatestClicked}
-                        className={latestClassName}>Latest First</button> */}
-                    {/* <button
-                        onClick={handleEarliestClicked}
-                        className={earliestClassName}>Latest First</button> */}
+                    <input type="text" id="search" placeholder="Search for events"
+                        onChange={(e) => setSearchName(e.target.value)}
+                    ></input>
                 </div>
                 {eventsArr}
             </div>
