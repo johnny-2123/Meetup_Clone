@@ -1,22 +1,13 @@
-import React, { useEffect, useReducer, useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCurrentUserGroups } from "../../../store/groups";
-import * as groupActions from '../../../store/groups';
-import AlertConfirm from 'react-alert-confirm';
 import "./CurrentUserGroups.css";
 import CurrentUserGroupsDiv from "./currentUserGroupsDiv";
 
 function SeeCurrentUserGroups() {
     const dispatch = useDispatch();
-    const history = useHistory();
-    const [, forceUpdate] = useReducer(x => x + 1, 0);
     const sessionUser = useSelector(state => state.session.user?.user);
     const [loaded, setLoaded] = useState(false);
-
-    const userGroups = useSelector(state => {
-        return state.groups?.currentUserGroups
-    });
 
     useEffect(() => {
         dispatch(fetchCurrentUserGroups(sessionUser?.id));

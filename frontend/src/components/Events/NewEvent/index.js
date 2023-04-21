@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import './NewEventForm.css';
 
+
+
 function NewEventForm() {
     const dispatch = useDispatch();
     const { groupId } = useParams()

@@ -56,7 +56,6 @@ const HomePage = () => {
                     <p>You don’t have to be an expert to gather people together and explore shared interests.</p>
                 </div>
             </div>
-            <MapContainer />
             <div className='homeFourthSection'>
                 <button className={joinMeetupClassName} onClick={() => setShowSignUp(true)}>Join Meetup</button>
             </div>

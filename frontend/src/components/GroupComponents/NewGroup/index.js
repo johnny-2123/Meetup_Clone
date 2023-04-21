@@ -1,11 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import * as groupActions from '../../../store/groups';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import './NewGroupForm.css'
+import { useDispatch, useSelector } from 'react-redux';
+import { getKey } from '../../../store/maps';
+import GoogleAutocomplete from 'react-google-autocomplete';
 
 function NewGroupForm() {
+    const key = useSelector((state) => state.maps.key);
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        if (!key) {
+            dispatch(getKey());
+        }
+    }, [dispatch, key]);
+
+
     const history = useHistory();
 
     const [city, setCity] = useState('');
@@ -55,6 +65,7 @@ function NewGroupForm() {
         } else {
             setDisableSubmitButton(false)
         }
+        console.log('////////////////////////////////////////////', city)
     }, [name, about, type, privacy, city, state, imageUrl])
 
     const handleSubmit = (e) => {
@@ -83,12 +94,18 @@ function NewGroupForm() {
                     <div>
                         <h3>First, set your group's location.</h3>
                         <h5>Meetup groups meet locally, in person and online. <br></br>We'll connect you with people in your area, and more can join you online.</h5>
-                        <input
-                            type={`text`}
-                            value={city}
-                            onChange={(e) => setCity(e.target.value)}
-                            required
-                            placeholder="city" name="city"></input>
+                        {key &&
+                            <GoogleAutocomplete
+                                apiKey={key}
+                                onPlaceSelected={(place) =>
+                                    setCity(place.address_components[0].long_name)
+                                }
+                                types={['(cities)']}
+                                required
+                                placeholder="City"
+                                name="city"
+                            />
+                        }
                         <input
                             type={`text`}
                             value={state}

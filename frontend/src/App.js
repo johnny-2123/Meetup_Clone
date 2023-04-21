@@ -4,7 +4,6 @@ import { Route, Switch } from "react-router";
 import * as sessionActions from "./store/session";
 import LoginFormPage from "./components/LoginFormModal";
 import SignUpPage from "./components/SignUpPage";
-import CSSTestPage from "./components/CSSTest";
 import Navigation from "./components/Navigation";
 import HomePage from "./components/HomePage";
 import SeeAllGroups from "./components/GroupComponents/SeeAllGroups/SeeAllGroups";
@@ -67,9 +66,6 @@ function App() {
         </Route>
         <Route exact path={'/events/:eventId/edit'}>
           <UpdateEventPage />
-        </Route>
-        <Route path='/csstest'>
-          <CSSTestPage />
         </Route>
       </Switch>
 
