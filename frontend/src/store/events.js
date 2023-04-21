@@ -6,6 +6,25 @@ const ADD_EVENT = 'events/UPDATE_EVENT';
 const CLEAR_CURRENT_EVENT = 'events/CLEAR_CURRENT_EVENT';
 const DELETE_EVENT = 'events/DELETE_EVENT';
 const CLEAR_ALL_EVENTS = 'events/CLEAR_ALL_EVENTS';
+const GET_UPCOMING_EVENTS = 'events/GET_UPCOMING_EVENTS'
+
+const getUpcomingEvents = events => ({
+    type: GET_UPCOMING_EVENTS,
+    events
+
+})
+
+export const fetchUpcomingEvents = () => async dispatch => {
+    let eventSearchParams = new URLSearchParams({
+        futureOnlyQuery: true,
+        earliestFirst: true
+    })
+    let response = await csrfFetch(`/api/events?${eventSearchParams}`)
+    if (response.ok) {
+        const events = await response.json();
+        dispatch(getUpcomingEvents(events))
+    }
+}
 
 const addEvent = (event) => ({
     type: ADD_EVENT,
@@ -85,7 +104,7 @@ const loadEvents = events => ({
     events
 })
 export const fetchAllEvents = (eventSearchQueries) => async dispatch => {
-    let response = '';
+    let response;
     if (eventSearchQueries) {
         response = await csrfFetch(`/api/events?${eventSearchQueries}`)
 
@@ -100,6 +119,7 @@ export const fetchAllEvents = (eventSearchQueries) => async dispatch => {
 
 const initialState = {
     allEvents: [],
+    upcomingEvents: [],
     currentEvent: {}
 }
 
@@ -134,6 +154,10 @@ const eventsReducer = (state = initialState, action) => {
         case DELETE_EVENT:
             newState = { ...state };
             delete newState.allEvents[action.eventId];
+        case GET_UPCOMING_EVENTS:
+            return {
+                ...state, upcomingEvents: [...action.events.Events]
+            }
         default:
             return state
     }
