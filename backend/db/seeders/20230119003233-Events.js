@@ -392,7 +392,7 @@ module.exports = {
         capacity: 10,
         groupId: 8,
         venueId: 4,
-        startDate: '2022-12-19 20:00:00',
+        startDate: '2023-9-17 20:00:00',
         endDate: '2022-12-20 20:00:00',
         previewImage: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1678234352/UP-Club-Interior-001_rduqey.jpg'
       },

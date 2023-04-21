@@ -567,7 +567,7 @@ router.get(
             page = 1;
         }
 
-        if (!size) size = 25;
+        if (!size) size = 50;
         if (Number.isNaN(size)) {
             res.status(400);
             return res.json({
@@ -633,10 +633,13 @@ router.get(
             where.groupId = groupId;
         }
         if (earliestFirst) {
+            order = [['startDate', 'ASC']];
+
+        }
+        if (latestFirst) {
             order = [['startDate', 'DESC']];
 
         }
-
 
         const events2 = await Event.findAll({
             include: [{ model: Venue, attributes: ['id', 'city', 'state'] }, { model: Group, attributes: ['id', 'name', 'city', 'state'] }],
