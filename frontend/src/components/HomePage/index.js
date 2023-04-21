@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { useModal } from "../../context/Modal";
 import './HomePage.css'
 
@@ -57,7 +57,9 @@ const HomePage = () => {
             <div className='homeFourthSection'>
                 <button className={joinMeetupClassName} onClick={() => setShowSignUp(true)}>Join Meetup</button>
             </div>
-
+            <div className='homePageFooter' >
+                <a className={'homePageFooterLinks'} href={'https://github.com/johnny-2123/Project1/wiki'}>Github Wiki</a>
+            </div>
         </div >
 
     )

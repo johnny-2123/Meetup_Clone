@@ -178,8 +178,26 @@
     opacity: .85;
 }
 
+.homePageFooter {
+    margin: 2rem 0px 0px 0px;
+    border-top: orangered solid 2px;
+    width: 90%;
+    min-height: 6rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: none;
 
+}
 
+.homePageFooterLinks {
+    text-decoration: none;
+    color: darkgrey;
+    padding: 0 .4rem .4rem .4rem;
+    border-bottom: orangered solid 1px;
+}
 
 @media only screen and (max-width: 580px) {
     .homeTopSection {

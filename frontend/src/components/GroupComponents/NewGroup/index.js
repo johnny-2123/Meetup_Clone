@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getKey } from '../../../store/maps';
 import GoogleAutocomplete from 'react-google-autocomplete';
+import './NewGroupForm.css'
 
 function NewGroupForm() {
     const key = useSelector((state) => state.maps.key);
