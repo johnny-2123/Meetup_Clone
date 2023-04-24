@@ -17,7 +17,8 @@ const getUpcomingEvents = events => ({
 export const fetchUpcomingEvents = () => async dispatch => {
     let eventSearchParams = new URLSearchParams({
         futureOnlyQuery: true,
-        earliestFirst: true
+        earliestFirst: true,
+        size: 10
     })
     let response = await csrfFetch(`/api/events?${eventSearchParams}`)
     if (response.ok) {

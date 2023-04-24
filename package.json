@@ -30,7 +30,9 @@
     "@types/react-transition-group": "^4.4.5",
     "react-alert-confirm": "^4.1.7",
     "react-router-dom": "^6.8.2",
+    "react-slick": "^0.29.0",
     "react-transition-group": "^4.4.5",
+    "slick-carousel": "^1.8.1",
     "transition-hook": "^1.5.2"
   }
 }
