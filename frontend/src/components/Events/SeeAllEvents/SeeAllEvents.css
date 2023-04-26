@@ -107,6 +107,13 @@ body {
     opacity: .85;
 }
 
+#eventsSearch {
+    border-radius: 15px;
+    border: lightgray solid .75px;
+    padding: 5px 10px 5px 10px;
+    text-align: center;
+}
+
 .GroupsInMeetup {
     /* background-color: darkviolet; */
     color: rgb(153, 153, 153);

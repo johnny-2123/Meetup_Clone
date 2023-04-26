@@ -221,7 +221,7 @@ router.get(
                 groupId: group.id
             }
         });
-        //think data is returned in incorrect format
+
         let attendees;
         if (groupMember) {
             if (group.organizerId !== user.id && groupMember.status !== 'co-host') {
@@ -459,6 +459,7 @@ router.get(
     '/:id',
     async (req, res) => {
         const id = req.params.id;
+        const user = req.user;
 
         const event = await Event.findByPk(id, {
             include: [{ model: Venue, attributes: ['id', 'city', 'state', 'lat', 'lng'] }, { model: Group, attributes: ['id', 'name', 'city', 'state', 'organizerId', 'previewImage', 'private'] }, { model: EventImage, attributes: ['id', 'url', 'preview'] }],
@@ -478,15 +479,44 @@ router.get(
             )
         }
 
-        const user = await User.findByPk(event.Group.organizerId);
+        if (event.Group?.private && user !== null) {
+
+            console.log(`**********************************user`, user)
+            let groupMember
+            if (user) {
+                groupMember = await GroupMember.findOne({
+                    where: {
+                        userId: user?.id,
+                        groupId: event.Group.id
+                    }
+                });
+
+            }
+
+            if (!groupMember || groupMember?.status === ('pending')) {
+                return res.status(200).json({
+                    name: event.name,
+                    Group: event?.Group
+                })
+            }
+            console.log(`groupmember`, groupMember)
+
+        } else if (event.Group?.private && user === null) {
+            return res.status(200).json({
+                name: event.name,
+                Group: event?.Group
+            })
+        }
+
+        const organizer = await User.findByPk(event.Group.organizerId);
 
         let count = await Attendant.count({
             where: { eventId: event.id }
         });
         event.setDataValue('numAttending', count);
-        event.setDataValue(`Organizer`, user);
+        event.setDataValue(`Organizer`, organizer);
 
-        res.status(200).json(event);
+        return res.status(200).json(event);
 
 
     }

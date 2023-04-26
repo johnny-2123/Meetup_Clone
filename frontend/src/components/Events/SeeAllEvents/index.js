@@ -166,7 +166,7 @@ function SeeAllEvents() {
                     <button
                         onClick={handleLatestClicked}
                         className={latestClassName}>Latest First</button>
-                    <input type="text" id="search" placeholder="Search for events"
+                    <input type="text" id="eventsSearch" placeholder="Search for events"
                         onChange={(e) => setSearchName(e.target.value)}
                     ></input>
                 </div>
