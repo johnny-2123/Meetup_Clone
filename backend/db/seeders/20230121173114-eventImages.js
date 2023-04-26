@@ -22,22 +22,22 @@ module.exports = {
     await queryInterface.bulkInsert(options, [
       {
         eventId: 1,
-        url: 'imageUrl',
+        url: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1682490600/images_gg8ml6.jpg',
         preview: true
       },
       {
         eventId: 1,
-        url: 'imageUrl2',
+        url: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1682490559/images_unouvj.jpg',
         preview: true
       },
       {
-        eventId: 2,
-        url: 'imageUrl',
+        eventId: 1,
+        url: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1682490559/images_unouvj.jpg',
         preview: true
       },
       {
-        eventId: 2,
-        url: 'imageUrl2',
+        eventId: 1,
+        url: 'https://res.cloudinary.com/dkul3ouvi/image/upload/v1682490577/images_zcemo7.jpg',
         preview: true
       },
       {
