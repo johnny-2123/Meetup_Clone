@@ -2,6 +2,8 @@
 
 Meetup Clone is a web application inspired by Meetup, that provides an online space to join groups and attend events with others who share your interests.
 
+<img width="960" alt="image" src="https://github.com/johnny-2123/Meetup_Clone/assets/95261336/911892cd-f860-40b4-8c2f-ce4e702ac207"><br>
+
 <img width="960" alt="image" src="https://github.com/johnny-2123/Meetup_Clone/assets/95261336/62b516b4-69cc-4c13-a18b-920d6e5de921">
 
 
