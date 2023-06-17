@@ -1,8 +1,8 @@
 # MeetUp Clone
 
-## Database Schema Design
+Meetup Clone is a web application inspired by Meetup, that provides an online space to join groups and attend events with others who share your interests.
 
-`<insert database schema design here>`
+## [Project Wiki](https://github.com/johnny-2123/Meetup_Clone/wiki)
 
 ## API Documentation
 
