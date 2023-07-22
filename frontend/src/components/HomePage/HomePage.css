@@ -2,8 +2,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* height: auto; */
-  width: 100%;
+  height: auto;
+  width: 100vw;
   padding: auto;
   margin: auto;
   top: 65px;
@@ -15,7 +15,6 @@
   margin: 0;
   font-size: 1.75rem;
   font-weight: 300;
-  color: #333;
 }
 
 .welcomeMessageDisabled {
@@ -31,7 +30,14 @@
   align-items: center;
   padding: 10px 50px 10px 50px;
   margin: 0 auto auto auto;
+  max-height: 794px;
   max-width: 1618px;
+}
+
+.homePageImage {
+  width: 35cqw;
+  max-width: 500px;
+  margin-left: 40px;
 }
 
 .homeTopSection h1 {
@@ -53,21 +59,25 @@
   justify-items: center;
   justify-content: center;
   margin-bottom: 15px;
-  padding: 20px 40px 0px 40px;
+  padding: 0px 40px 0px 40px;
 }
 
-.homeMiddleSection h2 {
-  margin-top: 3rem;
-
+div.homeMiddleSection h2 {
+  margin-top: 4rem;
+  margin-bottom: 1rem;
   font-weight: 300;
+  font-size: 2.25rem;
+  color: #333;
 }
 
-.homeMiddleSection p {
+div.homeMiddleSection p {
   text-align: center;
   margin: 0px;
   padding: 0px;
   width: auto;
-  margin-bottom: 0;
+  color: #333;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
 }
 
 .homeThirdSection {
@@ -164,10 +174,10 @@
   opacity: 0.85;
 }
 
-div.homePageFooter {
-  margin: 1rem 0px 0px 0px;
+.homePageFooter {
+  margin: 2rem 0px 0px 0px;
   border-top: orangered solid 2px;
-  width: 95%;
+  width: 90%;
   min-height: 6rem;
   text-align: center;
   display: flex;
@@ -181,7 +191,7 @@ div.homePageFooter {
   text-decoration: none;
   color: darkgrey;
   padding: 0 0.4rem 0.4rem 0.4rem;
-  /* border-bottom: orangered solid 1px; */
+  border-bottom: orangered solid 1px;
 }
 
 @media only screen and (max-width: 580px) {
