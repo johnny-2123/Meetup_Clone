@@ -1,53 +1,154 @@
+.slick-list {
+  /* margin: 5px; */
+  width: 100%;
+}
+.slick-slide > div {
+  padding: 0px;
+  border-radius: 8px;
+  background-color: transparent;
+  margin: 0 5px 10px 5px;
+  /* outline: red thin dotted; */
+}
+
+.slick-track {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px 0;
+}
+
 .upcomingEventsMainDiv {
-    margin: 50px auto;
-    width: 90%;
-    max-width: 1200px;
+  margin: 50px auto;
+  width: 95%;
+  padding: 0.5rem 1rem;
+  max-width: 1200px;
+  /* outline: purple thin dotted; */
+}
+
+.upcomingEventsMainDiv h2 {
+  padding-left: 0.5rem;
 }
 
 .upcomingEventContainer {
-    background-color: #fff;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    margin-right: 20px;
-    transition: box-shadow 0.3s ease-in-out;
-    width: 300px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: box-shadow 0.3s ease-in-out;
+  /* outline: blue thin dotted; */
+  height: 375px;
+  padding: 0;
+  transition: translate 0.5s ease-in-out;
+  transition: scale 0.5s ease-in-out;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 .upcomingEventContainer:hover {
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
+  transform: translateY(-5px) scale(1.01);
 }
 
 .upcomingEventDetailsContainer {
-    padding: 20px;
+  padding: 0;
+  color: #fff;
+  height: 100%;
+  transition: box-shadow 0.3s ease-in-out;
+  border-radius: 8px;
+  /* outline: yellow thin dotted; */
+  display: flex;
+  flex-direction: column;
 }
 
-#upcomingEventStartDate {
-    color: #555;
-    font-size: 18px;
-    margin-bottom: 10px;
+.upcomingEventDetailsContainer img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16/9;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  object-fit: cover;
 }
 
-#upcomingEventName {
-    color: #333;
-    font-size: 24px;
-    font-weight: 500;
-    margin-bottom: 10px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+.upcomingEventContainerMiddle {
+  flex: 1;
+  flex-grow: 1;
+  padding: 0 10px 0 10px;
+  /* outline: green thin dotted; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  background-color: white;
 }
 
-#upcomingEventCity {
-    color: #666;
-    font-size: 18px;
-    margin-bottom: 10px;
+.upcomingEventContainerMiddle p {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
-.upcomingEventType {
-    background-color: #333;
-    color: #fff;
-    font-size: 14px;
-    font-weight: 500;
-    padding: 5px 10px;
-    text-transform: uppercase;
+.upcomingEventContainerMiddle h3 {
+  color: #333;
+  font-size: 1.2rem;
+  font-weight: 900;
+}
+
+.upcomingEventContainerMiddle h3:last-child {
+  color: rgb(0, 82, 94);
+  font-weight: 100;
+  font-size: 1rem;
+  margin: 0 0 1rem 0;
+}
+
+.upcomingEventContainerMiddle p {
+  color: #333;
+  overflow: hidden;
+  font-size: 0.9rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* number of lines to show */
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+.upcomingEventContainerFooter {
+  display: flex;
+  flex-direction: row;
+  padding: 0px 0 0 0;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  background-color: #ed5628;
+}
+
+.upcomingEventContainerFooter div {
+  display: flex;
+  width: 50%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.upcomingEventContainerFooter div:first-child {
+  padding-left: 10px;
+  border-bottom-left-radius: 8px;
+}
+
+.upcomingEventContainerFooter div:last-child {
+  padding-right: 10px;
+  border-bottom-right-radius: 8px;
+}
+
+.upcomingEventContainerFooter h4 {
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1rem;
+}
+
+.eventDate,
+.eventHour {
+  margin: 0;
+}
+
+.eventDate {
+  white-space: nowrap;
+}
+
+.eventHour {
+  white-space: nowrap;
 }

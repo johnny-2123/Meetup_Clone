@@ -1,92 +1,102 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
 
 .hidden {
-    display: none;
+  display: none;
 }
 
 .mainDiv {
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, .5);
-    display: flex;
-    align-items: center;
-    justify-items: center;
-    align-content: center;
-    justify-content: center;
-    z-index: 6;
-
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  align-content: center;
+  justify-content: center;
+  z-index: 6;
+  /* outline: red thin dotted; */
 }
 
-.loginComponent {
-    padding-top: 10px;
-    display: flex;
-    flex-direction: column;
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 590;
-    align-items: center;
-    border: 1px solid lightgrey;
-    margin: auto auto auto auto;
-    padding: auto 20px auto 20px;
-    width: 390px;
-    border-radius: 10px;
-    background-color: white;
-    height: 85vw;
-    position: fixed;
+div.loginComponent {
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 590;
+  align-items: center;
+  border: 1px solid lightgrey;
+  margin: auto auto auto auto;
+  padding: auto 20px 1rem 20px;
+  width: 390px;
+  border-radius: 10px;
+  background-color: white;
+  height: 45vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  position: fixed;
+  outline: red thin dotted;
+}
 
+.loginForm::-webkit-scrollbar {
+  width: 12px;
+  background-color: rgba(186, 186, 186, 0.301);
+}
+
+.loginForm::-webkit-scrollbar-thumb {
+  background-color: rgb(186, 186, 186);
+  border-radius: 8px;
+}
+
+.loginForm::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(186, 186, 186, 0.758);
 }
 
 .loginForm {
-    display: inline-flex;
-    flex-direction: column;
-    color: black;
-    background-color: white;
-
+  display: inline-flex;
+  flex-direction: column;
+  color: black;
+  background-color: white;
 }
-
 
 .formBox {
-    display: inline-flex;
-    flex-direction: column;
-    margin: 5px;
-    background-color: white;
-    width: 300px;
-
+  display: inline-flex;
+  flex-direction: column;
+  margin: 5px;
+  background-color: white;
+  width: 300px;
 }
 
-
 .label {
-    background-color: white;
-    margin: 5px 0 5px 0;
+  background-color: white;
+  margin: 5px 0 5px 0;
 }
 
 .input {
-    border: 1px solid lightgray;
-    border-radius: 5px;
-    margin-right: 5px;
-    background-color: white;
-    height: 25px
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  margin-right: 5px;
+  background-color: white;
+  height: 25px;
 }
 
-.submitButton {
-    height: 40px;
-    margin-top: 5px;
-    border: 1px solid orangered;
-    border-radius: 7px;
-    margin: 10px 0 10px 0;
-    font-weight: bold;
-    color: white;
+button.submitButton {
+  height: 40px;
+  margin-top: 5px;
+  border: 1px solid orangered;
+  border-radius: 7px;
+  margin: 20px 0 10px 0;
+  font-weight: bold;
+  color: white;
 
-    background-color: orangered;
-    font-size: 17px;
-
+  background-color: orangered;
+  font-size: 17px;
 }
-
 
 @media only screen and (max-width: 580px) {
-    .loginComponent {
-        width: 350px;
-    }
+  .loginComponent {
+    width: 350px;
+  }
 }
