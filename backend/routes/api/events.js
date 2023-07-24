@@ -683,7 +683,6 @@ router.get("/", async (req, res) => {
       "description",
     ],
     where,
-    // not returning all events when no page or size are set as queries
     order,
     limit: size,
     offset: size * (page - 1),
