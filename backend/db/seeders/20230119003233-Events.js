@@ -161,7 +161,7 @@ module.exports = {
             "https://res.cloudinary.com/dkul3ouvi/image/upload/v1677649459/photo-1620588212046-66bc57e70eeb_occccd.jpg",
         },
         {
-          name: "Chess Tournament",
+          name: "Chess Tournament 2023",
           type: "In Person",
           description:
             "Competition with $500 prize for the winner. May the best player win",
@@ -514,6 +514,20 @@ module.exports = {
           endDate: "2023-12-20 20:00:00",
           previewImage:
             "https://res.cloudinary.com/dkul3ouvi/image/upload/v1678234352/UP-Club-Interior-001_rduqey.jpg",
+        },
+        {
+          name: "Chess Tournament 2022",
+          type: "In Person",
+          description:
+            "Competition with $1000 prize for the winner. May the best player win",
+          price: 15,
+          capacity: 50,
+          groupId: 3,
+          venueId: 1,
+          startDate: "2022-6-19 20:00:00",
+          endDate: "2022-6-20 20:00:00",
+          previewImage:
+            "https://res.cloudinary.com/dkul3ouvi/image/upload/v1677649354/photo-1604948501466-4e9c339b9c24_zdwozt.jpg",
         },
       ],
       {}
