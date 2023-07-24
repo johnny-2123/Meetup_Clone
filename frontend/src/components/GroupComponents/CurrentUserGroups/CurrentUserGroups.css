@@ -1,117 +1,117 @@
 html,
 body {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
-.manageGroups {
-    margin-bottom: .5rem;
-    font-weight: 300;
+h2.manageGroups {
+  margin-top: 2.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 300;
+  font-size: 1.75rem;
 }
 
-.yourGroupsInMeetup {
-    border-bottom: 1px lightgray solid;
-    padding-bottom: 1rem;
-    color: darkgray;
-    margin: 0 0 2rem 0;
-    font-weight: 500;
+h3.yourGroupsInMeetup {
+  border-bottom: 1px lightgray solid;
+  padding-bottom: 1rem;
+  color: darkgray;
+  margin: 0 0 2rem 0;
+  font-size: 1.4rem;
+  font-weight: 500;
 }
 
 #currentUserGroupsDiv {
-    /* background-color: bisque; */
-    max-width: 900px;
-    align-items: center;
-    height: 100%;
+  /* background-color: bisque; */
+  max-width: 900px;
+  align-items: center;
+  height: 100%;
 }
 
 #currentUserGroupsContainerDetails {
-    padding-bottom: 0;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    flex: auto;
-    flex-grow: auto;
-    height: 100%;
-    max-height: none;
+  padding-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  flex: auto;
+  flex-grow: auto;
+  height: 100%;
+  max-height: none;
 }
 
 #currentUserGroupsName {
-    margin: 0;
-    font-size: 1.1rem;
-    font-weight: 300;
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 300;
 }
 
 #myGroupsCity {
-    padding-top: .3rem;
-    font-size: .95rem;
-    width: fit-content;
-    color: rgb(135, 116, 87);
-    margin: 0rem 0 .25rem 0;
-    font-weight: 300;
+  padding-top: 0.3rem;
+  font-size: 0.95rem;
+  width: fit-content;
+  color: rgb(135, 116, 87);
+  margin: 0rem 0 0.25rem 0;
+  font-weight: 300;
 }
 
-
 #myGroupsPrivacyDiv h4 {
-    margin: 0;
-    font-size: .95rem;
+  margin: 0;
+  font-size: 0.95rem;
 }
 
 #myGroupsPrivacyDiv :last-child {
-    margin-left: 1.5px;
+  margin-left: 1.5px;
 }
 
 .currentUserGroupButtonDiv {
-    display: flex;
-    height: 4rem;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: flex-end;
-    margin-bottom: 0;
+  display: flex;
+  height: 4rem;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin-bottom: 0;
 }
 
 .currentUserGroupButtonDiv button {
-    background-color: lightslategray;
-    border-color: lightslategray;
-    width: 25%;
-    min-width: 100px;
-    margin-bottom: 0;
+  background-color: lightslategray;
+  border-color: lightslategray;
+  width: 25%;
+  min-width: 100px;
+  margin-bottom: 0;
 }
 
 .membershipPending {
-    margin: 1rem 0 0 0;
-    color: orangered;
-    opacity: .7;
-    text-align: right;
+  margin: 1rem 0 0 0;
+  color: orangered;
+  opacity: 0.7;
+  text-align: right;
 }
 
 .noGroupsJoinedOrCreated {
-    color: darkgray;
-    text-align: center;
+  color: darkgray;
+  text-align: center;
 }
 
 @media only screen and (max-width: 608px) {
+  .allEventsContainer p {
+    text-align: center;
+  }
 
-    .allEventsContainer p {
-        text-align: center;
-    }
+  .currentUserGroupButtonDiv {
+    justify-content: center;
+    padding: 0;
+  }
 
-    .currentUserGroupButtonDiv {
-        justify-content: center;
-        padding: 0;
-    }
+  .currentUserGroupButtonDiv button {
+    width: 45%;
+    min-width: 100px;
+    margin: 0 0 1rem 0;
+  }
 
-    .currentUserGroupButtonDiv button {
-        width: 45%;
-        min-width: 100px;
-        margin: 0 0 1rem 0
-    }
+  #currentUserGroupUpdateButton {
+    margin-right: 0.5rem;
+  }
 
-    #currentUserGroupUpdateButton {
-        margin-right: .5rem;
-    }
-
-    #currentUserGroupDeleteButton {
-        margin-left: .5rem;
-    }
-
+  #currentUserGroupDeleteButton {
+    margin-left: 0.5rem;
+  }
 }
