@@ -85,9 +85,11 @@ div.dropZone.dragOver {
 }
 
 div.dropZone h1 {
-  font-size: 1.7rem;
+  font-size: 1.3rem;
   font-weight: 500;
   color: #333;
+  margin-top: 0;
+  /* padding-bottom: 0; */
 }
 
 @media only screen and (max-width: 750px) {
