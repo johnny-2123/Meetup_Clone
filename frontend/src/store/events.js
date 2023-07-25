@@ -11,27 +11,6 @@ const ADD_EVENT_IMAGE = "events/ADD_EVENT_IMAGE";
 const GET_EVENT_IMAGES = "events/GET_EVENT_IMAGES";
 const DELETE_EVENT_IMAGE = "events/DELETE_EVENT_IMAGE";
 
-// const getEventImages = (eventImages) => ({
-//   type: GET_EVENT_IMAGES,
-//   eventImages,
-// });
-
-// export const fetchEventImages = (eventId) => async (dispatch) => {
-//   const response = await csrfFetch(`/api/events/${eventId}/images`);
-//   console.log(
-//     `fetch event images store *********************response:`,
-//     response
-//   );
-//   if (response.ok) {
-//     const eventImages = await response.json();
-//     console.log(
-//       `fetch event images store to json *********************eventImages:`,
-//       eventImages
-//     );
-//     dispatch(getEventImages(eventImages));
-//   }
-// };
-
 const deleteEventImage = (eventImageId) => ({
   type: DELETE_EVENT_IMAGE,
   eventImageId,
@@ -52,8 +31,8 @@ export const fetchDeleteEventImage =
 
 const addEventImage = (eventId, eventImage) => ({
   type: ADD_EVENT_IMAGE,
-  eventImage,
   eventId,
+  eventImage,
 });
 
 export const fetchCreateEventImage =
@@ -66,7 +45,8 @@ export const fetchCreateEventImage =
 
     if (response.ok) {
       const eventImage = await response.json();
-      dispatch(addEventImage(eventId, eventImage));
+      console.log("fetch create event image response json", eventImage);
+      await dispatch(addEventImage(eventId, eventImage));
       return eventImage;
     }
   };
@@ -225,6 +205,15 @@ const eventsReducer = (state = initialState, action) => {
         ...state,
         upcomingEvents: [...action.events.Events],
       };
+    case ADD_EVENT_IMAGE:
+      console.log("dispatch add event image action");
+      newState = { ...state };
+      console.log("action.eventImage", action.eventImage);
+      newState.currentEvent.EventImages = [
+        ...newState.currentEvent.EventImages,
+        action.eventImage,
+      ];
+      return newState;
     default:
       return state;
   }

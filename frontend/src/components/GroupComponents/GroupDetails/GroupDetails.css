@@ -1,483 +1,460 @@
 html,
 body {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 }
 
-
-
 .MainGroupDetailsNav {
-    margin: 0;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-items: center;
-    align-items: center;
-    padding: 0px;
-    position: absolute;
-    top: 65px;
+  margin: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  padding: 0px;
+  position: absolute;
+  top: 65px;
 }
 
 .SubGroupDetailsNav {
-    padding-top: 0;
-    min-height: 30vh;
-    width: 90vw;
-    height: fit-content;
-    display: flex;
-    justify-content: flex-start;
-    justify-items: flex-start;
-    flex-direction: column;
+  padding-top: 0;
+  min-height: 30vh;
+  width: 90vw;
+  height: fit-content;
+  display: flex;
+  justify-content: flex-start;
+  justify-items: flex-start;
+  flex-direction: column;
 }
 
 .backbuttonDiv {
-    display: inline-flex;
-    height: 50px;
-    align-items: flex-end;
-    justify-content: flex-start;
-
+  display: inline-flex;
+  height: 50px;
+  align-items: flex-end;
+  justify-content: flex-start;
 }
 
 .backButton {
-    display: inline-block;
-    background-color: white;
-    border: none;
-    color: skyblue;
-    font-size: 16px;
+  display: inline-block;
+  background-color: white;
+  border: none;
+  color: skyblue;
+  font-size: 16px;
 }
 
 .backButton:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .groupInfoDiv {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
 }
 
 .groupInfoDiv img {
-
-    width: 50%;
-    min-width: 300px;
-    min-height: 150px;
-    max-width: 500px;
-    height: fit-content;
-    object-fit: cover;
-    margin-right: 1rem;
-    border-radius: 5px;
-    /* height: 300px;
+  width: 50%;
+  min-width: 300px;
+  min-height: 150px;
+  max-width: 500px;
+  height: fit-content;
+  object-fit: cover;
+  margin-right: 1rem;
+  border-radius: 5px;
+  /* height: 300px;
     margin-right: 10px;
     border-radius: 10px; */
-
 }
 
 .groupTextTopRightDiv {
-    display: flex;
-    flex-direction: column;
-    min-width: 248px;
-    justify-content: space-between;
-    /* background-color: cadetblue; */
+  display: flex;
+  flex-direction: column;
+  min-width: 248px;
+  justify-content: space-between;
+  /* background-color: cadetblue; */
 }
 
 .groupTextTopRightDiv h3 {
-    margin-top: 0rem;
-    margin-bottom: 2px;
-    font-size: 1.2rem;
-    font-weight: 300;
+  margin-top: 0rem;
+  margin-bottom: 2px;
+  font-size: 1.2rem;
+  font-weight: 300;
 }
 
 .groupTextTopRightDiv h4 {
-    margin-top: 2px;
-    margin-bottom: 2px;
-    color: lightslategray;
-    font-size: 1rem;
-    font-weight: 500;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  color: lightslategray;
+  font-size: 1rem;
+  font-weight: 500;
 }
 
 .groupLocationPrivacyDiv h4 {
-    color: rgb(135, 116, 87);
-
+  color: rgb(135, 116, 87);
 }
 
 .eventsPrivateDiv {
-    display: flex;
-    flex-direction: row;
-    margin-top: 2px;
+  display: flex;
+  flex-direction: row;
+  margin-top: 2px;
 }
 
 .eventsPrivateDiv h4 {
-    /* margin-right: 10px; */
-    margin-top: 0px;
-
+  /* margin-right: 10px; */
+  margin-top: 0px;
 }
-
 
 .groupDetailsButtonDiv {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
-.groupDetailsButton {
-    background-color: #F65858;
-    border: #F65858 solid 1px;
-    box-shadow: 1px 2px 2px lightslategray;
-    color: white;
-    padding: 5px 8px 5px 8px;
-    font-weight: 500;
-    margin: .5rem .5rem 0rem 0;
-    width: 25%;
-    min-width: 98px;
+div.groupDetailsButtonsDiv button.groupDetailsButton {
+  background-color: #0d6d6dbe;
+  border: #0d6d6dbe solid 1px;
+  /* box-shadow: 1px 2px 2px lightslategray; */
+  color: white;
+  padding: 5px 8px 5px 8px;
+  font-weight: 500;
+  margin: 0.5rem 0.5rem 0rem 0;
+  width: 25%;
+  min-width: 98px;
 }
 
-.groupDetailsButton:hover {
-    opacity: .85;
+button.groupDetailsButton:hover {
+  opacity: 0.9;
 }
 
-#groupDetailsDeleteButton {
-    margin-right: 0;
+button#groupDetailsDeleteButton {
+  margin-right: 0;
+  background-color: #b51616;
+  border-color: #b51616;
 }
 
 #membershipRequested {
-    width: fit-content;
-    opacity: .85;
+  width: fit-content;
+  opacity: 0.85;
 }
 
 .groupTextBottomDiv {
-    background-color: #F6F6F6;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 50vh;
-    margin: 0px;
-    margin-bottom: -9px;
+  background-color: #f6f6f6;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 50vh;
+  margin: 0px;
+  margin-bottom: -9px;
 }
 
 .subGroupTextBotttomDiv {
-    background-color: #F6F6F6;
-    width: 90vw;
-    display: flex;
-    flex-direction: column;
+  background-color: #f6f6f6;
+  width: 90vw;
+  display: flex;
+  flex-direction: column;
 }
 
 .subGroupTextBotttomDiv h3 {
-    margin-bottom: 3px;
-    font-size: 1.2em;
-    font-weight: 300;
+  margin-bottom: 3px;
+  font-size: 1.2em;
+  font-weight: 300;
 }
 
 .subGroupTextBotttomDiv h4 {
-    margin-top: 5px;
-    font-size: .5rem;
-    margin-bottom: 3px;
+  margin-top: 5px;
+  font-size: 0.5rem;
+  margin-bottom: 3px;
 }
 
 #groupOrganizerUsername {
-    font-weight: 300;
-    font-size: .95rem;
-    color: lightslategray;
-    margin-top: 0;
-    margin-bottom: .8rem;
+  font-weight: 300;
+  font-size: 0.95rem;
+  color: lightslategray;
+  margin-top: 0;
+  margin-bottom: 0.8rem;
 }
 
 .aboutHeader {
-    margin-top: .5rem;
-    font-weight: 400;
+  margin-top: 0.5rem;
+  font-weight: 400;
 }
 
 .aboutP {
-    margin-top: 2px;
-    width: 100%;
-    height: fit-content;
-
-
+  margin-top: 2px;
+  width: 100%;
+  height: fit-content;
 }
-
-
 
 .GroupDetailsNavButtons {
-    padding: 0;
-    display: flex;
-    flex-direction: row;
-    flex: auto;
-    width: 100%;
-    justify-content: space-between;
-    justify-items: space-between;
-    align-items: flex-start;
-    border-top: 1px solid darkgray;
-    padding: 1rem 0 1rem 16px;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  flex: auto;
+  width: 100%;
+  justify-content: space-between;
+  justify-items: space-between;
+  align-items: flex-start;
+  border-top: 1px solid darkgray;
+  padding: 1rem 0 1rem 16px;
 
-    border-bottom: 1px solid darkgray;
+  border-bottom: 1px solid darkgray;
 }
 
-
 .GroupDetailsNavButtons li {
-    list-style: none;
-    display: inline-flex;
-    justify-content: flex-start;
-    width: 50%;
+  list-style: none;
+  display: inline-flex;
+  justify-content: flex-start;
+  width: 50%;
 }
 
 .viewMemberGroupDetailsButton {
-    width: fit-content;
-    border: none;
-    background-color: #F6F6F6;
-    color: rgb(0, 82, 94);
-    color: darkgray;
-    font-size: 1.2rem;
-    padding: 0;
-    border: none;
-    margin-right: 1rem;
+  width: fit-content;
+  border: none;
+  background-color: #f6f6f6;
+  color: rgb(0, 82, 94);
+  color: darkgray;
+  font-size: 1.2rem;
+  padding: 0;
+  border: none;
+  margin-right: 1rem;
 }
 
 .viewMemberGroupDetailsButtonClicked {
-    width: fit-content;
-    border: none;
-    background-color: #F6F6F6;
-    font-size: 1.2rem;
-    padding: 0;
-    border: none;
-    margin-right: 1rem;
-    border-bottom: 1px solid rgb(0, 82, 94);
-    color: rgb(0, 82, 94);
-
+  width: fit-content;
+  border: none;
+  background-color: #f6f6f6;
+  font-size: 1.2rem;
+  padding: 0;
+  border: none;
+  margin-right: 1rem;
+  border-bottom: 1px solid rgb(0, 82, 94);
+  color: rgb(0, 82, 94);
 }
-
 
 .viewMemberGroupDetailsButton:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
-
 .upcomingEvents {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .groupEventContainer {
-    border-bottom: 1px solid lightgray;
-    display: flex;
-    flex-direction: column;
-    margin-top: 10px;
-    margin-bottom: 15px;
-    padding-bottom: 20px;
+  border-bottom: 1px solid lightgray;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  padding-bottom: 20px;
 }
 
 .groupEventContainer:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .groupDetailsImageAndInfo {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 #groupEventPicture {
-    width: 40%;
-    min-width: 150px;
-    max-width: 300px;
-    height: fit-content;
-    object-fit: cover;
-    margin-right: 1rem;
-    border-radius: 5px;
+  width: 40%;
+  min-width: 150px;
+  max-width: 300px;
+  height: fit-content;
+  object-fit: cover;
+  margin-right: 1rem;
+  border-radius: 5px;
 }
 
 .groupEventContainer h4 {
-    font-size: 1.1rem;
-    font-weight: 300;
+  font-size: 1.1rem;
+  font-weight: 300;
 }
 
 .groupEventContainer h5 {
-    margin: 0px;
-    font-weight: 300;
-    font-size: .9rem;
+  margin: 0px;
+  font-weight: 300;
+  font-size: 0.9rem;
 }
 
 .groupEventsInfo {
-    width: 100%;
+  width: 100%;
 }
 
 .groupDetailsEventTime {
-    color: lightslategray
+  color: lightslategray;
 }
 
 .groupEventsDescriptionP {
-    height: fit-content;
-    width: 100%;
-    font-size: .9rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  height: fit-content;
+  width: 100%;
+  font-size: 0.9rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 #upcomingEvents {
-    font-size: 1rem;
-    color: black;
+  font-size: 1rem;
+  color: black;
 }
 
 #pastEvents {
-    font-size: 1rem;
-    color: black;
+  font-size: 1rem;
+  color: black;
 }
 
-
 .react-alert-confirm {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    justify-items: center;
-    align-content: space-around;
-    right: 0px;
-    bottom: 0;
-    font-size: 17px;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-    overflow-y: hidden;
-    background-color: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  align-content: space-around;
+  right: 0px;
+  bottom: 0;
+  font-size: 17px;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  overflow-y: hidden;
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .react-alert-confirm div {
-    padding: 1px;
-    max-width: 200px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin-bottom: 0px;
-    padding: 7px;
+  padding: 1px;
+  max-width: 200px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 0px;
+  padding: 7px;
 
-    background-color: white;
-    justify-content: center;
+  background-color: white;
+  justify-content: center;
 }
 
 .react-alert-confirm button {
-    background-color: orangered;
-    border: orangered 1px solid;
-    margin-top: 5px;
-    margin-left: 27px;
-    margin-right: 27px;
-    padding: 5px 7.1px 5px 7.1px;
-    color: white;
+  background-color: orangered;
+  border: orangered 1px solid;
+  margin-top: 5px;
+  margin-left: 27px;
+  margin-right: 27px;
+  padding: 5px 7.1px 5px 7.1px;
+  color: white;
 }
 
 .react-alert-confirm h1 {
-    font-size: 17px;
-    margin-bottom: 0px;
+  font-size: 17px;
+  margin-bottom: 0px;
 }
 
-
-
-
-
 @media only screen and (max-width: 580px) {
+  .MainGroupDetailsNav {
+    /* background-color: bisque; */
+  }
 
+  .groupInfoDiv {
+    flex-direction: column-reverse;
+    align-items: center;
+    margin-top: 0.5rem;
+    /* background-color: blueviolet; */
+  }
 
+  #groupDetailsMainImage {
+    width: 100vw;
+    margin: 0;
+    border-radius: 0;
+  }
 
-    .MainGroupDetailsNav {
-        /* background-color: bisque; */
-    }
+  .groupTextTopRightDiv {
+    /* background-color: chartreuse; */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
 
-    .groupInfoDiv {
-        flex-direction: column-reverse;
-        align-items: center;
-        margin-top: .5rem;
-        /* background-color: blueviolet; */
-    }
+  .groupTextTopRightDiv h3 {
+    text-align: center;
+    /* background-color: bisque; */
+    max-width: none;
+    width: 100%;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
 
-    #groupDetailsMainImage {
-        width: 100vw;
-        margin: 0;
-        border-radius: 0;
-    }
+  .groupTextTopRightDiv h4 {
+    text-align: center;
+  }
 
-    .groupTextTopRightDiv {
-        /* background-color: chartreuse; */
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        width: 100%;
-    }
+  .groupLocationPrivacyDiv {
+    max-width: none;
+    width: 90dvw;
+    /* background-color: lightpink; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-    .groupTextTopRightDiv h3 {
-        text-align: center;
-        /* background-color: bisque; */
-        max-width: none;
-        width: 100%;
-        font-size: 2rem;
-        margin-bottom: .5rem;
-    }
+    /* padding: 0 20px 0 20px; */
+  }
 
-    .groupTextTopRightDiv h4 {
-        text-align: center;
-    }
+  .eventsPrivateDiv {
+    padding-right: 0;
+  }
 
-    .groupLocationPrivacyDiv {
-        max-width: none;
-        width: 90dvw;
-        /* background-color: lightpink; */
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+  .eventsPrivateDiv h4 {
+    margin-right: 0;
+  }
 
-        /* padding: 0 20px 0 20px; */
-    }
+  #groupDetailsEventsNumber {
+    /* margin-right: 10px; */
+  }
 
-    .eventsPrivateDiv {
-        padding-right: 0;
-    }
+  .groupDetailsButtonsDiv {
+    width: 100%;
+    padding-left: 0rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-items: center;
+    align-content: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
 
-    .eventsPrivateDiv h4 {
-        margin-right: 0;
-    }
+  .groupDetailsButton {
+    width: 31%;
+  }
 
-    #groupDetailsEventsNumber {
-        /* margin-right: 10px; */
-    }
+  #groupDetailsUnjoinButton {
+    width: 50%;
+    justify-self: center;
+  }
 
-    .groupDetailsButtonsDiv {
-        width: 100%;
-        padding-left: 0rem;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-items: center;
-        align-content: center;
-        justify-content: center;
-        margin-bottom: 1rem;
-    }
+  .GroupDetailsNavButtons {
+    width: 95%;
+    justify-content: center;
+  }
 
-    .groupDetailsButton {
-        width: 31%;
-    }
+  .GroupDetailsNavButtons li {
+    justify-content: center;
+  }
 
-    #groupDetailsUnjoinButton {
-        width: 50%;
-        justify-self: center;
-    }
+  .groupEventContainer {
+  }
 
-
-    .GroupDetailsNavButtons {
-        width: 95%;
-        justify-content: center;
-    }
-
-    .GroupDetailsNavButtons li {
-        justify-content: center;
-    }
-
-    .groupEventContainer {}
-
-    .groupDetailsImageAndInfo {
-        justify-content: center;
-        align-items: center;
-    }
-
+  .groupDetailsImageAndInfo {
+    justify-content: center;
+    align-items: center;
+  }
 }

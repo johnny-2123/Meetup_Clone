@@ -1,72 +1,63 @@
 import React, { useState, useRef } from "react";
 import styles from "./DragDropFiles.module.css";
 import { storage } from "../../../../../config/firebase";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useDispatch, useSelector } from "react-redux";
 // import { doc, collection, setDoc, getDocs } from "firebase/firestore";
 import { fetchCreateEventImage } from "../../../../../store/events";
 
-const DragDropFiles = ({ files, setFiles, event }) => {
+const DragDropFiles = ({ files, setFiles, event, setImages, images }) => {
   // console.log(`*********************event in drag drop component:`, event);
   const dispatch = useDispatch();
   const inputRef = useRef();
   const [uploadProgress, setUploadProgress] = useState(0);
   const [uploaded, setUploaded] = useState(false);
+  const [previewImage, setPreviewImage] = useState(null);
 
   const handleDragOver = (e) => {
     e.preventDefault();
-    console.log(
-      `Drag Over *********************e.dataTransfer.files:`,
-      e.dataTransfer.files
-    );
+    // console.log(
+    //   `Drag Over *********************e.dataTransfer.files:`,
+    //   e.dataTransfer.files
+    // );
   };
 
   const handleDrop = (e) => {
     e.preventDefault();
     setFiles(e.target.files[0]);
-    console.log(
-      `Drop Over*********************e.dataTransfer.files:`,
-      e.dataTransfer.files
-    );
+    // console.log(
+    //   e.dataTransfer.files
+    // );
     console.log("files", files);
   };
 
-  const handleUpload = () => {
+  const handleUpload = async () => {
     const subFolderName = event?.id;
     if (!files)
       return {
         alert: "No files selected",
       };
-    // const formData = new FormData();
-    // formData.append("Files", files);
-    // console.log(formData.getAll());
-    const storageRef = ref(
+
+    const imageRef = ref(
       storage,
       `events/${subFolderName}/images/${files.name}`
     );
 
-    const uploadTask = uploadBytesResumable(storageRef, files[0]);
+    await uploadBytes(imageRef, files);
 
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const progress =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        setUploadProgress(progress);
-      },
-      (error) => {
-        console.log(error);
-      },
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          console.log(`File available at ${downloadURL}`);
-          const preview = true;
-          const eventId = event.id;
-          dispatch(fetchCreateEventImage(eventId, downloadURL, preview));
-        });
-        setUploaded(true);
-      }
-    );
+    const downloadURL = await getDownloadURL(imageRef);
+    console.log(`File available at ${downloadURL}`);
+    setPreviewImage(downloadURL);
+
+    const preview = true;
+    const eventId = event.id;
+    await dispatch(fetchCreateEventImage(eventId, downloadURL, preview))
+      .then((response) => {
+        console.log("fetched image upload response", response);
+        setImages([...images, response]);
+      })
+      .catch((err) => console.log("fetched image upload error", err));
+    setUploaded(true);
   };
   return (
     <div id={styles.dragDropFiles}>

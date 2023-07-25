@@ -257,23 +257,33 @@ body {
   width: auto;
 }
 
-.deleteUpdateDiv button {
-  background-color: #f65858;
-  border-color: #f65858;
+div.deleteUpdateDiv button {
+  background-color: #0d6d6d;
+  border-color: #0d6d6d;
   width: 45%;
+  color: white;
   margin-top: 0.5rem;
+  /* border-radius: 8px; */
+  font-weight: 500;
+  box-shadow: 1px 2px 2px rgb(199, 199, 200);
 }
 
-.deleteUpdateDiv :first-child {
+div.deleteUpdateDiv button:hover {
+  cursor: pointer;
+  background-color: #0d6d6dbe;
+  border-color: #0d6d6dbe;
+}
+
+div.deleteUpdateDiv :first-child {
   margin-right: 0;
   /* margin-top: 0.75rem; */
-  background-color: #df3232;
-  border-color: #df3232;
+  background-color: #b51616;
+  border-color: #b51616;
 }
 
 .deleteUpdateDiv :first-child:hover {
-  background-color: #df3232cc;
-  border-color: #df3232cc;
+  background-color: #b51616cf;
+  border-color: #b51616cf;
 }
 
 .greySectionBottomHalf {

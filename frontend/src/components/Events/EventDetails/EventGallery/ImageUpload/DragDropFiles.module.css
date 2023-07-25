@@ -10,6 +10,7 @@ div.uploads {
 
 div.uploads ul {
   padding-left: 0;
+  padding: 0 2rem;
 }
 
 div.uploads li {
@@ -26,29 +27,30 @@ div.actions {
 
 div#dragDropFiles button {
   padding: 0.25rem 2rem;
-  width: 30%;
+  width: 25%;
   font: medium;
   margin: 0.25rem 0.5rem;
-  background-color: #f65858;
-  border-color: #f65858;
+  background-color: #0d6d6d;
+  border: 1px solid #0d6d6d;
   color: white;
   box-shadow: 1px 2px 2px rgb(199, 199, 200);
+  /* border-radius: 8px; */
 }
 
 div#dragDropFiles button:hover {
   cursor: pointer;
-  background-color: #f65858d2;
-  border-color: #f65858d2;
+  background-color: #0d6d6dbe;
+  border-color: #0d6d6dbe;
 }
 
 div#dragDropFiles button.cancelButton {
-  background-color: #df3232;
-  border-color: #df3232;
+  background-color: #b51616;
+  border-color: #b51616;
 }
 
 div#dragDropFiles button.cancelButton:hover {
-  background-color: #df3232cc;
-  border-color: #df3232cc;
+  background-color: #b51616cf;
+  border-color: #b51616cf;
 }
 
 div.dropZone {
@@ -59,4 +61,15 @@ div.dropZone {
   height: 360px;
   border: 3px dashed #33333361;
   padding: 1rem;
+}
+
+@media only screen and (max-width: 750px) {
+  div.actions {
+    flex-direction: column;
+  }
+
+  div#dragDropFiles button {
+    width: 100%;
+    margin: 0.55rem auto;
+  }
 }

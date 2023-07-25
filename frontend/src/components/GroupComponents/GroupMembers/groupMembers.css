@@ -10,137 +10,132 @@
 } */
 
 .groupMembersMainDiv h2 {
-    font-weight: 300;
-    font-size: 1.3rem;
+  font-weight: 300;
+  font-size: 1.3rem;
 }
 
 .memberContainer {
-    display: flex;
-    flex-direction: row;
-    width: 80%;
-    border-bottom: 1px solid darkgray;
-    justify-content: space-between;
-    margin: 1rem 1rem 0rem 1rem;
-    padding-bottom: 20px;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  border-bottom: 1px solid darkgray;
+  justify-content: space-between;
+  margin: 1rem 1rem 0rem 1rem;
+  padding-bottom: 20px;
+  align-items: center;
 }
 
 .memberContainer h4 {
-    font-weight: 300;
+  font-weight: 300;
 }
 
 .memberContainer h5 {
-    font-weight: 300;
-
+  font-weight: 300;
 }
 
 .memberIconDetailsDiv {
-    display: flex;
-    flex-direction: row;
-    width: 80%;
-    align-items: center;
-    justify-items: center;
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  align-items: center;
+  justify-items: center;
 }
 
 #memberIcon {
-    margin: 0;
-    color: rgb(246, 88, 88);
-    border: 1px white solid;
-    border-radius: 15px;
-    padding: 0;
-    font-size: 31px;
-    font-weight: 300;
-    margin-right: 2rem;
+  margin: 0;
+  color: rgb(246, 88, 88);
+  border: 1px white solid;
+  border-radius: 15px;
+  padding: 0;
+  font-size: 31px;
+  font-weight: 300;
+  margin-right: 2rem;
 }
 
 #memberIconPending {
-    margin: 0;
-    color: darkgray;
-    border: 1px white solid;
-    border-radius: 15px;
-    padding: 0;
-    font-size: 31px;
-    font-weight: 300;
-    margin-right: 2rem;
+  margin: 0;
+  color: darkgray;
+  border: 1px white solid;
+  border-radius: 15px;
+  padding: 0;
+  font-size: 31px;
+  font-weight: 300;
+  margin-right: 2rem;
 }
 
 #memberName {
-    margin: 0 0 0 0;
-    font-size: 1rem;
+  margin: 0 0 0 0;
+  font-size: 1rem;
 }
 
 #memberStatus {
-    margin: .3rem 0 0 0;
+  margin: 0.3rem 0 0 0;
 }
 
-
 .memberButtonsDiv {
-    height: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-items: flex-end;
-    justify-content: flex-end;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-items: flex-end;
+  justify-content: flex-end;
 }
 
 .memberButtonsDiv :last-child {
-    margin-left: 1rem;
+  margin-left: 1rem;
 }
 
 .groupMemberButton {
-    width: 150px;
-    min-width: min-content;
-    min-height: 30px;
-    background-color: lightslategray;
-    color: white;
-    border: lightslategray solid 1px;
-    opacity: 1;
-    box-shadow: 1px 2px 2px lightslategray;
+  width: 150px;
+  min-width: min-content;
+  min-height: 30px;
+  background-color: lightslategray;
+  color: white;
+  border: lightslategray solid 1px;
+  opacity: 1;
+  /* box-shadow: 1px 2px 2px lightslategray; */
 }
 
-
-
 @media only screen and (max-width: 580px) {
+  .groupMembersMainDiv {
+    width: 100%;
+  }
 
-    .groupMembersMainDiv {
-        width: 100%;
-    }
+  .memberContainer {
+    flex-direction: column;
+    width: 100%;
+    margin-left: 0;
+    align-items: center;
+  }
 
-    .memberContainer {
-        flex-direction: column;
-        width: 100%;
-        margin-left: 0;
-        align-items: center;
-    }
+  .memberIconDetailsDiv {
+    justify-items: center;
+  }
 
-    .memberIconDetailsDiv {
-        justify-items: center;
-    }
+  #memberName {
+    font-size: 1.1rem;
+  }
 
-    #memberName {
-        font-size: 1.1rem;
-    }
+  #memberStatus {
+    font-size: 1rem;
+    margin-top: 0.1rem;
+  }
 
-    #memberStatus {
-        font-size: 1rem;
-        margin-top: .1rem;
-    }
+  .memberButtonsDiv {
+    margin-top: 0.5rem;
+    width: 350px;
+    align-items: center;
+    flex-direction: column;
+    margin-left: 0;
+    padding-left: 0;
+  }
 
-    .memberButtonsDiv {
-        margin-top: .5rem;
-        width: 350px;
-        align-items: center;
-        flex-direction: column;
-        margin-left: 0;
-        padding-left: 0;
-    }
+  .memberButtonsDiv :last-child {
+    margin-left: 0;
+  }
 
-    .memberButtonsDiv :last-child {
-        margin-left: 0;
-    }
-
-    .groupMemberButton {
-        margin: .5rem 0 0 0;
-        padding-left: 0;
-        width: 225px;
-    }
+  .groupMemberButton {
+    margin: 0.5rem 0 0 0;
+    padding-left: 0;
+    width: 225px;
+  }
 }
