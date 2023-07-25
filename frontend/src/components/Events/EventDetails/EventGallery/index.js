@@ -3,10 +3,11 @@ import ImageUpload from "./ImageUpload";
 
 import styles from "./EventGallery.module.css";
 
-const EventGallery = () => {
+const EventGallery = ({ event }) => {
   return (
     <div className={styles.eventGallery}>
-      <ImageUpload />
+      <h1>Event Gallery</h1>
+      <ImageUpload event={event} />
     </div>
   );
 };

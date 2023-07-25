@@ -15,7 +15,7 @@ function EventDetailsComponent() {
   const history = useHistory();
 
   const event = useSelector((state) => state.events?.currentEvent);
-  console.log(`*********************event:`, event);
+  // console.log(`*********************event:`, event);
   let eventDate = new Date(event?.startDate);
   let eventEndDate = new Date(event?.endDate);
   const sessionUser = useSelector((state) => state.session?.user);
@@ -170,7 +170,7 @@ function EventDetailsComponent() {
             <div className="greySectionBottomHalf">
               <h2>Details</h2>
               <p>{event?.description}</p>
-              <EventGallery />
+              <EventGallery event={event} />
             </div>
           </div>
         </div>
