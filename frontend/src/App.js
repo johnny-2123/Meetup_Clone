@@ -73,6 +73,7 @@ function App() {
         transition={Bounce}
         closeOnClick={true}
         duration={2000}
+        autoClose={2000}
         hideProgressBar={true}
       ></ToastContainer>
     </div>
