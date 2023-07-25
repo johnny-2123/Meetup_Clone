@@ -2,11 +2,13 @@ import React, { useState, useRef } from "react";
 import styles from "./DragDropFiles.module.css";
 import { storage } from "../../../../../config/firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { doc, collection, setDoc, getDocs } from "firebase/firestore";
+import { useDispatch, useSelector } from "react-redux";
+// import { doc, collection, setDoc, getDocs } from "firebase/firestore";
+import { fetchCreateEventImage } from "../../../../../store/events";
 
 const DragDropFiles = ({ files, setFiles, event }) => {
   // console.log(`*********************event in drag drop component:`, event);
-
+  const dispatch = useDispatch();
   const inputRef = useRef();
   const [uploadProgress, setUploadProgress] = useState(0);
   const [uploaded, setUploaded] = useState(false);
@@ -58,6 +60,9 @@ const DragDropFiles = ({ files, setFiles, event }) => {
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           console.log(`File available at ${downloadURL}`);
+          const preview = true;
+          const eventId = event.id;
+          dispatch(fetchCreateEventImage(eventId, downloadURL, preview));
         });
         setUploaded(true);
       }

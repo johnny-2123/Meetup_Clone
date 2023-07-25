@@ -150,18 +150,18 @@ function EventDetailsComponent() {
                 {sessionUser?.user?.id === event?.Organizer?.id && (
                   <div className="deleteUpdateDiv">
                     <button
-                      id="eventDetailsUpdateButton"
-                      onClick={handleUpdateClick}
-                      className="groupDetailsButton"
-                    >
-                      Update
-                    </button>
-                    <button
                       id="eventDetailsDeleteButton"
                       onClick={handleDeleteClick}
                       className="groupDetailsButton"
                     >
                       Delete
+                    </button>
+                    <button
+                      id="eventDetailsUpdateButton"
+                      onClick={handleUpdateClick}
+                      className="groupDetailsButton"
+                    >
+                      Update
                     </button>
                   </div>
                 )}

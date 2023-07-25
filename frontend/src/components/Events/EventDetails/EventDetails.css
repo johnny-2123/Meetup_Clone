@@ -264,14 +264,14 @@ body {
   margin-top: 0.5rem;
 }
 
-.deleteUpdateDiv :last-child {
+.deleteUpdateDiv :first-child {
   margin-right: 0;
   /* margin-top: 0.75rem; */
   background-color: #df3232;
   border-color: #df3232;
 }
 
-.deleteUpdateDiv :last-child:hover {
+.deleteUpdateDiv :first-child:hover {
   background-color: #df3232cc;
   border-color: #df3232cc;
 }
