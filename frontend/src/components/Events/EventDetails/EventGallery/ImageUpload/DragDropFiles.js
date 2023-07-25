@@ -24,10 +24,11 @@ const DragDropFiles = ({ files, setFiles, event, setImages, images }) => {
 
   const handleDrop = (e) => {
     e.preventDefault();
-    setFiles(e.target.files[0]);
+    // setFiles(e.target.files[0]);
     // console.log(
     //   e.dataTransfer.files
     // );
+    setFiles(e.dataTransfer.files[0]); // Use e.dataTransfer.files[0] instead of e.target.files[0]
     console.log("files", files);
   };
 
