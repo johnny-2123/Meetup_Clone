@@ -1,0 +1,62 @@
+div.uploads {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem auto;
+}
+
+div.uploads ul {
+  padding-left: 0;
+}
+
+div.uploads li {
+}
+
+div.actions {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+div#dragDropFiles button {
+  padding: 0.25rem 2rem;
+  width: 30%;
+  font: medium;
+  margin: 0.25rem 0.5rem;
+  background-color: #f65858;
+  border-color: #f65858;
+  color: white;
+  box-shadow: 1px 2px 2px rgb(199, 199, 200);
+}
+
+div#dragDropFiles button:hover {
+  cursor: pointer;
+  background-color: #f65858d2;
+  border-color: #f65858d2;
+}
+
+div#dragDropFiles button.cancelButton {
+  background-color: #df3232;
+  border-color: #df3232;
+}
+
+div#dragDropFiles button.cancelButton:hover {
+  background-color: #df3232cc;
+  border-color: #df3232cc;
+}
+
+div.dropZone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 360px;
+  border: 3px dashed #33333361;
+  padding: 1rem;
+}

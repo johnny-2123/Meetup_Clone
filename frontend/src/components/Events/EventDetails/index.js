@@ -64,9 +64,6 @@ function EventDetailsComponent() {
     }
   };
 
-  console.log(`*********event.previewImage`, event?.previewImage);
-  console.log(event?.previewImage == undefined);
-  console.log(loaded && event?.previewImage !== undefined);
   return (
     <div>
       {event.Group?.previewImage && event?.previewImage == undefined && (
@@ -173,6 +170,7 @@ function EventDetailsComponent() {
             <div className="greySectionBottomHalf">
               <h2>Details</h2>
               <p>{event?.description}</p>
+              <EventGallery />
             </div>
           </div>
         </div>

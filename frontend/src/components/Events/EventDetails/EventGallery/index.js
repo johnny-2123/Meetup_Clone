@@ -1,11 +1,12 @@
 import React from "react";
-import DragDropFiles from "./Imageupload/DragDropFiles";
+import ImageUpload from "./ImageUpload";
+
 import styles from "./EventGallery.module.css";
 
 const EventGallery = () => {
   return (
-    <div>
-      <DragDropFiles />
+    <div className={styles.eventGallery}>
+      <ImageUpload />
     </div>
   );
 };
