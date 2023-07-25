@@ -6,16 +6,12 @@ import { faLock } from '@fortawesome/free-solid-svg-icons'
 
 
 function PrivateEventComponent({ event }) {
-
     const history = useHistory();
-
-    console.log(`*********************event:`, event)
 
     const handleGroupDivClick = () => {
         history.push(`/groups/${event?.Group?.id}`)
 
     }
-
 
     return (
         <div>

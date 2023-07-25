@@ -1,9 +1,11 @@
 .slick-list {
   /* margin: 5px; */
   width: 100%;
+  height: fit-content;
+  /* outline: green thin dotted; */
 }
 .slick-slide > div {
-  padding: 0px;
+  padding: 10px 0;
   border-radius: 8px;
   background-color: transparent;
   margin: 0 5px 10px 5px;
@@ -18,16 +20,24 @@
   margin: 5px 0;
 }
 
+ul.slick-dots {
+  bottom: -50px;
+}
+
 .upcomingEventsMainDiv {
   margin: 50px auto;
   width: 95%;
-  padding: 0.5rem 1rem;
+  padding: 0rem 0rem;
   max-width: 1200px;
   /* outline: purple thin dotted; */
 }
 
 .upcomingEventsMainDiv h2 {
   padding-left: 0.5rem;
+  font-weight: 300;
+  font-size: 1.8rem;
+  padding-bottom: 0;
+  margin-bottom: 1rem;
 }
 
 .upcomingEventContainer {
@@ -37,14 +47,13 @@
   /* outline: blue thin dotted; */
   height: 375px;
   padding: 0;
-  transition: translate 0.5s ease-in-out;
-  transition: scale 0.5s ease-in-out;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  transition: translate 2s ease-in-out;
+  transition: scale 2s ease-in-out;
 }
 
 .upcomingEventContainer:hover {
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
-  transform: translateY(-5px) scale(1.01);
+  /* box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3); */
+  transform: translateY(-10px) scale(1.01);
 }
 
 .upcomingEventDetailsContainer {
@@ -52,6 +61,7 @@
   color: #fff;
   height: 100%;
   transition: box-shadow 0.3s ease-in-out;
+  box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
   border-radius: 8px;
   /* outline: yellow thin dotted; */
   display: flex;

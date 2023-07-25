@@ -15,8 +15,6 @@ function UpcomingEvents() {
     return state.events.upcomingEvents;
   });
 
-  console.log(`upcomingEvents`, upcomingEvents);
-
   useEffect(() => {
     dispatch(fetchUpcomingEvents());
   }, [dispatch]);
@@ -71,13 +69,6 @@ function UpcomingEvents() {
                 {eventDate.toLocaleDateString()}
               </h4>
             </div>
-            {/* <div>
-              <h4 id="upcomingEventStartDate" className="eventHour">
-                {eventDate.getHours() % 12}:
-                {eventDate.getMinutes().toString().padStart(2, "0")}{" "}
-                {eventDate.getHours() >= 12 ? "PM" : "AM"}
-              </h4>
-            </div> */}
             <div>
               {event?.Venue?.city && (
                 <h4 id="upcomingEventCity">{event.Venue.city}</h4>

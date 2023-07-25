@@ -1,14 +1,12 @@
 import React, { useState, useRef } from "react";
 import { storage } from "../../../../../config/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { useDispatch, useSelector } from "react-redux";
-// import { doc, collection, setDoc, getDocs } from "firebase/firestore";
+import { useDispatch } from "react-redux";
 import { fetchCreateEventImage } from "../../../../../store/events";
 import { toast } from "react-toastify";
 import styles from "./DragDropFiles.module.css";
 
 const DragDropFiles = ({ files, setFiles, event, setImages, images }) => {
-  // console.log(`*********************event in drag drop component:`, event);
   const dispatch = useDispatch();
   const inputRef = useRef();
   const dropZoneRef = useRef();
@@ -35,7 +33,6 @@ const DragDropFiles = ({ files, setFiles, event, setImages, images }) => {
     const newImageUrl = URL.createObjectURL(e.dataTransfer.files[0]);
     setPreviewImage(newImageUrl);
     dropZoneRef.current.classList.remove(styles.dragOver);
-    console.log("files", files);
   };
 
   const handleUpload = async () => {
@@ -55,21 +52,18 @@ const DragDropFiles = ({ files, setFiles, event, setImages, images }) => {
     await uploadBytes(imageRef, files);
 
     const downloadURL = await getDownloadURL(imageRef);
-    console.log(`File available at ${downloadURL}`);
     const preview = true;
     const eventId = event.id;
     const name = files.name;
 
     dispatch(fetchCreateEventImage(eventId, downloadURL, preview, name))
       .then((response) => {
-        console.log("fetched image upload response", response);
         setImages([...images, response]);
         setPreviewImage(null);
         setFiles(null);
         toast.success("Image uploaded successfully");
       })
       .catch((err) => {
-        console.log("fetched image upload error", err);
         toast.error("Error uploading image");
       });
     setUploaded(true);
@@ -113,7 +107,6 @@ const DragDropFiles = ({ files, setFiles, event, setImages, images }) => {
             type="file"
             // multiple
             onChange={(e) => {
-              console.log("files in input change: ", e.target.files);
               const newImageUrl = URL.createObjectURL(e.target.files[0]);
               setPreviewImage(newImageUrl);
               setFiles(e.target.files[0]);

@@ -66,7 +66,6 @@ function NewGroupForm() {
         } else {
             setDisableSubmitButton(false)
         }
-        console.log('////////////////////////////////////////////', city)
     }, [name, about, type, privacy, city, state, imageUrl])
 
     const handleSubmit = (e) => {

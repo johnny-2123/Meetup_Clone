@@ -494,7 +494,6 @@ router.get("/:id", async (req, res) => {
   }
 
   if (event.Group?.private && user !== null) {
-    console.log(`**********************************user`, user);
     let groupMember;
     if (user) {
       groupMember = await GroupMember.findOne({
@@ -511,7 +510,6 @@ router.get("/:id", async (req, res) => {
         Group: event?.Group,
       });
     }
-    console.log(`groupmember`, groupMember);
   } else if (event.Group?.private && user === null) {
     return res.status(200).json({
       name: event.name,

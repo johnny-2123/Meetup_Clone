@@ -35,7 +35,6 @@ const EventGallery = ({ event }) => {
 
   const handleDeleteImage = async (e, eventId, imageId, name) => {
     e.preventDefault();
-    console.log("handleDeleteImage", eventId, imageId, name);
     const subFolderName = event?.id;
     const imageRef = ref(storage, `events/${subFolderName}/images/${name}`);
 
@@ -45,13 +44,10 @@ const EventGallery = ({ event }) => {
 
       await deleteObject(imageRef);
     } catch (error) {
-      console.log("an error occurred! deleting image", error);
       toast.error("Error deleting image", { hideProgressBar: true });
     } finally {
-      console.log("finally block executed deleted image from firestore");
       dispatch(fetchDeleteEventImage(eventId, imageId))
         .then((response) => {
-          console.log("fetched delete image response", response);
           setImageDeleting(false);
           setImages(
             images.filter((image) => image.id !== response?.deletedEvent?.id)
@@ -61,7 +57,6 @@ const EventGallery = ({ event }) => {
           });
         })
         .catch((error) => {
-          console.log("error deleting image from postgres", error);
         });
     }
   };

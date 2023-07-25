@@ -176,23 +176,31 @@ div.homeMiddleSection p {
 }
 
 .homePageFooter {
-  margin: 2rem 0px 0px 0px;
-  border-top: orangered solid 2px;
-  width: 90%;
+  margin: 3rem 0px 0px 0px;
+  width: 100%;
   min-height: 6rem;
   text-align: center;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   background-color: none;
+  background-color: #008294;
+  border-top-left-radius: 40%;
+  border-top-right-radius: 40%;
 }
 
 .homePageFooterLinks {
   text-decoration: none;
-  color: darkgrey;
+  color: white;
   padding: 0 0.4rem 0.4rem 0.4rem;
-  border-bottom: orangered solid 1px;
+  font-size: 2rem;
+  margin: 0.5rem;
+  /* border-bottom: orangered solid 1px; */
+}
+
+.wellfound {
+  font-weight: 600;
 }
 
 @media only screen and (max-width: 580px) {

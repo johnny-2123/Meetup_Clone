@@ -103,12 +103,28 @@ const HomePage = () => {
         </button>
       </div>
       <UpcomingEvents />
+
       <div className="homePageFooter">
         <a
           className={"homePageFooterLinks"}
           href={"https://github.com/johnny-2123/Project1/wiki"}
+          target="_blank"
         >
-          Github Wiki
+          <i class="fa-brands fa-github"></i>
+        </a>
+        <a
+          className={"homePageFooterLinks"}
+          href={"https://www.linkedin.com/in/johnny-avila-0512aa164/"}
+          target="_blank"
+        >
+          <i class="fa-brands fa-linkedin"></i>
+        </a>
+        <a
+          className={"homePageFooterLinks wellfound"}
+          href={"https://wellfound.com/profile/edit/overview"}
+          target="_blank"
+        >
+          W:
         </a>
       </div>
     </div>

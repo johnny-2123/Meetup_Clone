@@ -21,10 +21,7 @@ const LandingHeader = ({ sessionUser, userLoggedIn, welcomeMessageClass }) => {
           />
           <div className={styles.blob}></div>
         </div>
-        <div
-          class="custom-shape-divider-bottom-1690059328"
-          className={styles["custom-shape-divider-bottom-1690059328"]}
-        >
+        <div className={styles["custom-shape-divider-bottom-1690059328"]}>
           <svg
             data-name="Layer 1"
             xmlns="http://www.w3.org/2000/svg"

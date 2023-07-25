@@ -15,7 +15,6 @@ function EventDetailsComponent() {
   const history = useHistory();
 
   const event = useSelector((state) => state.events?.currentEvent);
-  // console.log(`*********************event:`, event);
   let eventDate = new Date(event?.startDate);
   let eventEndDate = new Date(event?.endDate);
   const sessionUser = useSelector((state) => state.session?.user);

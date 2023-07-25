@@ -24,7 +24,6 @@ export const fetchDeleteEventImage =
 
     if (response.ok) {
       const eventImage = await response.json();
-      console.log("fetch delete event image response json", eventImage);
       dispatch(deleteEventImage(eventImage?.deletedImage?.id));
       return eventImage;
     }
@@ -46,7 +45,6 @@ export const fetchCreateEventImage =
 
     if (response.ok) {
       const eventImage = await response.json();
-      // console.log("fetch create event image response json", eventImage);
       await dispatch(addEventImage(eventId, eventImage));
       return eventImage;
     }
@@ -207,9 +205,7 @@ const eventsReducer = (state = initialState, action) => {
         upcomingEvents: [...action.events.Events],
       };
     case ADD_EVENT_IMAGE:
-      console.log("dispatch add event image action");
       newState = { ...state };
-      console.log("action.eventImage", action.eventImage);
       newState.currentEvent.EventImages = [
         ...newState.currentEvent.EventImages,
         action.eventImage,
