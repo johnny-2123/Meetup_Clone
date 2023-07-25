@@ -1,34 +1,38 @@
 import React, { useState, useRef } from "react";
-import styles from "./DragDropFiles.module.css";
 import { storage } from "../../../../../config/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useDispatch, useSelector } from "react-redux";
 // import { doc, collection, setDoc, getDocs } from "firebase/firestore";
 import { fetchCreateEventImage } from "../../../../../store/events";
+import { toast } from "react-toastify";
+import styles from "./DragDropFiles.module.css";
 
 const DragDropFiles = ({ files, setFiles, event, setImages, images }) => {
   // console.log(`*********************event in drag drop component:`, event);
   const dispatch = useDispatch();
   const inputRef = useRef();
+  const dropZoneRef = useRef();
   const [uploadProgress, setUploadProgress] = useState(0);
   const [uploaded, setUploaded] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
 
-  const handleDragOver = (e) => {
+  const handleDragEnter = (e) => {
     e.preventDefault();
-    // console.log(
-    //   `Drag Over *********************e.dataTransfer.files:`,
-    //   e.dataTransfer.files
-    // );
+    dropZoneRef.current.classList.add(styles.dragOver);
   };
 
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    dropZoneRef.current.classList.add(styles.dragOver);
+  };
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    dropZoneRef.current.classList.remove(styles.dragOver);
+  };
   const handleDrop = (e) => {
     e.preventDefault();
-    // setFiles(e.target.files[0]);
-    // console.log(
-    //   e.dataTransfer.files
-    // );
-    setFiles(e.dataTransfer.files[0]); // Use e.dataTransfer.files[0] instead of e.target.files[0]
+    setFiles(e.dataTransfer.files[0]);
+    dropZoneRef.current.classList.remove(styles.dragOver);
     console.log("files", files);
   };
 
@@ -38,6 +42,8 @@ const DragDropFiles = ({ files, setFiles, event, setImages, images }) => {
       return {
         alert: "No files selected",
       };
+
+    // toast.info("Uploading image...", { autoClose: true });
 
     const imageRef = ref(
       storage,
@@ -51,25 +57,29 @@ const DragDropFiles = ({ files, setFiles, event, setImages, images }) => {
     const preview = true;
     const eventId = event.id;
     const name = files.name;
-    await dispatch(fetchCreateEventImage(eventId, downloadURL, preview, name))
+
+    dispatch(fetchCreateEventImage(eventId, downloadURL, preview, name))
       .then((response) => {
         console.log("fetched image upload response", response);
         setImages([...images, response]);
         setPreviewImage(null);
         setFiles(null);
+        toast.success("Image uploaded successfully");
       })
-      .catch((err) => console.log("fetched image upload error", err));
+      .catch((err) => {
+        console.log("fetched image upload error", err);
+        toast.error("Error uploading image");
+      });
     setUploaded(true);
   };
   return (
     <div id={styles.dragDropFiles}>
       {files && (
         <div className={styles.uploads}>
-          {previewImage && <img src={previewImage} alt="preview" />}{" "}
+          {previewImage && (
+            <img className={styles.uploads} src={previewImage} alt="preview" />
+          )}{" "}
           <ul>
-            {/* {Array.from(files).map((file, idx) => (
-              <li key={idx}>{file.name}</li>
-            ))} */}
             <li>{files.name}</li>
           </ul>
           <div className={styles.actions}>
@@ -89,8 +99,11 @@ const DragDropFiles = ({ files, setFiles, event, setImages, images }) => {
       {!files && (
         <div
           className={styles.dropZone}
-          onDragOver={handleDragOver}
+          onDragEnter={handleDragEnter}
+          onDragLeave={handleDragLeave}
           onDrop={handleDrop}
+          onDragOver={handleDragOver}
+          ref={dropZoneRef}
         >
           <h1>Drag and Drop files to Upload</h1>
           <h1>Or</h1>

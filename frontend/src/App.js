@@ -17,6 +17,7 @@ import GroupDetailsComponent from "./components/GroupComponents/GroupDetails";
 import EventDetailsComponent from "./components/Events/EventDetails";
 import NewEventForm from "./components/Events/NewEvent";
 import { toast, ToastContainer, Slide, Bounce } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const dispatch = useDispatch();
@@ -68,9 +69,11 @@ function App() {
         </Route>
       </Switch>
       <ToastContainer
-        limit={4}
+        limit={1}
         transition={Bounce}
         closeOnClick={true}
+        duration={2000}
+        hideProgressBar={true}
       ></ToastContainer>
     </div>
   );

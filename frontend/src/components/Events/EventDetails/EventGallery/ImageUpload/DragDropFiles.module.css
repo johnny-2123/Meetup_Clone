@@ -4,16 +4,15 @@ div.uploads {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
   margin: 1rem auto;
   border: 3px dashed #33333361;
   padding: 1rem;
 }
-div.uploads img {
+div.uploads img.uploads {
   height: 200px;
   width: 200px;
   object-fit: contain;
-  border-radius: 5px;
+  border-radius: 8px;
 }
 
 div.uploads ul {
@@ -69,6 +68,14 @@ div.dropZone {
   height: 300px;
   padding: 2rem;
   border: 3px dashed #33333361;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+}
+
+div.dropZone.dragOver {
+  /* border-color: #3bb18f; */
+  scale: 0.98;
+  background-color: #c0e6d748;
 }
 
 div.dropZone h1 {

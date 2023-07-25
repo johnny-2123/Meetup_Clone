@@ -7,12 +7,14 @@ import "reactjs-popup/dist/index.css";
 import { fetchDeleteEventImage } from "../../../../store/events";
 import { storage } from "../../../../config/firebase";
 import { ref, deleteObject } from "firebase/storage";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
+import { motion } from "framer-motion";
 
 const EventGallery = ({ event }) => {
   const dispatch = useDispatch();
   const [images, setImages] = useState(null);
   const eventImages = useSelector((state) => state?.currentEvent?.EventImages);
+  const [imageDeleting, setImageDeleting] = useState(false);
 
   useEffect(() => {
     setImages(event?.EventImages);
@@ -38,17 +40,25 @@ const EventGallery = ({ event }) => {
     const imageRef = ref(storage, `events/${subFolderName}/images/${name}`);
 
     try {
+      setImageDeleting(true);
+      // toast.info("Deleting image...", { autoClose: false });
+
       await deleteObject(imageRef);
     } catch (error) {
       console.log("an error occurred! deleting image", error);
+      toast.error("Error deleting image", { hideProgressBar: true });
     } finally {
       console.log("finally block executed deleted image from firestore");
       dispatch(fetchDeleteEventImage(eventId, imageId))
         .then((response) => {
           console.log("fetched delete image response", response);
+          setImageDeleting(false);
           setImages(
             images.filter((image) => image.id !== response?.deletedEvent?.id)
           );
+          toast.success("Image deleted successfully", {
+            hideProgressBar: true,
+          });
         })
         .catch((error) => {
           console.log("error deleting image from postgres", error);
@@ -57,42 +67,54 @@ const EventGallery = ({ event }) => {
   };
 
   const imagesMapped = images?.map((image) => {
-    console.log(`*********************image:`, image);
     return (
       <Popup
         key={image?.id}
         trigger={
-          <div className={styles.imageContainer}>
+          <motion.div
+            className={styles.imageContainer}
+            whileHover={{ scale: 0.9 }}
+          >
             <img className={styles.eventThumbnail} src={image?.url} />
-          </div>
+          </motion.div>
         }
         modal
         nested
         contentStyle={contentStyle}
+        closeOnDocumentClick={false}
       >
         {(close) => (
-          <div className={styles.modal}>
+          <motion.div
+            className={styles.modal}
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.5 }}
+          >
             <button className={styles.close} onClick={close}>
               &times;
             </button>
             <button className={styles.trash}>
               <i
-                className="fa-solid fa-trash-can"
+                className={`fa-solid fa-trash-can`}
                 onClick={(e) =>
                   handleDeleteImage(e, event?.id, image?.id, image?.name)
                 }
               ></i>
             </button>
             <img className={styles.modalImage} src={image?.url} />
-          </div>
+          </motion.div>
         )}
       </Popup>
     );
   });
-
   return (
     <div className={styles.eventGallery}>
       <h1 className={styles.eventGallery}>Event Gallery</h1>
+      {images && !images?.length && (
+        <div className={styles.noImages}>
+          <h1 className={styles.noImages}>No Images Uploaded Yet</h1>
+        </div>
+      )}
       <div className={styles.imagesCollection}>{images && imagesMapped}</div>
       <ImageUpload event={event} images={images} setImages={setImages} />
     </div>
