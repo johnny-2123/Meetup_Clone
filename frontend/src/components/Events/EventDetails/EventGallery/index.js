@@ -4,22 +4,17 @@ import ImageUpload from "./ImageUpload";
 import styles from "./EventGallery.module.css";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { fetchDeleteEventImage } from "../../../../store/events";
+import { storage } from "../../../../config/firebase";
+import { ref, deleteObject } from "firebase/storage";
+import { toast } from "react-toastify";
 
 const EventGallery = ({ event }) => {
   const dispatch = useDispatch();
   const [images, setImages] = useState(null);
-  console.log("images", images);
   const eventImages = useSelector((state) => state?.currentEvent?.EventImages);
-  console.log("eventImages useSelector in image gallery", eventImages);
 
   useEffect(() => {
-    console.log(
-      `*********************images in useEffect in event gallery:`,
-      event?.EventImages
-    );
     setImages(event?.EventImages);
   }, [eventImages]);
 
@@ -36,6 +31,31 @@ const EventGallery = ({ event }) => {
     padding: "0",
   };
 
+  const handleDeleteImage = async (e, eventId, imageId, name) => {
+    e.preventDefault();
+    console.log("handleDeleteImage", eventId, imageId, name);
+    const subFolderName = event?.id;
+    const imageRef = ref(storage, `events/${subFolderName}/images/${name}`);
+
+    try {
+      await deleteObject(imageRef);
+    } catch (error) {
+      console.log("an error occurred! deleting image", error);
+    } finally {
+      console.log("finally block executed deleted image from firestore");
+      dispatch(fetchDeleteEventImage(eventId, imageId))
+        .then((response) => {
+          console.log("fetched delete image response", response);
+          setImages(
+            images.filter((image) => image.id !== response?.deletedEvent?.id)
+          );
+        })
+        .catch((error) => {
+          console.log("error deleting image from postgres", error);
+        });
+    }
+  };
+
   const imagesMapped = images?.map((image) => {
     console.log(`*********************image:`, image);
     return (
@@ -43,7 +63,7 @@ const EventGallery = ({ event }) => {
         key={image?.id}
         trigger={
           <div className={styles.imageContainer}>
-            <img src={image?.url} />
+            <img className={styles.eventThumbnail} src={image?.url} />
           </div>
         }
         modal
@@ -56,7 +76,12 @@ const EventGallery = ({ event }) => {
               &times;
             </button>
             <button className={styles.trash}>
-              <i class="fa-solid fa-trash-can"></i>
+              <i
+                className="fa-solid fa-trash-can"
+                onClick={(e) =>
+                  handleDeleteImage(e, event?.id, image?.id, image?.name)
+                }
+              ></i>
             </button>
             <img className={styles.modalImage} src={image?.url} />
           </div>
@@ -67,7 +92,7 @@ const EventGallery = ({ event }) => {
 
   return (
     <div className={styles.eventGallery}>
-      <h1>Event Gallery</h1>
+      <h1 className={styles.eventGallery}>Event Gallery</h1>
       <div className={styles.imagesCollection}>{images && imagesMapped}</div>
       <ImageUpload event={event} images={images} setImages={setImages} />
     </div>

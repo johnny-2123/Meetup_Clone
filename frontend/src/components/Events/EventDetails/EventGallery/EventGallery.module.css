@@ -1,26 +1,60 @@
 div.eventGallery {
   /* min-height: 200px; */
   /* outline: purple thin dotted; */
+  width: 100%;
+}
+
+h1.eventGallery {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #333;
+  margin-top: 2.5rem;
+  margin-bottom: 1.5rem;
+  padding: 0;
+  width: 100%;
+  border-top: #333 1px solid;
+  padding-top: 1.5rem;
 }
 
 div.imagesCollection {
-  width: 100%;
-  width: 100%;
+  /* width: 96%; */
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 1rem 0.2rem;
-
-  /* outline: green thin dotted; */
+  grid-gap: 1rem;
+  background-color: #f6f7f8;
+  border-radius: 8px;
+  padding: 0 0;
+  margin: auto;
+  /* outline: red thin dotted; */
 }
 
-.imageContainer img {
+div.imageContainer {
+  /* outline: green thin dotted; */
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1; /* 1:1 aspect ratio to maintain a square */
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: transparent;
+  transition: all 0.2s ease-in-out;
+  background-color: none;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+div.imageContainer:hover {
+  scale: 0.9;
+}
+
+img.eventThumbnail {
   /* outline: blue thin dotted; */
-  width: 200px;
-  height: 200px;
+  /* height: 100%; */
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   border-radius: 5px;
   cursor: pointer;
   background-color: transparent;
+  transition: all 0.2s ease-in-out;
 }
 
 #popup {
@@ -107,14 +141,6 @@ img.modalImage {
 @media only screen and (max-width: 580px) {
   div.imagesCollection {
     grid-template-columns: repeat(2, 1fr);
-    grid-gap: 1rem 0.2rem;
-
-    /* outline: green thin dotted; */
-  }
-
-  .imageContainer img {
-    /* outline: blue thin dotted; */
-    width: 175px;
-    height: 175px;
+    grid-gap: 1rem;
   }
 }

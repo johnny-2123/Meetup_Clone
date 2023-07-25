@@ -7,15 +7,16 @@ import SignUpPage from "./components/SignUpPage";
 import Navigation from "./components/Navigation";
 import HomePage from "./components/HomePage";
 import SeeAllGroups from "./components/GroupComponents/SeeAllGroups/SeeAllGroups";
-import SeeCurrentUserGroups from "./components/GroupComponents/CurrentUserGroups"
-import SeeAllEvents from './components/Events/SeeAllEvents';
-import NewGroupForm from './components/GroupComponents/NewGroup/index.js'
+import SeeCurrentUserGroups from "./components/GroupComponents/CurrentUserGroups";
+import SeeAllEvents from "./components/Events/SeeAllEvents";
+import NewGroupForm from "./components/GroupComponents/NewGroup/index.js";
 import UpdateGroupPage from "./components/GroupComponents/UpdateGroup";
-import UpdateEventPage from "./components/Events/UpdateEvent"
+import UpdateEventPage from "./components/Events/UpdateEvent";
 import { useModal } from "./context/Modal";
 import GroupDetailsComponent from "./components/GroupComponents/GroupDetails";
 import EventDetailsComponent from "./components/Events/EventDetails";
-import NewEventForm from "./components/Events/NewEvent"
+import NewEventForm from "./components/Events/NewEvent";
+import { toast, ToastContainer, Slide, Bounce } from "react-toastify";
 
 function App() {
   const dispatch = useDispatch();
@@ -23,10 +24,8 @@ function App() {
   const { showLogin, showSignUp } = useModal();
 
   useEffect(() => {
-    dispatch(sessionActions.restoreUser())
-      .then(() => setIsLoaded(true))
-
-  }, [dispatch])
+    dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+  }, [dispatch]);
 
   return (
     <div className="AppDiv">
@@ -38,7 +37,7 @@ function App() {
           <HomePage />
         </Route>
         <Route exact path={`/events`}>
-          < SeeAllEvents />
+          <SeeAllEvents />
         </Route>
         <Route exact path={`/groups`}>
           <SeeAllGroups />
@@ -52,7 +51,7 @@ function App() {
         <Route exact path={`/groups/:groupId/edit`}>
           <UpdateGroupPage />
         </Route>
-        <Route exact path={'/groups/:groupId'}>
+        <Route exact path={"/groups/:groupId"}>
           <GroupDetailsComponent />
         </Route>
         <Route exact path={`/events`}>
@@ -64,13 +63,17 @@ function App() {
         <Route exact path={`/events/:eventId`}>
           <EventDetailsComponent />
         </Route>
-        <Route exact path={'/events/:eventId/edit'}>
+        <Route exact path={"/events/:eventId/edit"}>
           <UpdateEventPage />
         </Route>
       </Switch>
-
+      <ToastContainer
+        limit={4}
+        transition={Bounce}
+        closeOnClick={true}
+      ></ToastContainer>
     </div>
-  )
+  );
 }
 
 export default App;

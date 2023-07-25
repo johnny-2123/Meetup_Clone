@@ -48,14 +48,15 @@ const DragDropFiles = ({ files, setFiles, event, setImages, images }) => {
 
     const downloadURL = await getDownloadURL(imageRef);
     console.log(`File available at ${downloadURL}`);
-    setPreviewImage(downloadURL);
-
     const preview = true;
     const eventId = event.id;
-    await dispatch(fetchCreateEventImage(eventId, downloadURL, preview))
+    const name = files.name;
+    await dispatch(fetchCreateEventImage(eventId, downloadURL, preview, name))
       .then((response) => {
         console.log("fetched image upload response", response);
         setImages([...images, response]);
+        setPreviewImage(null);
+        setFiles(null);
       })
       .catch((err) => console.log("fetched image upload error", err));
     setUploaded(true);
@@ -64,6 +65,7 @@ const DragDropFiles = ({ files, setFiles, event, setImages, images }) => {
     <div id={styles.dragDropFiles}>
       {files && (
         <div className={styles.uploads}>
+          {previewImage && <img src={previewImage} alt="preview" />}{" "}
           <ul>
             {/* {Array.from(files).map((file, idx) => (
               <li key={idx}>{file.name}</li>
@@ -73,7 +75,10 @@ const DragDropFiles = ({ files, setFiles, event, setImages, images }) => {
           <div className={styles.actions}>
             <button
               className={styles.cancelButton}
-              onClick={() => setFiles(null)}
+              onClick={() => {
+                setPreviewImage(null);
+                setFiles(null);
+              }}
             >
               Cancel
             </button>
@@ -94,6 +99,8 @@ const DragDropFiles = ({ files, setFiles, event, setImages, images }) => {
             // multiple
             onChange={(e) => {
               console.log("files in input change: ", e.target.files);
+              const newImageUrl = URL.createObjectURL(e.target.files[0]);
+              setPreviewImage(newImageUrl);
               setFiles(e.target.files[0]);
             }}
             hidden

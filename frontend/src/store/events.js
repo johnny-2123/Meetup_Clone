@@ -24,7 +24,8 @@ export const fetchDeleteEventImage =
 
     if (response.ok) {
       const eventImage = await response.json();
-      dispatch(deleteEventImage(eventImageId));
+      console.log("fetch delete event image response json", eventImage);
+      dispatch(deleteEventImage(eventImage?.deletedImage?.id));
       return eventImage;
     }
   };
@@ -36,16 +37,16 @@ const addEventImage = (eventId, eventImage) => ({
 });
 
 export const fetchCreateEventImage =
-  (eventId, url, preview) => async (dispatch) => {
+  (eventId, url, preview, name) => async (dispatch) => {
     const response = await csrfFetch(`/api/events/${eventId}/images`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ url, preview }),
+      body: JSON.stringify({ url, preview, name }),
     });
 
     if (response.ok) {
       const eventImage = await response.json();
-      console.log("fetch create event image response json", eventImage);
+      // console.log("fetch create event image response json", eventImage);
       await dispatch(addEventImage(eventId, eventImage));
       return eventImage;
     }
@@ -213,6 +214,13 @@ const eventsReducer = (state = initialState, action) => {
         ...newState.currentEvent.EventImages,
         action.eventImage,
       ];
+      return newState;
+    case DELETE_EVENT_IMAGE:
+      newState = { ...state };
+      newState.currentEvent.EventImages =
+        newState.currentEvent.EventImages.filter(
+          (image) => image.id !== action.eventImageId
+        );
       return newState;
     default:
       return state;

@@ -7,7 +7,7 @@ const ImageUpload = ({ event, images, setImages }) => {
 
   return (
     <div>
-      <h1>Image Upload</h1>
+      <h1 className={styles.imageUpload}>Image Upload</h1>
       <DragDropFiles
         files={files}
         setFiles={setFiles}

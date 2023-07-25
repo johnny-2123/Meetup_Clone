@@ -264,7 +264,7 @@ router.get("/:id/attendees", async (req, res) => {
 router.post("/:id/images", requireAuth, async (req, res) => {
   let user = req.user;
   let eventId = req.params.id;
-  const { url, preview } = req.body;
+  const { url, preview, name } = req.body;
   let event = await Event.findByPk(eventId);
   if (!event) {
     return res.status(404).json({
@@ -292,10 +292,11 @@ router.post("/:id/images", requireAuth, async (req, res) => {
     url,
     preview,
     eventId: event.id,
+    name,
   });
 
   let image = await EventImage.findByPk(newImage.id, {
-    attributes: ["id", "url", "preview"],
+    attributes: ["id", "url", "preview", "name"],
   });
 
   return res.status(200).json(image);
@@ -468,7 +469,7 @@ router.get("/:id", async (req, res) => {
           "private",
         ],
       },
-      { model: EventImage, attributes: ["id", "url", "preview"] },
+      { model: EventImage, attributes: ["id", "url", "preview", "name"] },
     ],
     attributes: [
       "id",

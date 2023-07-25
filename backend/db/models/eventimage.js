@@ -25,6 +25,10 @@ module.exports = (sequelize, DataTypes) => {
       preview: {
         type: DataTypes.BOOLEAN,
       },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
     },
     {
       sequelize,
