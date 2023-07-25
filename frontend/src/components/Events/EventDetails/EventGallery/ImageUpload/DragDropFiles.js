@@ -32,6 +32,8 @@ const DragDropFiles = ({ files, setFiles, event, setImages, images }) => {
   const handleDrop = (e) => {
     e.preventDefault();
     setFiles(e.dataTransfer.files[0]);
+    const newImageUrl = URL.createObjectURL(e.dataTransfer.files[0]);
+    setPreviewImage(newImageUrl);
     dropZoneRef.current.classList.remove(styles.dragOver);
     console.log("files", files);
   };
@@ -78,7 +80,7 @@ const DragDropFiles = ({ files, setFiles, event, setImages, images }) => {
         <div className={styles.uploads}>
           {previewImage && (
             <img className={styles.uploads} src={previewImage} alt="preview" />
-          )}{" "}
+          )}
           <ul>
             <li>{files.name}</li>
           </ul>

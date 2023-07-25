@@ -1,26 +1,32 @@
 div.uploads {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: center;
   align-items: center;
-  margin: 1rem auto;
+  margin: 0rem auto;
   border: 3px dashed #33333361;
-  padding: 1rem;
+  padding: 1.5rem;
+  outline: red thin dotted;
 }
+
 div.uploads img.uploads {
   height: 200px;
   width: 200px;
   object-fit: contain;
   border-radius: 8px;
+  margin: 0;
+  padding: 0;
 }
 
 div.uploads ul {
+  margin-top: 0;
+  padding-top: 0;
   padding-left: 0;
   padding: 0 2rem;
 }
 
 div.uploads li {
+  margin-top: 0;
+  padding-top: 0;
 }
 
 div.actions {
