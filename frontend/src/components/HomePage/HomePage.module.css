@@ -69,6 +69,11 @@ div.homeMiddleSection h2 {
   font-weight: 300;
   font-size: 2.25rem;
   color: #333;
+
+  @media screen and (max-width: 580px) {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
 }
 
 div.homeMiddleSection p {
@@ -127,6 +132,10 @@ div.homeMiddleSection p {
   cursor: default;
 }
 
+#homeThirdSectionDivDisabled a:hover::before {
+  width: 0%;
+}
+
 .homeThirdSection i {
   font-size: 70px;
   margin-top: 10px;
@@ -138,19 +147,31 @@ div.homeMiddleSection p {
   margin: 10px 0px 0px 0px;
   color: black;
   font-weight: bold;
+  position: relative;
 }
 
-.homePageSection3Links:hover {
-  text-decoration: underline;
+.homePageSection3Links::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 0;
+  height: 2px;
+  background-color: black;
+  transition: width 0.3s ease;
+}
+
+.homePageSection3Links:hover::before {
+  width: 100%;
 }
 
 .homeFourthSection {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background-color: green; */
   margin: 0;
   padding-top: 0px;
+  padding-right: 10px;
 }
 
 .joinButton {
@@ -158,13 +179,14 @@ div.homeMiddleSection p {
   font-size: 17px;
   font-family: "Open Sans", sans-serif;
   text-decoration: none;
-  margin: 15px 13px 10px 13px;
+  margin: 15px 13px 15px 13px;
   background-color: rgb(0, 130, 148);
   color: white;
-  padding: 9px 13px 9px 13px;
+  padding: 9px 20px 9px 20px;
   border: solid 1px rgb(0, 130, 148);
   border-radius: 5px;
   font-weight: 500;
+  transition: all 0.3s ease;
 }
 
 .joinButtonHidden {

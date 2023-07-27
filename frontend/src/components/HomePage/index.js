@@ -5,18 +5,21 @@ import { fetchUpcomingEvents } from "../../store/events";
 import { useModal } from "../../context/Modal";
 import UpcomingEvents from "./upcomingEvents";
 import LandingHeader from "./LandingHeader";
-import "./HomePage.css";
+import { motion, AnimatePresence } from "framer-motion";
+import styles from "./HomePage.module.css";
 
 const HomePage = () => {
   const sessionUser = useSelector((state) => state.session?.user);
   const [userLoggedIn, setUserLoggedIn] = useState(true);
   let homeStartGroupIdName = !userLoggedIn
-    ? "homeThirdSectionDivDisabled"
-    : "homeThirdSectionDiv";
-  let joinMeetupClassName = !userLoggedIn ? "joinButton" : "joinButtonHidden";
+    ? styles.homeThirdSectionDivDisabled
+    : styles.homeThirdSectionDiv;
+  let joinMeetupClassName = !userLoggedIn
+    ? styles.joinButton
+    : styles.joinButtonHidden;
   let welcomeMessageClass = !userLoggedIn
-    ? "welcomeMessageDisabled"
-    : "WelcomeMessage";
+    ? styles.welcomeMessageDisabled
+    : styles.WelcomeMessage;
 
   useEffect(() => {
     if (sessionUser?.user) {
@@ -29,43 +32,24 @@ const HomePage = () => {
   const { setShowSignUp } = useModal();
 
   return (
-    <div className="containerHome">
+    <div className={styles.containerHome}>
       <LandingHeader
         sessionUser={sessionUser}
         userLoggedIn={userLoggedIn}
         welcomeMessageClass={welcomeMessageClass}
       />
-      {/* <div className="homeTopSection">
-        <div>
-          <h2 className={welcomeMessageClass}>
-            Welcome {sessionUser?.user?.firstName}
-          </h2>
-          <h1>
-            The people platform - <br></br> Where interests become friendships
-          </h1>
-          <p>
-            Lorem ipsum dolor sit amet. Et accusamus voluptatem et earum amet
-            qui aspernatur molestias aut illo soluta ut veritatis sapiente. Et
-            commodi debitis aut eius dolor cum laborum molestiae est maiores.
-          </p>
-        </div>
-        <img
-          className="homePageImage"
-          src="https://res.cloudinary.com/dkul3ouvi/image/upload/v1677379615/vecteezy_back-view-of-man-and-woman-friends-standing-together_5638987_xppydz.jpg"
-          alt="Friends Vector by Vecteezy"
-        />
-      </div> */}
-      <div className="homeMiddleSection">
+
+      <div className={styles.homeMiddleSection}>
         <h2>How Meetup works</h2>
         <p>
           Meet new people who share your interests through online and in-person
           events. It's free to create an account.{" "}
         </p>
       </div>
-      <div className="homeThirdSection">
-        <div className="homeThirdSectionDiv">
-          <i className="fa-solid fa-handshake"></i>
-          <NavLink className={`homePageSection3Links`} to="/groups">
+      <div className={styles.homeThirdSection}>
+        <div className={styles.homeThirdSectionDiv}>
+          <i className="fa-solid fa-handshake "></i>
+          <NavLink className={styles["homePageSection3Links"]} to="/groups">
             See All Groups
           </NavLink>
           <p>
@@ -73,9 +57,9 @@ const HomePage = () => {
             rest is history!
           </p>
         </div>
-        <div className="homeThirdSectionDiv">
+        <div className={styles.homeThirdSectionDiv}>
           <i className="fa-solid fa-ticket"></i>
-          <NavLink className={`homePageSection3Links`} to="/events">
+          <NavLink className={styles["homePageSection3Links"]} to="/events">
             Find an Event
           </NavLink>
           <p>
@@ -83,9 +67,9 @@ const HomePage = () => {
             online gaming and photography to yoga and hiking.
           </p>
         </div>
-        <div id={homeStartGroupIdName} className="homeThirdSectionDiv">
+        <div id={homeStartGroupIdName} className={styles.homeThirdSectionDiv}>
           <i className="fa-solid fa-people-group"></i>
-          <NavLink className={`homePageSection3Links`} to="/groups/new">
+          <NavLink className={styles["homePageSection3Links"]} to="/groups/new">
             Start a Group
           </NavLink>
           <p>
@@ -94,7 +78,7 @@ const HomePage = () => {
           </p>
         </div>
       </div>
-      <div className="homeFourthSection">
+      <div className={styles.homeFourthSection}>
         <button
           className={joinMeetupClassName}
           onClick={() => setShowSignUp(true)}
@@ -104,23 +88,23 @@ const HomePage = () => {
       </div>
       <UpcomingEvents />
 
-      <div className="homePageFooter">
+      <div className={styles.homePageFooter}>
         <a
-          className={"homePageFooterLinks"}
+          className={styles.homePageFooterLinks}
           href={"https://github.com/johnny-2123/Project1/wiki"}
           target="_blank"
         >
-          <i class="fa-brands fa-github"></i>
+          <i className="fa-brands fa-github"></i>
         </a>
         <a
-          className={"homePageFooterLinks"}
+          className={styles.homePageFooterLinks}
           href={"https://www.linkedin.com/in/johnny-avila-0512aa164/"}
           target="_blank"
         >
-          <i class="fa-brands fa-linkedin"></i>
+          <i className="fa-brands fa-linkedin"></i>
         </a>
         <a
-          className={"homePageFooterLinks wellfound"}
+          className={`${styles.homePageFooterLinks} wellfound`}
           href={"https://wellfound.com/profile/edit/overview"}
           target="_blank"
         >

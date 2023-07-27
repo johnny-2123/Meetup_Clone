@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUpcomingEvents } from "../../store/events";
+import { motion } from "framer-motion";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -50,9 +51,18 @@ function UpcomingEvents() {
     let eventDate = new Date(event.startDate);
 
     return (
-      <div
+      <motion.div
         onClick={() => history.push(`/events/${event.id}`)}
         className="upcomingEventContainer"
+        key={idx}
+        whileHover={{
+          y: -10,
+          transition: { duration: 0.2 },
+          type: "spring",
+          ease: "easeIn",
+          stiffness: 300,
+          zIndex: 1,
+        }}
       >
         <div className="upcomingEventDetailsContainer">
           <img id="upcomingEventImage" src={event.previewImage} />
@@ -76,7 +86,7 @@ function UpcomingEvents() {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     );
   });
 

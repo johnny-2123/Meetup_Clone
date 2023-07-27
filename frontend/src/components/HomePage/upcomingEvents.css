@@ -5,19 +5,16 @@
   /* outline: green thin dotted; */
 }
 .slick-slide > div {
-  padding: 10px 0;
+  padding: 0px 0;
   border-radius: 8px;
   background-color: transparent;
-  margin: 0 5px 10px 5px;
+  margin: 0 10px 0px 10px;
   /* outline: red thin dotted; */
 }
 
 .slick-track {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  margin: 5px 0;
+  margin: 0px 0px;
+  padding: 1rem 0px;
 }
 
 ul.slick-dots {
@@ -28,7 +25,7 @@ ul.slick-dots {
   margin: 50px auto;
   width: 95%;
   padding: 0rem 0rem;
-  max-width: 1200px;
+  max-width: 1400px;
   /* outline: purple thin dotted; */
 }
 
@@ -43,17 +40,9 @@ ul.slick-dots {
 .upcomingEventContainer {
   cursor: pointer;
   border-radius: 8px;
-  transition: box-shadow 0.3s ease-in-out;
   /* outline: blue thin dotted; */
-  height: 375px;
+  height: 100%;
   padding: 0;
-  transition: translate 2s ease-in-out;
-  transition: scale 2s ease-in-out;
-}
-
-.upcomingEventContainer:hover {
-  /* box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3); */
-  transform: translateY(-10px) scale(1.01);
 }
 
 .upcomingEventDetailsContainer {
@@ -61,7 +50,8 @@ ul.slick-dots {
   color: #fff;
   height: 100%;
   transition: box-shadow 0.3s ease-in-out;
-  box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
+  /* box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3); */
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   border-radius: 8px;
   /* outline: yellow thin dotted; */
   display: flex;
@@ -91,8 +81,15 @@ ul.slick-dots {
 }
 
 .upcomingEventContainerMiddle p {
+  color: #333;
+  overflow: hidden;
+  font-size: 0.9rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
   margin-top: 0;
-  margin-bottom: 0;
+  margin-bottom: 1rem;
 }
 
 .upcomingEventContainerMiddle h3 {
@@ -109,13 +106,6 @@ ul.slick-dots {
 }
 
 .upcomingEventContainerMiddle p {
-  color: #333;
-  overflow: hidden;
-  font-size: 0.9rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 1; /* number of lines to show */
-  line-clamp: 1;
-  -webkit-box-orient: vertical;
 }
 .upcomingEventContainerFooter {
   display: flex;
