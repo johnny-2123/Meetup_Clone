@@ -12,15 +12,10 @@ function Navigation({ isLoaded }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const sessionUser = useSelector((state) => state.session?.user);
-  console.log("sessionUser in navigation index", sessionUser);
-
-  const currentUserGroups = useSelector(
-    (state) => state.groups.currentUserGroups
-  );
+  console.log("sessionUser in navigation", sessionUser);
   let sessionLinks;
 
   const { setShowLogin, setShowSignUp } = useModal();
-  const [, forceUpdate] = useReducer((x) => x + 1, 0);
 
   const loginButton = () => {
     setShowLogin(true);
@@ -35,8 +30,7 @@ function Navigation({ isLoaded }) {
         credential: "demoEdgar",
         password: "password",
       })
-    ).then(() => history.push("/"));
-    // .then(() => window.location.reload());
+    );
   };
 
   useEffect(() => {}, [sessionUser]);

@@ -10,7 +10,6 @@ import styles from "./HomePage.module.css";
 
 const HomePage = () => {
   const sessionUser = useSelector((state) => state.session?.user);
-  console.log("sessionUser in homePage", sessionUser);
   const [userLoggedIn, setUserLoggedIn] = useState(true);
   let welcomeMessageClass = styles.WelcomeMessage;
 

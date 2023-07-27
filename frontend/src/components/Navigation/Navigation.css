@@ -85,6 +85,7 @@
   width: fit-content;
   padding: 10px 0 2px 0;
   margin-top: 35px;
+  z-index: 20;
 }
 
 .sessionLinksUl {

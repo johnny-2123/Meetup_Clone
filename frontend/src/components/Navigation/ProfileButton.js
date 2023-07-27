@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
 import * as sessionActions from "../../store/session";
 <script
   src="https://kit.fontawesome.com/97726b2eee.js"
@@ -11,8 +10,9 @@ import * as sessionActions from "../../store/session";
 const ProfileButton = ({ sessionUser }) => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { username, firstName, email, lastName } = sessionUser;
-  console.log("sessionUser in profileButton", sessionUser);
+  const { username, firstName, email, lastName } =
+    sessionUser?.user || sessionUser;
+  console.log("session user in profile button", sessionUser);
   const ulRef = useRef();
   const [showMenu, setShowMenu] = useState(false);
 
@@ -58,11 +58,9 @@ const ProfileButton = ({ sessionUser }) => {
 
   return (
     <>
-      <AnimatePresence mode="wait">
-        <motion.button className="profileButton" onClick={openMenu}>
-          <i className="fas fa-user-circle profileIcon" />
-        </motion.button>
-      </AnimatePresence>
+      <button className="profileButton" onClick={openMenu}>
+        <i className="fas fa-user-circle profileIcon" />
+      </button>
       <ul className={ulClassName} ref={ulRef}>
         <li className="navDropLi navBioInfo">{username}</li>
         <li className="navDropLi navBioInfo">

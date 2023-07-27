@@ -1,11 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./LandingHeader.module.css";
 
 const LandingHeader = ({ sessionUser, userLoggedIn, welcomeMessageClass }) => {
+  const [welcomeMessage, setWelcomeMessage] = useState("");
+  useEffect(() => {
+    if (sessionUser?.user) {
+      setWelcomeMessage(sessionUser?.user?.firstName);
+    } else if (sessionUser) {
+      setWelcomeMessage(sessionUser?.firstName);
+    } else {
+      setWelcomeMessage("");
+    }
+  }, [sessionUser]);
   console.log("sessionUser in landingHeader", sessionUser);
-
-  useEffect(() => {}, [sessionUser]);
-
   return (
     <>
       <section className={styles.landingTopSection}>
@@ -13,7 +20,7 @@ const LandingHeader = ({ sessionUser, userLoggedIn, welcomeMessageClass }) => {
           <div className={styles.landingHeaderInfo}>
             {sessionUser && (
               <h2 className={styles.WelcomeMessage}>
-                Welcome {sessionUser?.firstName}
+                Welcome {welcomeMessage}
               </h2>
             )}
             <h1>
