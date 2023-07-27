@@ -10,16 +10,9 @@ import styles from "./HomePage.module.css";
 
 const HomePage = () => {
   const sessionUser = useSelector((state) => state.session?.user);
+  console.log("sessionUser in homePage", sessionUser);
   const [userLoggedIn, setUserLoggedIn] = useState(true);
-  let homeStartGroupIdName = !userLoggedIn
-    ? styles.homeThirdSectionDivDisabled
-    : styles.homeThirdSectionDiv;
-  let joinMeetupClassName = !userLoggedIn
-    ? styles.joinButton
-    : styles.joinButtonHidden;
-  let welcomeMessageClass = !userLoggedIn
-    ? styles.welcomeMessageDisabled
-    : styles.WelcomeMessage;
+  let welcomeMessageClass = styles.WelcomeMessage;
 
   useEffect(() => {
     if (sessionUser?.user) {
@@ -38,7 +31,6 @@ const HomePage = () => {
         userLoggedIn={userLoggedIn}
         welcomeMessageClass={welcomeMessageClass}
       />
-
       <div className={styles.homeMiddleSection}>
         <h2>How Meetup works</h2>
         <p>
@@ -67,7 +59,14 @@ const HomePage = () => {
             online gaming and photography to yoga and hiking.
           </p>
         </div>
-        <div id={homeStartGroupIdName} className={styles.homeThirdSectionDiv}>
+        <div
+          id={
+            sessionUser
+              ? styles.homeThirdSectionDiv
+              : styles.homeThirdSectionDivDisabled
+          }
+          className={styles.homeThirdSectionDiv}
+        >
           <i className="fa-solid fa-people-group"></i>
           <NavLink className={styles["homePageSection3Links"]} to="/groups/new">
             Start a Group
@@ -79,12 +78,14 @@ const HomePage = () => {
         </div>
       </div>
       <div className={styles.homeFourthSection}>
-        <button
-          className={joinMeetupClassName}
-          onClick={() => setShowSignUp(true)}
-        >
-          Join Meetup
-        </button>
+        {!sessionUser && (
+          <button
+            className={styles.joinButton}
+            onClick={() => setShowSignUp(true)}
+          >
+            Join Meetup
+          </button>
+        )}
       </div>
       <UpcomingEvents />
 

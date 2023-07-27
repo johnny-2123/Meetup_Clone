@@ -1,16 +1,19 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
 import * as sessionActions from "../../store/session";
 import { useHistory } from "react-router";
-
 import { useModal } from "../../context/Modal";
+import { motion, AnimatePresence } from "framer-motion";
+
 function Navigation({ isLoaded }) {
   const dispatch = useDispatch();
   const history = useHistory();
-  const sessionUser = useSelector((state) => state.session.user?.user);
+  const sessionUser = useSelector((state) => state.session?.user);
+  console.log("sessionUser in navigation index", sessionUser);
+
   const currentUserGroups = useSelector(
     (state) => state.groups.currentUserGroups
   );
@@ -32,10 +35,12 @@ function Navigation({ isLoaded }) {
         credential: "demoEdgar",
         password: "password",
       })
-    )
-      .then(() => history.push("/"))
-      .then(() => window.location.reload());
+    ).then(() => history.push("/"));
+    // .then(() => window.location.reload());
   };
+
+  useEffect(() => {}, [sessionUser]);
+
   if (sessionUser && sessionUser !== undefined) {
     sessionLinks = (
       <ul className="profileButtonUl">
@@ -49,28 +54,30 @@ function Navigation({ isLoaded }) {
     );
   } else {
     sessionLinks = (
-      <ul className="sessionLinksUl">
-        <li>
-          <button
-            onClick={handleDemoLoginClick}
-            className={`loginSignup demoLogin underline-animation`}
-          >
-            Demo Login
-          </button>
-          <button
-            className={`loginSignup underline-animation`}
-            onClick={loginButton}
-          >
-            Login
-          </button>
-          <button
-            className={`loginSignup underline-animation`}
-            onClick={signUpButton}
-          >
-            Sign Up
-          </button>
-        </li>
-      </ul>
+      <AnimatePresence mode="wait">
+        <motion.ul className="sessionLinksUl">
+          <li>
+            <button
+              onClick={handleDemoLoginClick}
+              className={`loginSignup demoLogin underline-animation`}
+            >
+              Demo Login
+            </button>
+            <button
+              className={`loginSignup underline-animation`}
+              onClick={loginButton}
+            >
+              Login
+            </button>
+            <button
+              className={`loginSignup underline-animation`}
+              onClick={signUpButton}
+            >
+              Sign Up
+            </button>
+          </li>
+        </motion.ul>
+      </AnimatePresence>
     );
   }
 
@@ -82,7 +89,7 @@ function Navigation({ isLoaded }) {
             Meetup
           </NavLink>
         </li>
-        <li className="navLi">{isLoaded && sessionLinks}</li>
+        {<li className="navLi">{isLoaded && sessionLinks}</li>}
       </ul>
     </div>
   );

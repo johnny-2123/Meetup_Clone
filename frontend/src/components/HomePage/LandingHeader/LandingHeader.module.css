@@ -51,6 +51,13 @@ div.landingHeader {
   /* outline: blue dotted 1px; */
 }
 
+.WelcomeMessage {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 300;
+  color: #333;
+}
+
 section.landingTopSection h1 {
   margin-right: 0 40px 0 0;
   max-width: 600px;

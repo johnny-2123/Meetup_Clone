@@ -1,15 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./LandingHeader.module.css";
 
 const LandingHeader = ({ sessionUser, userLoggedIn, welcomeMessageClass }) => {
+  console.log("sessionUser in landingHeader", sessionUser);
+
+  useEffect(() => {}, [sessionUser]);
+
   return (
     <>
       <section className={styles.landingTopSection}>
         <div className={styles.landingHeader}>
           <div className={styles.landingHeaderInfo}>
-            <h2 className={welcomeMessageClass}>
-              Welcome {sessionUser?.user?.firstName}
-            </h2>
+            {sessionUser && (
+              <h2 className={styles.WelcomeMessage}>
+                Welcome {sessionUser?.firstName}
+              </h2>
+            )}
             <h1>
               The people platform - <br></br> Where interests become friendships
             </h1>
