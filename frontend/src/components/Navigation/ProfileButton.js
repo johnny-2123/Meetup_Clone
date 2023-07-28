@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import * as sessionActions from "../../store/session";
+import { motion, AnimatePresence } from "framer-motion";
 <script
   src="https://kit.fontawesome.com/97726b2eee.js"
   crossorigin="anonymous"
@@ -12,7 +13,6 @@ const ProfileButton = ({ sessionUser }) => {
   const dispatch = useDispatch();
   const { username, firstName, email, lastName } =
     sessionUser?.user || sessionUser;
-  console.log("session user in profile button", sessionUser);
   const ulRef = useRef();
   const [showMenu, setShowMenu] = useState(false);
 

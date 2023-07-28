@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./LandingHeader.module.css";
+import { motion, AnimatePresence } from "framer-motion";
 
 const LandingHeader = ({ sessionUser, userLoggedIn, welcomeMessageClass }) => {
   const [welcomeMessage, setWelcomeMessage] = useState("");
@@ -12,21 +13,30 @@ const LandingHeader = ({ sessionUser, userLoggedIn, welcomeMessageClass }) => {
       setWelcomeMessage("");
     }
   }, [sessionUser]);
-  console.log("sessionUser in landingHeader", sessionUser);
   return (
     <>
       <section className={styles.landingTopSection}>
         <div className={styles.landingHeader}>
-          <div className={styles.landingHeaderInfo}>
-            {sessionUser && (
-              <h2 className={styles.WelcomeMessage}>
-                Welcome {welcomeMessage}
-              </h2>
-            )}
-            <h1>
-              The people platform - <br></br> Where interests become friendships
-            </h1>
-          </div>
+          <AnimatePresence mode="wait">
+            <div className={styles.landingHeaderInfo}>
+              {sessionUser && (
+                <motion.h2
+                  key={"welcomeMessage"}
+                  className={styles.WelcomeMessage}
+                  initial={{ opacity: 0, x: -100 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -100 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  Welcome {welcomeMessage}
+                </motion.h2>
+              )}
+              <h1>
+                The people platform - <br></br> Where interests become
+                friendships
+              </h1>
+            </div>
+          </AnimatePresence>
           <img
             className={styles.homePageImage}
             src="https://res.cloudinary.com/dkul3ouvi/image/upload/v1690060525/vecteezy_back-view-of-man-and-woman-friends-standing-together_5638987_xppydz-removebg-preview_1_lf9jtb.png"

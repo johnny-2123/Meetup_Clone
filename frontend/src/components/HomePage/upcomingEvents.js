@@ -59,8 +59,8 @@ function UpcomingEvents() {
           y: -10,
           transition: { duration: 0.2 },
           type: "spring",
-          ease: "easeIn",
-          stiffness: 300,
+          // ease: "easeInOut",
+          stiffness: 100,
           zIndex: 1,
         }}
       >

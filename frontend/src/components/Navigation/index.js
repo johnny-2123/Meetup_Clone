@@ -10,9 +10,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 function Navigation({ isLoaded }) {
   const dispatch = useDispatch();
-  const history = useHistory();
   const sessionUser = useSelector((state) => state.session?.user);
-  console.log("sessionUser in navigation", sessionUser);
   let sessionLinks;
 
   const { setShowLogin, setShowSignUp } = useModal();
@@ -37,41 +35,56 @@ function Navigation({ isLoaded }) {
 
   if (sessionUser && sessionUser !== undefined) {
     sessionLinks = (
-      <ul className="profileButtonUl">
+      <motion.ul
+        key={"profileButtonUl"}
+        className="profileButtonUl"
+        initial={{ opacity: 0, scale: 0, x: 100 }}
+        animate={{ opacity: 1, scale: 1, x: 0 }}
+        exit={{ opacity: 0, x: 100, transition: { duration: 0.1 } }}
+        transition={{ duration: 0.2 }}
+      >
         <li>
           <ProfileButton
             className={`profileButtonComponent`}
             sessionUser={sessionUser}
           />
         </li>
-      </ul>
+      </motion.ul>
     );
   } else {
     sessionLinks = (
-      <AnimatePresence mode="wait">
-        <motion.ul className="sessionLinksUl">
-          <li>
-            <button
-              onClick={handleDemoLoginClick}
-              className={`loginSignup demoLogin underline-animation`}
-            >
-              Demo Login
-            </button>
-            <button
-              className={`loginSignup underline-animation`}
-              onClick={loginButton}
-            >
-              Login
-            </button>
-            <button
-              className={`loginSignup underline-animation`}
-              onClick={signUpButton}
-            >
-              Sign Up
-            </button>
-          </li>
-        </motion.ul>
-      </AnimatePresence>
+      <motion.ul
+        key={"sessionLinksUl"}
+        className="sessionLinksUl"
+        initial={{ opacity: 0, scale: 0, y: -100 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, y: -100, transition: { duration: 0.1 } }}
+        transition={{ duration: 0.2 }}
+      >
+        <li>
+          <motion.button
+            whileTap={{ scale: 0.9 }}
+            onClick={handleDemoLoginClick}
+            className={`loginSignup demoLogin underline-animation`}
+          >
+            Demo Login
+          </motion.button>
+          <motion.button
+            whileTap={{ scale: 0.9 }}
+            className={`loginSignup underline-animation`}
+            onClick={loginButton}
+          >
+            Login
+          </motion.button>
+          <motion.button
+            whileTap={{ scale: 0.9 }}
+            className={`loginSignup underline-animation`}
+            onClick={signUpButton}
+          >
+            Sign Up
+          </motion.button>
+        </li>
+      </motion.ul>
     );
   }
 
@@ -83,7 +96,11 @@ function Navigation({ isLoaded }) {
             Meetup
           </NavLink>
         </li>
-        {<li className="navLi">{isLoaded && sessionLinks}</li>}
+        {
+          <AnimatePresence>
+            <li className="navLi">{isLoaded && sessionLinks}</li>
+          </AnimatePresence>
+        }
       </ul>
     </div>
   );
