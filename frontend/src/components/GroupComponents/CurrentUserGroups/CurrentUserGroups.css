@@ -33,9 +33,10 @@ h3.yourGroupsInMeetup {
   flex-direction: column;
   flex-wrap: wrap;
   flex: auto;
-  flex-grow: auto;
+  flex-grow: 1;
   height: 100%;
   max-height: none;
+  /* outline: red thin dotted; */
 }
 
 #currentUserGroupsName {
@@ -74,7 +75,13 @@ h3.yourGroupsInMeetup {
 .currentUserGroupButtonDiv button {
   background-color: lightslategray;
   border-color: lightslategray;
-  width: 25%;
+  color: white;
+  /* width: 25%; */
+  text-align: center;
+  box-shadow: none;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem 3rem;
   min-width: 100px;
   margin-bottom: 0;
 }
