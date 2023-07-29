@@ -25,6 +25,10 @@ function EventDetailsComponent() {
     dispatch(eventActions.fetchEventDetails(eventId));
     dispatch(sessionActions.restoreUser());
     setLoaded(true);
+
+    return () => {
+      dispatch(eventActions.clearCurrentEvent());
+    };
   }, [dispatch, eventId]);
 
   const goBack = () => {

@@ -27,7 +27,6 @@ div.loginComponent {
   font-family: "Open Sans", sans-serif;
   font-weight: 590;
   align-items: center;
-  border: 1px solid lightgrey;
   margin: auto auto auto auto;
   padding: auto 20px 1rem 20px;
   width: 390px;
@@ -37,12 +36,13 @@ div.loginComponent {
   overflow-y: scroll;
   overflow-x: hidden;
   position: fixed;
-  outline: red thin dotted;
+  /* outline: red thin dotted; */
 }
 
 .loginForm::-webkit-scrollbar {
   width: 12px;
   background-color: rgba(186, 186, 186, 0.301);
+  border-radius: 10px;
 }
 
 .loginForm::-webkit-scrollbar-thumb {

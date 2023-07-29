@@ -1,181 +1,208 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllEvents, clearCurrentEvent } from '../../../store/events'
-import './SeeAllEvents.css';
+import { fetchAllEvents, clearCurrentEvent } from "../../../store/events";
+import "./SeeAllEvents.css";
 
 function SeeAllEvents() {
-    const dispatch = useDispatch();
-    const history = useHistory();
+  const dispatch = useDispatch();
+  const history = useHistory();
 
-    const [inPersonQuery, setInPersonQuery] = useState(false);
-    const [onlineQuery, setOnlineQuery] = useState(false);
-    const [futureOnlyQuery, setFutureOnlyQuery] = useState(true);
-    const [earliestFirst, setEarliestFirst] = useState(false);
-    const [latestFirst, setLatestFirst] = useState(false);
-    const [searchName, setSearchName] = useState(false)
+  const [inPersonQuery, setInPersonQuery] = useState(false);
+  const [onlineQuery, setOnlineQuery] = useState(false);
+  const [futureOnlyQuery, setFutureOnlyQuery] = useState(false);
+  const [earliestFirst, setEarliestFirst] = useState(false);
+  const [latestFirst, setLatestFirst] = useState(false);
+  const [searchName, setSearchName] = useState(false);
 
-    let latestClassName = latestFirst ? 'timeEventQueryButtonClick' :
-        'timeEventQueryButtonNotClicked';
+  let latestClassName = latestFirst
+    ? "timeEventQueryButtonClick"
+    : "timeEventQueryButtonNotClicked";
 
-    let earliestClassName = earliestFirst ? 'timeEventQueryButtonClick' : 'timeEventQueryButtonNotClicked';
+  let earliestClassName = earliestFirst
+    ? "timeEventQueryButtonClick"
+    : "timeEventQueryButtonNotClicked";
 
-    let onlineClassName = onlineQuery ? "eventQueryButtonClick" : "eventQueryButtonNotClicked";
+  let onlineClassName = onlineQuery
+    ? "eventQueryButtonClick"
+    : "eventQueryButtonNotClicked";
 
-    let inPersonClassName = inPersonQuery ? " eventQueryButtonClick" : "eventQueryButtonNotClicked";
+  let inPersonClassName = inPersonQuery
+    ? " eventQueryButtonClick"
+    : "eventQueryButtonNotClicked";
 
-    let futureOnlyClassName = futureOnlyQuery ? 'timeEventQueryButtonClick' : 'timeEventQueryButtonNotClicked';
+  let futureOnlyClassName = futureOnlyQuery
+    ? "timeEventQueryButtonClick"
+    : "timeEventQueryButtonNotClicked";
 
-    const events = useSelector(state => {
-        return state.events.allEvents
-    });
+  const events = useSelector((state) => {
+    return state.events.allEvents;
+  });
 
-    useEffect(() => {
-        dispatch(fetchAllEvents());
-        dispatch(clearCurrentEvent())
-    }, [dispatch])
+  useEffect(() => {
+    dispatch(fetchAllEvents());
+  }, [dispatch]);
 
+  const handleEarliestClicked = () => {
+    if (!earliestFirst) {
+      setEarliestFirst(true);
+      setLatestFirst(false);
+    } else {
+      setEarliestFirst(false);
+    }
+  };
 
-    const handleEarliestClicked = () => {
+  const handleLatestClicked = () => {
+    if (!latestFirst) {
+      setLatestFirst(true);
+      setEarliestFirst(false);
+    } else {
+      setLatestFirst(false);
+    }
+  };
 
-        if (!earliestFirst) {
-            setEarliestFirst(true)
-            setLatestFirst(false);
-        } else {
-            setEarliestFirst(false)
-        }
+  const handleFutureOnlyClicked = () => {
+    if (!futureOnlyQuery) {
+      setFutureOnlyQuery(true);
+    } else {
+      setFutureOnlyQuery(false);
+    }
+  };
+
+  const handleInPersonClick = () => {
+    if (inPersonQuery === false) {
+      setInPersonQuery(true);
+      setOnlineQuery(false);
+    } else {
+      setInPersonQuery(false);
+    }
+  };
+
+  const handleOnlineClick = () => {
+    if (onlineQuery === false) {
+      setOnlineQuery(true);
+      setInPersonQuery(false);
+    } else {
+      setOnlineQuery(false);
+    }
+  };
+
+  useEffect(() => {
+    let queryObject = {};
+    if (inPersonQuery === true) {
+      queryObject.type = "In Person";
     }
 
-    const handleLatestClicked = () => {
-        if (!latestFirst) {
-            setLatestFirst(true)
-            setEarliestFirst(false);
-        }
-        else {
-            setLatestFirst(false)
-        }
+    if (onlineQuery === true) {
+      queryObject.type = "Online";
     }
 
-    const handleFutureOnlyClicked = () => {
-
-        if (!futureOnlyQuery) {
-            setFutureOnlyQuery(true)
-        } else {
-            setFutureOnlyQuery(false)
-        }
-
+    if (futureOnlyQuery === true) {
+      queryObject.futureOnlyQuery = true;
     }
 
-    const handleInPersonClick = (() => {
-        if (inPersonQuery === false) {
-            setInPersonQuery(true)
-            setOnlineQuery(false)
+    if (latestFirst) {
+      queryObject.latestFirst = true;
+    }
 
-        } else {
-            setInPersonQuery(false)
-        }
+    if (earliestFirst) {
+      queryObject.earliestFirst = true;
+    }
 
-    })
+    if (searchName) {
+      queryObject.name = searchName;
+    }
 
-    const handleOnlineClick = (() => {
-        if (onlineQuery === false) {
-            setOnlineQuery(true)
-            setInPersonQuery(false)
-        }
-        else {
-            setOnlineQuery(false)
-        }
-    })
+    new URLSearchParams(queryObject).toString();
+    dispatch(fetchAllEvents(new URLSearchParams(queryObject).toString()));
+  }, [
+    inPersonQuery,
+    onlineQuery,
+    futureOnlyQuery,
+    earliestFirst,
+    latestFirst,
+    searchName,
+  ]);
 
-    useEffect(() => {
-        let queryObject = {}
-        if (inPersonQuery === true) {
-            queryObject.type = 'In Person'
-        }
-
-        if (onlineQuery === true) {
-            queryObject.type = 'Online'
-        }
-
-        if (futureOnlyQuery === true) {
-            queryObject.futureOnlyQuery = true
-        }
-
-        if (latestFirst) {
-            queryObject.latestFirst = true
-        }
-
-        if (earliestFirst) {
-            queryObject.earliestFirst = true
-        }
-
-        if (searchName) {
-            queryObject.name = searchName
-        }
-
-
-        new URLSearchParams(queryObject).toString();
-        dispatch(fetchAllEvents(new URLSearchParams(queryObject).toString()))
-    }, [inPersonQuery, onlineQuery, futureOnlyQuery, earliestFirst, latestFirst, searchName]);
-
-    let eventsArr = events.map((event, idx) => {
-        let eventDate = new Date(event.startDate);
-
-        return (
-            < div key={idx} className="allEventsContainer" >
-                <div onClick={() => history.push(`/events/${event.id}`)} className="groupContainer">
-
-                    <img className="allGroupsImg" src={event.previewImage}></img>
-
-                    <div className="groupContainerDetails">
-                        <h3 id="allEventsEventDate">{eventDate.toLocaleDateString()} {eventDate.toLocaleTimeString('en-US', {
-                            hour: '2-digit',
-                            minute: '2-digit',
-                        })}</h3>
-                        <h4 id="allEventsName">{event.name}</h4>
-                        {event?.Venue?.city && <h3 id="allEventsCity">{event.Venue.city}</h3>}
-                        <h5 className="seeAllEventsType">{event.type}</h5>
-                    </div>
-                </div>
-                <p className="pDiv">{event.description}</p>
-            </div >)
-    })
+  let eventsArr = events.map((event, idx) => {
+    let eventDate = new Date(event.startDate);
 
     return (
-        < div className="seeAllGroupsMainDiv" >
-            <ul className='EventsGroupsNav'>
-                <li>
-                    <NavLink id="underlineEvents" className={`EventsGroupsLinks`} to='/events'>Events</NavLink>
-                </li>
-                <li><NavLink className={`EventsGroupsLinks`} to='/groups'>Groups</NavLink>
-                </li>
-            </ul>
-            <div className="belowEventsGroupsNav">
-                <div className="allEventsButtons_subHeaderDiv">
-                    <h2 className="EventsInMeetup"> Events in Meetup </h2>
+      <div key={idx} className="allEventsContainer">
+        <div
+          onClick={() => history.push(`/events/${event.id}`)}
+          className="groupContainer"
+        >
+          <img className="allGroupsImg" src={event.previewImage}></img>
 
-                    <button
-                        onClick={handleInPersonClick}
-                        className={inPersonClassName}>In Person</button>
-                    <button
-                        onClick={handleOnlineClick}
-                        className={onlineClassName}>Online</button>
-                    <button
-                        onClick={handleFutureOnlyClicked}
-                        className={futureOnlyClassName}>Future Only</button>
-                    <button
-                        onClick={handleLatestClicked}
-                        className={latestClassName}>Latest First</button>
-                    <input type="text" id="eventsSearch" placeholder="Search for events"
-                        onChange={(e) => setSearchName(e.target.value)}
-                    ></input>
-                </div>
-                {eventsArr}
-            </div>
+          <div className="groupContainerDetails">
+            <h3 id="allEventsEventDate">
+              {eventDate.toLocaleDateString()}{" "}
+              {eventDate.toLocaleTimeString("en-US", {
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
+            </h3>
+            <h4 id="allEventsName">{event.name}</h4>
+            {event?.Venue?.city && (
+              <h3 id="allEventsCity">{event.Venue.city}</h3>
+            )}
+            <h5 className="seeAllEventsType">{event.type}</h5>
+          </div>
+        </div>
+        <p className="pDiv">{event.description}</p>
+      </div>
+    );
+  });
 
-        </div >
+  return (
+    <div className="seeAllGroupsMainDiv">
+      <ul className="EventsGroupsNav">
+        <li>
+          <NavLink
+            id="underlineEvents"
+            className={`EventsGroupsLinks`}
+            to="/events"
+          >
+            Events
+          </NavLink>
+        </li>
+        <li>
+          <NavLink className={`EventsGroupsLinks`} to="/groups">
+            Groups
+          </NavLink>
+        </li>
+      </ul>
+      <div className="belowEventsGroupsNav">
+        <div className="allEventsButtons_subHeaderDiv">
+          <h2 className="EventsInMeetup"> Events in Meetup </h2>
 
-    )
+          <button onClick={handleInPersonClick} className={inPersonClassName}>
+            In Person
+          </button>
+          <button onClick={handleOnlineClick} className={onlineClassName}>
+            Online
+          </button>
+          <button
+            onClick={handleFutureOnlyClicked}
+            className={futureOnlyClassName}
+          >
+            Future Only
+          </button>
+          <button onClick={handleLatestClicked} className={latestClassName}>
+            Latest First
+          </button>
+          <input
+            type="text"
+            id="eventsSearch"
+            placeholder="Search for events"
+            onChange={(e) => setSearchName(e.target.value)}
+          ></input>
+        </div>
+        {eventsArr}
+      </div>
+    </div>
+  );
 }
 
 export default SeeAllEvents;
