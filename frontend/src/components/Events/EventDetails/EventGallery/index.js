@@ -91,14 +91,16 @@ const EventGallery = ({ event, sessionUser }) => {
             <button className={styles.close} onClick={close}>
               &times;
             </button>
-            <button className={styles.trash}>
-              <i
-                className={`fa-solid fa-trash-can`}
-                onClick={(e) =>
-                  handleDeleteImage(e, event?.id, image?.id, image?.name)
-                }
-              ></i>
-            </button>
+            {isEventOrganizer && (
+              <button className={styles.trash}>
+                <i
+                  className={`fa-solid fa-trash-can`}
+                  onClick={(e) =>
+                    handleDeleteImage(e, event?.id, image?.id, image?.name)
+                  }
+                ></i>
+              </button>
+            )}
             <img className={styles.modalImage} src={image?.url} />
           </motion.div>
         )}
