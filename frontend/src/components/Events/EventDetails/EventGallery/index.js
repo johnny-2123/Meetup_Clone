@@ -10,11 +10,15 @@ import { ref, deleteObject } from "firebase/storage";
 import { toast, ToastContainer } from "react-toastify";
 import { motion } from "framer-motion";
 
-const EventGallery = ({ event }) => {
+const EventGallery = ({ event, sessionUser }) => {
   const dispatch = useDispatch();
   const [images, setImages] = useState(null);
   const eventImages = useSelector((state) => state?.currentEvent?.EventImages);
   const [imageDeleting, setImageDeleting] = useState(false);
+  const isEventOrganizer = sessionUser?.user?.id === event?.Organizer?.id;
+  console.log("isEventOrganizer", isEventOrganizer);
+  console.log("event in event gallery", event);
+  console.log("sessionUser in event gallery", sessionUser);
 
   useEffect(() => {
     setImages(event?.EventImages);
@@ -56,8 +60,7 @@ const EventGallery = ({ event }) => {
             hideProgressBar: true,
           });
         })
-        .catch((error) => {
-        });
+        .catch((error) => {});
     }
   };
 
@@ -111,7 +114,9 @@ const EventGallery = ({ event }) => {
         </div>
       )}
       <div className={styles.imagesCollection}>{images && imagesMapped}</div>
-      <ImageUpload event={event} images={images} setImages={setImages} />
+      {isEventOrganizer && (
+        <ImageUpload event={event} images={images} setImages={setImages} />
+      )}
     </div>
   );
 };

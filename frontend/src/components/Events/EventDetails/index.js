@@ -173,7 +173,7 @@ function EventDetailsComponent() {
             <div className="greySectionBottomHalf">
               <h2>Details</h2>
               <p>{event?.description}</p>
-              <EventGallery event={event} />
+              <EventGallery event={event} sessionUser={sessionUser} />
             </div>
           </div>
         </div>
