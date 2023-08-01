@@ -105,11 +105,13 @@ const DragDropFiles = ({ files, setFiles, event, setImages, images }) => {
           <h1>Or</h1>
           <input
             type="file"
-            // multiple
             onChange={(e) => {
-              const newImageUrl = URL.createObjectURL(e.target.files[0]);
-              setPreviewImage(newImageUrl);
-              setFiles(e.target.files[0]);
+              const file = e.target.files[0];
+              if (file) {
+                const newImageUrl = URL.createObjectURL(file);
+                setPreviewImage(newImageUrl);
+                setFiles(file);
+              }
             }}
             hidden
             accept="image/png, image/jpeg, image/jpg"
